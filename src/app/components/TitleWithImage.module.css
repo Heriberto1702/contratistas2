@@ -1,0 +1,57 @@
+.titleWithImageContainer {
+    text-align: center;
+}
+
+.titleWithImageContainer h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.titleWithImageContainer h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.customImageClass {
+    
+    min-width: 70%;
+    height: auto;
+    
+    margin: 1% auto;
+}
+
+.imageDesktop,
+.imageTablet,
+.imageMobile {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .imageDesktop {
+        display: block;
+    }
+
+}
+
+@media (max-width: 1023px) {
+    .imageTablet {
+        display: block;
+    }
+
+    .imageDesktop,
+    .imageMobile {
+        display: none;
+    }
+}
+
+/* Media query for mobile */
+@media (max-width: 767px) {
+    .imageMobile {
+        display: block;
+    }
+
+    .imageDesktop,
+    .imageTablet {
+        display: none;
+    }
+}

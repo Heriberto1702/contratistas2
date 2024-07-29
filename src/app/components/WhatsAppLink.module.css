@@ -1,0 +1,29 @@
+.whatsappLinkContainer {
+    background-color: #E0E0E0;
+    text-align: center;
+    padding: 2px;
+
+}
+
+.whatsappLink {
+    color: #000000;   
+    text-decoration: none;
+    transition: color 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.whatsappLink span {
+    color: rgb(240, 166, 6);
+    transition: color 0.3s;
+    
+}
+
+.whatsappLink span:hover {
+    color: #1ebd57;
+}
+
+.whatsappIcon {
+    margin-right: 8px;
+  }

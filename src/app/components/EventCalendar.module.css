@@ -1,0 +1,54 @@
+
+.eventCalendarContainer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+
+.eventList {
+  width: Auto;
+  border-left: 2px solid #181616;
+  padding-left: 20px;
+}
+
+.eventItem {
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.eventItem:hover {
+  background-color: #e7900ce5;
+}
+
+.eventMarker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgb(8, 4, 247);
+  margin: auto;
+}
+
+.attendButton {
+  background-color: #07b12c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.attendButton:hover {
+  background-color: #1abe35;
+}
+
+.selectedEvent {
+  background-color: #27838f; /* Color de fondo para evento seleccionado*/
+}
