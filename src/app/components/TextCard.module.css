@@ -1,0 +1,14 @@
+.textCard {
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .textCardTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .textCardContent {
+    color: #4a5568; /* Tailwind color: gray-700 */
+  }

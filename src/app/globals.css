@@ -23,6 +23,7 @@
   }
 }
 
+
 header{
   position: sticky;
   top:0px;
@@ -49,7 +50,10 @@ nav div a{
   font-weight: 500;
 }
 
-main{
-  width: 90%;
-  margin:0 auto;
+.simpleCards{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1rem;
 }
