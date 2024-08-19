@@ -1,7 +1,7 @@
 import React from "react";
 import BannerSlider from '@/app/components/BannerSlider';
 import EventCalendar from '@/app/components/EventCalendar';
-import Pdfviewer from "@/app/components/PdfViewer";
+
 import Cards from '@/app/components/Cards'
 import TitleWithImage from '@/app/components/TitleWithImage';
 import styles from '@/app/components/TitleWithImage.module.css';
@@ -11,7 +11,7 @@ const Page = () => {
   return ( 
     <>
     <BannerSlider />
-    <Pdfviewer url={"https://pdfobject.com/pdf/sample.pdf"} />
+    
     <>
         <TitleWithImage
           imageSrc="/evento.png"
@@ -69,6 +69,9 @@ const Page = () => {
         title="Descubre cómo alcanzar tu siguiente categoría y beneficios"
       />
       <Cards />
+      <TextCard 
+        title="Conoce lo nuevo en capacitación"
+      />
       <EventCalendar />
       <>
         <TitleWithImage

@@ -33,8 +33,8 @@ export default function RootLayout({
               <Link href="/beneficios">Beneficios</Link>
               <Link href="/compras">Compras</Link>
               <Link href="/puntos">Puntos</Link>
-              <Link href="/academia-para-contratistas">Academia para Contratistas</Link>
-              <Link href="/documentos-utiles">Documentos útiles</Link>
+              <Link href="/academia">Academia para Contratistas</Link>
+              <Link href="/documentosutiles">Documentos útiles</Link>
               <Link href="/cuenta">Cuenta</Link>
             </div>    
           </nav>
