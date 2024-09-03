@@ -1,0 +1,19 @@
+.TitleContainer {
+    margin: 20px;
+    text-align: center;
+  }
+  .Title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .Subtitle {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .Text {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  

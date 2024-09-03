@@ -1,23 +1,22 @@
 import React from "react";
-import BannerSlider from '@/app/components/BannerSlider';
-import EventCalendar from '@/app/components/EventCalendar';
-
+import BannerSlidernew from "@/app/components/BannerSlidernew/BannerSlidernew";
 import Cards from '@/app/components/Cards'
 import TitleWithImage from '@/app/components/TitleWithImage';
 import styles from '@/app/components/TitleWithImage.module.css';
-import TextCard from '@/app/components/TextCard';
+
 import SimpleCard from "@/app/components/SimpleCard";
+import TitleText from "./components/Text/TitleText";
 const Page = () => {
+  const images = ["/banner.png","/banner.png"];
   return ( 
     <>
-    <BannerSlider />
-    
+    <BannerSlidernew images={images} interval={3000} />
     <>
         <TitleWithImage
           imageSrc="/evento.png"
           imageAlt="Club de contratista"
-          imageWidth={800}
-          imageHeight={400}
+          imageWidth={100}
+          imageHeight={100}
           imageClassName={`${styles.customImageClass} ${styles.imageDesktop}`}
           imageLink="https://example.com"
         />
@@ -38,9 +37,8 @@ const Page = () => {
           imageLink="https://example.com"
         />
       </>
+      <TitleText title="Bienvenido a nuestro CLUB PRO" subtitle="Conozca nuestro mundo de beneficios por segmento y sigamos creciendo juntos" />
       <TitleWithImage
-        mainTitle="Bienvenido a nuestro CLUB PRO"
-        subTitle="Conozca nuestro mundo de beneficios por segmento y sigamos creciendo juntos"
         imageSrc="/clubpro.png"
         imageAlt="Club de contratista"
         imageWidth={800}
@@ -65,14 +63,14 @@ const Page = () => {
           linkText="Ver beneficios >"
         />
       </div>
-      <TextCard 
-        title="Descubre cómo alcanzar tu siguiente categoría y beneficios"
+      <TitleText 
+        subtitle="Descubre cómo alcanzar tu siguiente categoría y beneficios"
       />
       <Cards />
-      <TextCard 
-        title="Conoce lo nuevo en capacitación"
+
+      <TitleText 
+        subtitle="Conoce lo nuevo en capacitación"
       />
-      <EventCalendar />
       <>
         <TitleWithImage
           imageSrc="/canjear.png"

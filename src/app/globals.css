@@ -15,15 +15,24 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
-
+body {
+  overflow-x: hidden;
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
+abbr:where([title]) {
+  /* text-decoration: underline dotted; */
+  text-decoration: none;
+}
 
+main{
+  max-width: 1400px ;
+  margin: 0 auto;
+}
 header{
   position: sticky;
   top:0px;

@@ -2,10 +2,11 @@
 "use client";
 import React from "react";
 import Slider from "react-slick";
-import styles from "./BannerCarousel.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import styles from "./BannerCarousel.module.css";
 import Image from "next/image";
+
 
 interface BannerCarouselProps {
   images: string[];

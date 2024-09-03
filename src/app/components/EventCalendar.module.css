@@ -1,4 +1,3 @@
-
 .eventCalendarContainer {
   display: flex;
   gap: 20px;
@@ -7,37 +6,67 @@
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
+  margin-bottom: 1rem;
+}
+.react-calendar__tile--active {
+  background: #07b12c!important;
+  color: white;
+  border-radius: 50%;
 }
 
-
 .eventList {
-  width: Auto;
-  border-left: 2px solid #181616;
-  padding-left: 20px;
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.eventList p {
+  text-align: center;
 }
 
 .eventItem {
-  margin-bottom: 10px;
-  padding: 5px;
-  border-radius: 4px;
   transition: background-color 0.3s ease;
+  border-bottom: 1px solid #919191;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }
 
-.eventItem:hover {
-  background-color: #e7900ce5;
+.eventTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.imageEvent {
+  width: 85px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 1rem;
+  border-radius: 4px;
+}
+.information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .eventMarker {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: rgb(8, 4, 247);
+  background-color: #fab932;
   margin: auto;
 }
 
 .attendButton {
-  background-color: #07b12c;
-  color: white;
+  background-color: #fab932;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
@@ -50,5 +79,9 @@
 }
 
 .selectedEvent {
-  background-color: #27838f; /* Color de fondo para evento seleccionado*/
+  background-color: rgb(
+    212,
+    212,
+    212
+  ); /* Color de fondo para evento seleccionado*/
 }
