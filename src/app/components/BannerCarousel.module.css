@@ -13,19 +13,8 @@
   display: block;
 }
 
-.slick-slide {
-  text-align: center;
-}
-
-.slick-dots {
-  bottom: 10px;
-}
-
-.slick-dots li button:before {
-  font-size: 12px;
-  color: #000; /* Cambia el color de los puntos */
-}
-
-.slick-dots li.slick-active button:before {
-  color: #0070f3; /* Cambia el color del punto activo */
+/* Estilos para el contenido */
+.slide-content {
+  font-size: 16px;
+  /* Tamaño de fuente para el contenido */
 }

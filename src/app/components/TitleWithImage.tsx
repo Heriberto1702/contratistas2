@@ -2,8 +2,7 @@ import React from 'react';
 import CustomImage from './CustomImage';
 
 interface TitleWithImageProps {
-  mainTitle?: string;
-  subTitle?: string;
+
   imageSrc: string;
   imageAlt: string;
   imageWidth: number;
@@ -15,8 +14,7 @@ interface TitleWithImageProps {
 }
 
 const TitleWithImage: React.FC<TitleWithImageProps> = ({
-  mainTitle,
-  subTitle,
+
   imageSrc,
   imageAlt,
   imageWidth,
@@ -28,8 +26,6 @@ const TitleWithImage: React.FC<TitleWithImageProps> = ({
 }) => {
   return (
     <div className={className}>
-      <h1>{mainTitle}</h1>
-      <h2>{subTitle}</h2>
       <CustomImage
         src={imageSrc}
         alt={imageAlt}
