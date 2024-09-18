@@ -79,6 +79,43 @@ const Page = () => {
         />
       </Container>
       <EventCalendar />
+      <TitleText subtitle="Cursos Destacados" />
+      <Container
+        displayType="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <ColoredDiv
+          backgroundColor="#FBB016"
+          width="200px"
+          height="3px"
+        />
+      </Container>
+      <Container
+        displayType="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        gap="1rem"
+      >
+        <Modulo
+          title="Instalaciones electricas básicas domiciliarias"
+          imageUrl="/curso1.png"
+          url="https://www.sinsa.com.ni"
+          linkText="Leer más >"
+          title2="Capacitación Online Drytec"
+          imageUrl2="/curso2.png"
+          url2="https://www.sinsa.com.ni"
+          linkText2="Leer más >"
+          title3="Lo que debes saber sobre pintura."
+          imageUrl3="/curso3.png"
+          url3="https://www.sinsa.com.ni"
+          linkText3="Leer más >"
+        />
+
+      </Container>
+      <TitleText subtitle="Todo lo que necesitás para perfeccionarte" />
     </>
   );
 };

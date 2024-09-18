@@ -1,0 +1,96 @@
+/* Modulov2.module.css */
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  transition: box-shadow 0.3s ease;
+  justify-content: flex-end;
+  margin: 0.5rem 0;
+}
+.container:hover {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+.title {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  text-align: center;
+  color: #fff;
+  font-weight: 500;
+}
+.buttonModal{
+  background-color: #FBB016;
+  margin: 0 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  width: 10rem;
+}
+
+.buttonModal:hover{
+  background-color: #b97c00;
+  color: #fff;
+}  
+
+.button {
+  position: absolute;
+  width: 100%;
+  padding: 10px;
+  background-color: #FBB016;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+.Text{
+  font-size: 20px;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  z-index: 2;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.encabezado{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.closeButton {
+
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.closeButton:hover{
+  color: #ff0000;
+}  

@@ -20,8 +20,8 @@ const SimpleCard: React.FC<SimpleCardProps> = ({
   return (
     <div className={styles.simpleCard}>
       <Image 
-        width={250}
-        height={250}
+        width={350}
+        height={350}
         src={imageSrc} 
         alt={altText}
         className={styles.image} />
