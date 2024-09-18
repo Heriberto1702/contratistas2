@@ -1,0 +1,8 @@
+.Imagen{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.containerBanner{
+    margin: 10px 0;
+}

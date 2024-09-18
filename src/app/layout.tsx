@@ -1,8 +1,8 @@
 import type {Metadata} from "next";
 import Link from "next/link";
 import './globals.css';
-import Footer from "@/app/components/Footer";
-import WhatsAppLink from "@/app/components/WhatsAppLink";
+import Footer from "@/app/components/Footer/Footer";
+import WhatsAppLink from "@/app/components/WhatsAppLink/WhatsAppLink";
 import Image from "next/image";
 import { roboto } from "@/app/components/font";
 
@@ -27,7 +27,7 @@ export default function RootLayout({
         <header>
           <nav>
             <div>
-              <Link href="/"><Image src="/logoContratista.png" alt="logo-Contratista" width={200} height={100} /></Link>
+              <Link href="/"><Image src="/logoContratista.png" alt="logo-Contratista" width={182} height={119} /></Link>
             </div>
             <div>
               <Link href="/beneficios">Beneficios</Link>

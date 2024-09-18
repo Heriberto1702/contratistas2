@@ -1,0 +1,67 @@
+.carouselContainer {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .carouselTrack {
+    display: flex;
+  }
+  
+  .carouselSlide {
+    display: flex;
+    justify-content: space-between; /* Asegura que los elementos se distribuyen correctamente */
+  }
+  
+  .bannerItem {
+    width: 100%; /* Ajusta el tamaño para que quepan dos en el slide */
+    height: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bannerImage {
+    max-width: 45%;
+    border-radius: 5px;
+    height: 100%;
+  }
+  
+  .bannerText {
+    margin-top: 10px;
+  }
+  
+  .bannerLink {
+    margin-top: 5px;
+    display: inline-block;
+    color: #0070f3;
+    text-decoration: none;
+  }
+  
+  .prevBtn, .nextBtn {
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: orange;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  .prevBtn:hover, .nextBtn:hover {
+    color: rgb(0, 0, 0);
+  }
+  .prevBtn {
+    left: 0;
+  }
+  
+  .nextBtn {
+    right: 0;
+  }
