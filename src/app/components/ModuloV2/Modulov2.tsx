@@ -10,16 +10,19 @@ interface Modulov2Props {
   urlExcel: string;
   urlExample: string;
   linkText?: string;
+  text2?:string;
 }
 
 const Modulov2: React.FC<Modulov2Props> = ({
   title,
   imageUrl,
   text,
+  text2,
   urlPDF,
   urlExcel,
   urlExample,
   linkText,
+  
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -55,6 +58,7 @@ const Modulov2: React.FC<Modulov2Props> = ({
               </button>
             </div>
             <p className={styles.Text}>{text}</p>
+            <p className={styles.Text}>{text2}</p>
             <div className={styles.botones}>
               <button
                 className={styles.buttonModal}
