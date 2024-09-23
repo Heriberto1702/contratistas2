@@ -6,11 +6,36 @@ import ImageText from "../components/Imagen/Imagen";
 import Modulo from "../components/Modulo/Modulo";
 import TitleText from "../components/Text/TitleText";
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import LinkComponent from "../components/LinkComponent/LinkComponent";
 
 const Page = () => {
   const images = ["/banneracademia.png"];
   return (
     <>
+      <header>
+        <nav>
+          <div>
+            <Link href="/">
+              <Image
+                src="/logoContratista.png"
+                alt="logo-Contratista"
+                width={182}
+                height={119}
+              />
+            </Link>
+          </div>
+          <div>
+            <Link href="/beneficios">Beneficios</Link>
+            <Link href="/compras">Compras</Link>
+            <Link href="/puntos">Puntos</Link>
+            <Link href="/academia">Academia para Contratistas</Link>
+            <Link href="/documentosutiles">Documentos útiles</Link>
+            <Link href="/cuenta">Cuenta</Link>
+          </div>
+        </nav>
+      </header>
       <BannerSlidernew images={images} interval={3000} />
       <TitleText
         title="¿Qué es Academia para Contratistas?"
@@ -22,11 +47,7 @@ const Page = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <ColoredDiv
-          backgroundColor="#FBB016"
-          width="200px"
-          height="3px"
-        />
+        <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
       </Container>
       <TitleText subtitle="¿Qué puede encontrar en nuestra Academia para Especialistas?" />
       <Container
@@ -38,7 +59,11 @@ const Page = () => {
       >
         <ImageText imageUrl="/tools.png" alt="" text="Talleres Prácticos" />
         <ImageText imageUrl="/play.png" alt="" text="Cápsula digital" />
-        <ImageText imageUrl="/feriaregional.png" alt="" text="Ferias Regionales" />
+        <ImageText
+          imageUrl="/feriaregional.png"
+          alt=""
+          text="Ferias Regionales"
+        />
       </Container>
 
       <Container
@@ -62,7 +87,6 @@ const Page = () => {
           url3="https://www.sinsa.com.ni"
           linkText3="Leer más >"
         />
-
       </Container>
 
       <TitleText subtitle="Calendario de Actividades" />
@@ -72,11 +96,7 @@ const Page = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <ColoredDiv
-          backgroundColor="#FBB016"
-          width="200px"
-          height="3px"
-        />
+        <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
       </Container>
       <EventCalendar />
       <TitleText subtitle="Cursos Destacados" />
@@ -86,11 +106,7 @@ const Page = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <ColoredDiv
-          backgroundColor="#FBB016"
-          width="200px"
-          height="3px"
-        />
+        <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
       </Container>
       <Container
         displayType="flex"
@@ -102,20 +118,34 @@ const Page = () => {
         <Modulo
           title="Instalaciones electricas básicas domiciliarias"
           imageUrl="/curso1.png"
+          logo="/schneider.png"
           url="https://www.sinsa.com.ni"
           linkText="Leer más >"
+
           title2="Capacitación Online Drytec"
           imageUrl2="/curso2.png"
+          logo2="/drytec.png"
           url2="https://www.sinsa.com.ni"
           linkText2="Leer más >"
+
           title3="Lo que debes saber sobre pintura."
           imageUrl3="/curso3.png"
+          logo3="/lanco.png"
           url3="https://www.sinsa.com.ni"
           linkText3="Leer más >"
-        />
 
+        />
       </Container>
       <TitleText subtitle="Todo lo que necesitás para perfeccionarte" />
+      <Container
+        displayType="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+      <LinkComponent href="/contratistas" text="Ver más cursos >" />
+      </Container>
+
     </>
   );
 };

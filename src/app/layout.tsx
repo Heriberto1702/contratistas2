@@ -1,47 +1,29 @@
-import type {Metadata} from "next";
-import Link from "next/link";
-import './globals.css';
+import type { Metadata } from "next";
+import "./globals.css";
 import Footer from "@/app/components/Footer/Footer";
 import WhatsAppLink from "@/app/components/WhatsAppLink/WhatsAppLink";
-import Image from "next/image";
 import { roboto } from "@/app/components/font";
-
 
 export const metadata: Metadata = {
   title: {
     default: "Contratistas",
     absolute: "",
     template: "%s - Contratistas",
-  }
-}
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>
-      <WhatsAppLink/>
-        <header>
-          <nav>
-            <div>
-              <Link href="/"><Image src="/logoContratista.png" alt="logo-Contratista" width={182} height={119} /></Link>
-            </div>
-            <div>
-              <Link href="/beneficios">Beneficios</Link>
-              <Link href="/compras">Compras</Link>
-              <Link href="/puntos">Puntos</Link>
-              <Link href="/academia">Academia para Contratistas</Link>
-              <Link href="/documentosutiles">Documentos útiles</Link>
-              <Link href="/cuenta">Cuenta</Link>
-            </div>    
-          </nav>
-        </header>
+        <WhatsAppLink />
         <main>{children}</main>
         <Footer />
       </body>
     </html>
-  )
+  );
 }
