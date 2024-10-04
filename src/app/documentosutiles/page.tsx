@@ -23,9 +23,7 @@ const Page = () => {
             </Link>
           </div>
           <div>
-            <Link href="/beneficios">Beneficios</Link>
             <Link href="/compras">Compras</Link>
-            <Link href="/puntos">Puntos</Link>
             <Link href="/academia">Academia para Contratistas</Link>
             <Link href="/documentosutiles">Documentos útiles</Link>
             <Link href="/cuenta">Cuenta</Link>
