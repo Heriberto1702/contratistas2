@@ -57,9 +57,7 @@ const Page = () => {
             </Link>
           </div>
           <div>
-            <Link href="/beneficios">Beneficios</Link>
             <Link href="/compras">Compras</Link>
-            <Link href="/puntos">Puntos</Link>
             <Link href="/academia">Academia para Contratistas</Link>
             <Link href="/documentosutiles">Documentos útiles</Link>
             <Link href="/cuenta">Cuenta</Link>
@@ -104,19 +102,19 @@ const Page = () => {
       <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría y beneficios" />
       <Cards />
 
-      <TitleText subtitle="Conoce lo nuevo en capacitación" />
-      <DoubleCarousel
-        banners={banners}
-        slidesToShow={2} // Mostrar 2 estructuras por slide
-        autoplay={true} // Auto-play activado
-        autoplaySpeed={5000} // Velocidad de auto-play en milisegundos
-      />
       <Banner
         imageUrl="/canjear.png"
         linkUrl="https://www.example.com"
         altText="Ejemplo de imagen"
         width={1224}
         height={317}
+      />
+      <TitleText subtitle="Conoce lo nuevo en capacitación" />
+      <DoubleCarousel
+        banners={banners}
+        slidesToShow={2} // Mostrar 2 estructuras por slide
+        autoplay={true} // Auto-play activado
+        autoplaySpeed={5000} // Velocidad de auto-play en milisegundos
       />
     </>
   );

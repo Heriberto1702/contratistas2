@@ -27,9 +27,7 @@ const Page = () => {
             </Link>
           </div>
           <div>
-            <Link href="/beneficios">Beneficios</Link>
             <Link href="/compras">Compras</Link>
-            <Link href="/puntos">Puntos</Link>
             <Link href="/academia">Academia para Contratistas</Link>
             <Link href="/documentosutiles">Documentos útiles</Link>
             <Link href="/cuenta">Cuenta</Link>
@@ -143,7 +141,7 @@ const Page = () => {
         justifyContent="center"
         alignItems="center"
       >
-      <LinkComponent href="/contratistas" text="Ver más cursos >" />
+      <LinkComponent href="/academia/cursos" text="Ver más cursos >" />
       </Container>
 
     </>

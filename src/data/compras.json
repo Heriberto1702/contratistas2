@@ -1,0 +1,278 @@
+[
+    {
+      "fecha": "2024-09-01",
+      "tienda": "C. Masaya",
+      "numeroFactura": "FA-001",
+      "monto": 150.75,
+      "productos": [
+        { "nombre": "Producto 1", "cantidad": 2, "precio": 50.25 },
+        { "nombre": "Producto 2", "cantidad": 1, "precio": 50.25 },
+        { "nombre": "Producto 3", "cantidad": 1, "precio": 50.25 }
+      ]
+    },
+    {
+      "fecha": "2024-09-02",
+      "tienda": "Radial",
+      "numeroFactura": "FA-002",
+      "monto": 200.00,
+      "productos": [
+        { "nombre": "Producto 4", "cantidad": 4, "precio": 50.00 },
+        { "nombre": "Producto 5", "cantidad": 3, "precio": 30.00 },
+        { "nombre": "Producto 6", "cantidad": 2, "precio": 40.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-03",
+      "tienda": "Radial",
+      "numeroFactura": "FA-003",
+      "monto": 350.50,
+      "productos": [
+        { "nombre": "Producto 7", "cantidad": 1, "precio": 100.50 },
+        { "nombre": "Producto 8", "cantidad": 5, "precio": 50.00 },
+        { "nombre": "Producto 9", "cantidad": 2, "precio": 50.00 },
+        { "nombre": "Producto 10", "cantidad": 1, "precio": 50.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-04",
+      "tienda": "C. Masaya",
+      "numeroFactura": "FA-004",
+      "monto": 180.00,
+      "productos": [
+        { "nombre": "Producto 11", "cantidad": 2, "precio": 60.00 },
+        { "nombre": "Producto 12", "cantidad": 3, "precio": 20.00 },
+        { "nombre": "Producto 13", "cantidad": 1, "precio": 40.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-05",
+      "tienda": "Radial",
+      "numeroFactura": "FA-005",
+      "monto": 300.00,
+      "productos": [
+        { "nombre": "Producto 14", "cantidad": 1, "precio": 100.00 },
+        { "nombre": "Producto 15", "cantidad": 4, "precio": 50.00 },
+        { "nombre": "Producto 16", "cantidad": 2, "precio": 25.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-06",
+      "tienda": "El Periodista",
+      "numeroFactura": "FA-006",
+      "monto": 275.50,
+      "productos": [
+        { "nombre": "Producto 17", "cantidad": 2, "precio": 70.00 },
+        { "nombre": "Producto 18", "cantidad": 1, "precio": 100.00 },
+        { "nombre": "Producto 19", "cantidad": 3, "precio": 35.50 }
+      ]
+    },
+    {
+      "fecha": "2024-09-07",
+      "tienda": "C. Masaya",
+      "numeroFactura": "FA-007",
+      "monto": 125.00,
+      "productos": [
+        { "nombre": "Producto 20", "cantidad": 2, "precio": 30.00 },
+        { "nombre": "Producto 21", "cantidad": 1, "precio": 65.00 },
+        { "nombre": "Producto 22", "cantidad": 1, "precio": 30.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-08",
+      "tienda": "El Periodista",
+      "numeroFactura": "FA-008",
+      "monto": 450.00,
+      "productos": [
+        { "nombre": "Producto 23", "cantidad": 1, "precio": 200.00 },
+        { "nombre": "Producto 24", "cantidad": 3, "precio": 50.00 },
+        { "nombre": "Producto 25", "cantidad": 2, "precio": 25.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-09",
+      "tienda": "Radial",
+      "numeroFactura": "FA-009",
+      "monto": 650.00,
+      "productos": [
+        { "nombre": "Producto 26", "cantidad": 5, "precio": 100.00 },
+        { "nombre": "Producto 27", "cantidad": 2, "precio": 150.00 },
+        { "nombre": "Producto 28", "cantidad": 1, "precio": 250.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-10",
+      "tienda": "C. Masaya",
+      "numeroFactura": "FA-010",
+      "monto": 80.00,
+      "productos": [
+        { "nombre": "Producto 29", "cantidad": 4, "precio": 20.00 },
+        { "nombre": "Producto 30", "cantidad": 2, "precio": 20.00 },
+        { "nombre": "Producto 31", "cantidad": 1, "precio": 20.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-11",
+      "tienda": "C. Masaya",
+      "numeroFactura": "FA-011",
+      "monto": 950.00,
+      "productos": [
+        { "nombre": "Producto 32", "cantidad": 3, "precio": 200.00 },
+        { "nombre": "Producto 33", "cantidad": 5, "precio": 50.00 },
+        { "nombre": "Producto 34", "cantidad": 2, "precio": 100.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-12",
+      "tienda": "Radial",
+      "numeroFactura": "FA-012",
+      "monto": 300.00,
+      "productos": [
+        { "nombre": "Producto 35", "cantidad": 1, "precio": 100.00 },
+        { "nombre": "Producto 36", "cantidad": 4, "precio": 50.00 },
+        { "nombre": "Producto 37", "cantidad": 2, "precio": 25.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-13",
+      "tienda": "El Periodista",
+      "numeroFactura": "FA-013",
+      "monto": 400.00,
+      "productos": [
+        { "nombre": "Producto 38", "cantidad": 3, "precio": 100.00 },
+        { "nombre": "Producto 39", "cantidad": 2, "precio": 100.00 },
+        { "nombre": "Producto 40", "cantidad": 5, "precio": 20.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-14",
+      "tienda": "Radial",
+      "numeroFactura": "FA-014",
+      "monto": 500.00,
+      "productos": [
+        { "nombre": "Producto 41", "cantidad": 2, "precio": 150.00 },
+        { "nombre": "Producto 42", "cantidad": 3, "precio": 100.00 },
+        { "nombre": "Producto 43", "cantidad": 1, "precio": 100.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-15",
+      "tienda": "C. Masaya",
+      "numeroFactura": "FA-015",
+      "monto": 75.00,
+      "productos": [
+        { "nombre": "Producto 44", "cantidad": 1, "precio": 25.00 },
+        { "nombre": "Producto 45", "cantidad": 2, "precio": 25.00 },
+        { "nombre": "Producto 46", "cantidad": 1, "precio": 25.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-16",
+      "tienda": "Radial",
+      "numeroFactura": "FA-016",
+      "monto": 150.00,
+      "productos": [
+        { "nombre": "Producto 47", "cantidad": 2, "precio": 50.00 },
+        { "nombre": "Producto 48", "cantidad": 1, "precio": 50.00 },
+        { "nombre": "Producto 49", "cantidad": 1, "precio": 50.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-17",
+      "tienda": "Radial",
+      "numeroFactura": "FA-017",
+      "monto": 275.00,
+      "productos": [
+        { "nombre": "Producto 50", "cantidad": 5, "precio": 50.00 },
+        { "nombre": "Producto 51", "cantidad": 2, "precio": 37.50 },
+        { "nombre": "Producto 52", "cantidad": 1, "precio": 25.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-18",
+      "tienda": "El Periodista",
+      "numeroFactura": "FA-018",
+      "monto": 480.00,
+      "productos": [
+        { "nombre": "Producto 53", "cantidad": 4, "precio": 100.00 },
+        { "nombre": "Producto 54", "cantidad": 1, "precio": 50.00 },
+        { "nombre": "Producto 55", "cantidad": 2, "precio": 75.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-19",
+      "tienda": "Radial",
+      "numeroFactura": "FA-019",
+      "monto": 60.00,
+      "productos": [
+        { "nombre": "Producto 56", "cantidad": 1, "precio": 30.00 },
+        { "nombre": "Producto 57", "cantidad": 2, "precio": 15.00 },
+        { "nombre": "Producto 58", "cantidad": 1, "precio": 15.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-20",
+      "tienda": "Radial",
+      "numeroFactura": "FA-020",
+      "monto": 320.00,
+      "productos": [
+        { "nombre": "Producto 59", "cantidad": 3, "precio": 50.00 },
+        { "nombre": "Producto 60", "cantidad": 2, "precio": 100.00 },
+        { "nombre": "Producto 61", "cantidad": 1, "precio": 70.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-21",
+      "tienda": "El Periodista",
+      "numeroFactura": "FA-021",
+      "monto": 550.00,
+      "productos": [
+        { "nombre": "Producto 62", "cantidad": 2, "precio": 200.00 },
+        { "nombre": "Producto 63", "cantidad": 3, "precio": 50.00 },
+        { "nombre": "Producto 64", "cantidad": 1, "precio": 50.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-22",
+      "tienda": "Radial",
+      "numeroFactura": "FA-022",
+      "monto": 880.00,
+      "productos": [
+        { "nombre": "Producto 65", "cantidad": 4, "precio": 200.00 },
+        { "nombre": "Producto 66", "cantidad": 2, "precio": 100.00 },
+        { "nombre": "Producto 67", "cantidad": 1, "precio": 80.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-23",
+      "tienda": "El Periodista",
+      "numeroFactura": "FA-023",
+      "monto": 320.00,
+      "productos": [
+        { "nombre": "Producto 68", "cantidad": 1, "precio": 120.00 },
+        { "nombre": "Producto 69", "cantidad": 3, "precio": 40.00 },
+        { "nombre": "Producto 70", "cantidad": 2, "precio": 20.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-24",
+      "tienda": "Radial",
+      "numeroFactura": "FA-024",
+      "monto": 200.00,
+      "productos": [
+        { "nombre": "Producto 71", "cantidad": 2, "precio": 50.00 },
+        { "nombre": "Producto 72", "cantidad": 1, "precio": 100.00 },
+        { "nombre": "Producto 73", "cantidad": 1, "precio": 100.00 }
+      ]
+    },
+    {
+      "fecha": "2024-09-25",
+      "tienda": "El Periodista",
+      "numeroFactura": "FA-025",
+      "monto": 750.00,
+      "productos": [
+        { "nombre": "Producto 74", "cantidad": 5, "precio": 100.00 },
+        { "nombre": "Producto 75", "cantidad": 2, "precio": 150.00 },
+        { "nombre": "Producto 76", "cantidad": 1, "precio": 250.00 }
+      ]
+    }
+  ]

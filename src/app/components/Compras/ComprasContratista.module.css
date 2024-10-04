@@ -1,0 +1,57 @@
+.container {
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.button {
+  background-color: #4caf50; /* Verde */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #45a049; /* Verde más oscuro */
+}
+
+.detailContainer {
+  margin-top: 20px;
+  padding: 15px;
+}
+.detailContainer h3 {
+  text-align: left;
+}
+.detailTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detailTable th,
+.detailTable td {
+  padding: 10px;
+  text-align: center;
+}
+
+.detailTable th {
+  background-color: #f4f4f4;
+}
+
+
+
