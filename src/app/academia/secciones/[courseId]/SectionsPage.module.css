@@ -1,0 +1,25 @@
+/* Contenedor principal */
+.container {
+    max-width: 800px; /* Ancho máximo para el contenido */
+    margin: 0 auto; /* Centra el contenido */
+    padding: 20px; /* Espaciado interno */
+    background-color: #f9f9f9; /* Color de fondo suave */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  
+  /* Estilo para el título de la página */
+  .title {
+    font-size: 2rem; /* Tamaño de fuente grande */
+    font-weight: 700; /* Negrita */
+    color: #333; /* Color del texto */
+    margin-bottom: 20px; /* Margen inferior */
+  }
+  
+  /* Estilo para las secciones */
+
+  
+  /* Efecto de hover para las secciones */
+  .section:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el mouse */
+  }

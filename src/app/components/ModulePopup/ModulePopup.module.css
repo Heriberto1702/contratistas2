@@ -1,0 +1,29 @@
+/* Overlay para cubrir toda la pantalla */
+.overlay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    
+    /* Estilo para el contenido del popup */
+    .popup {
+      background-color: #fff; /* Fondo blanco para el popup */
+      border-radius: 8px; /* Bordes redondeados */
+      padding: 20px; /* Espaciado interno */
+      max-width: 600px; /* Ancho máximo del popup */
+      width: 90%; /* Ancho responsive */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+      position: relative; /* Posicionamiento relativo para el botón de cerrar */
+    }
+    
+    /* Estilo para el botón de cerrar */
+    .closeButton {
+      position: absolute; /* Posiciona el botón en la esquina superior derecha */
+      top: 10px;
+      right: 10px;
+      background: transparent; /* Sin fondo */
+      border: none; /* Sin borde */
+      cursor: pointer; /* Cambia el cursor al pasar por encima */
+      font-size: 16px; /* Tamaño del texto */
+      color: #333; /* Color del texto */
+    }
