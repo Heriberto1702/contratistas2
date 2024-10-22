@@ -1,0 +1,41 @@
+/* Contenedor principal */
+.container {
+    max-width: 800px; /* Ancho máximo para el contenido */
+    margin: 0 auto; /* Centra el contenido */
+    padding: 20px; /* Espaciado interno */
+    background-color: #f9f9f9; /* Color de fondo suave */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  
+  /* Estilo para el título del curso */
+  .title {
+    font-size: 2rem; /* Tamaño de fuente grande */
+    font-weight: 700; /* Negrita */
+    color: #333; /* Color del texto */
+    margin-bottom: 10px; /* Margen inferior */
+  }
+  
+  /* Estilo para la descripción del curso */
+  .description {
+    font-size: 1rem; /* Tamaño de fuente normal */
+    color: #555; /* Color del texto */
+    line-height: 1.5; /* Espaciado entre líneas */
+    margin-bottom: 20px; /* Margen inferior */
+  }
+  
+  /* Estilo para el enlace de las secciones */
+  .link {
+    display: inline-block; /* Hacer que el enlace sea un bloque en línea */
+    background-color: #007bff; /* Color de fondo azul */
+    color: white; /* Color del texto blanco */
+    padding: 10px 15px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Sin subrayado */
+    transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
+  }
+  
+  /* Efecto de hover para el enlace */
+  .link:hover {
+    background-color: #0056b3; /* Color de fondo más oscuro al pasar el mouse */
+  }

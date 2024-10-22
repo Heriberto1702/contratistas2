@@ -1,11 +1,11 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    transition: box-shadow 0.3s ease;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  background-color: #f9f9f9;
+  transition: box-shadow 0.3s ease;
+  justify-content: space-between;
 }
 
 .container:hover {
@@ -20,11 +20,9 @@
   font-weight: 500;
 }
 
-
 .url {
-  background-color: #FBB016;
-  display:inline-block;
+  background-color: #fbb016;
+  display: inline-block;
   width: 100%;
   text-align: center;
 }
-
