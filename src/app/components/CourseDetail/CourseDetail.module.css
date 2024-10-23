@@ -1,6 +1,6 @@
 /* Contenedor principal */
 .container {
-    max-width: 800px; /* Ancho máximo para el contenido */
+    max-width: 1000px; /* Ancho máximo para el contenido */
     margin: 0 auto; /* Centra el contenido */
     padding: 20px; /* Espaciado interno */
     background-color: #f9f9f9; /* Color de fondo suave */
@@ -27,15 +27,56 @@
   /* Estilo para el enlace de las secciones */
   .link {
     display: inline-block; /* Hacer que el enlace sea un bloque en línea */
-    background-color: #007bff; /* Color de fondo azul */
-    color: white; /* Color del texto blanco */
-    padding: 10px 15px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
+    background: #FBB016;
+    width: 100%;
+    font-weight: 500;
+    padding: 5px 10px; /* Espaciado interno */
+    text-align: center;
     text-decoration: none; /* Sin subrayado */
     transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
   }
   
   /* Efecto de hover para el enlace */
   .link:hover {
-    background-color: #0056b3; /* Color de fondo más oscuro al pasar el mouse */
+    background-color: #29b10e; /* Color de fondo más oscuro al pasar el mouse */
+  }
+.data{
+  width: 300px;
+  height: auto;
+}
+.image{
+  width: 100%;
+  height: auto;
+}
+  .firstData{
+    display:flex;
+    flex-direction: row;
+ 
+    align-items: center;
+  }
+
+  .secondData{
+    display:flex;
+    flex-direction: column;
+
+  }
+
+  .datacurso{
+    margin-left: 5px;
+  }
+  .back {
+    display: inline-block; /* Hacer que el enlace sea un bloque en línea */
+    background: #FBB016; /* Color de fondo */
+    border-radius: 8px; /* Bordes redondeados */
+    font-weight: 500; /* Peso de la fuente */
+    padding: 2px 5px; /* Espaciado interno */
+    text-align: center; /* Centrar el texto */
+    text-decoration: none; /* Sin subrayado */
+    transition: background-color 0.3s; /* Transición suave */
+  }
+  
+  /* Efecto hover */
+  .back:hover {
+    background: #D99A00; /* Cambiar color de fondo al pasar el mouse */
+    color: white; /* Cambiar color del texto al pasar el mouse */
   }

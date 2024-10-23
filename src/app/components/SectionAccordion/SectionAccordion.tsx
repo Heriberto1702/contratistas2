@@ -1,9 +1,9 @@
 // src/components/SectionAccordion.tsx
 "use client";
-import { Module, Section } from '../../../types/course';
-import { useState } from 'react';
-import ModulePopup from '../ModulePopup/ModulePopup';
-import styles from './SectionAccordion.module.css'; // Importando el módulo de estilos
+import { Module, Section } from "../../../types/course";
+import { useState } from "react";
+import ModulePopup from "../ModulePopup/ModulePopup";
+import styles from "./SectionAccordion.module.css"; // Importando el módulo de estilos
 
 interface SectionAccordionProps {
   section: Section;
@@ -26,9 +26,12 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({ section }) => {
   return (
     <div className={styles.accordionContainer}>
       <h2 className={styles.accordionTitle} onClick={toggleSection}>
-        {section.title}
+        Sesión {section.id}: {section.title}
       </h2>
-      <div className={`${styles.accordionContent} ${isOpen ? styles.open : ''}`}>
+
+      <div
+        className={`${styles.accordionContent} ${isOpen ? styles.open : ""}`}
+      >
         <p className={styles.accordionDescription}>{section.description}</p>
         <ul className={styles.moduleList}>
           {section.modules.map((module) => (

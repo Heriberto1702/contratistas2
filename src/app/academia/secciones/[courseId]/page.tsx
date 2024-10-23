@@ -39,11 +39,17 @@ const SectionsPage = async ({ params }: { params: { courseId: string } }) => {
         </nav>
       </header>
       <BannerSlidernew images={images} interval={3000} />
-      
+
       <div className={styles.container}>
         {" "}
         {/* Aplicar clase del contenedor */}
-        <h1 className={styles.title}>Secciones de {course.title}</h1>{" "}
+        <div className={styles.subcontainer}>
+          <h1 className={styles.title}>{course.title}</h1>
+          <p className={styles.texto}>
+            Por {course.especialista} especialista en {course.rubro}
+          </p>
+        </div>
+        <h3 className={styles.subtitle}>Contenido</h3>
         {/* Aplicar clase del título */}
         {course.sections.map((section) => (
           <div key={section.id} className={styles.section}>

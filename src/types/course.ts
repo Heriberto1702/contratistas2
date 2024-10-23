@@ -17,6 +17,13 @@ export interface Module {
   export interface Course {
     id: string;
     title: string;
+    especialista:string;
+    rubro:string;
     description: string;
+    inicio:string;
+    fin:string;
+    hora:string;
+    image:string;
+    recomendaciones:string;
     sections: Section[]; // También asegúrate de que sections esté definido.
   }
