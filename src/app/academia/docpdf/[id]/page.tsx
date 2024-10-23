@@ -1,13 +1,20 @@
-import BannerSlidernew from "../../components/BannerSlidernew/BannerSlidernew";
+import BannerSlidernew from "../../../components/BannerSlidernew/BannerSlidernew";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import TitleText from "../../components/Text/TitleText";
-import Container from "../../components/Container/Container";
+import { getPdfById } from "../../../../services/coursesServices";
+import { PDF } from "../../../../types/course";
+import PdfViewer from "../../../components/PdfViewer/PdfViewer";
 
 
-const Page = () => {
+
+const DocsPage = async ({ params }: { params: { id: string } }) => {
+  const pdf: PDF | null = await getPdfById(params.id);
   const images = ["/banneracademia.png"];
+  if (!pdf) {
+    return <div>pdf no encontrado</div>;
+  }
+
   return (
     <>
       <header>
@@ -31,12 +38,9 @@ const Page = () => {
         </nav>
       </header>
       <BannerSlidernew images={images} interval={3000} />
-      <TitleText
-        title="Maestros y Maestras de la construcción, mantengan a sus clientes satisfechos con esta serie de consejos que le presentamos."
-        text="Mantenerlos fidelizados es de suma importancia y utilidad ya que con esto aumenta las probabilidades de que le vuelvan a contratar y recomienden sus servicios a otras personas, ampliando así su cartera de clientes."
-      />
-      
+      <PdfViewer pdf={pdf} />
     </>
   );
 };
-export default Page;
+
+export default DocsPage;
