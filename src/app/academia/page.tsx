@@ -74,15 +74,15 @@ const Page = () => {
         <Modulo
           title="Como fidelizar a sus clientes."
           imageUrl="/card1.png"
-          url="https://www.sinsa.com.ni"
+          url="academia/docpdf/1"
           linkText="Leer más >"
           title2="Como armar un buen presupuesto."
           imageUrl2="/card2.png"
-          url2="https://www.sinsa.com.ni"
+          url2="academia/docpdf/2"
           linkText2="Leer más >"
           title3="Como formalizar su empresa."
           imageUrl3="/card3.png"
-          url3="https://www.sinsa.com.ni"
+          url3="academia/docpdf/3"
           linkText3="Leer más >"
         />
       </Container>
@@ -117,19 +117,19 @@ const Page = () => {
           title="Instalaciones electricas básicas domiciliarias"
           imageUrl="/curso1.png"
           logo="/schneider.png"
-          url="https://www.sinsa.com.ni"
+          url="academia/secciones/1"
           linkText="Leer más >"
 
           title2="Capacitación Online Drytec"
           imageUrl2="/curso2.png"
           logo2="/drytec.png"
-          url2="https://www.sinsa.com.ni"
+          url2="academia/secciones/2"
           linkText2="Leer más >"
 
           title3="Lo que debes saber sobre pintura."
           imageUrl3="/curso3.png"
           logo3="/lanco.png"
-          url3="https://www.sinsa.com.ni"
+          url3="academia/secciones/3"
           linkText3="Leer más >"
 
         />
