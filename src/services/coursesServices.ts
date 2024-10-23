@@ -1,6 +1,7 @@
 // src/service/coursesServices.ts
 
-import { Course } from '../types/course';
+import { Course, PDF } from '../types/course';
+
 
 // Simulación de datos para cursos, secciones y módulos
 const coursesData: Course[] = [
@@ -69,6 +70,29 @@ const coursesData: Course[] = [
   },
 ];
 
+// Simulación de datos para documentos pdf
+const pdfData: PDF[] = [
+  {
+    id: '1',
+    title: 'Curso de JavaScript',
+    description: 'Aprende JavaScript desde cero.',
+    url: 'https://www.youtube.com/watch?v=OM7FKgVBWRw'
+  },
+  {
+    id: '2',
+    title: 'Curso de JavaScript',
+    description: 'Aprende JavaScript desde cero.',
+    url: 'https://www.youtube.com/watch?v=OM7FKgVBWRw'
+  },
+  {
+    id: '3',
+    title: 'Curso de JavaScript',
+    description: 'Aprende JavaScript desde cero.',
+    url: 'https://www.youtube.com/watch?v=OM7FKgVBWRw'
+  }
+]
+
+
 // Funciones para obtener los cursos
 export const getCourses = async (): Promise<Course[]> => {
   return coursesData;
@@ -78,3 +102,9 @@ export const getCourseById = async (id: string): Promise<Course | null> => {
   const course = coursesData.find(course => course.id === id);
   return course || null;
 };
+
+export const getPdfById = async (id: string): Promise<PDF | null> => {
+  const pdf = pdfData.find(pdf => pdf.id === id);
+  return pdf || null;
+};
+
