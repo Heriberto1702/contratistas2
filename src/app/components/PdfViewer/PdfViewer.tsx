@@ -1,25 +1,18 @@
-"use client";
-import { Viewer, Worker } from "@react-pdf-viewer/core";
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import styles from './PdfViewer.module.css'; // Importa el archivo CSS
+import { PDF } from '../../../types/course';
+import styles from '../Text/TitleText.module.css'; // Importar el CSS
 
-const PdfViewer = ({ url }: any) => {
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+interface PDFDetailProps {
+  pdf: PDF;
+}
 
+const PdfDetail: React.FC<PDFDetailProps> = ({ pdf }) => {
   return (
-    <div className={styles.pdfViewerContainer}>
-      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.10.111/build/pdf.worker.min.js">
-        <div className={styles.pdfViewer}>
-          <Viewer
-            fileUrl={url}
-            plugins={[defaultLayoutPluginInstance]}
-          />
-        </div>
-      </Worker>
+    <div className={styles.container}> {/* Aplicar la clase del contenedor */}
+      <h1 className={styles.Title}>{pdf.title}</h1> {/* Aplicar la clase del título */}
+      <p className={styles.Subtitle}>{pdf.description}</p> {/* Aplicar la clase de descripción */}
+     
     </div>
   );
 };
 
-export default PdfViewer;
+export default PdfDetail;

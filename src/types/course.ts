@@ -20,3 +20,11 @@ export interface Module {
     description: string;
     sections: Section[]; // También asegúrate de que sections esté definido.
   }
+
+  export interface PDF {
+    id: string;
+    title: string;
+    description: string;
+    url: string;
+  }
+
