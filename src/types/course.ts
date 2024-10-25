@@ -26,6 +26,8 @@ export interface Module {
     image:string;
     recomendaciones:string;
     sections: Section[]; // También asegúrate de que sections esté definido.
+    isEnrolled: boolean; // Indica si el usuario está inscrito
+    hasResults: boolean;
   }
 
   export interface PDF {
