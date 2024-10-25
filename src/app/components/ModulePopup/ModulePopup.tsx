@@ -17,7 +17,6 @@ const ModulePopup: React.FC<ModulePopupProps> = ({ module, onClose }) => {
           &times; {/* Icono de cerrar */}
         </button>
         <h3>{module.title}</h3>
-        <p>{module.content}</p>
 
         {/* Embed de video de YouTube */}
         {videoId && (
@@ -30,9 +29,10 @@ const ModulePopup: React.FC<ModulePopupProps> = ({ module, onClose }) => {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-            />
+              />
           </div>
         )}
+        <p>{module.content}</p>
       </div>
     </div>
   );

@@ -1,0 +1,26 @@
+.pagination {
+    display: flex;
+    justify-content: center; /* Centra la paginación horizontalmente */
+    align-items: center;
+    margin: 20px 0; /* Espaciado superior e inferior */
+  }
+  
+  .pagelink {
+    padding: 10px 15px; /* Espaciado dentro del botón */
+    margin: 0 5px; /* Espaciado entre los botones */
+    border: 1px solid #0070f3; /* Borde del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Sin subrayado */
+    color: #0070f3; /* Color del texto */
+    background-color: #f0f0f0; /* Color de fondo */
+    transition: background-color 0.3s ease; /* Transición suave */
+  }
+  
+  .pagelink:hover {
+    background-color: #0070f3; /* Color de fondo al pasar el mouse */
+    color: white; /* Color del texto al pasar el mouse */
+  }
+  
+  .pageinfo {
+    margin: 0 10px; /* Espaciado entre la información de la página y los botones */
+  }

@@ -36,13 +36,13 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({ section }) => {
         <ul className={styles.moduleList}>
           {section.modules.map((module) => (
             <li key={module.id} className={styles.moduleItem}>
-              {module.title}
               <button
                 className={styles.viewButton}
                 onClick={() => openPopup(module)}
               >
                 Ver Video
               </button>
+              {module.title}
             </li>
           ))}
         </ul>
