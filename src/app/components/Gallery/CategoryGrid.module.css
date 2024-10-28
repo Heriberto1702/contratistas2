@@ -1,0 +1,15 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  .categoryItem {
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .categoryItem p {
+    margin-top: 8px;
+  }
+  
