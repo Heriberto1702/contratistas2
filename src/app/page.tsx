@@ -60,6 +60,7 @@ const Page = () => {
             <Link href="/compras">Compras</Link>
             <Link href="/academia">Academia para Contratistas</Link>
             <Link href="/documentosutiles">Documentos útiles</Link>
+            <Link href="/galeria">Galeria</Link>
             <Link href="/cuenta">Cuenta</Link>
           </div>
         </nav>
