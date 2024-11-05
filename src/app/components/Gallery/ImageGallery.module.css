@@ -2,9 +2,17 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+    padding-bottom: 20px;
   }
   
   .imageItem {
     cursor: pointer;
+    display: flex;
+    justify-content: center;
   }
+
+  .imageItem img{
+width: 100%;
+  }
+
   

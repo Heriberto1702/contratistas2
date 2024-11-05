@@ -21,8 +21,9 @@
     background: transparent;
     border: none;
     font-size: 24px;
-    color: #fff;
+    color: #fbc843;
     cursor: pointer;
+    filter: drop-shadow(1px 1px 1px black);
   }
   
   .closeButton {
