@@ -16,7 +16,7 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findUnique({ //Cmbiar user por Login_Plataforma
           where: { email: credentials?.email },
         });
 

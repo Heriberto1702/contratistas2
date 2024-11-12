@@ -14,6 +14,8 @@ datasource db {
   url      = env("DATABASE_URL") // Conexión a PostgreSQL
 }
 
+// Define el modelo de Login_plataforma
+
 model User {
   id       Int     @id @default(autoincrement())
   name     String?
@@ -21,3 +23,14 @@ model User {
   password String
   createdAt DateTime @default(now())
 }
+
+// Define el modelo de post
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  authorId  Int      // Clave foránea para la relación con User
+  author    User     @relation(fields: [authorId], references: [id])
+  comments  Comment[] // Relación uno a muchos con Comment
+}
+
