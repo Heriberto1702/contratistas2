@@ -2,6 +2,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Styles from "./RegisterForm.module.css"; // Importa el CSS modular
 
 export default function RegisterForm() {
   const [email, setEmail] = useState("");
@@ -20,11 +21,13 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={name} placeholder="Nombre" onChange={(e) => setName(e.target.value)} required />
-      <input type="email" value={email} placeholder="email" onChange={(e) => setEmail(e.target.value)} required />
-      <input type="password" value={password} placeholder="password" onChange={(e) => setPassword(e.target.value)} required />
-      <button type="submit">Registro</button>
+    <form className={Styles.form} onSubmit={handleSubmit}>
+      <input className={Styles.input} type="text" value={name} placeholder="Nombre" onChange={(e) => setName(e.target.value)} required />
+      <input className={Styles.input}type="email" value={email} placeholder="email" onChange={(e) => setEmail(e.target.value)} required />
+      <input className={Styles.input} type="password" value={password} placeholder="password" onChange={(e) => setPassword(e.target.value)} required />
+
+      
+      <button className={Styles.button} type="submit">Registro</button>
     </form>
   );
 }

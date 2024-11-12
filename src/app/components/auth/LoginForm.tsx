@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-
+import Styles from "./LoginForm.module.css"; // Importa el CSS modular
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -23,38 +23,36 @@ export default function LoginForm() {
   };
 
   return (
-    <>
-      <div >
-        <div>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="">RUC o Cédula de indentidad</label>
-            <input
-              type="email"
-              value={email}
-              placeholder="email"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              value={password}
-              placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="submit">iniciar Sesión</button>
-          </form>
-          <div >
-            <h3>¿Aún no eres socio?</h3>
-            <p>
-              Regístrate <Link href={"/registro"}>aquí</Link>
-            </p>
-          </div>
-        </div>
-        <div>
-          <Image width={433} height={485} src={"/casco.png"} alt={" "} />
+    <div className={Styles.container}>
+      <div className={Styles.formContainer}>
+        <form onSubmit={handleSubmit}>
+          <label>Ingrese los siguientes datos:</label>
+          <input className={Styles.input}
+            type="email"
+            value={email}
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input className={Styles.input}
+           type="password"
+            value={password}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button className={Styles.button} type="submit">Iniciar Sesión</button>
+        </form>
+        <div className={Styles.registerContainer}>
+          <h3>¿Aún no eres socio?</h3>
+          <p>
+            Regístrate <Link href={"/registro"}>aquí</Link>
+          </p>
         </div>
       </div>
-    </>
+      <div className={Styles.imageContainer}>
+        <Image className={Styles.imagen} width={433} height={485} src={"/casco.png"} alt={" "} />
+      </div>
+    </div>
   );
 }

@@ -1,0 +1,93 @@
+/* Contenedor principal */
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.formContainer {
+  flex: 1;
+  max-width: 500px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+/* Ajuste de inputs */
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #005bb5;
+}
+
+/* Contenedor de registro */
+.registerContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+
+/* Contenedor de la imagen */
+.imageContainer {
+  margin-top: 20px;
+  max-width: 200px;
+  width: 100%;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .imageContainer {
+    order: -1;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 15px;
+  }
+
+  .input,
+  .button {
+    font-size: 16px;
+  }
+}
