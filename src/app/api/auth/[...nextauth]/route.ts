@@ -16,7 +16,7 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        const user = await prisma.loginPlataforma.findUnique({ 
+        const user = await prisma.loginPlataforma.findUnique({  //aqui se aplico el cambio de nombre de la BD
           where: { email: credentials?.email },
         });
 
