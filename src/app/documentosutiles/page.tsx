@@ -3,33 +3,12 @@ import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
 import TitleText from "../components/Text/TitleText";
 import Modulov2 from "../components/ModuloV2/Modulov2";
 import Container from "../components/Container/Container";
-import Link from "next/link";
-import Image from "next/image";
-
+import NavBar from "../components/navbar/NavBar";
 const Page = () => {
   const images = ["/documentosutiles.png"];
   return (
     <>
-      <header>
-        <nav>
-          <div>
-            <Link href="/">
-              <Image
-                src="/logoContratista.png"
-                alt="logo-Contratista"
-                width={182}
-                height={119}
-              />
-            </Link>
-          </div>
-          <div>
-            <Link href="/compras">Compras</Link>
-            <Link href="/academia">Academia para Contratistas</Link>
-            <Link href="/documentosutiles">Documentos útiles</Link>
-            <Link href="/cuenta">Cuenta</Link>
-          </div>
-        </nav>
-      </header>
+      <NavBar/>
       <BannerSlidernew images={images} interval={3000} />
 
       <TitleText subtitle="¡Bienvenidos a nuestra plataforma de documentos útiles! Aquí encontrarás una extensa colección de recursos que te ayudarán en tus proyectos, podrás descargar y personalizar según su empresa o trabajo. Utilice estos documentos para sus labores, entregas y proyectos en general." />

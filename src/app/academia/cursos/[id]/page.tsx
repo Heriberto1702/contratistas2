@@ -6,7 +6,7 @@ import Image from "next/image";
 import { getCourseById } from "../../../../services/coursesServices";
 import CourseDetail from "../../../components/CourseDetail/CourseDetail";
 import { Course } from "../../../../types/course";
-
+import NavBar from "../../../components/navbar/NavBar";
 const CourseDetailPage = async ({ params }: { params: { id: string } }) => {
   const course: Course | null = await getCourseById(params.id);
   const images = ["/banneracademia.png"];
@@ -16,26 +16,7 @@ const CourseDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <header>
-        <nav>
-          <div>
-            <Link href="/">
-              <Image
-                src="/logoContratista.png"
-                alt="logo-Contratista"
-                width={182}
-                height={119}
-              />
-            </Link>
-          </div>
-          <div>
-            <Link href="/compras">Compras</Link>
-            <Link href="/academia">Academia para Contratistas</Link>
-            <Link href="/documentosutiles">Documentos útiles</Link>
-            <Link href="/cuenta">Cuenta</Link>
-          </div>
-        </nav>
-      </header>
+      <NavBar />
       <BannerSlidernew images={images} interval={3000} />
       <CourseDetail course={course} />;
     </>
