@@ -5,8 +5,8 @@ import DoubleCarousel from "@/app/components/DoubleCarusel/DoubleCarousel";
 import SimpleCard from "@/app/components/SimpleCard/SimpleCard";
 import TitleText from "@/app/components/Text/TitleText";
 import Banner from "./components/Banner/Banner";
-import Link from "next/link";
-import Image from "next/image";
+import NavBar from "./components/navbar/NavBar";
+
 const Page = () => {
   const images = ["/banner.png", "/banner.png"];
   const banners = [
@@ -44,27 +44,7 @@ const Page = () => {
   ];
   return (
     <>
-      <header>
-        <nav>
-          <div>
-            <Link href="/">
-              <Image
-                src="/logoContratista.png"
-                alt="logo-Contratista"
-                width={182}
-                height={119}
-              />
-            </Link>
-          </div>
-          <div>
-            <Link href="/compras">Compras</Link>
-            <Link href="/academia">Academia para Contratistas</Link>
-            <Link href="/documentosutiles">Documentos útiles</Link>
-            <Link href="/galeria">Galeria</Link>
-            <Link href="/cuenta">Cuenta</Link>
-          </div>
-        </nav>
-      </header>
+      <NavBar />
       <BannerSlidernew images={images} interval={3000} />
       <Banner
         imageUrl="/evento.png"
