@@ -3,9 +3,7 @@
 import path from "path";
 import { promises as fs } from "fs";
 import ComprasContratista from "../components/Compras/ComprasContratista";
-import Image from "next/image";
-import Link from "next/link";
-import GoogleSheetData from "../components/GoogleSheetData/GoogleSheetData";
+import NavBar from "../components/navbar/NavBar";
 // Función para cargar datos desde el archivo JSON en el servidor
 async function fetchComprasData() {
   const filePath = path.join(process.cwd(), "src", "data", "compras.json");
@@ -18,29 +16,9 @@ const ComprasPage = async () => {
 
   return (
     <>
-      <header>
-        <nav>
-          <div>
-            <Link href="/">
-              <Image
-                src="/logoContratista.png"
-                alt="logo-Contratista"
-                width={182}
-                height={119}
-              />
-            </Link>
-          </div>
-          <div>
-            <Link href="/compras">Compras</Link>
-            <Link href="/academia">Academia para Contratistas</Link>
-            <Link href="/documentosutiles">Documentos útiles</Link>
-            <Link href="/cuenta">Cuenta</Link>
-          </div>
-        </nav>
-      </header>
+      <NavBar />
       <div>
         <ComprasContratista comprasData={comprasData} />
-        <GoogleSheetData />
       </div>
     </>
   );

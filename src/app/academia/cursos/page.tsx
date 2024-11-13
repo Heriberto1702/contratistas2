@@ -2,12 +2,12 @@
 
 import BannerSlidernew from "../../components/BannerSlidernew/BannerSlidernew";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import NavBar from "../../components/navbar/NavBar";
 import { getCourses } from "../../../services/coursesServices";
 import { Course } from "../../../types/course";
 import styles from "./CoursesPage.module.css"; // Importar el CSS
-
+import Link from "next/link";
+import Image from "next/image";
 const Page = () => {
   const images = ["/banneracademia.png"];
   
@@ -61,26 +61,7 @@ const Page = () => {
 
   return (
     <>
-      <header>
-        <nav>
-          <div>
-            <Link href="/">
-              <Image
-                src="/logoContratista.png"
-                alt="logo-Contratista"
-                width={182}
-                height={119}
-              />
-            </Link>
-          </div>
-          <div>
-            <Link href="/compras">Compras</Link>
-            <Link href="/academia">Academia para Contratistas</Link>
-            <Link href="/documentosutiles">Documentos útiles</Link>
-            <Link href="/cuenta">Cuenta</Link>
-          </div>
-        </nav>
-      </header>
+      <NavBar/>
       <BannerSlidernew images={images} interval={3000} />
       
       <div className={styles.container}>

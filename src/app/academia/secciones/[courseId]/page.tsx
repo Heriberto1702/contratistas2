@@ -1,12 +1,11 @@
 // src/app/sections/[courseId]/page.tsx
 import BannerSlidernew from "../../../components/BannerSlidernew/BannerSlidernew";
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { getCourseById } from "../../../../services/coursesServices";
 import SectionAccordion from "../../../components/SectionAccordion/SectionAccordion";
 import { Course } from "../../../../types/course";
 import styles from "./SectionsPage.module.css"; // Importar el CSS
+import NavBar from "../../../components/navbar/NavBar";
 
 const SectionsPage = async ({ params }: { params: { courseId: string } }) => {
   const course: Course | null = await getCourseById(params.courseId);
@@ -18,26 +17,7 @@ const SectionsPage = async ({ params }: { params: { courseId: string } }) => {
 
   return (
     <>
-      <header>
-        <nav>
-          <div>
-            <Link href="/">
-              <Image
-                src="/logoContratista.png"
-                alt="logo-Contratista"
-                width={182}
-                height={119}
-              />
-            </Link>
-          </div>
-          <div>
-            <Link href="/compras">Compras</Link>
-            <Link href="/academia">Academia para Contratistas</Link>
-            <Link href="/documentosutiles">Documentos útiles</Link>
-            <Link href="/cuenta">Cuenta</Link>
-          </div>
-        </nav>
-      </header>
+      <NavBar />
       <BannerSlidernew images={images} interval={3000} />
 
       <div className={styles.container}>
