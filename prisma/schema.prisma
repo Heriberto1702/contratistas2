@@ -5,21 +5,162 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 // prisma/schema.prisma
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // Conexión a PostgreSQL
+  url      = env("DATABASE_URL") // Define tu conexión
 }
-
-// Define el modelo de Login_plataforma
+// schema.prisma
 
 model loginPlataforma {
-  id       Int     @id @default(autoincrement())
-  name     String?
-  email    String  @unique
-  password String
-  createdAt DateTime @default(now())
+  id_contratista       Int          @id @default(autoincrement())
+  RUC                  String       @unique
+  cedula               String       @unique
+  password             String
+  nombres_contratista  String
+  apellidos_contratista String
+  email                String       @unique
+  id_especialidad      Int
+  celular              String
+  id_tipo_contratista  Int
+  telefono_fijo        String?
+  id_sexo              Int
+  fecha_nacimiento     DateTime
+  id_departamento      Int
+  id_municipio         Int
+  
+  especialidad         Especialidad  @relation(fields: [id_especialidad], references: [id_especialidad])
+  departamento         Departamentos @relation(fields: [id_departamento, id_municipio], references: [id_departamento, id_municipio])
+  tipo_contratista     Cliente       @relation(fields: [id_tipo_contratista, id_sexo], references: [id_tipo_contratista, id_sexo])
+
+  Contratistas         Contratistas? @relation("ContratistaAprobacion", fields: [id_contratista], references: [id_contratista_aprob])
+  Compras              Compras[]
+  Cursos_Matriculados  Cursos_Matriculados[]
+  Eventos_Asistidos    Eventos_Asistidos[]
+}
+
+model Contratistas {
+  id_contratista_aprob Int          @id @default(autoincrement())
+  RUC                  String       @unique
+  cedula               String       @unique
+  xstoreID             String?
+
+  loginPlataforma      loginPlataforma? @relation("ContratistaAprobacion")
+}
+
+model Departamentos {
+  id_departamento      Int
+  nombre_departamento  String
+  id_municipio         Int
+  nombre_municipio     String
+
+  loginPlataforma      loginPlataforma[]
+
+  @@unique([id_departamento, id_municipio]) // Agrega un índice único para la combinación de id_departamento e id_municipio
+}
+
+model Cliente {
+  id_tipo_contratista  Int
+  tipo_cliente         String
+  id_sexo              Int
+  sexo                 String
+
+  loginPlataforma      loginPlataforma[]
+
+  @@unique([id_tipo_contratista, id_sexo]) // Agrega un índice único para la combinación de id_tipo_contratista e id_sexo
+}
+
+model Especialidad {
+  id_especialidad      Int       @id @default(autoincrement())
+  nombre_especialidad  String
+
+  loginPlataforma      loginPlataforma[]
+}
+
+model RegistroAcceso {
+  id_registro          Int       @id @default(autoincrement())
+  RUC_cedula           String    @unique
+  hora                 String
+  fecha                DateTime
+  email                String
+}
+
+model Ordenes {
+  id_orden             Int       @id @default(autoincrement())
+  id_producto_SKU      String
+  nombre_producto      String
+  cantidad             Int
+  precio               Float
+
+  Compras              Compras[]
+}
+
+model Compras {
+  id_compra            Int       @id @default(autoincrement())
+  id_contratista       Int
+  xstore_id            String
+  RUC                  String
+  cedula               String
+  fecha_compra         DateTime
+  id_orden             Int
+  monto                Float
+  descuento            Float
+  total                Float
+
+  contratista          loginPlataforma @relation(fields: [id_contratista], references: [id_contratista])
+  orden                Ordenes         @relation(fields: [id_orden], references: [id_orden])
+}
+
+model Cursos {
+  id_curso             Int       @id @default(autoincrement())
+  nombre_curso         String
+  descripcion          String
+  fecha_inicio         DateTime
+  fecha_fin            DateTime
+  hora_inicio          String
+  recomendaciones      String?
+  imagen_curso         String?
+  detalles_curso       String?
+  tipo_curso           String
+
+  Cursos_Matriculados  Cursos_Matriculados[]
+}
+
+model Cursos_Matriculados {
+  id_matriculas        Int       @id @default(autoincrement())
+  id_contratista       Int
+  id_curso             Int
+  avance               Float
+  estado               String
+
+  contratista          loginPlataforma @relation(fields: [id_contratista], references: [id_contratista])
+  curso                Cursos          @relation(fields: [id_curso], references: [id_curso])
+}
+
+model Eventos_Asistidos {
+  id_asistencia        Int       @id @default(autoincrement())
+  id_evento            Int
+  nombre_evento        String
+  id_contratista       Int
+  nombre_contratista   String
+  apellidos_contratista String
+
+  contratista          loginPlataforma @relation(fields: [id_contratista], references: [id_contratista])
+  evento               Eventos         @relation(fields: [id_evento], references: [id_evento])
+}
+
+model Eventos {
+  id_evento            Int       @id @default(autoincrement())
+  nombre_evento        String
+  fecha_evento         DateTime
+  hora_evento          String
+  locacion             String
+  cupos                Int
+  imagen_evento        String?
+
+  Eventos_Asistidos    Eventos_Asistidos[]
 }
