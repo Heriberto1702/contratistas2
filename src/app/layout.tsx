@@ -1,17 +1,10 @@
-import type { Metadata } from "next";
+"use client"; // Esto convierte este archivo en un componente de cliente
+
 import "./globals.css";
 import Footer from "@/app/components/Footer/Footer";
 import WhatsAppLink from "@/app/components/WhatsAppLink/WhatsAppLink";
 import { roboto } from "@/app/components/font";
-
-export const metadata: Metadata = {
-  title: {
-    default: "Contratistas",
-    absolute: "",
-    template: "%s - Contratistas",
-  },
-};
-
+import { SessionProvider } from "next-auth/react"; // Importa el SessionProvider
 export default function RootLayout({
   children,
 }: {
@@ -19,10 +12,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} antialiased`}> 
-        <WhatsAppLink />
-        <main>{children}</main>
-        <Footer />
+      <body className={`${roboto.className} antialiased`}>
+        <SessionProvider> {/* Envuelve el contenido de la aplicación */}
+          <WhatsAppLink />
+          <main>{children}</main>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );
