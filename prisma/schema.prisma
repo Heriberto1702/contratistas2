@@ -1,25 +1,80 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-// prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // Define tu conexión
+  url      = env("DATABASE_URL")
 }
-// schema.prisma
-
 
 model Contratistas {
-  id_contratista_aprob Int          @id @default(autoincrement())
-  RUC                  String       @unique
-  cedula               String       @unique
-  xstoreID             String?
+  id_contratista_aprob Int    @id @default(autoincrement())
+  RUC                  String
+  cedula               String
+  xstoreID             String
+  nombre_registrado    String
+}
+
+model Cliente {
+  id_tipo_contratista Int               @id @default(autoincrement())
+  tipo_cliente        String
+  tipoContratista     LoginPlataforma[] //Relacion con Login Plataforma
+}
+
+model Club {
+  id_tipo_club Int               @id @default(autoincrement())
+  tipo_club    String
+  tipoClub     LoginPlataforma[] //Relacion con Login Plataforma
+}
+
+model Sexo {
+  id_sexo Int               @id @default(autoincrement())
+  sexo    String
+  sex     LoginPlataforma[] //Relacion con Login Plataforma
+}
+
+model Especialidad {
+  id_especialidad     Int               @id @default(autoincrement())
+  nombre_especialidad String
+  especialidad        LoginPlataforma[] //Relacion con Login Plataforma
+}
+
+model Departamentos {
+  id_departamento     Int               @id @default(autoincrement())
+  nombre_departamento String
+  depart              LoginPlataforma[] //Relacion con Login Plataforma
+  municipios          Municipios[] //Relacion con Municipios
+}
+
+model Municipios {
+  id_municipio     Int               @id @default(autoincrement())
+  nombre_municipio String
+  id_departamento  Int
+  muni             LoginPlataforma[] //Relacion con Login Plataforma
+  departamento     Departamentos     @relation(fields: [id_departamento], references: [id_departamento])
+}
+
+model LoginPlataforma {
+  id_contratista        Int           @id @default(autoincrement())
+  RUC                   String        @default("NULL")
+  cedula                String        @default("NULL")
+  password              String
+  nombres_contratista   String
+  apellidos_contratista String
+  email                 String        @db.VarChar
+  id_especialidad       Int
+  celular               BigInt
+  id_tipo_contratista   Int
+  telefono_fijo         BigInt?
+  id_sexo               Int
+  fecha_nacimiento      DateTime      @db.Date
+  id_departamento       Int
+  id_municipio          Int
+  id_tipo_club          Int
+  depart                Departamentos @relation(fields: [id_departamento], references: [id_departamento])
+  especialidad          Especialidad  @relation(fields: [id_especialidad], references: [id_especialidad])
+  muni                  Municipios    @relation(fields: [id_municipio], references: [id_municipio])
+  sex                   Sexo          @relation(fields: [id_sexo], references: [id_sexo])
+  tipoClub              Club          @relation(fields: [id_tipo_club], references: [id_tipo_club])
+  tipoContratista       Cliente       @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
 }
