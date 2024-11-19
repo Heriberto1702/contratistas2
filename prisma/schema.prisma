@@ -7,74 +7,153 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Contratistas {
   id_contratista_aprob Int    @id @default(autoincrement())
   RUC                  String
   cedula               String
   xstoreID             String
   nombre_registrado    String
+  id_tipo_club         Int  
+  activo                Boolean
+ segmento Club @relation(fields: [id_tipo_club], references: [id_tipo_club])
 }
 
+
 model Cliente {
-  id_tipo_contratista Int               @id @default(autoincrement())
+  id_tipo_contratista Int    @id @default(autoincrement())
   tipo_cliente        String
-  tipoContratista     LoginPlataforma[] //Relacion con Login Plataforma
+  tipoContratista LoginPlataforma [] // Relacion con Login Plataforma
 }
 
 model Club {
-  id_tipo_club Int               @id @default(autoincrement())
-  tipo_club    String
-  tipoClub     LoginPlataforma[] //Relacion con Login Plataforma
+  id_tipo_club Int    @id
+  tipo_club       String
+  segmento Contratistas []
 }
 
 model Sexo {
-  id_sexo Int               @id @default(autoincrement())
+  id_sexo Int    @id @default(autoincrement())
   sexo    String
-  sex     LoginPlataforma[] //Relacion con Login Plataforma
+  sex LoginPlataforma[] //Relacion con Login Plataforma
 }
 
 model Especialidad {
-  id_especialidad     Int               @id @default(autoincrement())
+  id_especialidad     Int    @id @default(autoincrement())
   nombre_especialidad String
-  especialidad        LoginPlataforma[] //Relacion con Login Plataforma
+  especialidad    LoginPlataforma[]//Relacion con Login Plataforma
 }
 
 model Departamentos {
-  id_departamento     Int               @id @default(autoincrement())
+  id_departamento     Int          @id @default(autoincrement())
   nombre_departamento String
-  depart              LoginPlataforma[] //Relacion con Login Plataforma
-  municipios          Municipios[] //Relacion con Municipios
+  municipios          Municipios[] // Relación con Municipios
+  depart        LoginPlataforma[] //Relacion con Login Plataforma
 }
 
 model Municipios {
-  id_municipio     Int               @id @default(autoincrement())
+  id_municipio     Int           @id @default(autoincrement())
   nombre_municipio String
   id_departamento  Int
-  muni             LoginPlataforma[] //Relacion con Login Plataforma
-  departamento     Departamentos     @relation(fields: [id_departamento], references: [id_departamento])
+  departamento     Departamentos @relation(fields: [id_departamento], references: [id_departamento])
+  muni      LoginPlataforma[] //Relacion con Login Plataforma
 }
 
 model LoginPlataforma {
-  id_contratista        Int           @id @default(autoincrement())
-  RUC                   String        @default("NULL")
-  cedula                String        @default("NULL")
+  id_contratista         Int              @id @default(autoincrement())
+  RUC                    String
+  cedula                 String
+  password               String
+  nombres_contratista    String
+  apellidos_contratista  String
+  email                  String @unique
+  id_especialidad        Int
+  especialidad           Especialidad     @relation(fields: [id_especialidad], references: [id_especialidad])
+  celular                String
+  id_tipo_contratista    Int
+  tipoContratista        Cliente          @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
+  telefono_fijo          String?
+  id_sexo                Int
+  sex                   Sexo             @relation(fields: [id_sexo], references: [id_sexo])
+  fecha_nacimiento       DateTime
+  id_departamento        Int
+  depart           Departamentos    @relation(fields: [id_departamento], references: [id_departamento])
+  id_municipio           Int
+  muni              Municipios       @relation(fields: [id_municipio], references: [id_municipio])
+  contralogueado  Cursos_Matriculados  []
+  contratistareg  Eventos_Asistidos[]
+
+}
+model Cursos {
+  id_curso        Int              @id @default(autoincrement())
+  nombre_curso    String
+  descripcion     String
+  fecha_hora_Inicio DateTime
+  fecha_hora_Fin  DateTime
+  recomendaciones String
+  imagen_curso    String
+  detalles_curso  String
+  tipo_curso      String
+  matriculas      Cursos_Matriculados[]  // Relación con Cursos_Matriculados
+}
+
+model Cursos_Matriculados {
+  id_matriculas   Int              @id @default(autoincrement())
+  id_contratista  Int
+  id_curso        Int
+  avance          Float
+  estado          String
+  // Relaciones
+  curso           Cursos           @relation(fields: [id_curso], references: [id_curso])
+  contralogueado    LoginPlataforma     @relation(fields: [id_contratista], references: [id_contratista])
+}
+
+model Eventos{
+id_evento Int  @id @default(autoincrement())
+nombre_evento String
+fecha_hora_evento DateTime
+locacion String
+cupos Int
+imagen_evento String
+eventAsist Eventos_Asistidos[]
+}
+
+model Eventos_Asistidos{
+id_asistencia Int  @id @default(autoincrement())
+id_evento Int
+id_contratista Int
+ // Relaciones
+  eventAsist           Eventos           @relation(fields: [id_evento], references: [id_evento])
+  contratistareg    LoginPlataforma     @relation(fields: [id_contratista], references: [id_contratista])
+}
+
+//model Compras{
+//id_compra  Int @id @default(autoincrement())
+//id_contratista Int
+//xstore_id
+//id_tienda Int
+//RUC
+//cedula
+//fecha_compra DateTime
+//id_orden Int
+//total Float
+//}
+
+model Ordenes{
+id_ordenes Int @id @default(autoincrement())
+id_orden Int 
+nombre_producto String
+cantidad Int
+precio Float
+monto Float
+descuento Int
+total Float
+}
+
+model RegistroAcceso {
+  id_registro Int    @id @default(autoincrement())
   password              String
-  nombres_contratista   String
-  apellidos_contratista String
-  email                 String        @db.VarChar
-  id_especialidad       Int
-  celular               BigInt
-  id_tipo_contratista   Int
-  telefono_fijo         BigInt?
-  id_sexo               Int
-  fecha_nacimiento      DateTime      @db.Date
-  id_departamento       Int
-  id_municipio          Int
-  id_tipo_club          Int
-  depart                Departamentos @relation(fields: [id_departamento], references: [id_departamento])
-  especialidad          Especialidad  @relation(fields: [id_especialidad], references: [id_especialidad])
-  muni                  Municipios    @relation(fields: [id_municipio], references: [id_municipio])
-  sex                   Sexo          @relation(fields: [id_sexo], references: [id_sexo])
-  tipoClub              Club          @relation(fields: [id_tipo_club], references: [id_tipo_club])
-  tipoContratista       Cliente       @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
+  hora_fecha        DateTime
+  email       String
+  id_contratista         Int
 }
