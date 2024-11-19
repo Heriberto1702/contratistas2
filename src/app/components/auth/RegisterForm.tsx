@@ -31,7 +31,7 @@ export default function RegisterForm() {
   const [apellidos, setApellidos] = useState("");
   const [cedula, setCedula] = useState("");
   const [ruc, setRuc] = useState("");
-  const [telefono, setTelefono] = useState("");
+  const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -91,32 +91,35 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (password !== confirmPassword) {
       setErrorMessage("Las contraseñas no coinciden");
       return;
     }
-
+  
     try {
       const response = await fetch("/api/auth/registro", {
         method: "POST",
         body: JSON.stringify({
-          nombres,
-          apellidos,
-          cedula: isJuridico ? "" : cedula,
-          ruc: isJuridico ? ruc : "",
-          telefono,
           email,
-          especialidad: especialidadSeleccionada,
-          sexo: sexoSeleccionado,
-          departamento: departamentoSeleccionado,
-          municipio: municipioSeleccionado,
-          fecha_nacimiento: fechaNacimiento,
           password,
+          nombres: nombres,
+          apellidos: apellidos,
+          cedula: isJuridico ? "" : cedula,
+          RUC: isJuridico ? ruc : "",
+          celular,
+          id_sexo: parseInt(sexoSeleccionado as string), // Convierte a número
+          id_especialidad: parseInt(especialidadSeleccionada as string), // Convierte a número
+          fecha_nacimiento: new Date(fechaNacimiento),
+          id_departamento: parseInt(departamentoSeleccionado as string), // Convierte a número
+          id_municipio: parseInt(municipioSeleccionado as string), // Convierte a número
+          id_tipo_contratista: isJuridico ? 2 : 1, // 2 para persona jurídica, 1 para persona natural
         }),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-
+  
       if (response.ok) {
         router.push("/login");
       } else {
@@ -200,12 +203,12 @@ export default function RegisterForm() {
             </>
           )}
 
-          <label>Teléfono</label>
+          <label>Celular</label>
           <input
             className={Styles.input}
             type="text"
-            value={telefono}
-            onChange={(e) => setTelefono(e.target.value)}
+            value={celular}
+            onChange={(e) => setCelular(e.target.value)}
             placeholder="Ingrese su número de teléfono"
             required
           />
@@ -311,13 +314,13 @@ export default function RegisterForm() {
 
           {errorMessage && <p className={Styles.error}>{errorMessage}</p>}
 
-          <button className={Styles.submitButton} type="submit">Registrarse</button>
+          <button className={Styles.submitButton} type="submit">
+            Registrarse
+          </button>
         </form>
+
         <p>
-          Ya tienes cuenta?{" "}
-          <Link href="/login" className={Styles.link}>
-            Inicia sesión
-          </Link>
+          ¿Ya tienes una cuenta? <Link href="/login">Inicia sesión aquí</Link>
         </p>
       </div>
     </div>
