@@ -1,10 +1,8 @@
-// src/app/api/auth/[...nextauth]/route.ts
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { NextAuthOptions } from "next-auth";
 
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -16,18 +14,29 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        const user = await prisma.loginPlataforma.findUnique({  //aqui se aplico el cambio de nombre de la BD
-          where: { email: credentials?.email },
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Por favor, proporciona email y contraseña.");
+        }
+
+        const user = await prisma.loginPlataforma.findUnique({
+          where: { email: credentials.email },
         });
 
-        if (user && bcrypt.compareSync(credentials?.password || "", user.password)) {
-          return {
-            id: user.id.toString(), // Convertimos a string para asegurar compatibilidad
-            email: user.email,
-            name: user.name ?? "", // Proporcionamos un valor predeterminado para name
-          };
+        if (!user) {
+          throw new Error("Usuario no encontrado.");
         }
-        return null;
+
+        const isPasswordValid = bcrypt.compareSync(credentials.password, user.password);
+
+        if (!isPasswordValid) {
+          throw new Error("Contraseña incorrecta.");
+        }
+
+        return {
+          id: user.id_contratista.toString(),
+          email: user.email,
+          name: `${user.nombres_contratista} ${user.apellidos_contratista}`, // Nombre completo.
+        };
       },
     }),
   ],
@@ -37,9 +46,9 @@ const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.user = {
-          id: token.sub ?? "", // Usamos un valor predeterminado para id si es undefined
-          email: token.email ?? "", // Usamos un valor predeterminado para email si es undefined
-          name: token.name ?? "", // Usamos un valor predeterminado para name si es undefined
+          id: token.id as string,
+          email: token.email as string,
+          name: token.name as string,
         };
       }
       return session;
@@ -47,8 +56,8 @@ const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.email = user.email ?? "";
-        token.name = user.name ?? "";
+        token.email = user.email;
+        token.name = user.name;
       }
       return token;
     },
