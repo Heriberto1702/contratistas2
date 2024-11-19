@@ -12,13 +12,13 @@ export async function POST(req: Request) {
       cedula,
       RUC,
       celular,
-      telefono_fijo,
-      id_tipo_contratista,
+      telefono_fijo, // Añadido el teléfono fijo
       id_sexo,
       id_especialidad,
       fecha_nacimiento,
       id_departamento,
       id_municipio,
+      id_tipo_contratista, // Agregado el id_tipo_contratista
     } = await req.json();
 
     // Validación de campos obligatorios
@@ -28,12 +28,12 @@ export async function POST(req: Request) {
       !nombres || // Validación para 'nombres'
       !apellidos || // Validación para 'apellidos'
       !celular ||
-      !id_tipo_contratista ||
       !id_sexo ||
       !id_especialidad ||
       !fecha_nacimiento ||
       !id_departamento ||
-      !id_municipio
+      !id_municipio ||
+      !id_tipo_contratista // Validación para el 'id_tipo_contratista'
     ) {
       return NextResponse.json(
         { error: "Por favor, completa todos los campos obligatorios." },
@@ -89,16 +89,19 @@ export async function POST(req: Request) {
         password: hashedPassword,
         nombres_contratista: nombres, // Usar el campo 'nombres'
         apellidos_contratista: apellidos, // Usar el campo 'apellidos'
-        cedula: cedula || null,
-        RUC: RUC || null,
+        cedula: cedula,
+        RUC: RUC,
         celular,
-        telefono_fijo: telefono_fijo || null,
-        id_tipo_contratista,
-        id_sexo,
-        id_especialidad,
+        telefono_fijo, // Incluir teléfono fijo
+       
         fecha_nacimiento: new Date(fecha_nacimiento),
-        id_departamento,
-        id_municipio,
+ // Incluir id_tipo_contratista
+        // relaciones
+        depart: { connect: { id_departamento: id_departamento } },
+        especialidad: { connect: { id_especialidad: id_especialidad } },
+        muni: { connect: { id_municipio: id_municipio } },
+        sex: { connect: { id_sexo: id_sexo } },
+        tipoContratista: { connect: { id_tipo_contratista: id_tipo_contratista } },
       },
     });
 
