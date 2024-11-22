@@ -70,7 +70,7 @@ model LoginPlataforma {
   id_tipo_contratista   Int
   telefono_fijo         String?
   id_sexo               Int
-  fecha_nacimiento      DateTime
+  fecha_nacimiento      String
   id_departamento       Int
   id_municipio          Int
   Cursos_Matriculados   Cursos_Matriculados[]
