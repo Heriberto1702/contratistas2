@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Contratistas {
   id_contratista_aprob Int     @id @default(autoincrement())
   RUC                  String
@@ -19,9 +18,8 @@ model Contratistas {
   Club                 Club    @relation(fields: [id_tipo_club], references: [id_tipo_club])
 }
 
-
 model Cliente {
-  id_tipo_contratista Int    @id @default(autoincrement())
+  id_tipo_contratista Int               @id @default(autoincrement())
   tipo_cliente        String
   tipoContratista     LoginPlataforma[]
 }
@@ -33,26 +31,26 @@ model Club {
 }
 
 model Sexo {
-  id_sexo Int    @id @default(autoincrement())
+  id_sexo Int               @id @default(autoincrement())
   sexo    String
   sex     LoginPlataforma[]
 }
 
 model Especialidad {
-  id_especialidad     Int    @id @default(autoincrement())
+  id_especialidad     Int               @id @default(autoincrement())
   nombre_especialidad String
   especialidad        LoginPlataforma[]
 }
 
 model Departamentos {
-  id_departamento     Int          @id @default(autoincrement())
+  id_departamento     Int               @id @default(autoincrement())
   nombre_departamento String
   depart              LoginPlataforma[]
   municipios          Municipios[]
 }
 
 model Municipios {
-  id_municipio     Int           @id @default(autoincrement())
+  id_municipio     Int               @id @default(autoincrement())
   nombre_municipio String
   id_departamento  Int
   muni             LoginPlataforma[]
