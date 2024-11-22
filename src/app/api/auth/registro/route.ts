@@ -90,13 +90,10 @@ export async function POST(req: Request) {
         nombres_contratista: nombres, // Usar el campo 'nombres'
         apellidos_contratista: apellidos, // Usar el campo 'apellidos'
         cedula: cedula,
-        RUC: RUC,
+        ruc: RUC,
         celular,
         telefono_fijo, // Incluir teléfono fijo
-       
         fecha_nacimiento: new Date(fecha_nacimiento),
- // Incluir id_tipo_contratista
-        // relaciones
         depart: { connect: { id_departamento: id_departamento } },
         especialidad: { connect: { id_especialidad: id_especialidad } },
         muni: { connect: { id_municipio: id_municipio } },

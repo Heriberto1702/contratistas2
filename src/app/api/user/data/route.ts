@@ -23,7 +23,7 @@ export async function GET() {
         celular: true,
         telefono_fijo: true,
         cedula: true,
-        RUC: true,
+        ruc: true,
         id_sexo: true,
         id_especialidad: true,
         fecha_nacimiento: true,
@@ -32,7 +32,7 @@ export async function GET() {
         id_tipo_contratista: true,
       }, // Solo seleccionamos los campos necesarios
     });
-
+    
     // Validar si el usuario existe en la base de datos
     if (!user) {
       return NextResponse.json({ message: "Usuario no encontrado" }, { status: 404 });
