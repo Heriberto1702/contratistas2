@@ -59,7 +59,7 @@ model Municipios {
 
 model LoginPlataforma {
   id_contratista        Int                   @id @default(autoincrement())
-  RUC                   String
+  ruc                   String
   cedula                String
   password              String
   nombres_contratista   String
