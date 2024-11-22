@@ -7,7 +7,6 @@ const Page = () => {
   return (
     <>
       <NavBar />
-      <h2>Datos personales</h2>
       <UserProfileForm /> {/* Muestra el formulario de edición de datos */}
     </>
   );
