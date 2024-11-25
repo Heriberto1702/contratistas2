@@ -46,10 +46,67 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: 5px;
-  display:inline-block;
+  display: inline-block;
   text-align: center;
 }
 
-.link:hover{
+.link:hover {
   font-weight: 600;
+}
+
+/* Estilos Responsivos */
+
+/* Pantallas más pequeñas */
+@media (max-width: 1024px) {
+  .simpleCard {
+    width: 70%; /* Ancho más pequeño en pantallas medianas */
+    flex-direction: column; /* Cambiar la dirección a columna */
+    padding: 15px;
+  }
+
+  .image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .textContainer {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .text {
+    font-size: 14px; /* Reduce el tamaño del texto */
+    width: auto; /* El ancho se adapta al contenido */
+    padding: 10px 5px;
+  }
+
+  .link {
+    width: 100%; /* Hace que el enlace ocupe el 100% del ancho */
+    text-align: center;
+    padding: 10px 0;
+  }
+}
+
+/* Pantallas más pequeñas, móviles */
+@media (max-width: 600px) {
+  .simpleCard {
+    width: 90%; /* En pantallas móviles, el ancho se hace más pequeño */
+    padding: 10px;
+  }
+
+  .image {
+    width: 150px;
+    height: 150px; /* Hacemos la imagen más pequeña */
+  }
+
+  .text {
+    font-size: 12px; /* Reducción adicional del tamaño del texto */
+    padding: 8px 5px;
+    width: auto;
+  }
+
+  .link {
+    font-size: 12px; /* Hacemos más pequeño el tamaño de la fuente */
+    padding: 8px;
+  }
 }
