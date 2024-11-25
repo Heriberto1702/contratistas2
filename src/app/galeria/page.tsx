@@ -8,12 +8,12 @@ import TitleText from "../components/Text/TitleText";
 import NavBar from "../components/navbar/NavBar";
 
 const categories = [
-  { id: "cat1", imgSrc: "/galeria/categorias/categ1.png", name: "Categoría 1" },
-  { id: "cat2", imgSrc: "/galeria/categorias/categ2.png", name: "Categoría 2" },
-  { id: "cat3", imgSrc: "/galeria/categorias/categ3.png", name: "Categoría 3" },
-  { id: "cat4", imgSrc: "/galeria/categorias/categ4.png", name: "Categoría 4" },
-  { id: "cat5", imgSrc: "/galeria/categorias/categ5.png", name: "Categoría 5" },
-  { id: "cat6", imgSrc: "/galeria/categorias/categ6.png", name: "Categoría 6" },
+  { id: "cat1", imgSrc: "/galeria/categorias/categ1.png", name: "Ver más" },
+  { id: "cat2", imgSrc: "/galeria/categorias/categ2.png", name: "Ver más" },
+  { id: "cat3", imgSrc: "/galeria/categorias/categ3.png", name: "Ver más" },
+  { id: "cat4", imgSrc: "/galeria/categorias/categ4.png", name: "Ver más" },
+  { id: "cat5", imgSrc: "/galeria/categorias/categ5.png", name: "Ver más" },
+  { id: "cat6", imgSrc: "/galeria/categorias/categ6.png", name: "Ver más" },
 ];
 const images = ["/banner.png", "/banner.png"];
 

@@ -1,67 +1,139 @@
+/* Estilos generales del contenedor del carrusel */
 .carouselContainer {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .carouselTrack {
-    display: flex;
-  }
-  
-  .carouselSlide {
-    display: flex;
-    justify-content: space-between; /* Asegura que los elementos se distribuyen correctamente */
-  }
-  
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  min-height: 320px; /* Asegura que el carrusel tenga suficiente altura */
+ /* margin-bottom: 2rem; *//* Añadimos un margen para separarlo del footer */
+}
+
+/* Estilo para la pista de carrusel */
+.carouselTrack {
+  display: flex;
+}
+
+/* Estilo para cada slide */
+.carouselSlide {
+  display: flex;
+  justify-content: space-between; /* Asegura que los elementos se distribuyan correctamente */
+}
+
+/* Estilo de los elementos del carrusel */
+.bannerItem {
+  width: 100%; /* En pantallas grandes ocupará todo el ancho */
+  height: 300px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Estilo de la imagen dentro del banner */
+.bannerImage {
+  max-width: 45%;
+  border-radius: 5px;
+  height: 100%;
+}
+
+/* Estilo del texto del banner */
+.bannerText {
+  margin-top: 10px;
+}
+
+/* Estilo del enlace del banner */
+.bannerLink {
+  margin-top: 5px;
+  display: inline-block;
+  color: #0070f3;
+  text-decoration: none;
+}
+
+/* Estilo de los botones prev y next */
+.prevBtn,
+.nextBtn {
+  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: orange;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prevBtn:hover,
+.nextBtn:hover {
+  color: rgb(0, 0, 0);
+}
+
+.prevBtn {
+  left: 0;
+}
+
+.nextBtn {
+  right: 0;
+}
+
+/* Estilos Responsivos */
+
+/* Pantallas medianas (Tabletas) */
+@media (max-width: 1024px) {
   .bannerItem {
-    width: 100%; /* Ajusta el tamaño para que quepan dos en el slide */
-    height: 300px;
-    padding: 10px;
-    box-sizing: border-box;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* En tabletas, las imágenes y el texto estarán apilados */
+    height: 250px;
   }
-  
+
   .bannerImage {
-    max-width: 45%;
-    border-radius: 5px;
-    height: 100%;
+    max-width: 80%; /* Imagen más pequeña en tabletas */
+    height: auto;
   }
-  
+
   .bannerText {
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 14px; /* Texto más pequeño */
   }
-  
+
   .bannerLink {
-    margin-top: 5px;
-    display: inline-block;
-    color: #0070f3;
-    text-decoration: none;
+    font-size: 14px;
   }
-  
-  .prevBtn, .nextBtn {
-    font-size: 30px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: orange;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-  }
-  .prevBtn:hover, .nextBtn:hover {
-    color: rgb(0, 0, 0);
-  }
-  .prevBtn {
-    left: 0;
-  }
-  
+
+  .prevBtn,
   .nextBtn {
-    right: 0;
+    font-size: 25px; /* Reducimos el tamaño de los botones */
+    padding: 8px;
   }
+}
+
+/* Pantallas más pequeñas (Móviles) */
+@media (max-width: 600px) {
+  .bannerItem {
+    flex-direction: column; /* En móviles, las imágenes y el texto estarán apilados */
+    height: 200px;
+  }
+
+  .bannerImage {
+    max-width: 90%; /* Imagen más pequeña en móviles */
+    height: auto;
+  }
+
+  .bannerText {
+    margin-top: 15px;
+    font-size: 12px; /* Texto aún más pequeño */
+  }
+
+  .bannerLink {
+    font-size: 12px;
+  }
+
+  .prevBtn,
+  .nextBtn {
+    font-size: 20px; /* Botones más pequeños */
+    padding: 5px;
+  }
+}

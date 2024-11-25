@@ -20,7 +20,7 @@ interface Event {
 const initialEvents: Event[] = [
   {
     id: 1,
-    date: new Date(2024, 7, 24),
+    date: new Date(2024, 11, 24),
     title: "Fontanería Básica",
     hour: "10:30am",
     location: "SINSA, Ctra. Masaya",
@@ -31,7 +31,7 @@ const initialEvents: Event[] = [
   },
   {
     id: 2,
-    date: new Date(2024, 7, 24),
+    date: new Date(2024, 11, 25),
     title: "Carpintería para Principiantes",
     hour: "10:30am",
     location: "SINSA, Ctra. Masaya",

@@ -7,6 +7,7 @@ import ImageGallery from "../../components/Gallery/ImageGallery";
 import Link from "next/link";
 import Image from "next/image";
 import Styles from "../galeria.module.css";
+import NavBar from "../../components/navbar/NavBar";
 
 const categoryImages: { [key: string]: string[] } = {
   cat1: [
@@ -82,27 +83,7 @@ const CategoriaPage = () => {
   const images = ["/banner.png", "/banner.png"];
   return (
     <>
-      <header>
-        <nav>
-          <div>
-            <Link href="/">
-              <Image
-                src="/logoContratista.png"
-                alt="logo-Contratista"
-                width={182}
-                height={119}
-              />
-            </Link>
-          </div>
-          <div>
-            <Link href="/compras">Compras</Link>
-            <Link href="/academia">Academia para Contratistas</Link>
-            <Link href="/documentosutiles">Documentos útiles</Link>
-            <Link href="/galeria">Galería</Link>
-            <Link href="/cuenta">Cuenta</Link>
-          </div>
-        </nav>
-      </header>
+            <NavBar/>
       <BannerSlidernew images={images} interval={3000} />
 
       <TitleText subtitle="¡Bienvenidos a nuestra plataforma de documentos útiles! Aquí encontrarás una extensa colección de recursos que te ayudarán en tus proyectos, podrás descargar y personalizar según su empresa o trabajo. Utilice estos documentos para sus labores, entregas y proyectos en general." />

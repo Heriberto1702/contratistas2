@@ -1,0 +1,41 @@
+/* Container.module.css */
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+    width: 100%; /* Aseguramos que el contenedor ocupe todo el ancho disponible */
+    box-sizing: border-box;
+  }
+  
+  /* Media Query para Pantallas pequeñas (Móviles) */
+  @media (max-width: 600px) {
+    .container {
+      flex-direction: column; /* Apilamos los elementos en móviles */
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px; /* Añadimos espacio entre los elementos */
+    }
+  }
+  
+  /* Media Query para Pantallas medianas (Tabletas) */
+  @media (max-width: 1024px) {
+    .container {
+      flex-direction: column !important;  /* En tabletas, también apilamos los elementos */
+      justify-content: flex-start !important;
+      align-items: center !important;
+      gap: 15px !important; /* Más espacio entre los elementos */
+    }
+  }
+  
+  /* Media Query para Pantallas grandes */
+  @media (min-width: 1025px) {
+    .container {
+      flex-direction: row; /* En pantallas grandes, usamos dirección por defecto */
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
