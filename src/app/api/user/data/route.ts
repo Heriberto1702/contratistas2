@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma"; // Ajusta la ruta según tu estructura
 import { getServerSession } from "next-auth/next"; 
-import { authOptions } from "../../auth/[...nextauth]/route"; // Asegúrate de que `authOptions` esté correctamente exportado
+import { authOptions } from "../../auth/[...nextauth]/authOptions";// Asegúrate de que `authOptions` esté correctamente exportado
 
 export async function GET() {
   try {
