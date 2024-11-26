@@ -58,30 +58,30 @@ model Municipios {
 }
 
 model LoginPlataforma {
-  id_contratista         Int              @id @default(autoincrement())
-  ruc                    String
-  cedula                 String
-  password               String
-  nombres_contratista    String
-  apellidos_contratista  String
-  email                  String @unique
-  id_especialidad        Int
-  especialidad           Especialidad     @relation(fields: [id_especialidad], references: [id_especialidad])
-  celular                String
-  id_tipo_contratista    Int
-  tipoContratista        Cliente          @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
-  telefono_fijo          String?
-  id_sexo                Int
-  sex                   Sexo             @relation(fields: [id_sexo], references: [id_sexo])
-  fecha_nacimiento       String
-  id_departamento        Int
-  depart           Departamentos    @relation(fields: [id_departamento], references: [id_departamento])
-  id_municipio           Int
-  muni              Municipios       @relation(fields: [id_municipio], references: [id_municipio])
-  contralogueado  Cursos_Matriculados  []
-  contratistareg  Eventos_Asistidos[]
-
+  id_contratista        Int                   @id @default(autoincrement())
+  ruc                   String
+  cedula                String
+  password              String
+  nombres_contratista   String
+  apellidos_contratista String
+  email                 String                @unique
+  id_especialidad       Int
+  celular               String
+  id_tipo_contratista   Int
+  telefono_fijo         String?
+  id_sexo               Int
+  fecha_nacimiento      String
+  id_departamento       Int
+  id_municipio          Int
+  Cursos_Matriculados   Cursos_Matriculados[]
+  Eventos_Asistidos     Eventos_Asistidos[]
+  depart                Departamentos         @relation(fields: [id_departamento], references: [id_departamento])
+  especialidad          Especialidad          @relation(fields: [id_especialidad], references: [id_especialidad])
+  muni                  Municipios            @relation(fields: [id_municipio], references: [id_municipio])
+  sex                   Sexo                  @relation(fields: [id_sexo], references: [id_sexo])
+  tipoContratista       Cliente               @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
 }
+
 model Cursos {
   id_curso            Int                   @id @default(autoincrement())
   nombre_curso        String
@@ -94,28 +94,7 @@ model Cursos {
   tipo_curso          String
   sesiones            Sesiones[]           // Relación con las sesiones del curso
   Cursos_Matriculados Cursos_Matriculados[]
-}
-
-model Sesiones {
-  id_sesion      Int       @id @default(autoincrement())
-  id_curso       Int
-  nombre_sesion  String
-  descripcion    String
-  fecha_hora     DateTime
-  modulos        Modulos[] // Relación con los módulos de la sesión
-
-  // Relación con Cursos
-  Cursos         Cursos    @relation(fields: [id_curso], references: [id_curso])
-}
-
-model Modulos {
-  id_modulo      Int       @id @default(autoincrement())
-  id_sesion      Int
-  titulo_modulo  String
-  contenido      String    // Aquí puedes almacenar contenido como texto, enlaces o identificadores de archivos
-
-  // Relación con Sesiones
-  Sesiones       Sesiones  @relation(fields: [id_sesion], references: [id_sesion])
+  Sesiones            Sesiones[]
 }
 
 model Cursos_Matriculados {
@@ -172,12 +151,27 @@ total Float
 }
 
 model RegistroAcceso {
-  id_registro Int    @id @default(autoincrement())
-  password              String
-  hora_fecha        DateTime
-  email       String
-  id_contratista         Int
+  id_registro    Int      @id @default(autoincrement())
+  password       String
+  hora_fecha     DateTime
+  email          String
+  id_contratista Int
 }
 
+model Modulos {
+  id_modulo     Int      @id @default(autoincrement())
+  id_sesion     Int
+  titulo_modulo String
+  contenido     String
+  Sesiones      Sesiones @relation(fields: [id_sesion], references: [id_sesion])
+}
 
-
+model Sesiones {
+  id_sesion     Int       @id @default(autoincrement())
+  id_curso      Int
+  nombre_sesion String
+  descripcion   String
+  fecha_hora    DateTime
+  Modulos       Modulos[]
+  Cursos        Cursos    @relation(fields: [id_curso], references: [id_curso])
+}
