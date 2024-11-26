@@ -70,7 +70,7 @@ model LoginPlataforma {
   id_tipo_contratista   Int
   telefono_fijo         String?
   id_sexo               Int
-  fecha_nacimiento      DateTime
+  fecha_nacimiento      String
   id_departamento       Int
   id_municipio          Int
   Cursos_Matriculados   Cursos_Matriculados[]
@@ -93,6 +93,7 @@ model Cursos {
   detalles_curso      String
   tipo_curso          String
   Cursos_Matriculados Cursos_Matriculados[]
+  Sesiones            Sesiones[]
 }
 
 model Cursos_Matriculados {
@@ -140,4 +141,22 @@ model RegistroAcceso {
   hora_fecha     DateTime
   email          String
   id_contratista Int
+}
+
+model Modulos {
+  id_modulo     Int      @id @default(autoincrement())
+  id_sesion     Int
+  titulo_modulo String
+  contenido     String
+  Sesiones      Sesiones @relation(fields: [id_sesion], references: [id_sesion])
+}
+
+model Sesiones {
+  id_sesion     Int       @id @default(autoincrement())
+  id_curso      Int
+  nombre_sesion String
+  descripcion   String
+  fecha_hora    DateTime
+  Modulos       Modulos[]
+  Cursos        Cursos    @relation(fields: [id_curso], references: [id_curso])
 }
