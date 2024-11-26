@@ -25,17 +25,8 @@ export async function PUT(request: Request) {
       return new NextResponse("El id_contratista es requerido", { status: 400 });
     }
 
-    // Convierte `fecha_nacimiento` a un objeto Date, si es necesario
-    let formattedDate = new Date(fecha_nacimiento);
-    
-    // Asegúrate de que la fecha es válida
-    if (isNaN(formattedDate.getTime())) {
-      return new NextResponse("La fecha de nacimiento no tiene un formato válido", { status: 400 });
-    }
-    
-    // Prisma espera una fecha en formato ISO 8601 (YYYY-MM-DDTHH:MM:SS.000Z)
-    const isoDate = formattedDate.toISOString(); // Asegura que la fecha esté en formato ISO 8601
-
+   
+ 
     // Convierte los valores de los campos desplegables a enteros
     const idSexoInt = parseInt(id_sexo, 10);
     const idEspecialidadInt = parseInt(id_especialidad, 10);
@@ -58,7 +49,7 @@ export async function PUT(request: Request) {
         telefono_fijo,
         ruc,
         email,
-        fecha_nacimiento: isoDate, // Usamos el formato ISO para la fecha
+        fecha_nacimiento, // Usamos el formato ISO para la fecha
         id_sexo: idSexoInt,  // Asigna el valor convertido
         id_especialidad: idEspecialidadInt, // Asigna el valor convertido
         id_departamento: idDepartamentoInt, // Asigna el valor convertido
