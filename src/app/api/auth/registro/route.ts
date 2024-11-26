@@ -93,7 +93,7 @@ export async function POST(req: Request) {
         ruc: RUC,
         celular,
         telefono_fijo, // Incluir teléfono fijo
-        fecha_nacimiento: new Date(fecha_nacimiento),
+        fecha_nacimiento: fecha_nacimiento,
         depart: { connect: { id_departamento: id_departamento } },
         especialidad: { connect: { id_especialidad: id_especialidad } },
         muni: { connect: { id_municipio: id_municipio } },
