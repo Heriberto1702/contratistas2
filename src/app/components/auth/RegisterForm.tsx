@@ -110,7 +110,7 @@ export default function RegisterForm() {
           celular,
           id_sexo: parseInt(sexoSeleccionado as string), // Convierte a número
           id_especialidad: parseInt(especialidadSeleccionada as string), // Convierte a número
-          fecha_nacimiento: new Date(fechaNacimiento),
+          fecha_nacimiento:fechaNacimiento,
           id_departamento: parseInt(departamentoSeleccionado as string), // Convierte a número
           id_municipio: parseInt(municipioSeleccionado as string), // Convierte a número
           id_tipo_contratista: isJuridico ? 2 : 1, // 2 para persona jurídica, 1 para persona natural
@@ -286,7 +286,8 @@ export default function RegisterForm() {
           <label>Fecha de Nacimiento</label>
           <input
             className={Styles.input}
-            type="date"
+            type="text"
+            placeholder="dd/mm/yyyy"
             value={fechaNacimiento}
             onChange={(e) => setFechaNacimiento(e.target.value)}
             required
