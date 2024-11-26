@@ -73,7 +73,6 @@ const UserProfileForm = () => {
           setFormData({
             ...userData,
             id_tipo_contratista: userData.isJuridico ? 2 : 1, // Se ajusta el tipo de usuario
-            fecha_nacimiento: formatDateForInput(userData.fecha_nacimiento), // Convierte la fecha
           });
 
           // Carga los datos de las listas desplegables
@@ -222,7 +221,7 @@ const UserProfileForm = () => {
       <div className={styles.formGroup}>
         <label className={styles.label}>Fecha de Nacimiento:</label>
         <input
-          type="date"
+          type="text"
           name="fecha_nacimiento"
           value={formData.fecha_nacimiento}
           onChange={handleChange}

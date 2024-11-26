@@ -1,15 +1,22 @@
-// src/app/course/[id]/page.tsx
 import BannerSlidernew from "../../../components/BannerSlidernew/BannerSlidernew";
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+
 import { getCourseById } from "../../../../services/coursesServices";
 import CourseDetail from "../../../components/CourseDetail/CourseDetail";
 import { Course } from "../../../../types/course";
 import NavBar from "../../../components/navbar/NavBar";
-const CourseDetailPage = async ({ params }: { params: { id: string } }) => {
+
+// El tipo de `PageProps` debe importarse directamente si es necesario.
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+const CourseDetailPage = async ({ params }: PageProps) => {
   const course: Course | null = await getCourseById(params.id);
   const images = ["/banneracademia.png"];
+
   if (!course) {
     return <div>Curso no encontrado</div>;
   }
@@ -18,7 +25,7 @@ const CourseDetailPage = async ({ params }: { params: { id: string } }) => {
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
-      <CourseDetail course={course} />;
+      <CourseDetail course={course} />
     </>
   );
 };

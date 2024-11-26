@@ -94,7 +94,7 @@ model Cursos {
   tipo_curso          String
   sesiones            Sesiones[]           // Relación con las sesiones del curso
   Cursos_Matriculados Cursos_Matriculados[]
-  Sesiones            Sesiones[]
+  
 }
 
 model Cursos_Matriculados {
