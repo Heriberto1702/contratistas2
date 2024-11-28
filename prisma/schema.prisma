@@ -86,15 +86,17 @@ model Cursos {
   id_curso            Int                   @id @default(autoincrement())
   nombre_curso        String
   descripcion         String
-  fecha_hora_Inicio   DateTime
-  fecha_hora_Fin      DateTime
+  especialista        String
+  fecha_hora_Inicio   DateTime              // Cambié de String a DateTime
+  fecha_hora_Fin      DateTime              // Cambié de String a DateTime
+  hora                String
+  rubro               String
   recomendaciones     String
   imagen_curso        String
   detalles_curso      String
   tipo_curso          String
   sesiones            Sesiones[]           // Relación con las sesiones del curso
-  Cursos_Matriculados Cursos_Matriculados[]
-  
+  Cursos_Matriculados Cursos_Matriculados[] // Relación con matriculados
 }
 
 model Cursos_Matriculados {
@@ -103,51 +105,50 @@ model Cursos_Matriculados {
   id_curso        Int
   avance          Float
   estado          String
-
-  // Relaciones con LoginPlataforma y Cursos
   LoginPlataforma LoginPlataforma @relation(fields: [id_contratista], references: [id_contratista])
-  Cursos          Cursos          @relation(fields: [id_curso], references: [id_curso])
-}
-model Eventos{
-id_evento Int  @id @default(autoincrement())
-nombre_evento String
-fecha_hora_evento DateTime
-locacion String
-cupos Int
-imagen_evento String
-eventAsist Eventos_Asistidos[]
+  Cursos          Cursos          @relation(fields: [id_curso], references: [id_curso])
 }
 
-model Eventos_Asistidos{
-id_asistencia Int  @id @default(autoincrement())
-id_evento Int
-id_contratista Int
- // Relaciones
-  eventAsist           Eventos           @relation(fields: [id_evento], references: [id_evento])
-  contratistareg    LoginPlataforma     @relation(fields: [id_contratista], references: [id_contratista])
+model Eventos {
+  id_evento       Int       @id @default(autoincrement())
+  nombre_evento   String
+  fecha_hora      DateTime
+  locacion        String
+  cupos           Int
+  imagen_evento   String
+  eventAsist      Eventos_Asistidos[]
 }
 
-//model Compras{
-//id_compra  Int @id @default(autoincrement())
-//id_contratista Int
-//xstore_id
-//id_tienda Int
-//RUC
-//cedula
-//fecha_compra DateTime
-//id_orden Int
-//total Float
-//}
+model Eventos_Asistidos {
+  id_asistencia Int              @id @default(autoincrement())
+  id_evento     Int
+  id_contratista Int
+  eventAsist    Eventos          @relation(fields: [id_evento], references: [id_evento])
+  contratistareg LoginPlataforma @relation(fields: [id_contratista], references: [id_contratista])
+}
 
-model Ordenes{
-id_ordenes Int @id @default(autoincrement())
-id_orden Int 
-nombre_producto String
-cantidad Int
-precio Float
-monto Float
-descuento Int
-total Float
+
+/// model Compras {
+///   id_compra      Int      @id @default(autoincrement())
+///   id_contratista Int
+///   xstore_id      String
+///   id_tienda      Int
+///   RUC            String
+///   cedula         String
+///   fecha_compra   DateTime
+///   total          Float
+///   contratista    LoginPlataforma @relation(fields: [id_contratista], references: [id_contratista])
+/// }
+
+model Ordenes {
+  id_ordenes    Int    @id @default(autoincrement())
+  id_orden      Int
+  nombre_producto String
+  cantidad      Int
+  precio        Float
+  monto         Float
+  descuento     Int
+  total         Float
 }
 
 model RegistroAcceso {
