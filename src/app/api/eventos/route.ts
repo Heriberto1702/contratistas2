@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
   try {
     const arrayBuffer = await imagen_evento.arrayBuffer();
-    await fs.writeFile(filePath, Buffer.from(arrayBuffer));
+    await fs.writeFile(filePath, new Uint8Array(arrayBuffer));
   } catch (error) {
     console.error("Error al guardar la imagen:", error);
     return NextResponse.json(

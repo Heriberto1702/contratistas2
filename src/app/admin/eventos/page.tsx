@@ -28,21 +28,20 @@ const AdminEventos = () => {
   });
 
   const tiendas = [
-    "Tienda 1",
-    "Tienda 2",
-    "Tienda 3",
-    "Tienda 4",
-    "Tienda 5",
-    "Tienda 6",
-    "Tienda 7",
-    "Tienda 8",
-    "Tienda 9",
-    "Tienda 10",
-    "Tienda 11",
-    "Tienda 12",
-    "Tienda 13",
-    "Tienda 14",
-    "Tienda 15",
+    "Sinsa Carretera Masaya",
+    "Sinsa Radial",
+    "Sinsa Norte",
+    "Sinsa El Periodista",
+    "Sinsa Home Center",
+    "Sinsa Masaya",
+    "Sinsa Jinotepe",
+    "Sinsa Leon",
+    "Sinsa Rivas",
+    "Sinsa Juigalpa",
+    "Sinsa Chinandega",
+    "Sinsa Esteli",
+    "Sinsa Matagalpa",
+    
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
