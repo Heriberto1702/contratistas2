@@ -8,53 +8,53 @@ datasource db {
 }
 
 model Contratistas {
-  id_contratista_aprob Int    @id @default(autoincrement())
+  id_contratista_aprob Int     @id @default(autoincrement())
   RUC                  String
   cedula               String
   xstoreID             String
   nombre_registrado    String
-  id_tipo_club         Int  
-  activo                Boolean
-  segmento Club @relation(fields: [id_tipo_club], references: [id_tipo_club])
+  activo               Boolean
+  id_tipo_club         Int
+  segmento             Club    @relation(fields: [id_tipo_club], references: [id_tipo_club])
 }
 
 model Cliente {
-  id_tipo_contratista Int    @id @default(autoincrement())
+  id_tipo_contratista Int               @id @default(autoincrement())
   tipo_cliente        String
-  tipoContratista LoginPlataforma [] // Relacion con Login Plataforma
+  tipoContratista     LoginPlataforma[]
 }
 
 model Club {
-  id_tipo_club Int    @id
-  tipo_club       String
-  segmento Contratistas []
+  id_tipo_club Int            @id
+  tipo_club    String
+  segmento     Contratistas[]
 }
 
 model Sexo {
-  id_sexo Int    @id @default(autoincrement())
+  id_sexo Int               @id @default(autoincrement())
   sexo    String
-  sex LoginPlataforma[] //Relacion con Login Plataforma
+  sex     LoginPlataforma[]
 }
 
 model Especialidad {
-  id_especialidad     Int    @id @default(autoincrement())
+  id_especialidad     Int               @id @default(autoincrement())
   nombre_especialidad String
-  especialidad    LoginPlataforma[]//Relacion con Login Plataforma
+  especialidad        LoginPlataforma[]
 }
 
 model Departamentos {
-  id_departamento     Int          @id @default(autoincrement())
+  id_departamento     Int               @id @default(autoincrement())
   nombre_departamento String
-  municipios          Municipios[] // Relación con Municipios
-  depart        LoginPlataforma[] //Relacion con Login Plataforma
+  depart              LoginPlataforma[]
+  municipios          Municipios[]
 }
 
 model Municipios {
-  id_municipio     Int           @id @default(autoincrement())
+  id_municipio     Int               @id @default(autoincrement())
   nombre_municipio String
   id_departamento  Int
-  departamento     Departamentos @relation(fields: [id_departamento], references: [id_departamento])
-  muni      LoginPlataforma[] //Relacion con Login Plataforma
+  muni             LoginPlataforma[]
+  departamento     Departamentos     @relation(fields: [id_departamento], references: [id_departamento])
 }
 
 model LoginPlataforma {
@@ -86,17 +86,17 @@ model Cursos {
   id_curso            Int                   @id @default(autoincrement())
   nombre_curso        String
   descripcion         String
-  especialista        String
-  fecha_hora_Inicio   DateTime              // Cambié de String a DateTime
-  fecha_hora_Fin      DateTime              // Cambié de String a DateTime
-  hora                String
-  rubro               String
   recomendaciones     String
   imagen_curso        String
   detalles_curso      String
   tipo_curso          String
-  sesiones            Sesiones[]           // Relación con las sesiones del curso
-  Cursos_Matriculados Cursos_Matriculados[] // Relación con matriculados
+  especialista        String
+  hora                String
+  rubro               String
+  fecha_hora_Inicio   DateTime
+  fecha_hora_Fin      DateTime
+  Cursos_Matriculados Cursos_Matriculados[]
+  sesiones            Sesiones[]
 }
 
 model Cursos_Matriculados {
@@ -110,45 +110,32 @@ model Cursos_Matriculados {
 }
 
 model Eventos {
-  id_evento       Int       @id @default(autoincrement())
-  nombre_evento   String
-  fecha_hora      DateTime
-  locacion        String
-  cupos           Int
-  imagen_evento   String
-  eventAsist      Eventos_Asistidos[]
+  id_evento     Int                 @id @default(autoincrement())
+  nombre_evento String
+  locacion      String
+  cupos         Int
+  imagen_evento String
+  fecha_hora    String
+  eventAsist    Eventos_Asistidos[]
 }
 
 model Eventos_Asistidos {
-  id_asistencia Int              @id @default(autoincrement())
-  id_evento     Int
+  id_asistencia  Int             @id @default(autoincrement())
+  id_evento      Int
   id_contratista Int
-  eventAsist    Eventos          @relation(fields: [id_evento], references: [id_evento])
   contratistareg LoginPlataforma @relation(fields: [id_contratista], references: [id_contratista])
+  eventAsist     Eventos         @relation(fields: [id_evento], references: [id_evento])
 }
 
-
-/// model Compras {
-///   id_compra      Int      @id @default(autoincrement())
-///   id_contratista Int
-///   xstore_id      String
-///   id_tienda      Int
-///   RUC            String
-///   cedula         String
-///   fecha_compra   DateTime
-///   total          Float
-///   contratista    LoginPlataforma @relation(fields: [id_contratista], references: [id_contratista])
-/// }
-
 model Ordenes {
-  id_ordenes    Int    @id @default(autoincrement())
-  id_orden      Int
+  id_ordenes      Int    @id @default(autoincrement())
+  id_orden        Int
   nombre_producto String
-  cantidad      Int
-  precio        Float
-  monto         Float
-  descuento     Int
-  total         Float
+  cantidad        Int
+  precio          Float
+  monto           Float
+  descuento       Int
+  total           Float
 }
 
 model RegistroAcceso {

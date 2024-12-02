@@ -1,0 +1,90 @@
+/* Estilos generales para la página de administración */
+.admin-page {
+    display: flex;
+    flex-direction: column;
+   /* min-height: 100vh;*/
+    background-color: #f3f4f6;
+    font-family: Arial, sans-serif;
+  }
+  
+  .admin-header {
+    background-color: #1f2937; /* Color oscuro para el banner */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .admin-header h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+.titulo{
+    font-size: 24px;
+    font-weight: lighter;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    padding:20px;
+}
+
+    .admin-main {
+    display: flex;
+    flex-direction: column; /* Por defecto, los botones se apilan */
+    align-items: center;
+    justify-content: center;
+    /*flex: 1;*/
+    gap: 20px; /* Espacio entre los botones */
+    padding: 20px;
+  }
+  
+  /* Botones */
+  .admin-main .admin-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacio entre ícono y texto */
+    padding: 15px 30px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+  }
+  
+  .admin-main .admin-button .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; /* Tamaño del ícono */
+    height: 24px;
+  }
+  
+  .admin-main .admin-button .icon img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Colores específicos */
+  .admin-main .admin-button.blue {
+    background-color: #1d4ed8;
+  }
+  
+  .admin-main .admin-button.green {
+    background-color: #16a34a;
+  }
+  
+  .admin-main .admin-button:hover {
+    transform: scale(1.05); /* Animación suave al hover */
+  }
+  
+  /* Diseño responsive */
+  @media (min-width: 768px) {
+    .admin-main {
+      flex-direction: row; /* Los botones se alinean horizontalmente */
+    }
+  }
+  
