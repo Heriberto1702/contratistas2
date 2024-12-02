@@ -1,26 +1,33 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@/lib/prisma"; // Asegúrate de que Prisma esté configurado correctamente
+import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id_curso = searchParams.get('id');
+
+  if (!id_curso) {
+    return NextResponse.json({ error: 'ID del curso es requerido.' }, { status: 400 });
+  }
+
   try {
-    // Obtenemos los cursos desde la base de datos
-    const courses = await prisma.cursos.findMany({
+    const curso = await prisma.cursos.findUnique({
+      where: { id_curso: parseInt(id_curso, 10) },
       include: {
-        sesiones: true, // Incluye las sesiones si es necesario
+        sesiones: {
+          include: {
+            modulos: true,
+          },
+        },
       },
     });
 
-    // Si no se encuentran cursos, devolvemos una lista vacía
-    if (courses.length === 0) {
-      res.status(200).json([]); // Respuesta vacía pero válida en formato JSON
-      return;
+    if (!curso) {
+      return NextResponse.json({ error: 'Curso no encontrado.' }, { status: 404 });
     }
 
-    // Devolvemos los cursos en formato JSON
-    res.status(200).json(courses);
+    return NextResponse.json(curso, { status: 200 });
   } catch (error) {
-    console.error("Error al obtener los cursos:", error);
-    // Devolvemos un error en formato JSON
-    res.status(500).json({ error: "Error al obtener los cursos" });
+    console.error('Error al obtener el curso:', error);
+    return NextResponse.json({ error: 'Error al obtener el curso.' }, { status: 500 });
   }
 }
