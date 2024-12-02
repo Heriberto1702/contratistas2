@@ -1,60 +1,49 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import React from "react";
 import { useRouter } from "next/navigation";
-
+import "./AdminPage.css";
+import Image from "next/image";
+import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
 
 const AdminPage = () => {
   const router = useRouter();
 
+  const images = ["/banner.png", "/banner.png"];
   const handleRedirect = (path: string) => {
     router.push(path);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        gap: "20px",
-        backgroundColor: "#f3f4f6",
-      }}
-    >
-      <h1 style={{ fontSize: "24px", fontWeight: "bold", color: "#333" }}>
-        Panel de Administración
-      </h1>
-      <button
-        onClick={() => handleRedirect("/admin/cursos")}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#1d4ed8",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          fontSize: "16px",
-        }}
-      >
-        Ir a Cursos
-      </button>
-      <button
-        onClick={() => handleRedirect("/admin/eventos")}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#16a34a",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          fontSize: "16px",
-        }}
-      >
-        Ir a Eventos
-      </button>
+    
+    <div className="admin-page"> 
+    <BannerSlidernew images={images} interval={3000} />
+      <header className="admin-header">
+         
+        <h1>Panel del Administrador</h1>
+      </header>
+      <h1 className="titulo">Seleccione la opción que desea administrar:</h1>
+      <main className="admin-main">
+      
+        <button
+          className="admin-button blue"
+          onClick={() => handleRedirect("/admin/cursos")}
+        >
+          <span className="icon">
+            <Image src="/icons/diploma.png" alt="Cursos" width={30} height={30} />
+          </span>
+          <span>Agregar Cursos</span>
+        </button>
+        <button
+          className="admin-button green"
+          onClick={() => handleRedirect("/admin/eventos")}
+        >
+          <span className="icon">
+            <Image src="/icons/evento.png" alt="Eventos" width={30} height={30}/>
+          </span>
+          <span>Agregar Eventos</span>
+        </button>
+      </main>
     </div>
   );
 };
