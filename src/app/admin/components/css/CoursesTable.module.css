@@ -1,0 +1,33 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .th,
+  .td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .errorMessage {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
+  }

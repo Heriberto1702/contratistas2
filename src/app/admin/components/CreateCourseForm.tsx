@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./css/CreateCoursePage.module.css";
 
 interface FormData {
   nombre_curso: string;
@@ -12,7 +13,7 @@ interface FormData {
   detalles_curso: string;
   tipo_curso: string;
   recomendaciones: string;
-  sesiones: { nombre_sesion: string; descripcion: string; fecha_hora: string; modulos: { titulo_modulo: string; contenido: string }[] }[];
+  sesiones: { nombre_sesion: string; descripcion: string; fecha_hora: string; modulos: { titulo_modulo: string; contenido: string }[] }[]; 
 }
 
 const CreateCoursePage = () => {
@@ -31,7 +32,6 @@ const CreateCoursePage = () => {
     sesiones: [],
   });
 
-  // Actualizar el estado del formulario
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -123,10 +123,11 @@ const CreateCoursePage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <form onSubmit={handleSubmit} className={styles.formContainer}>
+      <label className={styles.label}>
         Nombre del curso:
         <input
+          className={styles.inputField}
           type="text"
           name="nombre_curso"
           value={formData.nombre_curso}
@@ -134,9 +135,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Especialista:
         <input
+          className={styles.inputField}
           type="text"
           name="especialista"
           value={formData.especialista}
@@ -144,9 +146,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Rubro:
         <input
+          className={styles.inputField}
           type="text"
           name="rubro"
           value={formData.rubro}
@@ -154,9 +157,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Fecha de inicio:
         <input
+          className={styles.inputField}
           type="date"
           name="fecha_hora_Inicio"
           value={formData.fecha_hora_Inicio}
@@ -164,9 +168,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Fecha de fin:
         <input
+          className={styles.inputField}
           type="date"
           name="fecha_hora_Fin"
           value={formData.fecha_hora_Fin}
@@ -174,9 +179,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Hora de inicio:
         <input
+          className={styles.inputField}
           type="time"
           name="hora"
           value={formData.hora}
@@ -184,9 +190,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Imagen del curso (URL):
         <input
+          className={styles.inputField}
           type="text"
           name="imagen_curso"
           value={formData.imagen_curso}
@@ -194,9 +201,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Descripción del curso:
         <input
+          className={styles.inputField}
           type="text"
           name="descripcion"
           value={formData.descripcion}
@@ -204,9 +212,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Detalles del curso:
         <input
+          className={styles.inputField}
           type="text"
           name="detalles_curso"
           value={formData.detalles_curso}
@@ -214,9 +223,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Tipo de curso:
         <input
+          className={styles.inputField}
           type="text"
           name="tipo_curso"
           value={formData.tipo_curso}
@@ -224,9 +234,10 @@ const CreateCoursePage = () => {
           required
         />
       </label>
-      <label>
+      <label className={styles.label}>
         Recomendaciones:
         <input
+          className={styles.inputField}
           type="text"
           name="recomendaciones"
           value={formData.recomendaciones}
@@ -235,11 +246,12 @@ const CreateCoursePage = () => {
         />
       </label>
 
-      <div>
+      <div className={styles.sectionsContainer}>
         <h3>Secciones</h3>
         {formData.sesiones.map((section, index) => (
-          <div key={index}>
+          <div key={index} className={styles.section}>
             <input
+              className={styles.inputField}
               type="text"
               placeholder="Nombre de la sesión"
               value={section.nombre_sesion}
@@ -248,6 +260,7 @@ const CreateCoursePage = () => {
               }
             />
             <input
+              className={styles.inputField}
               type="text"
               placeholder="Descripción de la sesión"
               value={section.descripcion}
@@ -256,6 +269,7 @@ const CreateCoursePage = () => {
               }
             />
             <input
+              className={styles.inputField}
               type="datetime-local"
               placeholder="Fecha y hora de la sesión"
               value={section.fecha_hora}
@@ -263,13 +277,14 @@ const CreateCoursePage = () => {
                 handleSectionChange(index, "fecha_hora", e.target.value)
               }
             />
-            <button type="button" onClick={() => handleAddModule(index)}>
+            <button type="button" className={styles.button} onClick={() => handleAddModule(index)}>
               Agregar Módulo
             </button>
             <div>
               {section.modulos.map((module, moduleIndex) => (
                 <div key={moduleIndex}>
                   <input
+                    className={styles.inputField}
                     type="text"
                     placeholder="Título del módulo"
                     value={module.titulo_modulo}
@@ -283,6 +298,7 @@ const CreateCoursePage = () => {
                     }
                   />
                   <textarea
+                    className={styles.textarea}
                     placeholder="Contenido del módulo"
                     value={module.contenido}
                     onChange={(e) =>
@@ -299,12 +315,12 @@ const CreateCoursePage = () => {
             </div>
           </div>
         ))}
-        <button type="button" onClick={handleAddSection}>
+        <button type="button" className={styles.button} onClick={handleAddSection}>
           Agregar Sección
         </button>
       </div>
 
-      <button type="submit">Crear Curso</button>
+      <button type="submit" className={styles.button}>Crear Curso</button>
     </form>
   );
 };
