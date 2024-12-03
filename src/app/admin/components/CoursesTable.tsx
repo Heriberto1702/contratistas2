@@ -13,7 +13,6 @@ const CoursesTable = () => {
         }
 
         const data = await response.json();
-        // Verificar si la respuesta es un array
         if (Array.isArray(data)) {
           setCourses(data);
         } else {
@@ -38,17 +37,19 @@ const CoursesTable = () => {
             <tr>
               <th>Título</th>
               <th>Especialista</th>
+              <th>Descripcion del curso</th>
               <th>Fecha Inicio</th>
               <th>Fecha Fin</th>
             </tr>
           </thead>
           <tbody>
             {courses.map((course) => (
-              <tr key={course.id}>
+              <tr key={course.id_curso}>
                 <td>{course.nombre_curso}</td>
                 <td>{course.especialista}</td>
-                <td>{course.fecha_hora_Inicio}</td>
-                <td>{course.fecha_hora_Fin}</td>
+                <td>{course.descripcion}</td>
+                <td>{new Date(course.fecha_hora_Inicio).toLocaleDateString()}</td>
+                <td>{new Date(course.fecha_hora_Fin).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>
