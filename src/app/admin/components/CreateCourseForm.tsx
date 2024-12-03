@@ -1,23 +1,38 @@
 import React, { useState } from "react";
 
+interface FormData {
+  nombre_curso: string;
+  especialista: string;
+  rubro: string;
+  fecha_hora_Inicio: string;
+  fecha_hora_Fin: string;
+  hora: string;
+  imagen_curso: string;
+  descripcion: string;
+  detalles_curso: string;
+  tipo_curso: string;
+  recomendaciones: string;
+  sesiones: { nombre_sesion: string; descripcion: string; fecha_hora: string; modulos: { titulo_modulo: string; contenido: string }[] }[];
+}
+
 const CreateCoursePage = () => {
-  const [formData, setFormData] = useState({
-    title: "",
+  const [formData, setFormData] = useState<FormData>({
+    nombre_curso: "",
     especialista: "",
     rubro: "",
-    inicio: "",
-    fin: "",
+    fecha_hora_Inicio: "",
+    fecha_hora_Fin: "",
     hora: "",
-    image: "",
-    description: "",
-    detalles: "",
-    tipoCurso: "",
+    imagen_curso: "",
+    descripcion: "",
+    detalles_curso: "",
+    tipo_curso: "",
     recomendaciones: "",
-    sections: [],
+    sesiones: [],
   });
 
   // Actualizar el estado del formulario
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -25,13 +40,56 @@ const CreateCoursePage = () => {
     });
   };
 
+  const handleAddSection = () => {
+    setFormData({
+      ...formData,
+      sesiones: [
+        ...formData.sesiones,
+        { nombre_sesion: "", descripcion: "", fecha_hora: "", modulos: [] },
+      ],
+    });
+  };
+
+  const handleSectionChange = (index: number, field: string, value: string) => {
+    const newSesiones = [...formData.sesiones];
+    newSesiones[index] = { ...newSesiones[index], [field]: value };
+    setFormData({
+      ...formData,
+      sesiones: newSesiones,
+    });
+  };
+
+  const handleAddModule = (sectionIndex: number) => {
+    const newSesiones = [...formData.sesiones];
+    newSesiones[sectionIndex].modulos.push({ titulo_modulo: "", contenido: "" });
+    setFormData({
+      ...formData,
+      sesiones: newSesiones,
+    });
+  };
+
+  const handleModuleChange = (
+    sectionIndex: number,
+    moduleIndex: number,
+    field: string,
+    value: string
+  ) => {
+    const newSesiones = [...formData.sesiones];
+    newSesiones[sectionIndex].modulos[moduleIndex] = {
+      ...newSesiones[sectionIndex].modulos[moduleIndex],
+      [field]: value,
+    };
+    setFormData({
+      ...formData,
+      sesiones: newSesiones,
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Aquí podrías agregar validación de los datos antes de enviarlos a la API
-
     try {
-      const response = await fetch("/api/courses", {
+      const response = await fetch("/api/courses/crear", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,25 +98,24 @@ const CreateCoursePage = () => {
       });
 
       const data = await response.json();
-      if (data.success) {
+      if (data.error) {
+        alert("Hubo un error al crear el curso.");
+      } else {
         alert("Curso creado con éxito");
-        // Limpiar formulario después de enviar
         setFormData({
-          title: "",
+          nombre_curso: "",
           especialista: "",
           rubro: "",
-          inicio: "",
-          fin: "",
+          fecha_hora_Inicio: "",
+          fecha_hora_Fin: "",
           hora: "",
-          image: "",
-          description: "",
-          detalles: "",
-          tipoCurso: "",
+          imagen_curso: "",
+          descripcion: "",
+          detalles_curso: "",
+          tipo_curso: "",
           recomendaciones: "",
-          sections: [],
+          sesiones: [],
         });
-      } else {
-        alert("Hubo un error al crear el curso.");
       }
     } catch (error) {
       console.error("Error al crear el curso:", error);
@@ -68,11 +125,11 @@ const CreateCoursePage = () => {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Título del curso:
+        Nombre del curso:
         <input
           type="text"
-          name="title"
-          value={formData.title}
+          name="nombre_curso"
+          value={formData.nombre_curso}
           onChange={handleChange}
           required
         />
@@ -100,10 +157,9 @@ const CreateCoursePage = () => {
       <label>
         Fecha de inicio:
         <input
-          type="text"
-          name="inicio"
-          placeholder="dd/mm/yyyy"
-          value={formData.inicio}
+          type="date"
+          name="fecha_hora_Inicio"
+          value={formData.fecha_hora_Inicio}
           onChange={handleChange}
           required
         />
@@ -111,10 +167,9 @@ const CreateCoursePage = () => {
       <label>
         Fecha de fin:
         <input
-          type="text"
-          name="fin"
-          placeholder="dd/mm/yyyy"
-          value={formData.fin}
+          type="date"
+          name="fecha_hora_Fin"
+          value={formData.fecha_hora_Fin}
           onChange={handleChange}
           required
         />
@@ -122,7 +177,7 @@ const CreateCoursePage = () => {
       <label>
         Hora de inicio:
         <input
-          type="text"
+          type="time"
           name="hora"
           value={formData.hora}
           onChange={handleChange}
@@ -133,8 +188,8 @@ const CreateCoursePage = () => {
         Imagen del curso (URL):
         <input
           type="text"
-          name="image"
-          value={formData.image}
+          name="imagen_curso"
+          value={formData.imagen_curso}
           onChange={handleChange}
           required
         />
@@ -142,9 +197,9 @@ const CreateCoursePage = () => {
       <label>
         Descripción del curso:
         <input
-        type="text"
-          name="description"
-          value={formData.description}
+          type="text"
+          name="descripcion"
+          value={formData.descripcion}
           onChange={handleChange}
           required
         />
@@ -152,19 +207,19 @@ const CreateCoursePage = () => {
       <label>
         Detalles del curso:
         <input
-        type="text"
-          name="detalles"
-          value={formData.detalles}
+          type="text"
+          name="detalles_curso"
+          value={formData.detalles_curso}
           onChange={handleChange}
           required
         />
       </label>
       <label>
-        Tipo curso:
+        Tipo de curso:
         <input
-        type="text"
-          name="tipoCurso"
-          value={formData.tipoCurso}
+          type="text"
+          name="tipo_curso"
+          value={formData.tipo_curso}
           onChange={handleChange}
           required
         />
@@ -172,7 +227,7 @@ const CreateCoursePage = () => {
       <label>
         Recomendaciones:
         <input
-        type="text"
+          type="text"
           name="recomendaciones"
           value={formData.recomendaciones}
           onChange={handleChange}
@@ -180,10 +235,73 @@ const CreateCoursePage = () => {
         />
       </label>
 
-      {/* Aquí deberías agregar la funcionalidad para agregar secciones y módulos */}
       <div>
         <h3>Secciones</h3>
-        {/* Aquí añadirías una interfaz para agregar secciones y módulos dentro del formulario */}
+        {formData.sesiones.map((section, index) => (
+          <div key={index}>
+            <input
+              type="text"
+              placeholder="Nombre de la sesión"
+              value={section.nombre_sesion}
+              onChange={(e) =>
+                handleSectionChange(index, "nombre_sesion", e.target.value)
+              }
+            />
+            <input
+              type="text"
+              placeholder="Descripción de la sesión"
+              value={section.descripcion}
+              onChange={(e) =>
+                handleSectionChange(index, "descripcion", e.target.value)
+              }
+            />
+            <input
+              type="datetime-local"
+              placeholder="Fecha y hora de la sesión"
+              value={section.fecha_hora}
+              onChange={(e) =>
+                handleSectionChange(index, "fecha_hora", e.target.value)
+              }
+            />
+            <button type="button" onClick={() => handleAddModule(index)}>
+              Agregar Módulo
+            </button>
+            <div>
+              {section.modulos.map((module, moduleIndex) => (
+                <div key={moduleIndex}>
+                  <input
+                    type="text"
+                    placeholder="Título del módulo"
+                    value={module.titulo_modulo}
+                    onChange={(e) =>
+                      handleModuleChange(
+                        index,
+                        moduleIndex,
+                        "titulo_modulo",
+                        e.target.value
+                      )
+                    }
+                  />
+                  <textarea
+                    placeholder="Contenido del módulo"
+                    value={module.contenido}
+                    onChange={(e) =>
+                      handleModuleChange(
+                        index,
+                        moduleIndex,
+                        "contenido",
+                        e.target.value
+                      )
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+        <button type="button" onClick={handleAddSection}>
+          Agregar Sección
+        </button>
       </div>
 
       <button type="submit">Crear Curso</button>
