@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "./css/CoursesTable.module.css";
 
 const CoursesTable = () => {
   const [courses, setCourses] = useState<any[]>([]);
@@ -30,26 +31,30 @@ const CoursesTable = () => {
   return (
     <div>
       {error ? (
-        <p>Error: {error}</p>
+        <p className={styles.errorMessage}>Error: {error}</p> // Uso de la clase errorMessage
       ) : (
-        <table>
+        <table className={styles.table}>
           <thead>
             <tr>
-              <th>Título</th>
-              <th>Especialista</th>
-              <th>Descripcion del curso</th>
-              <th>Fecha Inicio</th>
-              <th>Fecha Fin</th>
+              <th className={styles.th}>Título</th>
+              <th className={styles.th}>Especialista</th>
+              <th className={styles.th}>Descripción del curso</th>
+              <th className={styles.th}>Fecha Inicio</th>
+              <th className={styles.th}>Fecha Fin</th>
             </tr>
           </thead>
           <tbody>
             {courses.map((course) => (
-              <tr key={course.id_curso}>
-                <td>{course.nombre_curso}</td>
-                <td>{course.especialista}</td>
-                <td>{course.descripcion}</td>
-                <td>{new Date(course.fecha_hora_Inicio).toLocaleDateString()}</td>
-                <td>{new Date(course.fecha_hora_Fin).toLocaleDateString()}</td>
+              <tr key={course.id_curso} className={styles.tr}>
+                <td className={styles.td}>{course.nombre_curso}</td>
+                <td className={styles.td}>{course.especialista}</td>
+                <td className={styles.td}>{course.descripcion}</td>
+                <td className={styles.td}>
+                  {new Date(course.fecha_hora_Inicio).toLocaleDateString()}
+                </td>
+                <td className={styles.td}>
+                  {new Date(course.fecha_hora_Fin).toLocaleDateString()}
+                </td>
               </tr>
             ))}
           </tbody>
