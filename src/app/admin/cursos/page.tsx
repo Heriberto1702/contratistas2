@@ -10,7 +10,6 @@ const AdminDashboardCursos = () => {
       <h1 className="text-2xl font-bold mb-4">Administración de Cursos</h1>
 
       <section className="mb-8">
-        <h2 className="text-xl font-semibold">Crear un Nuevo Curso</h2>
         <CreateCourseForm />
       </section>
 
