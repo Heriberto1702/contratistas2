@@ -1,77 +1,187 @@
 .formContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .inputField,
-  .textarea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.headerContainer {
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.section {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.fieldGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-weight: bold;
+}
+
+.inputField,
+.selectField,
+.textareaField {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.textareaField {
+  resize: vertical;
+  height: 100px;
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.buttonDanger {
+  background-color: #dc3545;
+}
+
+.buttonDanger:hover {
+  background-color: #a71d2a;
+}
+
+.submitContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.submitButton {
+  width: 100%;
+  max-width: 200px;
+}
+
+.subSection {
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.sectionContainer {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding:20px;
+  background-color: #f9f9f9;
+}
+
+@media (max-width: 600px) {
+  .formContainer {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
   }
-  
-  .inputField {
-    margin-bottom: 12px;
+
+  .fieldGroup {
+    grid-template-columns: 1fr;
   }
-  
-  .textarea {
-    min-height: 80px;
-    resize: vertical;
-  }
-  
-  .label {
-    display: flex;
-    flex-direction: column;
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
-  .sectionsContainer {
-    margin-top: 20px;
-  }
-  
-  .section {
-    margin-bottom: 16px;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-  }
-  
-  .section input,
-  .section textarea {
-    margin-bottom: 10px;
-  }
-  
-  .section h3 {
-    margin-bottom: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #444;
-  }
+}
+
+.moduleContainer {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+.moduleSubContainer{
+  padding: 15px;
+  border-radius: 8px;
+}
+.moduleTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.moduleFieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textareaField {
+  resize: vertical;
+  height: 100px;
+}
+
+.moduleActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.moduleButton {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.moduleButton:hover {
+  background-color: #0056b3;
+}
+
+.moduleButtonDanger {
+  background-color: #dc3545;
+}
+
+.moduleButtonDanger:hover {
+  background-color: #a71d2a;
+}
