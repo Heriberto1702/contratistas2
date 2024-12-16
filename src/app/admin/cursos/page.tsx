@@ -3,11 +3,6 @@
 import CoursesTable from "../components/CoursesTable";
 import CreateCourseForm from "../components/CreateCourseForm";
 
-
-
-
-
-
 const AdminDashboardCursos = () => {
 
   return (
