@@ -1,21 +1,29 @@
-// src/components/SectionAccordion.tsx
 "use client";
-import { Module, Section } from "../../../types/course";
 import { useState } from "react";
 import ModulePopup from "../ModulePopup/ModulePopup";
 import styles from "./SectionAccordion.module.css"; // Importando el módulo de estilos
 
 interface SectionAccordionProps {
-  section: Section;
+  section: {
+    id_sesion: string;
+    nombre_sesion: string;
+    descripcion: string;
+    Modulos: Array<{
+      id_modulo: string;
+      titulo_modulo: string;
+      contenido: string;
+      url: string;
+    }>;
+  };
 }
 
 const SectionAccordion: React.FC<SectionAccordionProps> = ({ section }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedModule, setSelectedModule] = useState<Module | null>(null);
+  const [selectedModule, setSelectedModule] = useState<null | { id_modulo: string; titulo_modulo: string; contenido: string; url: string }>(null);
 
   const toggleSection = () => setIsOpen(!isOpen);
 
-  const openPopup = (module: Module) => {
+  const openPopup = (module: { id_modulo: string; titulo_modulo: string; contenido: string; url: string }) => {
     setSelectedModule(module);
   };
 
@@ -26,25 +34,29 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({ section }) => {
   return (
     <div className={styles.accordionContainer}>
       <h2 className={styles.accordionTitle} onClick={toggleSection}>
-        Sesión {section.id}: {section.title}
+        Sesión {section.id_sesion}: {section.nombre_sesion}
       </h2>
 
       <div
         className={`${styles.accordionContent} ${isOpen ? styles.open : ""}`}
       >
-        <p className={styles.accordionDescription}>{section.description}</p>
+        <p className={styles.accordionDescription}>{section.descripcion}</p>
         <ul className={styles.moduleList}>
-          {section.modules.map((module) => (
-            <li key={module.id} className={styles.moduleItem}>
-              <button
-                className={styles.viewButton}
-                onClick={() => openPopup(module)}
-              >
-                Ver Video
-              </button>
-              {module.title}
-            </li>
-          ))}
+          {section.Modulos && section.Modulos.length > 0 ? (
+            section.Modulos.map((module) => (
+              <li key={module.id_modulo} className={styles.moduleItem}>
+                <button
+                  className={styles.viewButton}
+                  onClick={() => openPopup(module)}
+                >
+                  Ver Video
+                </button>
+                {module.titulo_modulo}
+              </li>
+            ))
+          ) : (
+            <li>No hay módulos disponibles para esta sesión.</li> // Mensaje si no hay módulos
+          )}
         </ul>
       </div>
       {selectedModule && (
