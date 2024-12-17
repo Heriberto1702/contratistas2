@@ -1,51 +1,62 @@
-// src/components/CourseDetail.tsx
-
 import Link from "next/link";
-import { Course } from "../../../types/course";
-import styles from "./CourseDetail.module.css"; // Importar el CSS
+import styles from "./CourseDetail.module.css";
 import Image from "next/image";
+import React from "react";
+
+interface Course {
+  id_curso: string;
+  nombre_curso: string;
+  fecha_hora_Inicio: string;
+  fecha_hora_Fin: string;
+  hora: string;
+  detalles_curso: string;
+  imagen_curso: string;
+  recomendaciones: string;
+  tipo_curso:string;
+}
+
 interface CourseDetailProps {
-  course: Course;
+  course: Course; // Recibir el curso como prop
 }
 
 const CourseDetail: React.FC<CourseDetailProps> = ({ course }) => {
+  if (!course) {
+    return <p className={styles.errorMessage}>Curso no encontrado.</p>;
+  }
+
   return (
     <div className={styles.container}>
       <Link href={`/academia/cursos`} className={styles.back}>
-  &#8592; Regresar
-</Link>
-      {/* Aplicar la clase del contenedor */}
-      <h1 className={styles.title}>{course.title}</h1>{" "}
-      {/* Aplicar la clase del título */}
-      <p className={styles.description}>{course.description}</p>{" "}
-      {/* Aplicar la clase de descripción */}
+        &#8592; Regresar
+      </Link>
+      <h1 className={styles.title}>{course.nombre_curso}</h1>
       <div className={styles.firstData}>
         <div className={styles.data}>
           <Image
             className={styles.image}
             width={128}
             height={100}
-            src={course.image}
-            alt=""
+            src={course.imagen_curso}
+            alt={course.nombre_curso}
           />
           <Link
-            href={`/academia/secciones/${course.id}`}
+            href={`/academia/secciones/${course.id_curso}`}
             className={styles.link}
           >
-            {" "}
-            {/* Aplicar la clase del enlace */}
             Iniciar Curso &#62;
           </Link>
         </div>
         <div className={styles.datacurso}>
-          <p>Inicia el {course.inicio}</p>
-          <p>Finaliza el {course.fin}</p>
+          <p>Inicia el: {course.fecha_hora_Inicio}</p>
+          <p>Finaliza el: {course.fecha_hora_Fin}</p>
           <p>Hora de inicio curso: {course.hora}</p>
         </div>
       </div>
       <div className={styles.secondData}>
-        <h1 className={styles.title}>Recomendaciones</h1>
-        <div dangerouslySetInnerHTML={{ __html: course.recomendaciones }} />
+      <h3 className={styles.title}>Detalles del Curso</h3>
+      <div>{course.detalles_curso }</div>
+        <h3 className={styles.title}>Recomendaciones</h3>
+        <div>{course.recomendaciones }</div>
       </div>
     </div>
   );
