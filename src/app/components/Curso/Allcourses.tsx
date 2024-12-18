@@ -8,6 +8,12 @@ const Page = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const formatDate = (isoDate: string): string => {
+      const date = new Date(isoDate);
+      return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${date.getFullYear()}`;
+    };
     const fetchCourses = async () => {
       try {
         const response = await fetch("/api/courses/obtener");
@@ -17,6 +23,12 @@ const Page = () => {
 
         const data = await response.json();
         if (Array.isArray(data)) {
+
+          data.forEach((course) => {
+            course.fecha_hora_Inicio = formatDate(course.fecha_hora_Inicio);
+            course.fecha_hora_Fin = formatDate(course.fecha_hora_Fin);
+          });
+          
           setCourses(data);
         } else {
           throw new Error("La respuesta no es un array");
@@ -29,7 +41,7 @@ const Page = () => {
 
     fetchCourses();
   }, []);
-
+  
   return (
     <div>
       {error ? (
