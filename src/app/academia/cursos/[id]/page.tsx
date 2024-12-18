@@ -24,6 +24,12 @@ const CourseDetailPage = () => {
   const params = useParams(); // Obtener el ID del curso desde la URL
 
   useEffect(() => {
+    const formatDate = (isoDate: string): string => {
+      const date = new Date(isoDate);
+      return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${date.getFullYear()}`;
+    };
     const fetchCourse = async () => {
       try {
         const response = await fetch("/api/courses/obtener");
@@ -37,6 +43,8 @@ const CourseDetailPage = () => {
         const foundCourse = data.find((c) => c.id_curso == params.id);
 
         if (foundCourse) {
+          foundCourse.fecha_hora_Inicio = formatDate(foundCourse.fecha_hora_Inicio);
+        foundCourse.fecha_hora_Fin = formatDate(foundCourse.fecha_hora_Fin);
           setCourse(foundCourse);
         } else {
           throw new Error("Curso no encontrado.");
