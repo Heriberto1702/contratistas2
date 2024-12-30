@@ -21,7 +21,27 @@ interface Course {
 const CourseDetailPage = () => {
   const [course, setCourse] = useState<Course | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [id_contratista, setIdContratista] = useState<number | null>(null);
   const params = useParams(); // Obtener el ID del curso desde la URL
+
+  useEffect(() => {
+    const fetchContratistaId = async () => {
+      try {
+        const response = await fetch("/api/user/idcontratista");
+        const data = await response.json();
+
+        if (response.ok) {
+          setIdContratista(data.id_contratista);
+        } else {
+          throw new Error("No se pudo obtener el ID del contratista.");
+        }
+      } catch (error: any) {
+        setError(error.message || "Hubo un problema al obtener el ID del contratista.");
+      }
+    };
+
+    fetchContratistaId();
+  }, []);
 
   useEffect(() => {
     const formatDate = (isoDate: string): string => {
@@ -71,7 +91,7 @@ const CourseDetailPage = () => {
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
-      <CourseDetail course={course} />
+      {id_contratista !== null && <CourseDetail course={course} id_contratista={id_contratista} />}
     </>
   );
 };
