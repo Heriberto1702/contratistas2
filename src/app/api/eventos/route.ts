@@ -1,29 +1,36 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from "../../../lib/prisma"; // Asegúrate de que la ruta sea correcta
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'GET') {
-    try {
-      const { year, month } = req.query;
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const year = parseInt(searchParams.get("year") || "");
+  const month = parseInt(searchParams.get("month") || "");
 
-      if (!year || !month) {
-        return res.status(400).json({ error: 'Year and month are required' });
-      }
+  if (!year || !month) {
+    return NextResponse.json(
+      { error: "Año y mes son requeridos." },
+      { status: 400 }
+    );
+  }
 
-      const eventos = await prisma.eventos.findMany({
-        where: {
-          fecha_hora: {
-            startsWith: `${year}-${String(month).padStart(2, '0')}`, // Filtra por mes y año
-          },
-        },
-      });
+  try {
+    const events = await prisma.eventos.findMany();
 
-      res.status(200).json(eventos);
-    } catch (error) {
-      res.status(500).json({ error: 'Error fetching events', details: error });
-    }
-  } else {
-    res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    // Filtrar eventos por año y mes procesando la fecha_hora como string
+    const filteredEvents = events.filter((event) => {
+      const eventDate = new Date(event.fecha_hora); // Convertir el string a Date
+      return (
+        eventDate.getFullYear() === year &&
+        eventDate.getMonth() + 1 === month // getMonth es 0-indexado
+      );
+    });
+
+    return NextResponse.json(filteredEvents);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Error al obtener los eventos." },
+      { status: 500 }
+    );
   }
 }
