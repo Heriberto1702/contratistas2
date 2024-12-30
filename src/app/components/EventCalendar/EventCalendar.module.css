@@ -1,291 +1,224 @@
+/* Contenedor principal */
 .container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  column-gap: 1rem;
-  padding: 0 20px;
-  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px;
 }
 
-.calendarContainer {
-  width: 100%;
-  max-width: 400px;
-  flex-shrink: 0;
+/* Lista de eventos */
+.eventList {
+  flex: 8;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.headerCalendar {
+/* Elemento individual del evento */
+.eventItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
-  width: 100%;
+  border: 1px solid #eaeaea;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
 }
 
-.headerCalendar h2 {
-  margin: 0 1rem;
+.eventItem:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen del evento */
+.eventImage {
+  flex-shrink: 0;
+  border-radius: 5px;
+}
+
+/* Detalles del evento */
+.eventDetails {
+  flex: 1;
+  margin-left: 10px;
+}
+
+/* Meta de evento (fecha, hora, lugar) */
+.eventMeta {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.divider {
+  margin: 10px 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+/* Botón de asistencia */
+.attendButton {
+  background-color: #ffc107;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.attendButton:hover {
+  background-color: #e0a800;
+}
+
+/* Calendario */
+.calendar {
+  flex: 4;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Encabezado del calendario */
+.headerCalendar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .headerCalendar button {
-  background: none;
+  background-color: transparent;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
-.calendar {
+.headerCalendar button:hover {
+  color: #007bff;
+}
+
+/* Nombres de los días */
+.dayNames {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
-.dayNames,
-.days {
-  display: contents;
-}
-
-.dayName,
-.day {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+  gap: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
   text-align: center;
-  cursor: pointer;
+}
+
+/* Días del mes */
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
 }
 
 .day {
   position: relative;
+  padding: 10px;
+  border: 1px solid #eaeaea;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
 }
 
 .day:hover {
-  background-color: rgb(138, 136, 136);
-  color: #ffffff;
-  border-radius: 50%;
+  background-color: #f0f0f0;
 }
 
 .eventMarker {
-  background: #fab932;
   width: 6px;
   height: 6px;
+  background-color: #FBB016;
   border-radius: 50%;
   position: absolute;
-  top: 5px;
-}
-
-.today {
-  background-color: #f0f8ff;
-  border-radius: 50%;
-}
-
-.eventList {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;  /* Asegura que el eventList esté debajo del calendario */
-}
-
-.eventItem {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid #a3a1a1;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.eventImage {
-  width: 70px;
-  height: auto;
-  margin-bottom: 0.5rem;
-  border-radius: 8px;
-}
-
-.information,
-.eventTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  column-gap: 1rem;
-}
-
-.eventItem div {
-  margin-bottom: 0.2rem;
-  margin-right: 10px;
-}
-
-.attendButton {
-  background-color: #fbb016;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  width: 92px;
-}
-
-.attendButton:hover {
-  background-color: #45a049;
-}
-
-.attendButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.cancelButton {
-  background-color: #000;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.cancelButton:hover {
-  background-color: #444444;
-}
-
-.cancelButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.otherMonthDay {
-  color: #ccc;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .selectedDay {
-  background-color: #d3f8d3; /* Color de fondo para el día seleccionado */
-  border-radius: 50%;
+  background-color: #ffeeba;
+  border-color: #ffc107;
 }
 
-/* Media Queries */
-@media (max-width: 1200px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .calendarContainer {
-    width: 100%;
-    margin-top: 2rem;
-  }
-
-  .eventList {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;  /* Asegura que el eventList siempre esté debajo */
-  }
-
-  .eventItem {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .eventTitle {
-    align-items: center;
-  }
-
-  .information {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .attendButton {
-    width: 100%;
-    margin-top: 1rem;
-  }
+/* Día actual resaltado en amarillo */
+.today {
+  background-color: #FBB016;
+  color: #000;
+  font-weight: bold;
 }
 
+/* Media query para pantallas móviles */
 @media (max-width: 768px) {
   .container {
-    padding: 0 10px;
+    flex-direction: column;
+    gap: 20px;
   }
 
-  .calendarContainer {
-    width: 100%;
-    margin-top: 2rem;
-  }
-
-  .headerCalendar h2 {
-    font-size: 1.25rem;
-  }
-
+  .eventList,
   .calendar {
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+    flex: 1;
+    max-width: none;
   }
 
+  /* Ajustar el tamaño de los eventos */
   .eventItem {
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    gap: 15px;
   }
 
   .eventImage {
-    width: 60px;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
   }
 
+  .eventDetails {
+    margin-left: 0;
+    font-size: 0.9em;
+  }
+
+  .eventMeta {
+    font-size: 0.8em;
+  }
+
+  /* Botón de asistencia */
   .attendButton {
     width: 100%;
-    margin-top: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 5px;
+    padding: 12px 0;
+    font-size: 1rem;
   }
 
-  .calendarContainer {
-    width: 100%;
-    margin-top: 1.5rem;
-  }
-
+  /* Cambiar la disposición del calendario */
   .calendar {
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+    margin-top: 20px;
   }
 
-  .eventItem {
+  .headerCalendar {
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
   }
 
-  .eventImage {
-    width: 50px;
+  .dayNames {
+    grid-template-columns: repeat(7, 1fr);
   }
 
-  .attendButton {
-    width: 100%;
-    margin-top: 1rem;
-    padding: 0.5rem;
-    font-size: 0.9rem;
+  .days {
+    grid-template-columns: repeat(7, 1fr);
   }
 
-  .cancelButton {
-    width: 100%;
-    margin-top: 1rem;
-    padding: 0.5rem;
-    font-size: 0.9rem;
+  /* Ajustar el tamaño de los días */
+  .day {
+    padding: 8px;
   }
 }
