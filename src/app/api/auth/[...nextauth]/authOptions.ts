@@ -1,10 +1,31 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Session, User } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      email: string;
+      name: string;
+      id_contratista: string;
+    };
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    email: string;
+    name: string;
+    id_contratista: string;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
+
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -12,6 +33,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
+        Id_contratista: { label: "Id_contratista", type: "number" },
       },
       authorize: async (credentials) => {
         if (!credentials?.email || !credentials?.password) {
@@ -34,6 +56,7 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: user.id_contratista.toString(),
+          id_contratista: user.id_contratista.toString(),
           email: user.email,
           name: `${user.nombres_contratista} ${user.apellidos_contratista}`,
         };
@@ -49,6 +72,7 @@ export const authOptions: NextAuthOptions = {
           id: token.id as string,
           email: token.email as string,
           name: token.name as string,
+          id_contratista: token.id_contratista as string, // Asegúrate de incluir id_contratista
         };
       }
       return session;
@@ -56,8 +80,9 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
+        token.email = user.email!;
+        token.name = user.name ?? '';
+        token.id_contratista = (user as any).id_contratista; // Asegúrate de incluir id_contratista
       }
       return token;
     },

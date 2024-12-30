@@ -9,10 +9,10 @@
 .title {
   font-size: 30px; /* Tamaño de fuente grande */
   font-weight: 700; /* Negrita */
-  color: #fff; /* Color del texto */
+  color: #000000; /* Color del texto */
 }
 .texto {
-  color: #fff; /* Color del texto */
+  color: #020202; /* Color del texto */
 }
 .subtitle {
   font-size: 35px; /* Tamaño de fuente grande */

@@ -6,6 +6,7 @@ import BannerSlidernew from "../../../components/BannerSlidernew/BannerSlidernew
 import SectionAccordion from "../../../components/SectionAccordion/SectionAccordion";
 import NavBar from "../../../components/navbar/NavBar";
 import styles from "./SectionsPage.module.css";
+import Link from "next/link";
 
 interface Course {
   id_curso: string;
@@ -64,6 +65,7 @@ const SectionsPage = () => {
       <BannerSlidernew images={images} interval={3000} />
 
       <div className={styles.container}>
+      <Link href={`/academia/cursos/${courseId}`}>Regresar</Link>
         <h1 className={styles.title}>{course.nombre_curso}</h1>
         <p className={styles.texto}>
           Por {course.especialista}, especialista en {course.rubro}
