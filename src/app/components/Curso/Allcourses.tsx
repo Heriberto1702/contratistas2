@@ -5,7 +5,10 @@ import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const [courses, setCourses] = useState<any[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filterType, setFilterType] = useState<string>("todos"); // todos | misCursos | resultados
 
   useEffect(() => {
     const formatDate = (isoDate: string): string => {
@@ -14,6 +17,7 @@ const Page = () => {
         .toString()
         .padStart(2, "0")}/${date.getFullYear()}`;
     };
+
     const fetchCourses = async () => {
       try {
         const response = await fetch("/api/courses/obtener");
@@ -23,13 +27,13 @@ const Page = () => {
 
         const data = await response.json();
         if (Array.isArray(data)) {
-
           data.forEach((course) => {
             course.fecha_hora_Inicio = formatDate(course.fecha_hora_Inicio);
             course.fecha_hora_Fin = formatDate(course.fecha_hora_Fin);
           });
-          
+
           setCourses(data);
+          setFilteredCourses(data); // Inicializamos los cursos filtrados
         } else {
           throw new Error("La respuesta no es un array");
         }
@@ -41,15 +45,70 @@ const Page = () => {
 
     fetchCourses();
   }, []);
-  
+
+  // Actualizar los cursos filtrados cuando cambia el término de búsqueda o el filtro
+  useEffect(() => {
+    let filtered = courses;
+
+    // Aplicar búsqueda por nombre o tipo
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (course) =>
+          course.nombre_curso.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          course.tipo_curso.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Aplicar filtros específicos
+    if (filterType === "misCursos") {
+      filtered = filtered.filter((course) => course.isEnrolled); // Suponiendo que el backend devuelve esta propiedad
+    } else if (filterType === "resultados") {
+      filtered = filtered.filter((course) => course.relevante); // Ejemplo: campo personalizado
+    }
+
+    setFilteredCourses(filtered);
+  }, [searchTerm, filterType, courses]);
+
   return (
     <div>
       {error ? (
         <p className={styles.errorMessage}>Error: {error}</p>
       ) : (
         <div className={styles.container}>
+          {/* Buscador */}
+          <input
+            type="text"
+            placeholder="Buscar cursos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.searchInput}
+          />
+
+          {/* Filtros */}
+          <div className={styles.filters}>
+            <button
+              className={filterType === "todos" ? styles.activeFilter : ""}
+              onClick={() => setFilterType("todos")}
+            >
+              Todos los cursos
+            </button>
+            <button
+              className={filterType === "misCursos" ? styles.activeFilter : ""}
+              onClick={() => setFilterType("misCursos")}
+            >
+              Mis cursos
+            </button>
+            <button
+              className={filterType === "resultados" ? styles.activeFilter : ""}
+              onClick={() => setFilterType("resultados")}
+            >
+              Resultados
+            </button>
+          </div>
+
+          {/* Listado de cursos */}
           <ul className={styles.list}>
-            {courses.map((course) => (
+            {filteredCourses.map((course) => (
               <li key={course.id_curso} className={styles.listItem}>
                 <div className={styles.continarcurso}>
                   <div className={styles.continarimage}>
