@@ -2,6 +2,7 @@
 import { useState } from "react";
 import ModulePopup from "../ModulePopup/ModulePopup";
 import styles from "./SectionAccordion.module.css"; // Importando el módulo de estilos
+import Link from "next/link";
 
 interface SectionAccordionProps {
   section: {
@@ -32,9 +33,11 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({ section }) => {
   };
 
   return (
+    
     <div className={styles.accordionContainer}>
+      
       <h2 className={styles.accordionTitle} onClick={toggleSection}>
-        Sesión {section.id_sesion}: {section.nombre_sesion}
+        {section.nombre_sesion}
       </h2>
 
       <div
