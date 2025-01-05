@@ -6,125 +6,111 @@ import ImageText from "../components/Imagen/Imagen";
 import Modulo from "../components/Modulo/Modulo";
 import TitleText from "../components/Text/TitleText";
 import React from "react";
-import LinkComponent from "../components/LinkComponent/LinkComponent";
+import Link from "next/link";
+import Image from "next/image";
 import NavBar from "../components/navbar/NavBar";
+import LinkComponent from "../components/LinkComponent/LinkComponent";
 
 const Page = () => {
   const images = ["/banneracademia.png"];
+
+  // Declaración de las cards con sus datos
+  const cards = [
+    { id: '1', title: 'PDF 1', image: '/card1.png' },
+    { id: '2', title: 'PDF 2', image: '/card2.png' },
+    { id: '3', title: 'PDF 3', image: '/card3.png' },
+  ];
+
   return (
     <>
-      <NavBar/>
+      {/* Barra de navegación */}
+      <NavBar />
+      
+      {/* Banner principal */}
       <BannerSlidernew images={images} interval={3000} />
+      
+      {/* Introducción */}
       <TitleText
         title="¿Qué es Academia para Contratistas?"
         text="Es una plataforma online de capacitación del Círculo de Especialistas en la que solo por ser socio podrá aprender diversas técnicas y conocer nuevos productos e innovaciones para perfeccionar su trabajo."
       />
-      <Container
-        displayType="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-      >
+      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
         <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
       </Container>
-      <TitleText subtitle="¿Qué puede encontrar en nuestra Academia para Especialistas?" />
-      <Container
-        displayType="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-        gap="4rem"
-      >
-        <ImageText imageUrl="/tools.png" alt="" text="Talleres Prácticos" />
-        <ImageText imageUrl="/play.png" alt="" text="Cápsula digital" />
-        <ImageText
-          imageUrl="/feriaregional.png"
-          alt=""
-          text="Ferias Regionales"
-        />
+
+      {/* Sección de cards */}
+      <TitleText subtitle="Documentos disponibles" />
+      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center" gap="1rem">
+        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {cards.map((card) => (
+            <div
+              key={card.id}
+              style={{
+                border: '1px solid #ccc',
+                padding: '20px',
+                textAlign: 'center',
+                width: '250px',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <h3>{card.title}</h3>
+              <Image
+                src={card.image}
+                alt={card.title}
+                width={200}
+                height={150}
+                style={{ objectFit: 'cover', marginBottom: '10px' }}
+              />
+              {/* Actualización aquí: usando Link sin <a> */}
+              <Link href={`/academia/docpdf/${card.id}`} passHref>
+                <span style={{ display: 'inline-block', marginTop: '10px', color: '#0070f3', textDecoration: 'underline' }}>
+                  Leer más  
+                </span>
+              </Link>
+            </div>
+          ))}
+        </div>
       </Container>
 
-      <Container
-        displayType="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-        gap="1rem"
-      >
-        <Modulo
-          title="Como fidelizar a sus clientes."
-          imageUrl="/card1.png"
-          url="academia/docpdf/1"
-          linkText="Leer más >"
-          title2="Como armar un buen presupuesto."
-          imageUrl2="/card2.png"
-          url2="academia/docpdf/2"
-          linkText2="Leer más >"
-          title3="Como formalizar su empresa."
-          imageUrl3="/card3.png"
-          url3="academia/docpdf/3"
-          linkText3="Leer más >"
-        />
-      </Container>
-
+      {/* Calendario de actividades */}
       <TitleText subtitle="Calendario de Actividades" />
-      <Container
-        displayType="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-      >
+      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
         <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
       </Container>
       <EventCalendar />
+
+      {/* Cursos destacados */}
       <TitleText subtitle="Cursos Destacados" />
-      <Container
-        displayType="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-      >
+      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
         <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
       </Container>
-      <Container
-        displayType="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-        gap="1rem"
-      >
+      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center" gap="1rem">
         <Modulo
-          title="Instalaciones electricas básicas domiciliarias"
+          title="Instalaciones eléctricas básicas domiciliarias"
           imageUrl="/curso1.png"
           logo="/schneider.png"
           url="academia/secciones/1"
           linkText="Leer más >"
-
           title2="Capacitación Online Drytec"
           imageUrl2="/curso2.png"
           logo2="/drytec.png"
           url2="academia/secciones/2"
           linkText2="Leer más >"
-
           title3="Lo que debes saber sobre pintura."
           imageUrl3="/curso3.png"
           logo3="/lanco.png"
           url3="academia/secciones/3"
           linkText3="Leer más >"
-
         />
       </Container>
-      <TitleText subtitle="Todo lo que necesitás para perfeccionarte" />
-      <Container
-        displayType="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-      <LinkComponent href="/academia/cursos" text="Ver más cursos >" />
-      </Container>
 
+      {/* Enlace para ver más cursos */}
+      <TitleText subtitle="Todo lo que necesitás para perfeccionarte" />
+      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
+        <LinkComponent href="/academia/cursos" text="Ver más cursos >" />
+      </Container>
     </>
   );
 };
+
 export default Page;
