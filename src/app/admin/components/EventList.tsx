@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./css/EventosListados.module.css";
+import Image from "next/image";
 
 const EventList = () => {
   const [eventos, setEventos] = useState<any[]>([]);
@@ -55,7 +56,7 @@ const EventList = () => {
                   {new Date(evento.fecha_hora).toLocaleString()}
                 </td>
                  <td className={styles.td}>
-                  <img
+                  <Image
                     src={evento.imagen_evento}
                     alt={`Imagen de ${evento.nombre_evento}`}
                     className={styles.image}
