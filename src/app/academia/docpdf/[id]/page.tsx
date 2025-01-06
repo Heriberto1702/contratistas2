@@ -28,10 +28,10 @@ const DocsPage = ({ params }: { params: { id: string } }) => {
     <>
        <NavBar />
 
-      {/* Banner con la imagen correspondiente */}
+
       <BannerSlidernew images={bannerImages} interval={3000} />
 
-      {/* Mostrar la imagen de acuerdo con el ID */}
+
       <div style={{ textAlign: 'center', marginTop: '30px' }}>
         <h1>{selectedImage.title}</h1>
         <Image
