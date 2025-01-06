@@ -11,14 +11,15 @@ import Image from "next/image";
 import NavBar from "../components/navbar/NavBar";
 import LinkComponent from "../components/LinkComponent/LinkComponent";
 
+
 const Page = () => {
   const images = ["/banneracademia.png"];
 
   // Declaración de las cards con sus datos
   const cards = [
-    { id: '1', title: 'PDF 1', image: '/card1.png' },
-    { id: '2', title: 'PDF 2', image: '/card2.png' },
-    { id: '3', title: 'PDF 3', image: '/card3.png' },
+    { id: '1', title: '', image: '/card1.png' },
+    { id: '2', title: '', image: '/card2.png' },
+    { id: '3', title: '', image: '/card3.png' },
   ];
 
   return (
