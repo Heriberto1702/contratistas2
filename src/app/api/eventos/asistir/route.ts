@@ -3,7 +3,16 @@ import prisma from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
-    const { id_evento, id_contratista } = await request.json();
+    const body = await request.json().catch(() => null);
+
+    if (!body) {
+      return NextResponse.json(
+        { message: "Cuerpo de la solicitud no válido." },
+        { status: 400 }
+      );
+    }
+
+    const { id_evento, id_contratista } = body;
 
     if (!id_evento || !id_contratista) {
       return NextResponse.json(
@@ -12,8 +21,32 @@ export async function POST(request: Request) {
       );
     }
 
+    // Verificar si el evento existe
+    const evento = await prisma.eventos.findUnique({
+      where: { id_evento },
+    });
+
+    if (!evento) {
+      return NextResponse.json(
+        { message: "Evento no encontrado." },
+        { status: 404 }
+      );
+    }
+
+    // Verificar si el usuario ya está registrado en el evento
+    const asistenciaExistente = await prisma.eventos_Asistidos.findFirst({
+      where: { id_evento, id_contratista },
+    });
+
+    if (asistenciaExistente) {
+      return NextResponse.json(
+        { message: "Ya estás registrado en este evento." },
+        { status: 409 }
+      );
+    }
+
     // Actualizar el número de cupos en la tabla Eventos
-    const evento = await prisma.eventos.update({
+    const eventoActualizado = await prisma.eventos.update({
       where: { id_evento },
       data: {
         cupo_reservado: {
@@ -31,7 +64,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(
-      { message: "Asistencia registrada correctamente.", evento, asistencia },
+      { message: "Asistencia registrada correctamente.", evento: eventoActualizado, asistencia },
       { status: 201 }
     );
   } catch (error: any) {
