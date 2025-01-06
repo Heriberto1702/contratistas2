@@ -124,7 +124,7 @@ const AdminEventos = () => {
          <input
           type="number"
           name="cupo_reservado"
-          placeholder="cupo_reservado"
+          placeholder="Cupos Reservados"
           value={formData.cupo_reservado}
           onChange={handleChange}
           max={100}
