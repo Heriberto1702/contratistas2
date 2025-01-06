@@ -5,10 +5,23 @@ import Image from 'next/image';
 import BannerSlidernew from "../../../components/BannerSlidernew/BannerSlidernew";
 import NavBar from "../../../components/navbar/NavBar";
 
-
-
   const bannerImages = ["/banneracademia.png"];
-const DocsPage = ({ params }: { params: { id: string } }) => {
+
+  interface PageProps {
+    params: {
+      id: string;
+    };
+  }
+  
+  export async function generateStaticParams() {
+    return [
+      { id: '1' },
+      { id: '2' },
+      { id: '3' },
+    ];
+  }
+
+const DocsPage = ({ params }: PageProps) => {
 
   // Datos de las imágenes, no de PDFs
   const images: Record<string, { title: string; url: string }> = {
@@ -28,10 +41,10 @@ const DocsPage = ({ params }: { params: { id: string } }) => {
     <>
        <NavBar />
 
-      {/* Banner con la imagen correspondiente */}
+
       <BannerSlidernew images={bannerImages} interval={3000} />
 
-      {/* Mostrar la imagen de acuerdo con el ID */}
+
       <div style={{ textAlign: 'center', marginTop: '30px' }}>
         <h1>{selectedImage.title}</h1>
         <Image
