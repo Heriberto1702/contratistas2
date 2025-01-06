@@ -27,8 +27,9 @@ export async function POST(request: Request) {
   const cupos = parseInt(form.get("cupos") as string, 10);
   const fecha_hora = form.get("fecha_hora") as string;
   const imagen_evento = form.get("imagen_evento") as File;
+  const cupo_reservado = parseInt(form.get("cupo_reservado") as string, 10)
 
-  if (!nombre_evento || !locacion || isNaN(cupos) || !fecha_hora || !imagen_evento) {
+  if (!nombre_evento || !locacion || isNaN(cupos) || !fecha_hora || !imagen_evento || isNaN(cupo_reservado)) {
     return NextResponse.json(
       { error: "Faltan campos obligatorios." },
       { status: 400 }
@@ -63,6 +64,7 @@ export async function POST(request: Request) {
         cupos,
         fecha_hora,
         imagen_evento: imageUrl,
+        cupo_reservado,
       },
     });
 

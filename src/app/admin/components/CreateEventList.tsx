@@ -10,6 +10,7 @@ const AdminEventos = () => {
     imagen_evento: File | null;
     fecha: string;
     hora: string;
+    cupo_reservado:string;
   }>({
     nombre_evento: "",
     locacion: "",
@@ -17,6 +18,7 @@ const AdminEventos = () => {
     imagen_evento: null,
     fecha: "",
     hora: "",
+    cupo_reservado:"",
   });
 
   const tiendas = [
@@ -62,7 +64,7 @@ const AdminEventos = () => {
     form.append("cupos", formData.cupos);
     if (formData.imagen_evento) form.append("imagen_evento", formData.imagen_evento);
     form.append("fecha_hora", fecha_hora);
-
+    form.append("cupo_reservado", formData.cupo_reservado);
     try {
       const response = await fetch("/api/eventos/crear", {
         method: "POST",
@@ -78,6 +80,7 @@ const AdminEventos = () => {
           imagen_evento: null,
           fecha: "",
           hora: "",
+          cupo_reservado:"",
         });
       } else {
         alert("Error al crear el evento.");
@@ -113,6 +116,15 @@ const AdminEventos = () => {
           name="cupos"
           placeholder="Cupos"
           value={formData.cupos}
+          onChange={handleChange}
+          max={100}
+          required
+        />
+         <input
+          type="number"
+          name="cupo_reservado"
+          placeholder="cupo_reservado"
+          value={formData.cupo_reservado}
           onChange={handleChange}
           max={100}
           required
