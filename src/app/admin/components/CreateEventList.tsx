@@ -65,6 +65,7 @@ const AdminEventos = () => {
     if (formData.imagen_evento) form.append("imagen_evento", formData.imagen_evento);
     form.append("fecha_hora", fecha_hora);
     form.append("cupo_reservado", formData.cupo_reservado);
+    
     try {
       const response = await fetch("/api/eventos/crear", {
         method: "POST",
