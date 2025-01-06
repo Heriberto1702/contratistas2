@@ -6,8 +6,8 @@ import ImageText from "../components/Imagen/Imagen";
 import Modulo from "../components/Modulo/Modulo";
 import TitleText from "../components/Text/TitleText";
 import React from "react";
+import Styles from "../components/Modulo/Modulo.module.css"
 import Link from "next/link";
-import Image from "next/image";
 import NavBar from "../components/navbar/NavBar";
 import LinkComponent from "../components/LinkComponent/LinkComponent";
 
@@ -17,9 +17,9 @@ const Page = () => {
 
   // Declaración de las cards con sus datos
   const cards = [
-    { id: '1', title: '', image: '/card1.png' },
-    { id: '2', title: '', image: '/card2.png' },
-    { id: '3', title: '', image: '/card3.png' },
+    { id: '1', title: "Como fidelizar a sus clientes.", image: '/card1.png' },
+    { id: '2', title: "Como armar un buen presupuesto.", image: '/card2.png' },
+    { id: '3', title: "Como formalizar su empresa.", image: '/card3.png' },
   ];
 
   return (
@@ -38,33 +38,42 @@ const Page = () => {
       <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
         <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
       </Container>
+      <TitleText subtitle="¿Qué puede encontrar en nuestra Academia para Especialistas?" />
+      <Container
+        displayType="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        gap="4rem"
+      >
+        <ImageText imageUrl="/tools.png" alt="" text="Talleres Prácticos" />
+        <ImageText imageUrl="/play.png" alt="" text="Cápsula digital" />
+        <ImageText
+          imageUrl="/feriaregional.png"
+          alt=""
+          text="Ferias Regionales"
+        />
+      </Container>
 
       {/* Sección de cards */}
       <TitleText subtitle="Documentos disponibles" />
       <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center" gap="1rem">
-        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '20px', justifyContent: 'center',width: '100%'}}>
           {cards.map((card) => (
-            <div
+            <div className={Styles.subcontainer} style={{
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${card.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              width: "100%",
+              height: "185px",
+            }}
               key={card.id}
-              style={{
-                border: '1px solid #ccc',
-                padding: '20px',
-                textAlign: 'center',
-                width: '250px',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-              }}
             >
-              <h3>{card.title}</h3>
-              <Image
-                src={card.image}
-                alt={card.title}
-                width={200}
-                height={150}
-                style={{ objectFit: 'cover', marginBottom: '10px' }}
-              />
+              <h3 className={Styles.title} >{card.title}</h3>
               {/* Actualización aquí: usando Link sin <a> */}
-              <Link href={`/academia/docpdf/${card.id}`} passHref>
-                <span style={{ display: 'inline-block', marginTop: '10px', color: '#0070f3', textDecoration: 'underline' }}>
+              <Link className={Styles.url} href={`/academia/docpdf/${card.id}`} passHref>
+                <span >
                   Leer más  
                 </span>
               </Link>

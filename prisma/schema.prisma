@@ -116,7 +116,7 @@ model Eventos {
   cupos         Int
   imagen_evento String
   fecha_hora    String
-  cupo_reservado Int?
+  cupo_reservado Int
   eventAsist    Eventos_Asistidos[]
 }
 
