@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 declare module "next-auth" {
   interface Session {
     user: {
+      image: any;
       id: string;
       email: string;
       name: string;
@@ -69,6 +70,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.user = {
+          image: null, // or provide a default value
           id: token.id as string,
           email: token.email as string,
           name: token.name as string,
