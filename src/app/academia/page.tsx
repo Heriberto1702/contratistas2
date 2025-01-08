@@ -66,7 +66,7 @@ const Page = () => {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               width: "100%",
-              height: "185px",
+              height: "185px", 
             }}
               key={card.id}
             >
@@ -87,7 +87,7 @@ const Page = () => {
       <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
         <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
       </Container>
-      <EventCalendar />
+      <EventCalendar  />
 
       {/* Cursos destacados */}
       <TitleText subtitle="Cursos Destacados" />
