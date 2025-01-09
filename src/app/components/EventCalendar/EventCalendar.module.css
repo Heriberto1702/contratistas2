@@ -228,7 +228,7 @@
 /* Contenedor general del mensaje */
 .message {
   position: fixed;
-  top: 20px;
+  top: 10px;
   right: 20px;
   width: 350px;
   padding: 12px 16px;
@@ -247,14 +247,10 @@
   color: #fff;
   border-left: 5px solid #218838;
 }
-.error {
-  background-color: #ff9100;
-  color: #fff;
-  border-left: 5px solid #ff9100;
-}
+
 /* Mensaje de error */
 .error {
-  background-color: #dc3545;
+  background-color: #c82333;
   color: #fff;
   border-left: 5px solid #c82333;
 }

@@ -33,6 +33,14 @@ export async function POST(request: Request) {
       );
     }
 
+    // Verificar cupos disponibles
+    if (evento.cupos === 0) {
+      return NextResponse.json(
+        { message: "No hay cupos disponibles para este evento." },
+        { status: 409 }
+      );
+    }
+
     // Verificar si el usuario ya está registrado en el evento
     const asistenciaExistente = await prisma.eventos_Asistidos.findFirst({
       where: { id_evento, id_contratista: idContratistaInt },
@@ -52,9 +60,9 @@ export async function POST(request: Request) {
         cupo_reservado: {
           increment: 1,
         },
-        cupos:{
+        cupos: {
           decrement: 1,
-        }
+        },
       },
     });
 
@@ -62,18 +70,29 @@ export async function POST(request: Request) {
     const asistencia = await prisma.eventos_Asistidos.create({
       data: {
         id_evento,
-        id_contratista: idContratistaInt ,
+        id_contratista: idContratistaInt,
       },
     });
 
     return NextResponse.json(
-      { message: "Asistencia registrada correctamente.", evento: eventoActualizado, asistencia },
+      {
+        message: "Asistencia registrada correctamente.",
+        evento: eventoActualizado,
+        asistencia,
+      },
       { status: 201 }
     );
   } catch (error: any) {
     console.error("Error al registrar asistencia:", error.message || error);
+
+    // Retornar el mensaje del error específico si está disponible
+    const message =
+      error.message === "No hay cupos disponibles para este evento."
+        ? error.message
+        : "Error al registrar la asistencia.";
+
     return NextResponse.json(
-      { message: "Error al registrar la asistencia.", error: error.message || "Error desconocido." },
+      { message, error: error.message || "Error desconocido." },
       { status: 500 }
     );
   }
