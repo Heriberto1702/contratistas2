@@ -3,20 +3,20 @@ import prisma from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json().catch(() => null);
+    const { id_contratista, id_evento } = await request.json();
 
-    if (!body) {
+    if (!id_contratista || !id_evento) {
       return NextResponse.json(
-        { message: "Cuerpo de la solicitud no válido." },
+        { message: "Datos incompletos para la inscripción." },
         { status: 400 }
       );
     }
 
-    const { id_evento, id_contratista } = body;
+    const idContratistaInt = parseInt(id_contratista, 10); // Convertir a número entero
 
-    if (!id_evento || !id_contratista) {
+    if (isNaN(idContratistaInt)) {
       return NextResponse.json(
-        { message: "Datos incompletos para la asistencia." },
+        { message: "ID del contratista no válido." },
         { status: 400 }
       );
     }
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
     // Verificar si el usuario ya está registrado en el evento
     const asistenciaExistente = await prisma.eventos_Asistidos.findFirst({
-      where: { id_evento, id_contratista },
+      where: { id_evento, id_contratista: idContratistaInt },
     });
 
     if (asistenciaExistente) {
@@ -52,6 +52,9 @@ export async function POST(request: Request) {
         cupo_reservado: {
           increment: 1,
         },
+        cupos:{
+          decrement: 1,
+        }
       },
     });
 
@@ -59,7 +62,7 @@ export async function POST(request: Request) {
     const asistencia = await prisma.eventos_Asistidos.create({
       data: {
         id_evento,
-        id_contratista,
+        id_contratista: idContratistaInt ,
       },
     });
 
