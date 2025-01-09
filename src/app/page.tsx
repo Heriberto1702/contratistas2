@@ -6,6 +6,7 @@ import SimpleCard from "@/app/components/SimpleCard/SimpleCard";
 import TitleText from "@/app/components/Text/TitleText";
 import Banner from "./components/Banner/Banner";
 import NavBar from "./components/navbar/NavBar";
+import Beneficios from './components/Beneficios/Beneficios';
 
 const Page = () => {
   const images = ["/banner.png", "/banner.png"];
@@ -83,13 +84,11 @@ const Page = () => {
       <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría y beneficios" />
       <Cards />
 
-      <Banner
-        imageUrl="/canjear.png"
-        linkUrl="https://www.example.com"
-        altText="Ejemplo de imagen"
-        width={1224}
-        height={317}
-      />
+      <section id="beneficios">
+      <TitleText subtitle="Beneficios para Contratistas" />
+      <Beneficios />
+      </section>
+
       <TitleText subtitle="Conoce lo nuevo en capacitación" />
       <DoubleCarousel
         banners={banners}

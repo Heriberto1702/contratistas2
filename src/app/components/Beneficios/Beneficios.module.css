@@ -1,0 +1,73 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas en pantallas grandes */
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 16px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .descripcion {
+    font-size: 18px;
+    color: #666;
+    margin: 8px 0;
+  }
+  
+  .titulo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin: 4px 0;
+  }
+  
+  .descuento {
+    font-size: 30px;
+    font-weight: bold;
+    color: red;
+    margin-top: 8px;
+  }
+  
+  /* Estilos responsivos para móviles */
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+      gap: 16px;
+    }
+  
+    .card {
+      padding: 12px; /* Reduce el padding en tarjetas */
+    }
+  
+    .descripcion {
+      font-size: 16px; /* Ajusta el tamaño de fuente */
+    }
+  
+    .titulo {
+      font-size: 18px;
+    }
+  
+    .descuento {
+      font-size: 24px;
+    }
+  }
+  
