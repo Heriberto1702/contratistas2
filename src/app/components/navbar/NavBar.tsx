@@ -56,6 +56,9 @@ const NavBar: React.FC = () => {
           <Link className={Styles.a} href="/documentosutiles">
             Documentos
           </Link>
+          <Link className={Styles.a} href="/#beneficios">
+            Beneficios
+          </Link>
           <Link className={Styles.a} href="/galeria">
             Galería
           </Link>
