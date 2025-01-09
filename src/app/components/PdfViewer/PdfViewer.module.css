@@ -14,21 +14,33 @@
 
 /* Estilos para el título */
 .Title {
+  padding-top: 30px;
   font-size: 40px;
   font-weight: 500;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 /* Estilos para el subtítulo o descripción */
 .Subtitle {
-  font-size: 25px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 300;
   margin-bottom: 10px;
+  text-align: center;
+  padding-bottom: 30px;
 }
 
 /* Imagen */
 .img {
+margin: 0 auto;
   width: 80%;
   height: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para la imagen */
+}
+
+.breadcumb{
+  font-weight: 600;
+  margin-bottom: 15px; 
+  color:#fbc843;
+  font-size: 20px;
 }

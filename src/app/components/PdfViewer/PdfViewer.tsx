@@ -1,13 +1,13 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './PdfViewer.module.css'; // Asegúrate de tener este archivo CSS
+import Styles from './PdfViewer.module.css'; // Asegúrate de tener este archivo CSS
 
 // Arreglo de imágenes con su título y URL
-const images: Record<string, { title: string; url: string }> = {
-  '1': { title: 'Como fidelizar a sus clientes.', url: '/pdf/fidelizar.png' },
-  '2': { title: 'Como armar un buen presupuesto.', url: '/pdf/presupuesto.png' },
-  '3': { title: 'Como formalizar su empresa.', url: '/pdf/formaliza.png' },
+const images: Record<string, { title: string; descripcion: string; url: string }> = {
+  '1': { title: 'Maestros y Maestras de la construcción, mantengan a sus clientes satisfechos con esta serie de consejos que le presentamos.', descripcion:"Mantenerlos fidelizados es de suma importancia y utilidad ya que con esto aumenta las probabilidades de que le vuelvan a contratar y recomienden sus servicios a otras personas, ampliando así su cartera de clientes." , url: '/pdf/fidelizar.png' },
+  '2': { title: 'Sabemos la importancia de formalizar su empresa y los múltiples beneficios de que esta puede llevar al hacerlo de la manera adecuada.', descripcion:"Por eso le proporcionamos una guía sobre los diferentes tipos de empresas, las ventajas de cada una y ¡cómo crear la suya paso a paso en 1 día!" , url: '/pdf/presupuesto.png' },
+  '3': { title: 'Sabemos la importancia de formalizar su empresa y los múltiples beneficios de hacerlo.', descripcion:"Por eso le proporcionamos una guía sobre los diferentes tipos de empresas, las ventajas de cada una y ¡cómo crear la suya paso a paso en 1 día!" , url: '/pdf/formaliza.png' },
 };
 
 interface Params {
@@ -27,10 +27,12 @@ const PdfViewer = ({ params }: { params: Params }) => {
   const selectedImage = images[id];
 
   return (
-    <div className={styles.pdfViewerContainer}>
-      <h1>{selectedImage.title}</h1>
-      <Image src={selectedImage.url} alt={selectedImage.title} width={800} height={600} />
-      <Link href="/academia">Regresar</Link>
+    <div className={Styles.pdfViewerContainer}>
+      <Link href="/academia" className={Styles.breadcumb}>« Regresar</Link>
+      <h1 className={Styles.Title}>{selectedImage.title}</h1>
+      <p className={Styles.Subtitle}>{selectedImage.descripcion}</p>
+      <Image className={Styles.img} src={selectedImage.url} alt={selectedImage.title} width={800} height={600} />
+      
     </div>
   );
 };
