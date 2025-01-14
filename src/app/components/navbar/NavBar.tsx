@@ -106,7 +106,7 @@ const NavBar: React.FC = () => {
                 <div className={Styles.dropdownMenu}>
                   <button
                     className={Styles.logoutButton}
-                    onClick={() => (window.location.href = "/datos")}
+                    onClick={() => (window.location.href = "/usuario")}
                   >
                     Cuenta
                   </button>
