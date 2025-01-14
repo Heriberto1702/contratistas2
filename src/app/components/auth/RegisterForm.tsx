@@ -32,6 +32,7 @@ export default function RegisterForm() {
   const [cedula, setCedula] = useState("");
   const [ruc, setRuc] = useState("");
   const [isRucCedulaValid, setIsRucCedulaValid] = useState(false);
+  const [errorMessage2, setErrorMessage2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [especialidades, setEspecialidades] = useState<Especialidad[]>([]);
@@ -51,6 +52,9 @@ export default function RegisterForm() {
   const [mensajeVisible, setMensajeVisible] = useState(false);  // Control de visibilidad del mensaje
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
  const [errorMessages, setErrorMessages] = useState<string | null>(null);
+ const [nombreRegistrado, setNombreRegistrado] = useState("");
+ const [datosCorrectos, setDatosCorrectos] = useState<boolean | null>(null);
+  const [mostrarFormularioCompleto, setMostrarFormularioCompleto] = useState(false);
 
   // Cargar datos desde la API
   useEffect(() => {
@@ -91,7 +95,7 @@ export default function RegisterForm() {
   }, [departamentoSeleccionado]);
 
 
-   // Función de validación
+  // Función de validación
   const handleValidation = async () => {
     // Resetear mensajes de error y éxito antes de cada validación
     setErrorMessage("");
@@ -111,9 +115,11 @@ export default function RegisterForm() {
 
     const data = await response.json();
 
+   
     if (data.found) {
       setIsRucCedulaValid(true);
       setSuccessMessage("Contratista validado con éxito");
+      setNombreRegistrado(data.nombre_registrado); // Cargar el nombre de la base de datos
       setErrorMessage(""); // Limpiar el mensaje de error si es válido
     } else {
       setIsRucCedulaValid(false);
@@ -126,6 +132,17 @@ export default function RegisterForm() {
     setTimeout(() => {
       setMensajeVisible(false);  // Oculta el mensaje después de 3 segundos
     }, 3000);
+  };
+
+  const handleDatosCorrectos = (respuesta: boolean) => {
+    setDatosCorrectos(respuesta);
+    if (respuesta) {
+      setMostrarFormularioCompleto(true);
+      setErrorMessage2("");  // Limpiar el mensaje de error si la respuesta es "Sí"
+    } else {
+      setMostrarFormularioCompleto(false);
+      setErrorMessage2("Por favor, contáctese con nosotros para verificar su información.");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -175,26 +192,18 @@ console.log(data);  // Agrega esta línea para revisar la respuesta
     }
   };
 
-  const handleActiveContractorChange = (value: boolean) => {
-    setIsContratistaActivo(value);
-    if (!value) {
-      window.location.href = "https://google.com"; // Redirige a google si selecciona "No"
-    }
-  };
-
   return (
     <div className={Styles.container}>
       <div className={Styles.formContainer}>
         <h2 className={Styles.h2}>Registro de Contratista</h2>
-        <form onSubmit={handleSubmit}>
-         
+        <form onSubmit={handleSubmit}>     
           <div className={Styles.radioContainer}>
-          <label >¿Es un Contratista ya activo?</label>
+          <label >¿Ya eres parte del club contratistas de SINSA?</label>
             <label>
               <input
                 type="radio"
                 checked={isContratistaActivo === true}
-                onChange={() => handleActiveContractorChange(true)}
+                onChange={() => setIsContratistaActivo(true)}
               />
               Sí
             </label>
@@ -202,7 +211,10 @@ console.log(data);  // Agrega esta línea para revisar la respuesta
               <input
                 type="radio"
                 checked={isContratistaActivo === false}
-                onChange={() => handleActiveContractorChange(false)}
+                onChange={() => {
+                  setIsContratistaActivo(false);
+                  window.location.href = "https://google.com";
+                }}
               />
               No
             </label>
@@ -230,53 +242,62 @@ console.log(data);  // Agrega esta línea para revisar la respuesta
                 </label>
               </div>
 
-              {!isJuridico && (
-                <>
-                  <label>Cédula</label>
-                  <div className={Styles.inputContainer}>
-                    <input
-                      className={Styles.input}
-                      type="text"
-                      value={cedula}
-                      onChange={(e) => setCedula(e.target.value)}
-                      placeholder="Ingrese su cédula"
-                      required
-                    />
-                    <button type="button" className={Styles.validationButton} onClick={handleValidation}>
-                      Validar
-                    </button>
-                  </div>
-                </>
-              )}
-
-              {isJuridico && (
-                <>
-                  <label>RUC</label>
-                  <div className={Styles.inputContainer}>
-                    <input
-                      className={Styles.input}
-                      type="text"
-                      value={ruc}
-                      onChange={(e) => setRuc(e.target.value)}
-                      placeholder="Ingrese su RUC"
-                      required
-                    />
-                    <button type="button" className={Styles.validationButton} onClick={handleValidation}>
-                      Validar
-                    </button>
-                  </div>
-                </>
-              )}
-{/* Mensajes de validación que desaparecen después de 3 segundos */}
-{mensajeVisible && (
+              <div className={Styles.inputContainer}>
+                <label>{isJuridico ? "RUC" : "Cédula"}</label>
+                <input className={Styles.input}
+                  type="text"
+                  value={isJuridico ? ruc : cedula}
+                  onChange={(e) => (isJuridico ? setRuc(e.target.value) : setCedula(e.target.value))}
+                  placeholder={`Ingrese su ${isJuridico ? "RUC" : "cédula"}`}
+                  required
+                />
+                <button type="button" onClick={handleValidation} className={Styles.validationButton}>
+                  Validar
+                </button>
+              </div>
+          {/* Mensajes de validación que desaparecen después de 3 segundos */}
+          {mensajeVisible && (
           <>
             {successMessage && <div className={Styles.success}>{successMessage}</div>}
             {errorMessage && <div className={Styles.error}>{errorMessage}</div>}
           </>
         )}
-
-
+        
               {isRucCedulaValid && (
+                <>
+                  <div className={`${Styles.inputContainer2} ${Styles.radioContainer} `}>
+                    <label className={Styles.alineado}>Nombre Asociado: </label>
+                    <label className={Styles.readOnly}>
+                   {nombreRegistrado}
+                  </label>
+                  </div>
+
+                  <div className={Styles.radioContainer}>
+                    <label className={Styles.alineado}>¿Los datos son correctos?</label>
+                    <label>
+                      <input
+                        type="radio"
+                        checked={datosCorrectos === true}
+                        onChange={() => handleDatosCorrectos(true)}
+                      />
+                      Sí
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        checked={datosCorrectos === false}
+                        onChange={() => handleDatosCorrectos(false)}
+                      />
+                      No
+                    </label>
+                  </div>
+                  {errorMessage2 && <div className={Styles.error}>{errorMessage2}</div>} {/* Mostrar mensaje de error */}
+                </>
+              )}
+            </>
+          )}
+
+{mostrarFormularioCompleto && (
                 <>
                   <h2 className={Styles.h2}>Complete los siguientes datos:</h2>
                   <label>Nombres</label>
@@ -412,11 +433,8 @@ console.log(data);  // Agrega esta línea para revisar la respuesta
      {errorMessages && (
         <div className={Styles['error-message']}>
         {errorMessages}
-      </div>
-    )}
-            </>
-            
-          )}
+        </div>
+              )}
         </form>
       </div>
     </div>

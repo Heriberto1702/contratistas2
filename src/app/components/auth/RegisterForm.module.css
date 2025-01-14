@@ -43,7 +43,17 @@
 }
 
 /* Inputs y Selects */
-.input {
+.input{
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+
+.readOnlyInput{
   width: 100%;
   padding: 8px 12px;
   border: 1px solid #ddd;
@@ -113,6 +123,13 @@
   gap: 10px; /* Espacio entre el input y el botón */
 }
 
+.inputContainer2 {
+  display: flex;
+  justify-content: center; /* Alinea el input y el botón verticalmente */
+  gap: 10px; /* Espacio entre el input y el botón */
+}
+
+
 .input {
   flex-grow: 1; /* Hace que el campo de entrada ocupe el espacio disponible */
 }
@@ -176,4 +193,23 @@
   font-weight: bold;
   margin-top: 10px;
   text-align: center;
+}
+
+.readOnly {
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid green;
+  padding: 5px;
+  border-radius: 5px;
+  color: #333; /* Puedes cambiar el color del texto si es necesario */
+}
+
+.espaciado{
+  padding-top: 20px;
+  font-size: 20px;
+}
+
+.alineado{
+  margin-top:8px;
 }
