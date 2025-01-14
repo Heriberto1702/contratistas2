@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import styles from "./EventCalendar.module.css";
 
@@ -21,7 +21,6 @@ const EventCalendar = () => {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [warning, setWarning] = useState<string | null>(null);
   const [id_contratista, setIdContratista] = useState<number | null>(null);
   const [success, setSuccess] = useState<string | null>(null); 
   const today = new Date();
@@ -41,40 +40,43 @@ const EventCalendar = () => {
         setError(error.message || "Hubo un problema al obtener el ID del contratista.");
       }
     };
-
     fetchContratistaId();
   }, []);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const year = selectedMonth.getFullYear();
-      const month = selectedMonth.getMonth() + 1;
+  // Definir fetchEvents con useCallback para evitar recrearla en cada renderizado
+  const fetchEvents = useCallback(async () => {
+    const year = selectedMonth.getFullYear();
+    const month = selectedMonth.getMonth() + 1;
 
-      try {
-        const response = await fetch(`/api/eventos?year=${year}&month=${month}`);
-        if (response.ok) {
-          const data = await response.json();
-          setEvents(data);
-        } else {
-          console.error("Failed to fetch events");
-        }
-      } catch (err) {
-        console.error("Error fetching events:", err);
+    try {
+      const response = await fetch(`/api/eventos?year=${year}&month=${month}`);
+      if (response.ok) {
+        const data = await response.json();
+        setEvents(data);
+        console.log("Eventos actualizados:", data);
+      } else {
+        console.error("Failed to fetch events");
       }
-    };
-
-    fetchEvents();
+    } catch (err) {
+      console.error("Error fetching events:", err);
+    }
   }, [selectedMonth]);
+
+  // Llamar fetchEvents cuando cambie el mes seleccionado
   useEffect(() => {
-    if (success || warning ||error) {
+    fetchEvents();
+  }, [fetchEvents]);
+
+
+  useEffect(() => {
+    if (success || error) {
       const timer = setTimeout(() => {
         setSuccess(null);
         setError(null);
-        setWarning(null)
       }, 4800); // 5 segundos
       return () => clearTimeout(timer);
     }
-  }, [success, warning, error]);
+  }, [success, error]);
 
   const daysInCurrentMonth = new Date(
     selectedMonth.getFullYear(),
@@ -118,13 +120,14 @@ const EventCalendar = () => {
       if (!response.ok) {
         throw new Error(data.message || "Error al registrar la asistencia.");
       }
-
       setSuccess("Asistencia registrada correctamente.");
+      fetchEvents()
     } catch (err: any) {
       setError(err.message || "Hubo un problema al registrar la asistencia.");
     } finally {
       setLoading(false);
     }
+ 
   };
 
   // Function to check if the day is today
@@ -254,7 +257,6 @@ const EventCalendar = () => {
         </div>
       </div>
       {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}
-      {warning && <p className={`${styles.message} ${styles.warning}`}>{warning}</p>}
 {success && <p className={`${styles.message} ${styles.success}`}>{success}</p>}
 
     </div>
