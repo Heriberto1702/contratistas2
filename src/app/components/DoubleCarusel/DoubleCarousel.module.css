@@ -10,6 +10,7 @@
 /* Estilo para la pista de carrusel */
 .carouselTrack {
   display: flex;
+  column-gap: 15px;
 }
 
 /* Estilo para cada slide */
@@ -22,35 +23,54 @@
 .bannerItem {
   width: 100%; /* En pantallas grandes ocupará todo el ancho */
   height: 300px;
-  padding: 10px;
   box-sizing: border-box;
   background-color: #f4f4f4;
-  border-radius: 10px;
   text-align: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-
+.bannerContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 15px;
+  width: 40%;
+  margin: 0 auto;
+}
 /* Estilo de la imagen dentro del banner */
 .bannerImage {
-  max-width: 45%;
-  border-radius: 5px;
+  width: 50%;
   height: 100%;
 }
 
 /* Estilo del texto del banner */
 .bannerText {
-  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 20px;
 }
-
+.bannerTitle{
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 22px;
+}
 /* Estilo del enlace del banner */
 .bannerLink {
-  margin-top: 5px;
-  display: inline-block;
-  color: #0070f3;
-  text-decoration: none;
+  margin: 1rem;
+  background-color: #fbb016;
+  border-radius: 16px;
+  width: 9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  height: 40px;
+}
+.bannerLink:hover {
+  border: 1px solid #333;
 }
 
 /* Estilo de los botones prev y next */

@@ -14,7 +14,11 @@ export async function GET(request: Request) {
   }
 
   try {
-    const events = await prisma.eventos.findMany();
+    const events = await prisma.eventos.findMany({
+      orderBy: {
+        id_evento: "asc",
+      },
+    });
 
     // Filtrar eventos por año y mes procesando la fecha_hora como string
     const filteredEvents = events.filter((event) => {
