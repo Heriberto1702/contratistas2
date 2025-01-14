@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import styles from "./DoubleCarousel.module.css";
+import Link from "next/link";
 
 interface Banner {
   id: number;
@@ -64,12 +65,12 @@ const DoubleCarousel: React.FC<DoubleCarouselProps> = ({
             style={{ width: `${100}%` }}
           >
             <div className={styles.bannerItem}>
-              <div>
-                <h3>{banner.title}</h3>
+              <div className={styles.bannerContent} >
+                <h3 className={styles.bannerTitle}>{banner.title}</h3>
                 <p className={styles.bannerText}>{banner.text}</p>
-                <a href={banner.link} className={styles.bannerLink}>
-                  Ver mas
-                </a>
+                <Link href={banner.link} className={styles.bannerLink}>
+                Ver más &#10095;
+                </Link>
               </div>
               <Image
                 width={591}

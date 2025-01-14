@@ -13,7 +13,7 @@ const ImageText: React.FC<ImageTextProps> = ({ title, imageUrl, alt,text }) => {
   return (
     <div className={styles.container}>
       {title && <h2 className={styles.title}>{title}</h2>}
-      {imageUrl && <Image width={100} height={100} src={imageUrl} alt={alt} className={styles.image} />}
+      {imageUrl && <Image width={62} height={61} src={imageUrl} alt={alt} className={styles.image} />}
       {text && <p className={styles.text}>{text}</p>}
     </div>
   );
