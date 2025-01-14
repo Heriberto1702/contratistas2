@@ -6,9 +6,7 @@ interface Modulov2Props {
   title?: string;
   imageUrl: string;
   text: string;
-  urlPDF: string;
   urlExcel: string;
-  urlExample: string;
   linkText?: string;
   text2?:string;
 }
@@ -18,9 +16,7 @@ const Modulov2: React.FC<Modulov2Props> = ({
   imageUrl,
   text,
   text2,
-  urlPDF,
   urlExcel,
-  urlExample,
   linkText,
   
 }) => {
@@ -62,21 +58,9 @@ const Modulov2: React.FC<Modulov2Props> = ({
             <div className={styles.botones}>
               <button
                 className={styles.buttonModal}
-                onClick={() => window.open(urlPDF)}
-              >
-                Descargar PDF &#10095;{" "}
-              </button>
-              <button
-                className={styles.buttonModal}
                 onClick={() => window.open(urlExcel)}
               >
                 Descargar Excel &#10095;
-              </button>
-              <button
-                className={styles.buttonModal}
-                onClick={() => window.open(urlExample)}
-              >
-                Descargar Ejemplo &#10095;
               </button>
             </div>
           </div>

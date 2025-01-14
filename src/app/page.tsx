@@ -13,34 +13,18 @@ const Page = () => {
   const banners = [
     {
       id: 1,
-      image: "/bannerdoble.png",
-      title: "Capacitación online Nexx",
-      text: "Martes 10 de Octubre 2023 Inicio: 10:00 p.m. Curso Disponible hasta 23 de Octubre",
-      link: "/link1",
+      image: "/curso1.png",
+      title: "Instalaciones electricas básicas domiciliarias",
+      text: "Miercoles 08 de Enero 2025 Inicio: 07:00 am ",
+      link: "/academia/cursos/1",
     },
 
     {
       id: 2,
-      image: "/bannerdoble.png",
-      title: "Capacitación online Nexx",
-      text: "Martes 10 de Octubre 2023 Inicio: 10:00 p.m. Curso Disponible hasta 23 de Octubre",
-      link: "/link2",
-    },
-
-    {
-      id: 3,
-      image: "/bannerdoble.png",
-      title: "Capacitación online Nexx",
-      text: "Martes 10 de Octubre 2023 Inicio: 10:00 p.m. Curso Disponible hasta 23 de Octubre",
-      link: "/link3",
-    },
-
-    {
-      id: 4,
-      image: "/bannerdoble.png",
-      title: "Capacitación online Nexx",
-      text: "Martes 10 de Octubre 2023 Inicio: 10:00 p.m. Curso Disponible hasta 23 de Octubre",
-      link: "/link4",
+      image: "/curso2.png",
+      title: "Capacitación Online Drytec",
+      text: "Jueves 09 de Enero 2025 Inicio: 07:00 am",
+      link: "/academia/cursos/2",
     },
   ];
   return (
@@ -49,7 +33,7 @@ const Page = () => {
       <BannerSlidernew images={images} interval={3000} />
       <Banner
         imageUrl="/evento.png"
-        linkUrl="https://www.example.com"
+        linkUrl="academia/evento/1"
         altText="Ejemplo de imagen"
         width={1224}
         height={317}
@@ -60,7 +44,7 @@ const Page = () => {
       />
       <Banner
         imageUrl="/clubpro.png"
-        linkUrl="https://www.example.com"
+        linkUrl=" "
         altText="Ejemplo de imagen"
         width={1224}
         height={317}
