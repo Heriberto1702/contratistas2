@@ -1,4 +1,3 @@
-// src/app/api/validar-contratista/route.ts
 import { NextResponse } from "next/server";
 import prisma from "../../../lib/prisma"; // Asegúrate de tener la instancia de Prisma configurada correctamente
 
@@ -10,7 +9,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Cédula o RUC es requerido." }, { status: 400 });
     }
 
-    // Validar si la Cédula o el RUC existe en la tabla Contratistas
+    // Buscar el contratista por Cédula o RUC
     let contratista = null;
 
     if (cedula) {
@@ -29,12 +28,20 @@ export async function POST(req: Request) {
       });
     }
 
+    // Si se encuentra el contratista, devolver los datos necesarios
     if (contratista) {
-      return NextResponse.json({ found: true });
+      return NextResponse.json({
+        found: true,
+        nombre_registrado: contratista.nombre_registrado, // Incluye el nombre registrado
+      });
     } else {
       return NextResponse.json({ found: false });
     }
   } catch (error) {
-    return NextResponse.json({ error: "Error en la validación del RUC o Cédula." }, { status: 500 });
+    console.error("Error en la validación del contratista:", error);
+    return NextResponse.json(
+      { error: "Error en la validación del RUC o Cédula." },
+      { status: 500 }
+    );
   }
 }
