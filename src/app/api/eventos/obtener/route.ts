@@ -6,7 +6,7 @@ export async function GET() {
     // Obtener todos los eventos de la base de datos
     const eventos = await prisma.eventos.findMany({
       orderBy: {
-        fecha_hora: "asc", // Ordenar por fecha
+        id_evento: "asc",
       },
     });
 

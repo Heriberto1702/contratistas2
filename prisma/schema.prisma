@@ -115,6 +115,7 @@ model Eventos {
   locacion      String
   cupos         Int
   imagen_evento String
+  imagen_des_evento String
   fecha_hora    String
   cupo_reservado Int
   eventAsist    Eventos_Asistidos[]

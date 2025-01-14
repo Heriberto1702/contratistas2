@@ -47,6 +47,7 @@
   border: none;
   cursor: pointer;
   font-weight: 500;
+  font-size: 1.2rem;
 }
 .Text{
   font-size: 20px;
@@ -75,6 +76,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  row-gap: 20px;
+
 }
 .encabezado{
   display: flex;

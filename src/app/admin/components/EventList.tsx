@@ -42,7 +42,8 @@ const EventList = () => {
               <th className={styles.th}>Cupos</th>
               <th className={styles.th}>Cupos Reservados</th>
               <th className={styles.th}>Fecha y Hora</th>
-          <th className={styles.th}>Imagen</th> 
+          <th className={styles.th}>Imagen</th>
+          <th className={styles.th}>Imagen Descriptiva</th> 
             </tr>
           </thead>
           <tbody>
@@ -60,6 +61,15 @@ const EventList = () => {
                     width={100}
                     height={100}
                     src={evento.imagen_evento}
+                    alt={`Imagen de ${evento.nombre_evento}`}
+                    className={styles.image}
+                  />
+                </td>
+                <td className={styles.td}>
+                  <Image
+                    width={100}
+                    height={100}
+                    src={evento.imagen_des_evento}
                     alt={`Imagen de ${evento.nombre_evento}`}
                     className={styles.image}
                   />

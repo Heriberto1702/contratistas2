@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import styles from "./EventCalendar.module.css";
+import Link from "next/link";
 
 interface Event {
   id_evento: number;
@@ -14,7 +15,6 @@ interface Event {
   cupo_reservado?: number; // Campo opcional para evitar errores en eventos antiguos.
 }
 
-
 const EventCalendar = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date());
   const [events, setEvents] = useState<Event[]>([]);
@@ -22,7 +22,7 @@ const EventCalendar = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [id_contratista, setIdContratista] = useState<number | null>(null);
-  const [success, setSuccess] = useState<string | null>(null); 
+  const [success, setSuccess] = useState<string | null>(null);
   const today = new Date();
 
   useEffect(() => {
@@ -37,7 +37,9 @@ const EventCalendar = () => {
           throw new Error("No se pudo obtener el ID del contratista.");
         }
       } catch (error: any) {
-        setError(error.message || "Hubo un problema al obtener el ID del contratista.");
+        setError(
+          error.message || "Hubo un problema al obtener el ID del contratista."
+        );
       }
     };
     fetchContratistaId();
@@ -66,7 +68,6 @@ const EventCalendar = () => {
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
-
 
   useEffect(() => {
     if (success || error) {
@@ -121,13 +122,12 @@ const EventCalendar = () => {
         throw new Error(data.message || "Error al registrar la asistencia.");
       }
       setSuccess("Asistencia registrada correctamente.");
-      fetchEvents()
+      fetchEvents();
     } catch (err: any) {
       setError(err.message || "Hubo un problema al registrar la asistencia.");
     } finally {
       setLoading(false);
     }
- 
   };
 
   // Function to check if the day is today
@@ -154,14 +154,17 @@ const EventCalendar = () => {
                   className={styles.eventImage}
                 />
                 <div className={styles.eventDetails}>
-                  <h3>{event.nombre_evento}</h3>
-                  <p>
-                    Cupos disponibles:{" "}
-                    {event.cupos || 0}
-                  </p>
+                  <h3 className={styles.enlace}><Link
+                      href={`/academia/evento/${event.id_evento}`}
+                      className={styles.link}
+                    >
+                      {event.nombre_evento}
+                    </Link></h3>
+                  <p>Cupos disponibles: {event.cupos || 0}</p>
                   <div className={styles.eventMeta}>
                     <p>
-                      📅 {new Date(event.fecha_hora).toLocaleDateString("es-ES")}
+                      📅{" "}
+                      {new Date(event.fecha_hora).toLocaleDateString("es-ES")}
                     </p>
                     <p>
                       ⏰{" "}
@@ -169,6 +172,14 @@ const EventCalendar = () => {
                     </p>
                     <p>📍 {event.locacion}</p>
                   </div>
+                  <p className={styles.text}>
+                    <Link
+                      href={`https://www.google.com/`}
+                      className={styles.enlace}
+                    >
+                      Si desea agregar mas personas a este evento de clic aquí
+                    </Link>
+                  </p>
                   <hr className={styles.divider} />
                 </div>
                 <button
@@ -257,8 +268,9 @@ const EventCalendar = () => {
         </div>
       </div>
       {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}
-{success && <p className={`${styles.message} ${styles.success}`}>{success}</p>}
-
+      {success && (
+        <p className={`${styles.message} ${styles.success}`}>{success}</p>
+      )}
     </div>
   );
 };

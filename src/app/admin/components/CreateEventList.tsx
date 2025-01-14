@@ -8,6 +8,7 @@ const AdminEventos = () => {
     locacion: string;
     cupos: string;
     imagen_evento: File | null;
+    imagen_des_evento: File | null;
     fecha: string;
     hora: string;
     cupo_reservado:string;
@@ -16,6 +17,7 @@ const AdminEventos = () => {
     locacion: "",
     cupos: "",
     imagen_evento: null,
+    imagen_des_evento: null,
     fecha: "",
     hora: "",
     cupo_reservado:"",
@@ -52,6 +54,13 @@ const AdminEventos = () => {
       imagen_evento: file,
     }));
   };
+  const handleFileChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file2 = e.target.files?.[0] || null;
+    setFormData((prev) => ({
+      ...prev,
+      imagen_des_evento: file2,
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,6 +72,7 @@ const AdminEventos = () => {
     form.append("locacion", formData.locacion);
     form.append("cupos", formData.cupos);
     if (formData.imagen_evento) form.append("imagen_evento", formData.imagen_evento);
+    if (formData.imagen_des_evento) form.append("imagen_des_evento", formData.imagen_des_evento);
     form.append("fecha_hora", fecha_hora);
     form.append("cupo_reservado", formData.cupo_reservado);
     
@@ -79,6 +89,7 @@ const AdminEventos = () => {
           locacion: "",
           cupos: "",
           imagen_evento: null,
+          imagen_des_evento: null,
           fecha: "",
           hora: "",
           cupo_reservado:"",
@@ -130,13 +141,22 @@ const AdminEventos = () => {
           max={100}
           required
         />
+        <label>Icono
         <input
           type="file"
           name="imagen_evento"
           accept="image/*"
           onChange={handleFileChange}
           required
-        />
+        /></label>
+         <label>Imagen Descriptiva
+           <input
+          type="file"
+          name="imagen_des_evento"
+          accept="image/*"
+          onChange={handleFileChange2}
+          required
+        /></label>
         <input
           type="date"
           name="fecha"
