@@ -57,6 +57,8 @@ const EventList = () => {
                 </td>
                  <td className={styles.td}>
                   <Image
+                    width={100}
+                    height={100}
                     src={evento.imagen_evento}
                     alt={`Imagen de ${evento.nombre_evento}`}
                     className={styles.image}
