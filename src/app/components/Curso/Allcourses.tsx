@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const [courses, setCourses] = useState<any[]>([]);
+  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([])
   const [filteredCourses, setFilteredCourses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -42,15 +43,37 @@ const Page = () => {
         console.error("Error al obtener los cursos:", error);
       }
     };
+    const fetchEnrolledCourses = async () => {
+      try {
+        const response = await fetch("/api/courses/obtenerMatriculados"); // API para cursos matriculados
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
 
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          data.forEach((course) => {
+            course.fecha_hora_Inicio = formatDate(course.fecha_hora_Inicio);
+            course.fecha_hora_Fin = formatDate(course.fecha_hora_Fin);
+          });
+
+          setEnrolledCourses(data);
+        } else {
+          throw new Error("La respuesta no es un array");
+        }
+      } catch (error: any) {
+        setError(error.message || "Hubo un problema al cargar los cursos matriculados.");
+        console.error("Error al obtener los cursos matriculados:", error);
+      }
+    };
+    fetchEnrolledCourses();
     fetchCourses();
   }, []);
-
+    
   // Actualizar los cursos filtrados cuando cambia el término de búsqueda o el filtro
   useEffect(() => {
     let filtered = courses;
-
-    // Aplicar búsqueda por nombre o tipo
+  
     if (searchTerm) {
       filtered = filtered.filter(
         (course) =>
@@ -58,16 +81,22 @@ const Page = () => {
           course.tipo_curso.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
-    // Aplicar filtros específicos
+  
     if (filterType === "misCursos") {
-      filtered = filtered.filter((course) => course.isEnrolled); // Suponiendo que el backend devuelve esta propiedad
+      // Mostrar solo los cursos donde el usuario está matriculado
+      const enrolledIds = new Set(enrolledCourses.map((c) => c.id_curso));
+      filtered = filtered.filter((course) => enrolledIds.has(course.id_curso));
     } else if (filterType === "resultados") {
-      filtered = filtered.filter((course) => course.relevante); // Ejemplo: campo personalizado
+      // Mostrar solo los cursos con avance > 0
+      const advancedCourses = new Set(
+        enrolledCourses.filter((c) => c.avance > 0).map((c) => c.id_curso)
+      );
+      filtered = filtered.filter((course) => advancedCourses.has(course.id_curso));
     }
-
+  
     setFilteredCourses(filtered);
-  }, [searchTerm, filterType, courses]);
+  }, [searchTerm, filterType, courses, enrolledCourses]);
+  
 
   return (
     <div>

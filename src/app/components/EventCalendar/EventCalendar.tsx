@@ -19,7 +19,8 @@ const EventCalendar = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date());
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
-  const [loading, setLoading] = useState(false);
+  
+  const [loadingEventId, setLoadingEventId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [id_contratista, setIdContratista] = useState<number | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -102,7 +103,7 @@ const EventCalendar = () => {
   });
 
   const handleAttend = async (eventId: number) => {
-    setLoading(true);
+    setLoadingEventId(eventId); 
     setError(null);
     setSuccess(null);
 
@@ -126,7 +127,7 @@ const EventCalendar = () => {
     } catch (err: any) {
       setError(err.message || "Hubo un problema al registrar la asistencia.");
     } finally {
-      setLoading(false);
+      setLoadingEventId(null);
     }
   };
 
@@ -183,12 +184,12 @@ const EventCalendar = () => {
                   <hr className={styles.divider} />
                 </div>
                 <button
-                  className={styles.attendButton}
-                  onClick={() => handleAttend(event.id_evento)}
-                  disabled={loading}
-                >
-                  {loading ? "Registrando..." : "Asistir"}
-                </button>
+  className={styles.attendButton}
+  onClick={() => handleAttend(event.id_evento)}
+  disabled={loadingEventId === event.id_evento} // Deshabilitar solo el botón del evento en carga
+>
+  {loadingEventId === event.id_evento ? "Registrando..." : "Asistir"}
+</button>
               </div>
             ))
           ) : (
