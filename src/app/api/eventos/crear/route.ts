@@ -1,24 +1,48 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma"; // Asegúrate de que la ruta sea correcta
-import { promises as fs } from "fs";
-import path from "path";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-// Definir la carpeta donde se guardarán las imágenes
-const uploadDir = path.join(process.cwd(), "public", "uploads");
 
-// Asegurarse de que la carpeta de destino existe
-async function ensureUploadDir() {
-  try {
-    await fs.mkdir(uploadDir, { recursive: true });
-  } catch (error) {
-    console.error("Error creando directorio de uploads:", error);
-  }
+
+const bucketName = process.env.AWS_S3_BUCKET_NAME;
+const region = process.env.AWS_REGION;
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+
+if (!bucketName || !region || !accessKeyId || !secretAccessKey) {
+  throw new Error("Faltan variables de entorno de AWS. Verifica tu archivo .env.");
 }
 
-export async function POST(request: Request) {
-  // Asegurar que la carpeta para subir imágenes existe
-  await ensureUploadDir();
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId,
+    secretAccessKey,
+  },
+});
+// Función para subir un archivo a S3
+const uploadFileToS3 = async (file: File, folder: string) => {
+  try {
+    const fileName = `${folder}/${Date.now()}-${file.name}`;
+    const buffer = Buffer.from(await file.arrayBuffer());
 
+    const command = new PutObjectCommand({
+      Bucket: bucketName,
+      Key: fileName,
+      Body: buffer,
+      ContentType: file.type,
+    });
+
+    await s3.send(command);
+    return `https://${bucketName}.s3.${region}.amazonaws.com/${fileName}`;
+  } catch (error) {
+    console.error("Error subiendo archivo a S3:", error);
+    throw new Error("No se pudo subir el archivo a S3.");
+  }
+};
+// Endpoint para manejar la creación de eventos
+export async function POST(request: Request) {
+  try {
   const form = await request.formData();
 
   // Obtener los datos del formulario
@@ -30,6 +54,7 @@ export async function POST(request: Request) {
   const imagen_des_evento = form.get("imagen_des_evento") as File;
   const cupo_reservado = parseInt(form.get("cupo_reservado") as string, 10);
 
+  // Validar campos obligatorios
   if (
     !nombre_evento ||
     !locacion ||
@@ -44,55 +69,29 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
+    // Subir ambas imágenes a S3h
 
-  // Guardar la imagen del evento principal localmente
-  const fileExtension = path.extname(imagen_evento.name);
-  const fileName = `${Date.now()}_main${fileExtension}`;
-  const filePath = path.join(uploadDir, fileName);
-
-  // Guardar la imagen descriptiva del evento localmente
-  const fileExtension2 = path.extname(imagen_des_evento.name);
-  const fileName2 = `${Date.now()}_desc${fileExtension2}`;
-  const filePath2 = path.join(uploadDir, fileName2);
-
-  try {
-    const arrayBuffer = await imagen_evento.arrayBuffer();
-    await fs.writeFile(filePath, new Uint8Array(arrayBuffer));
-
-    const arrayBuffer2 = await imagen_des_evento.arrayBuffer();
-    await fs.writeFile(filePath2, new Uint8Array(arrayBuffer2));
-    
-  } catch (error) {
-    console.error("Error al guardar la imagen:", error);
-    return NextResponse.json(
-      { error: "Error al subir las imágenes." },
-      { status: 500 }
-    );
-  }
-
-  // Generar las URL de las imágenes para guardar en la base de datos
-  const imageUrl = `/uploads/${fileName}`;
-  const imageDesUrl = `/uploads/${fileName2}`;
+    const eventoImageUrl = await uploadFileToS3 (imagen_evento, "eventos");
+    const descriptivaImageUrl = await uploadFileToS3 (imagen_des_evento, "descriptivas");
 
   // Crear el registro en la base de datos
-  try {
+
     const nuevoEvento = await prisma.eventos.create({
       data: {
         nombre_evento,
         locacion,
         cupos,
         fecha_hora,
-        imagen_evento: imageUrl,
-        imagen_des_evento: imageDesUrl,
+        imagen_evento: eventoImageUrl,
+        imagen_des_evento: descriptivaImageUrl,
         cupo_reservado,
       },
     });
-
     return NextResponse.json(nuevoEvento, { status: 201 });
   } catch (error) {
-    console.error("Error al registrar evento:", error);
+    console.error("Error al registrar el evento:", error);
     return NextResponse.json(
-      { error: "Ocurrió un error al registrar el evento." },
+      { error: "Error al registrar el evento. Inténtalo nuevamente." },
       { status: 500 }
     );
   }
