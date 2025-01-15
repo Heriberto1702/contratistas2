@@ -1,25 +1,51 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { promises as fs } from "fs";
-import path from "path";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+
+
+const bucketName = process.env.AWS_S3_BUCKET_NAME;
+const region = process.env.AWS_REGION;
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+
+
+if (!bucketName || !region || !accessKeyId || !secretAccessKey) {
+  throw new Error("Faltan variables de entorno de AWS. Verifica tu archivo .env.");
+}
+
+const s3 = new S3Client({
+  region,
+  credentials: {
+    accessKeyId,
+    secretAccessKey,
+  },
+});
+
+// Función para subir un archivo a S3
+const uploadFileToS3 = async (file: File, folder: string) => {
+  try {
+    const fileName = `${folder}/${Date.now()}-${file.name}`;
+    const buffer = Buffer.from(await file.arrayBuffer());
+
+    const command = new PutObjectCommand({
+      Bucket: bucketName,
+      Key: fileName,
+      Body: buffer,
+      ContentType: file.type,
+    });
+
+    await s3.send(command);
+    return `https://${bucketName}.s3.${region}.amazonaws.com/${fileName}`;
+  } catch (error) {
+    console.error("Error subiendo archivo a S3:", error);
+    throw new Error("No se pudo subir el archivo a S3.");
+  }
+};
 
 export async function POST(request: Request) {
-  // Definir la carpeta donde se guardarán las imágenes
-  const uploadDir = path.join(process.cwd(), "public", "uploads");
-
-  // Asegurarse de que la carpeta de destino existe
-  async function ensureUploadDir() {
-    try {
-      await fs.mkdir(uploadDir, { recursive: true });
-    } catch (error) {
-      console.error("Error creando directorio de uploads:", error);
-    }
-  }
-
-  // Asegurar que la carpeta para subir imágenes existe
-  await ensureUploadDir();
-
-  const form = await request.formData();
+  
+  try {
+ const form = await request.formData();
 
   const nombre_curso = form.get("nombre_curso") as string;
   const descripcion = form.get("descripcion") as string;
@@ -47,30 +73,16 @@ export async function POST(request: Request) {
   }
 
   // Validación de datos de entrada
-  if (!nombre_curso || sesiones.length === 0) {
+  if (!nombre_curso || sesiones.length === 0 || !imagen_curso) {
     return NextResponse.json(
-      { error: "Datos incompletos: falta nombre_curso o sesiones." },
+      { error: "Datos incompletos: falta nombre_curso, imagen_curso o sesiones." },
       { status: 400 }
     );
   }
 
-  // Guardar la imagen localmente
-  const fileExtension = path.extname(imagen_curso.name);
-  const fileName = `${Date.now()}${fileExtension}`;
-  const filePath = path.join(uploadDir, fileName);
+ // Subir la imagen a S3
+ const imageUrl = await uploadFileToS3(imagen_curso, "imagen_cursos");
 
-  try {
-    const arrayBuffer = await imagen_curso.arrayBuffer();
-    await fs.writeFile(filePath, new Uint8Array(arrayBuffer));
-  } catch (error) {
-    console.error("Error al guardar la imagen:", error);
-    return NextResponse.json(
-      { error: "Error al subir la imagen." },
-      { status: 500 }
-    );
-  }
-
-  const imageUrl = `/uploads/${fileName}`;
 
   // Validación de fechas
   let inicio, fin;
@@ -91,7 +103,6 @@ export async function POST(request: Request) {
     );
   }
 
-  try {
     // Crear el curso con sus sesiones y módulos
     const curso = await prisma.cursos.create({
       data: {
