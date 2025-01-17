@@ -23,5 +23,5 @@ export async function middleware(req: NextRequest) {
 
 // Define qué rutas deben ser protegidas
 export const config = {
-  matcher: ["/academia/:path*", "/datos/:path*", "/compras/:path*", "/"], // Protege estas rutas
+  matcher: ["/academia/:path*", "/datos/:path*", "/compras/:path*", "/" ,"/usuario/:path*"], // Protege estas rutas
 };

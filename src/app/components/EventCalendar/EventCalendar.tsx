@@ -19,7 +19,7 @@ const EventCalendar = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date());
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
-  
+  const [registeredEvents, setRegisteredEvents] = useState<number[]>([]); // IDs de eventos registrados
   const [loadingEventId, setLoadingEventId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [id_contratista, setIdContratista] = useState<number | null>(null);
@@ -34,6 +34,7 @@ const EventCalendar = () => {
 
         if (response.ok) {
           setIdContratista(data.id_contratista);
+          fetchRegisteredEvents(data.id_contratista); // Cargar eventos registrados
         } else {
           throw new Error("No se pudo obtener el ID del contratista.");
         }
@@ -46,7 +47,6 @@ const EventCalendar = () => {
     fetchContratistaId();
   }, []);
 
-  // Definir fetchEvents con useCallback para evitar recrearla en cada renderizado
   const fetchEvents = useCallback(async () => {
     const year = selectedMonth.getFullYear();
     const month = selectedMonth.getMonth() + 1;
@@ -56,7 +56,6 @@ const EventCalendar = () => {
       if (response.ok) {
         const data = await response.json();
         setEvents(data);
-        console.log("Eventos actualizados:", data);
       } else {
         console.error("Failed to fetch events");
       }
@@ -65,7 +64,20 @@ const EventCalendar = () => {
     }
   }, [selectedMonth]);
 
-  // Llamar fetchEvents cuando cambie el mes seleccionado
+  const fetchRegisteredEvents = async (contratistaId: number) => {
+    try {
+      const response = await fetch(`/api/eventos/registrados`);
+      if (response.ok) {
+        const data = await response.json();
+        setRegisteredEvents(data.map((event: any) => event.id_evento));
+      } else {
+        console.error("Failed to fetch registered events");
+      }
+    } catch (err) {
+      console.error("Error fetching registered events:", err);
+    }
+  };
+
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
@@ -75,7 +87,7 @@ const EventCalendar = () => {
       const timer = setTimeout(() => {
         setSuccess(null);
         setError(null);
-      }, 4800); // 5 segundos
+      }, 4800);
       return () => clearTimeout(timer);
     }
   }, [success, error]);
@@ -102,13 +114,14 @@ const EventCalendar = () => {
     );
   });
 
-  const handleAttend = async (eventId: number) => {
-    setLoadingEventId(eventId); 
+  const handleEventAction = async (eventId: number, action: "asistir" | "cancelar") => {
+    setLoadingEventId(eventId);
     setError(null);
     setSuccess(null);
 
     try {
-      const response = await fetch("/api/eventos/asistir", {
+      const endpoint = action === "asistir" ? "/api/eventos/asistir" : "/api/eventos/cancelar";
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -120,18 +133,19 @@ const EventCalendar = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Error al registrar la asistencia.");
+        throw new Error(data.message || `Error al ${action} el evento.`);
       }
-      setSuccess("Asistencia registrada correctamente.");
+
+      setSuccess(`Evento ${action === "asistir" ? "registrado" : "cancelado"} correctamente.`);
       fetchEvents();
+      fetchRegisteredEvents(id_contratista!);
     } catch (err: any) {
-      setError(err.message || "Hubo un problema al registrar la asistencia.");
+      setError(err.message || `Hubo un problema al ${action} el evento.`);
     } finally {
       setLoadingEventId(null);
     }
   };
 
-  // Function to check if the day is today
   const isToday = (day: number) => {
     return (
       day === today.getDate() &&
@@ -141,6 +155,7 @@ const EventCalendar = () => {
   };
 
   return (
+    <>
     <div className={styles.container}>
       <div className={styles.eventList}>
         {selectedDay !== null ? (
@@ -155,41 +170,36 @@ const EventCalendar = () => {
                   className={styles.eventImage}
                 />
                 <div className={styles.eventDetails}>
-                  <h3 className={styles.enlace}><Link
-                      href={`/academia/evento/${event.id_evento}`}
-                      className={styles.link}
-                    >
+                  <h3 className={styles.enlace}>
+                    <Link href={`/academia/evento/${event.id_evento}`} className={styles.link}>
                       {event.nombre_evento}
-                    </Link></h3>
+                    </Link>
+                  </h3>
                   <p>Cupos disponibles: {event.cupos || 0}</p>
                   <div className={styles.eventMeta}>
-                    <p>
-                      📅{" "}
-                      {new Date(event.fecha_hora).toLocaleDateString("es-ES")}
-                    </p>
-                    <p>
-                      ⏰{" "}
-                      {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}
-                    </p>
+                    <p>📅 {new Date(event.fecha_hora).toLocaleDateString("es-ES")}</p>
+                    <p>⏰ {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}</p>
                     <p>📍 {event.locacion}</p>
                   </div>
-                  <p className={styles.text}>
-                    <Link
-                      href={`https://www.google.com/`}
-                      className={styles.enlace}
-                    >
-                      Si desea agregar mas personas a este evento de clic aquí
-                    </Link>
-                  </p>
+                  <p className={styles.text}><Link href={"https://www.google.com/"}>Si desea agregar mas personas a este evento de clic aquí</Link></p>
                   <hr className={styles.divider} />
                 </div>
                 <button
-  className={styles.attendButton}
-  onClick={() => handleAttend(event.id_evento)}
-  disabled={loadingEventId === event.id_evento} // Deshabilitar solo el botón del evento en carga
->
-  {loadingEventId === event.id_evento ? "Registrando..." : "Asistir"}
-</button>
+                  className={styles.attendButton}
+                  onClick={() =>
+                    handleEventAction(
+                      event.id_evento,
+                      registeredEvents.includes(event.id_evento) ? "cancelar" : "asistir"
+                    )
+                  }
+                  disabled={loadingEventId === event.id_evento}
+                >
+                  {loadingEventId === event.id_evento
+                    ? "Procesando..."
+                    : registeredEvents.includes(event.id_evento)
+                    ? "Cancelar"
+                    : "Asistir"}
+                </button>
               </div>
             ))
           ) : (
@@ -204,26 +214,20 @@ const EventCalendar = () => {
           <button
             onClick={() =>
               setSelectedMonth(
-                new Date(
-                  selectedMonth.getFullYear(),
-                  selectedMonth.getMonth() - 1
-                )
+                new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1)
               )
             }
           >
             {"<"}
           </button>
           <h2>
-            {selectedMonth.toLocaleString("es-ES", { month: "long" })}{" "}
+            {selectedMonth.toLocaleString("es-ES", { month: "long" })} {" "}
             {selectedMonth.getFullYear()}
           </h2>
           <button
             onClick={() =>
               setSelectedMonth(
-                new Date(
-                  selectedMonth.getFullYear(),
-                  selectedMonth.getMonth() + 1
-                )
+                new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1)
               )
             }
           >
@@ -245,21 +249,18 @@ const EventCalendar = () => {
             ))}
           {days.map((day) => {
             const dayEvents = events.filter(
-              (event) =>
-                new Date(event.fecha_hora).getDate() === day &&
-                new Date(event.fecha_hora).getMonth() ===
-                  selectedMonth.getMonth()
+              (event) => new Date(event.fecha_hora).getDate() === day
             );
 
             return (
               <div
                 key={day}
                 className={`${styles.day} ${
-                  selectedDay === day ? styles.selectedDay : ""
-                } ${isToday(day) ? styles.today : ""}`}
+                  isToday(day) ? styles.today : ""
+                } ${selectedDay === day ? styles.selectedDay : ""}`}
                 onClick={() => setSelectedDay(day)}
               >
-                {day}
+                <span>{day}</span>
                 {dayEvents.length > 0 && (
                   <div className={styles.eventMarker}></div>
                 )}
@@ -273,6 +274,7 @@ const EventCalendar = () => {
         <p className={`${styles.message} ${styles.success}`}>{success}</p>
       )}
     </div>
+    </>
   );
 };
 
