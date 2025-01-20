@@ -110,15 +110,15 @@ model Cursos_Matriculados {
 }
 
 model Eventos {
-  id_evento     Int                 @id @default(autoincrement())
-  nombre_evento String
-  locacion      String
-  cupos         Int
-  imagen_evento String
+  id_evento         Int                 @id @default(autoincrement())
+  nombre_evento     String
+  locacion          String
+  cupos             Int
+  imagen_evento     String
+  fecha_hora        String
+  cupo_reservado    Int
   imagen_des_evento String
-  fecha_hora    String
-  cupo_reservado Int
-  eventAsist    Eventos_Asistidos[]
+  eventAsist        Eventos_Asistidos[]
 }
 
 model Eventos_Asistidos {
@@ -164,21 +164,4 @@ model Sesiones {
   fecha_hora    DateTime
   Modulos       Modulos[]
   Cursos        Cursos    @relation(fields: [id_curso], references: [id_curso])
-}
-
-
-model VistaContratistasCompleta {
-  cRuc                String?    @map("cRuc")
-  cCedula             String?    @map("cCedula")
-  xstoreID            String?    @map("xstoreID")
-  nombre_registrado   String?
-  nombre_contratista  String?
-  apellidos           String?
-  email               String?
-  cId_club            Int?       @map("cId_club")
-  tipo_club           String?
-  activo              Boolean?
-
-  @@map("vista_contratistas_completa") // Mapea el modelo a la vista en la base de datos
-  @@ignore // Evita que Prisma intente modificar o migrar esta vista
 }

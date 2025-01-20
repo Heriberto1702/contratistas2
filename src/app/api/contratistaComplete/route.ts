@@ -4,7 +4,7 @@ import prisma from "../../../lib/prisma"; // Asegúrate de que la ruta sea corre
 export async function GET() {
   try {
     // Obtener todas las especialidades de la base de datos
-    const vista_contratistas = await prisma.vista_contratistas.completa.findMany({
+    const vista_contratistas = await prisma.vista_contratistas_completa.findMany({
       select: {
         cruc: true,
         ccedula: true,
