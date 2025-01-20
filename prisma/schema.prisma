@@ -166,18 +166,3 @@ model Sesiones {
   Cursos        Cursos    @relation(fields: [id_curso], references: [id_curso])
 }
 
-model VistaContratistasCompleta {
-  cRuc                String?    @map("cRuc")
-  cCedula             String?    @map("cCedula")
-  xstoreID            String?    @map("xstoreID")
-  nombre_registrado   String?
-  nombre_contratista  String?
-  apellidos           String?
-  email               String?
-  cId_club            Int?       @map("cId_club")
-  tipo_club           String?
-  activo              Boolean?
-
-  @@map("vista_contratistas_completa") // Mapea el modelo a la vista en la base de datos
-  @@ignore // Evita que Prisma intente modificar o migrar esta vista
-}
