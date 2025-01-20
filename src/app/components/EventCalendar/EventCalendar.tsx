@@ -185,7 +185,9 @@ const EventCalendar = () => {
                   <hr className={styles.divider} />
                 </div>
                 <button
-                  className={styles.attendButton}
+                  className={`${styles.attendButton} ${
+                    registeredEvents.includes(event.id_evento) ? styles.cancelButton : ""
+                  }`}
                   onClick={() =>
                     handleEventAction(
                       event.id_evento,

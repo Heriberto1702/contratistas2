@@ -158,6 +158,16 @@
   left: 50%;
   transform: translateX(-50%);
 }
+.cancelButton {
+  background-color: #292A2B; /* Rojo claro */
+  color: white;
+  border: 1px solid #292A2B
+}
+
+.cancelButton:hover {
+  background-color: #474747; /* Rojo más oscuro al pasar el mouse */
+  border: 1px solid #474747;
+}
 
 .selectedDay {
   background-color: #ffeeba;
