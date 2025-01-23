@@ -1,6 +1,6 @@
 /* Contenedor principal */
 .container {
-  max-width: 1000px; /* Ancho máximo para el contenido */
+  max-width: 1200px; /* Ancho máximo para el contenido */
   margin: 0 auto; /* Centra el contenido */
   padding: 20px; /* Espaciado interno */
   background-color: #f9f9f9; /* Color de fondo suave */
@@ -9,6 +9,12 @@
   row-gap: 15px;
 }
 
+.encabezadofiltro {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
 /* Estilo para el título de la página */
 .title {
   font-size: 2rem; /* Tamaño de fuente grande */
@@ -16,7 +22,18 @@
   color: #333; /* Color del texto */
   margin-bottom: 20px; /* Margen inferior */
 }
-
+.searchInput {
+  width: 392px;
+  height: 32px;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+.searchIcon {
+  font-size: 20px;
+  color: #000;
+  margin-left: -30px;
+}
 /* Estilo para la lista */
 .list {
   list-style-type: none; /* Quitar viñetas de la lista */
@@ -49,9 +66,8 @@
 /* CoursesPage.module.css */
 
 .filters button {
-  margin-right: 10px;
-  padding: 10px 15px;
-
+  padding: 5px 15px;
+  font-size: 25px;
   color: #000;
   cursor: pointer;
   transition: color 0.3s;
@@ -61,6 +77,12 @@
   /* Color más oscuro al pasar el ratón */
   color: #fbb016;
 }
+
+.filters .activeFilter {
+  color: #fbb016; /* Color del texto para el botón seleccionado */
+  border-bottom: 2px solid #fbb016; /* Opcional: una línea debajo del botón */
+}
+
 .title {
   font-size: 1.2rem; /* Tamaño de fuente grande */
   font-weight: 700; /* Negrita */
@@ -108,7 +130,7 @@
 
 .search input {
   width: 100%;
-  padding: 2px 79px;
+  padding: 5px 320px 5px 15px;
   font-size: 1rem;
   border: 1px solid #ddd;
   border-radius: 10px;

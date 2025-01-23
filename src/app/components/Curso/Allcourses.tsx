@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const [courses, setCourses] = useState<any[]>([]);
-  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([])
+  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -14,7 +14,9 @@ const Page = () => {
   useEffect(() => {
     const formatDate = (isoDate: string): string => {
       const date = new Date(isoDate);
-      return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1)
+      return `${date.getDate().toString().padStart(2, "0")}/${(
+        date.getMonth() + 1
+      )
         .toString()
         .padStart(2, "0")}/${date.getFullYear()}`;
     };
@@ -62,26 +64,30 @@ const Page = () => {
           throw new Error("La respuesta no es un array");
         }
       } catch (error: any) {
-        setError(error.message || "Hubo un problema al cargar los cursos matriculados.");
+        setError(
+          error.message || "Hubo un problema al cargar los cursos matriculados."
+        );
         console.error("Error al obtener los cursos matriculados:", error);
       }
     };
     fetchEnrolledCourses();
     fetchCourses();
   }, []);
-    
+
   // Actualizar los cursos filtrados cuando cambia el término de búsqueda o el filtro
   useEffect(() => {
     let filtered = courses;
-  
+
     if (searchTerm) {
       filtered = filtered.filter(
         (course) =>
-          course.nombre_curso.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          course.nombre_curso
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
           course.tipo_curso.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-  
+
     if (filterType === "misCursos") {
       // Mostrar solo los cursos donde el usuario está matriculado
       const enrolledIds = new Set(enrolledCourses.map((c) => c.id_curso));
@@ -91,12 +97,13 @@ const Page = () => {
       const advancedCourses = new Set(
         enrolledCourses.filter((c) => c.avance > 0).map((c) => c.id_curso)
       );
-      filtered = filtered.filter((course) => advancedCourses.has(course.id_curso));
+      filtered = filtered.filter((course) =>
+        advancedCourses.has(course.id_curso)
+      );
     }
-  
+
     setFilteredCourses(filtered);
   }, [searchTerm, filterType, courses, enrolledCourses]);
-  
 
   return (
     <div>
@@ -105,34 +112,40 @@ const Page = () => {
       ) : (
         <div className={styles.container}>
           {/* Buscador */}
-          <input
-            type="text"
-            placeholder="Buscar cursos..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className={styles.searchInput}
-          />
-
-          {/* Filtros */}
-          <div className={styles.filters}>
-            <button
-              className={filterType === "todos" ? styles.activeFilter : ""}
-              onClick={() => setFilterType("todos")}
-            >
-              Todos los cursos
-            </button>
-            <button
-              className={filterType === "misCursos" ? styles.activeFilter : ""}
-              onClick={() => setFilterType("misCursos")}
-            >
-              Mis cursos
-            </button>
-            <button
-              className={filterType === "resultados" ? styles.activeFilter : ""}
-              onClick={() => setFilterType("resultados")}
-            >
-              Resultados
-            </button>
+          <div className={styles.encabezadofiltro}>
+            {/* Filtros */}
+            <div className={styles.filters}>
+              <button
+                className={filterType === "todos" ? styles.activeFilter : ""}
+                onClick={() => setFilterType("todos")}
+              >
+                Todos los cursos
+              </button>
+              <button
+                className={
+                  filterType === "misCursos" ? styles.activeFilter : ""
+                }
+                onClick={() => setFilterType("misCursos")}
+              >
+                Mis cursos
+              </button>
+              <button
+                className={
+                  filterType === "resultados" ? styles.activeFilter : ""
+                }
+                onClick={() => setFilterType("resultados")}
+              >
+                Resultados
+              </button>
+            </div>
+            <div className={styles.search}>
+              <input
+                type="text"
+                placeholder="Buscar cursos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Listado de cursos */}
@@ -154,7 +167,9 @@ const Page = () => {
                     <p>Inicio el: {course.fecha_hora_Inicio}</p>
                     <p>Finaliza el: {course.fecha_hora_Fin}</p>
                     <p>Hora de inicio curso: {course.hora}</p>
-                    <p className={styles.recomendaciones}>{course.recomendaciones}</p>
+                    <p className={styles.recomendaciones}>
+                      {course.recomendaciones}
+                    </p>
                     <Link
                       href={`/academia/cursos/${course.id_curso}`}
                       className={styles.link}
