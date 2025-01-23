@@ -154,6 +154,11 @@ const EventCalendar = () => {
     );
   };
 
+  const isEventInThePast = (eventDate: string) => {
+    const eventDateTime = new Date(eventDate);
+    return eventDateTime < today;
+  };
+
   return (
     <>
     <div className={styles.container}>
@@ -194,7 +199,9 @@ const EventCalendar = () => {
                       registeredEvents.includes(event.id_evento) ? "cancelar" : "asistir"
                     )
                   }
-                  disabled={loadingEventId === event.id_evento}
+                  disabled={
+                    isEventInThePast(event.fecha_hora)
+                  }
                 >
                   {loadingEventId === event.id_evento
                     ? "Procesando..."

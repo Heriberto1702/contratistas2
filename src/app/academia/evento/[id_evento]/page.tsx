@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import NavBar from "../../../components/navbar/NavBar";
@@ -23,9 +24,11 @@ const EventPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [id_contratista, setIdContratista] = useState<number | null>(null);
+  const [registeredEvents, setRegisteredEvents] = useState<number[]>([]); // IDs de eventos registrados
+  const [loadingEventId, setLoadingEventId] = useState<number | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
+  // Fetch de todos los eventos y busca el específico
   const fetchEvents = useCallback(async () => {
     try {
       const response = await fetch("/api/eventos/obtener");
@@ -50,20 +53,7 @@ const EventPage = () => {
     }
   }, [id_evento]);
 
-  useEffect(() => {
-    fetchEvents();
-  }, [fetchEvents, id_evento]);
-
-  useEffect(() => {
-    if (success || error) {
-      const timer = setTimeout(() => {
-        setSuccess(null);
-        setError(null);
-      }, 4800);
-      return () => clearTimeout(timer);
-    }
-  }, [success, error]);
-
+  // Fetch para obtener el ID del contratista
   useEffect(() => {
     const fetchContratistaId = async () => {
       try {
@@ -71,6 +61,7 @@ const EventPage = () => {
         const data = await response.json();
 
         if (response.ok) {
+          console.log("ID contratista:", data.id_contratista);
           setIdContratista(data.id_contratista);
         } else {
           throw new Error("No se pudo obtener el ID del contratista.");
@@ -84,8 +75,87 @@ const EventPage = () => {
     fetchContratistaId();
   }, []);
 
-  const images = ["/banneracademia.png"];
+  // Fetch para obtener los eventos registrados por el contratista
+  const fetchRegisteredEvents = useCallback(async () => {
+    if (!id_contratista) return; // Esperar a que id_contratista esté disponible
 
+    try {
+      const response = await fetch(
+        `/api/eventos/registrados?id_contratista=${id_contratista}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Eventos registrados:", data);
+        setRegisteredEvents(data.map((event: any) => event.id_evento));
+      } else {
+        throw new Error("No se pudieron obtener los eventos registrados.");
+      }
+    } catch (err: any) {
+      setError(err.message || "Error al obtener los eventos registrados.");
+    }
+  }, [id_contratista]);
+
+  // Llama a fetchEvents y fetchRegisteredEvents cuando sea necesario
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
+
+  useEffect(() => {
+    if (id_contratista) {
+      fetchRegisteredEvents();
+    }
+  }, [id_contratista, fetchRegisteredEvents]);
+
+  useEffect(() => {
+    if (success || error) {
+      const timer = setTimeout(() => {
+        setSuccess(null);
+        setError(null);
+      }, 4800);
+      return () => clearTimeout(timer);
+    }
+  }, [success, error]);
+
+  // Acción para asistir o cancelar
+  const handleEventAction = async (
+    eventId: number,
+    action: "asistir" | "cancelar"
+  ) => {
+    setLoadingEventId(eventId);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const endpoint =
+        action === "asistir" ? "/api/eventos/asistir" : "/api/eventos/cancelar";
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id_evento: eventId,
+          id_contratista,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || `Error al ${action} el evento.`);
+      }
+
+      setSuccess(
+        `Evento ${action === "asistir" ? "registrado" : "cancelado"} correctamente.`
+      );
+      fetchEvents();
+      fetchRegisteredEvents();
+    } catch (err: any) {
+      setError(err.message || `Hubo un problema al ${action} el evento.`);
+    } finally {
+      setLoadingEventId(null);
+    }
+  };
+
+  // Mostrar mensajes de error o carga
   if (isLoading) {
     return <div className="loading">Cargando evento...</div>;
   }
@@ -98,42 +168,19 @@ const EventPage = () => {
     return <div className="error">No se encontró el evento especificado.</div>;
   }
 
-  const handleAttend = async (eventId: number) => {
-    setLoading(true);
-    setError(null);
-    setSuccess(null);
-
-    try {
-      const response = await fetch("/api/eventos/asistir", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id_evento: eventId,
-          id_contratista,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Error al registrar la asistencia.");
-      }
-      setSuccess("Asistencia registrada correctamente.");
-      fetchEvents();
-    } catch (err: any) {
-      setError(err.message || "Hubo un problema al registrar la asistencia.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const images = ["/banneracademia.png"];
 
   return (
     <div>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
       <div className={Styles.container}>
-        {success && <div className={`${Styles.message} ${Styles.success}`}>{success}</div>}
-        {error && <div className={`${Styles.message} ${Styles.error}`}>{error}</div>}
+        {success && (
+          <div className={`${Styles.message} ${Styles.success}`}>{success}</div>
+        )}
+        {error && (
+          <div className={`${Styles.message} ${Styles.error}`}>{error}</div>
+        )}
 
         <h1 className={Styles.title}>{event.nombre_evento}</h1>
         <p className={Styles.location}>Locación: {event.locacion}</p>
@@ -160,11 +207,22 @@ const EventPage = () => {
         </div>
 
         <button
-          className={Styles.attendButton}
-          onClick={() => handleAttend(event.id_evento)}
-          disabled={loading}
+          className={`${Styles.attendButton} ${
+            registeredEvents.includes(event.id_evento) ? Styles.cancelButton : ""
+          }`}
+          onClick={() =>
+            handleEventAction(
+              event.id_evento,
+              registeredEvents.includes(event.id_evento) ? "cancelar" : "asistir"
+            )
+          }
+          disabled={loadingEventId === event.id_evento}
         >
-          {loading ? "Registrando..." : "Asistir"}
+          {loadingEventId === event.id_evento
+            ? "Procesando..."
+            : registeredEvents.includes(event.id_evento)
+            ? "Cancelar"
+            : "Asistir"}
         </button>
       </div>
     </div>

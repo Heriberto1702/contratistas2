@@ -81,7 +81,12 @@
 .attendButton:hover {
   background-color: #e0a800;
 }
-
+.attendButton:disabled {
+  background-color: #d3d3d3; /* Un gris claro */
+  color: #888888; /* Texto más tenue */
+  cursor: not-allowed; /* Cambia el cursor a 'no permitido' */
+  opacity: 0.6; /* Reduce la opacidad */
+}
 /* Calendario */
 .calendar {
   flex: 4;
@@ -168,6 +173,7 @@
   background-color: #474747; /* Rojo más oscuro al pasar el mouse */
   border: 1px solid #474747;
 }
+
 
 .selectedDay {
   background-color: #ffeeba;
