@@ -1,5 +1,5 @@
 import styles from './Beneficios.module.css';
-
+import Image from 'next/image';
 interface Beneficio {
   id: number;
   imagen: string;
@@ -73,7 +73,7 @@ const Beneficios: React.FC = () => {
     <div className={styles.grid}>
       {beneficios.map((beneficio) => (
         <div key={beneficio.id} className={styles.card}>
-          <img src={beneficio.imagen} alt={beneficio.titulo} className={styles.image} />
+          <Image width={1000} height={1000} src={beneficio.imagen} alt={beneficio.titulo} className={styles.image} />
           <p className={styles.descripcion}>{beneficio.descripcion}</p>
           <h3 className={styles.titulo}>{beneficio.titulo}</h3>
           <p className={styles.descuento}>{beneficio.descuento}</p>
