@@ -28,7 +28,7 @@ const EventPage = () => {
 
   const fetchEvents = useCallback(async () => {
     try {
-      const response = await fetch("/api/eventos/obtener"); // Ruta para obtener todos los eventos
+      const response = await fetch("/api/eventos/obtener");
 
       if (response.ok) {
         const data: Event[] = await response.json();
@@ -49,6 +49,7 @@ const EventPage = () => {
       setIsLoading(false);
     }
   }, [id_evento]);
+
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents, id_evento]);
@@ -58,10 +59,11 @@ const EventPage = () => {
       const timer = setTimeout(() => {
         setSuccess(null);
         setError(null);
-      }, 4800); // 5 segundos
+      }, 4800);
       return () => clearTimeout(timer);
     }
   }, [success, error]);
+
   useEffect(() => {
     const fetchContratistaId = async () => {
       try {
@@ -95,6 +97,7 @@ const EventPage = () => {
   if (!event) {
     return <div className="error">No se encontró el evento especificado.</div>;
   }
+
   const handleAttend = async (eventId: number) => {
     setLoading(true);
     setError(null);
@@ -123,33 +126,39 @@ const EventPage = () => {
       setLoading(false);
     }
   };
+
   return (
     <div>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
       <div className={Styles.container}>
+        {success && <div className={`${Styles.message} ${Styles.success}`}>{success}</div>}
+        {error && <div className={`${Styles.message} ${Styles.error}`}>{error}</div>}
+
         <h1 className={Styles.title}>{event.nombre_evento}</h1>
         <p className={Styles.location}>Locación: {event.locacion}</p>
         <p className={Styles.date}>Fecha y hora: {event.fecha_hora}</p>
         <p className={Styles.slots}>Cupos disponibles: {event.cupos}</p>
+
         <div className={Styles.imageContainer}>
           <Image
             className={Styles.image}
-            width={100}
-            height={100}
+            width={600}
+            height={400}
             src={event.imagen_evento}
-            alt={event.nombre_evento}
+            alt={`Imagen del evento ${event.nombre_evento}`}
           />
         </div>
         <div className={Styles.imageContainer}>
           <Image
             className={Styles.image}
-            width={100}
-            height={100}
+            width={600}
+            height={400}
             src={event.imagen_des_evento}
-            alt={event.nombre_evento}
+            alt={`Imagen descriptiva del evento ${event.nombre_evento}`}
           />
         </div>
+
         <button
           className={Styles.attendButton}
           onClick={() => handleAttend(event.id_evento)}

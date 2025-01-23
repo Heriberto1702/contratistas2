@@ -1,57 +1,208 @@
+/* General container */
 .container {
   padding: 20px;
+  font-family: 'Arial', sans-serif; /* Modern and clean font */
+  background-color: #f9f9f9; /* Subtle background for better contrast */
 }
 
+/* Table styles */
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  background-color: #ffffff; /* White background for better readability */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .table th,
 .table td {
-  padding: 10px;
+  padding: 12px 15px;
   text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid #e0e0e0; /* Light separator for rows */
 }
 
 .table th {
-  background-color: #f4f4f4;
+  background-color: #FBAF16; /* Primary color for header */
+  color: #ffffff; /* White text for contrast */
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
+.table td {
+  background-color: #fafafa;
+  color: #333333;
+}
+
+.table tr:hover td {
+  background-color: #f1f9ff; /* Subtle hover effect for rows */
+}
+
+/* Button styles */
 .button {
-  background-color: #4caf50; /* Verde */
+  background-color: #FBAF16; /* Primary button color */
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a slight shadow */
 }
 
 .button:hover {
-  background-color: #45a049; /* Verde más oscuro */
+  background-color: #0056b3; /* Darker blue for hover */
+  transform: scale(1.05); /* Slight scale effect */
 }
 
+/* Detail container */
 .detailContainer {
   margin-top: 20px;
-  padding: 15px;
+  padding: 20px;
+  background-color: #ffffff; /* White background for details */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for focus */
 }
+
 .detailContainer h3 {
   text-align: left;
+  font-size: 18px;
+  color: #333333; /* Darker text for titles */
 }
+
 .detailTable {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
 }
 
 .detailTable th,
 .detailTable td {
-  padding: 10px;
+  padding: 12px 15px;
   text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .detailTable th {
-  background-color: #f4f4f4;
+  background-color: #FBAF16; /* Match the main table header style */
+  color: #ffffff;
+  font-weight: bold;
 }
 
+.detailTable td {
+  background-color: #fafafa;
+}
 
+/* Popup overlay */
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
+.popup {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for focus */
+  animation: fadeIn 0.3s ease-in-out; /* Smooth appearance animation */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Close button for popup */
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff4d4f; /* Red for close button */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.closeButton:hover {
+  background-color: #d9363e; /* Darker red on hover */
+}
+
+/* Filter container */
+.filterContainer {
+  margin: 10px 0;
+  display: flex;
+  gap: 15px;
+  align-items: flex-end; /* Align inputs and button */
+}
+
+.filterContainer label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+  font-size: 14px;
+  color: #333333;
+}
+
+.filterContainer input {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+.filterContainer input:focus {
+  border-color: #007bff; /* Focus effect */
+  outline: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .table th,
+  .table td,
+  .detailTable th,
+  .detailTable td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+
+  .popup {
+    width: 95%;
+  }
+}
