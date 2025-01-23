@@ -144,7 +144,9 @@ const EventPage = () => {
       }
 
       setSuccess(
-        `Evento ${action === "asistir" ? "registrado" : "cancelado"} correctamente.`
+        `Evento ${
+          action === "asistir" ? "registrado" : "cancelado"
+        } correctamente.`
       );
       fetchEvents();
       fetchRegisteredEvents();
@@ -181,49 +183,64 @@ const EventPage = () => {
         {error && (
           <div className={`${Styles.message} ${Styles.error}`}>{error}</div>
         )}
+        <div className={Styles.encabezado}>
+          <div className={Styles.imageContainer}>
+            <Image
+              className={Styles.image}
+              width={100}
+              height={100}
+              src={event.imagen_evento}
+              alt={`Imagen del evento ${event.nombre_evento}`}
+            />
+          </div>
+          <div className={Styles.Info}>
+            <div className={Styles.titulares}>
+              <h1 className={Styles.title}>{event.nombre_evento}</h1>
+            </div>
 
-        <h1 className={Styles.title}>{event.nombre_evento}</h1>
-        <p className={Styles.location}>Locación: {event.locacion}</p>
-        <p className={Styles.date}>Fecha y hora: {event.fecha_hora}</p>
-        <p className={Styles.slots}>Cupos disponibles: {event.cupos}</p>
+            <div>
+              <p className={Styles.letter}>Cupos disponibles: {event.cupos || 0}</p>
+            </div>
 
-        <div className={Styles.imageContainer}>
-          <Image
-            className={Styles.image}
-            width={600}
-            height={400}
-            src={event.imagen_evento}
-            alt={`Imagen del evento ${event.nombre_evento}`}
-          />
+            <div className={Styles.subtitulares}>
+              <p className={Styles.letter}>📍 {event.locacion}</p>
+              <p className={Styles.letter}>📅 {new Date(event.fecha_hora).toLocaleDateString("es-ES")}</p>
+              <p className={Styles.letter}>⏰ {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}</p>
+            </div>
+          </div>
+
+          <button
+            className={`${Styles.attendButton} ${
+              registeredEvents.includes(event.id_evento)
+                ? Styles.cancelButton
+                : ""
+            }`}
+            onClick={() =>
+              handleEventAction(
+                event.id_evento,
+                registeredEvents.includes(event.id_evento)
+                  ? "cancelar"
+                  : "asistir"
+              )
+            }
+            disabled={loadingEventId === event.id_evento}
+          >
+            {loadingEventId === event.id_evento
+              ? "Procesando..."
+              : registeredEvents.includes(event.id_evento)
+              ? "Cancelar"
+              : "Asistir"}
+          </button>
         </div>
         <div className={Styles.imageContainer}>
           <Image
             className={Styles.image}
-            width={600}
+            width={1000}
             height={400}
             src={event.imagen_des_evento}
             alt={`Imagen descriptiva del evento ${event.nombre_evento}`}
           />
         </div>
-
-        <button
-          className={`${Styles.attendButton} ${
-            registeredEvents.includes(event.id_evento) ? Styles.cancelButton : ""
-          }`}
-          onClick={() =>
-            handleEventAction(
-              event.id_evento,
-              registeredEvents.includes(event.id_evento) ? "cancelar" : "asistir"
-            )
-          }
-          disabled={loadingEventId === event.id_evento}
-        >
-          {loadingEventId === event.id_evento
-            ? "Procesando..."
-            : registeredEvents.includes(event.id_evento)
-            ? "Cancelar"
-            : "Asistir"}
-        </button>
       </div>
     </div>
   );
