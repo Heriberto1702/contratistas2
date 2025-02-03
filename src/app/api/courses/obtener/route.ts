@@ -4,11 +4,12 @@ import prisma from "@/lib/prisma";
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const courseId = searchParams.get("id"); // Obtenemos el parámetro 'id'
+    const courseId = searchParams.get("id");
 
-    // Si 'id' no está presente, obtenemos todos los cursos
     if (!courseId) {
+      // Obtener todos los cursos ordenados por id_curso de forma ascendente
       const cursos = await prisma.cursos.findMany({
+        orderBy: { id_curso: "asc" }, // Siempre ordenado en orden ASCENDENTE
         include: {
           sesiones: {
             include: {
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
       return NextResponse.json(cursos, { status: 200 });
     }
 
-    // Si 'id' está presente, obtenemos solo el curso específico
+    // Obtener un curso específico por ID
     const curso = await prisma.cursos.findUnique({
       where: { id_curso: Number(courseId) },
       include: {

@@ -52,7 +52,7 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({ section }) => {
                   className={styles.viewButton}
                   onClick={() => openPopup(module)}
                 >
-                  Ver Video
+                  &#9654;
                 </button>
                 {module.titulo_modulo}
               </li>

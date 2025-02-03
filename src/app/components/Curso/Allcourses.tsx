@@ -83,8 +83,7 @@ const Page = () => {
         (course) =>
           course.nombre_curso
             .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          course.tipo_curso.toLowerCase().includes(searchTerm.toLowerCase())
+            .includes(searchTerm.toLowerCase())
       );
     }
 
