@@ -213,7 +213,7 @@ console.log(data);  // Agrega esta línea para revisar la respuesta
                 checked={isContratistaActivo === false}
                 onChange={() => {
                   setIsContratistaActivo(false);
-                  window.location.href = "https://google.com";
+                  window.location.href = "https://form.jotform.com/sinsadigital/admisin-contratista";
                 }}
               />
               No

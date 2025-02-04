@@ -186,7 +186,7 @@ const EventCalendar = () => {
                     <p>⏰ {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}</p>
                     <p>📍 {event.locacion}</p>
                   </div>
-                  <p className={styles.text}><Link href={"https://www.google.com/"}>Si desea agregar mas personas a este evento de clic aquí</Link></p>
+                  <p className={styles.text}><Link href={"https://form.jotform.com/250274836316862"}>Si desea agregar más personas a este evento, haga <b>clic aquí</b></Link></p>
                   <hr className={styles.divider} />
                 </div>
                 <button

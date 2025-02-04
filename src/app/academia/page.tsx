@@ -17,9 +17,9 @@ const Page = () => {
 
   // Declaración de las cards con sus datos
   const cards = [
-    { id: '1', title: "Como fidelizar a sus clientes.", image: '/card1.png' },
-    { id: '2', title: "Como armar un buen presupuesto.", image: '/card2.png' },
-    { id: '3', title: "Como formalizar su empresa.", image: '/card3.png' },
+    { id: '1', title: "Como fidelizar a sus clientes", image: '/card1.png' },
+    { id: '2', title: "Como armar un buen presupuesto", image: '/card2.png' },
+    { id: '3', title: "Como formalizar su empresa", image: '/card3.png' },
   ];
 
   return (
