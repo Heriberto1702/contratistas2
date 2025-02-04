@@ -33,7 +33,7 @@ const Page = () => {
       <BannerSlidernew images={images} interval={3000} />
       <Banner
         imageUrl="/evento.png"
-        linkUrl="academia/evento/1"
+        linkUrl="academia/evento/14"
         altText="Ejemplo de imagen"
         width={1224}
         height={317}
