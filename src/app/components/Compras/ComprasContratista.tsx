@@ -3,25 +3,27 @@
 import { useState } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import styles from "./ComprasContratista.module.css";
 
 interface jsPDFWithAutoTable extends jsPDF {
   lastAutoTable: any;
   autoTable: (options: any) => void;
 }
-import styles from "./ComprasContratista.module.css";
 
+// Definir los tipos de datos basados en la estructura de JSON que recibes
 type Producto = {
-  nombre: string;
-  cantidad: number;
-  precio: number;
+  product_name: string;
+  product_id: number;
+  quantity: number;
+  amount: number;
 };
 
 type Compra = {
-  fecha: string; // Se asume que es en formato "YYYY-MM-DD"
-  tienda: string;
-  numeroFactura: string;
-  monto: number;
-  productos: Producto[];
+  ticket_id: number;
+  ticket_date: string; // Fecha en formato "YYYY-MM-DD"
+  store_name: string;
+  total_amount: number;
+  detail: Producto[];
 };
 
 type ComprasContratistaProps = {
@@ -40,28 +42,30 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
   const cerrarPopup = () => {
     setDetalleCompra(null);
   };
-    const doc = new jsPDF() as jsPDFWithAutoTable;
+
+  const doc = new jsPDF() as jsPDFWithAutoTable;
   const descargarPDF = () => {
     if (!detalleCompra) return;
 
     const doc = new jsPDF() as jsPDFWithAutoTable;
     autoTable(doc, {});
-    const title = `Detalle de Compra - Factura: ${detalleCompra.numeroFactura}`;
+    const title = `Detalle de Compra - Factura: ${detalleCompra.ticket_id}`;
 
     // Título y datos principales
     doc.setFontSize(16);
     doc.text(title, 10, 10);
     doc.setFontSize(12);
-    doc.text(`Fecha: ${detalleCompra.fecha}`, 10, 20);
-    doc.text(`Tienda: ${detalleCompra.tienda}`, 10, 30);
+    doc.text(`Fecha: ${detalleCompra.ticket_date}`, 10, 20);
+    doc.text(`Tienda: ${detalleCompra.store_name}`, 10, 30);
 
     // Tabla de productos
     const columns = ["Producto", "Cantidad", "Precio Unitario", "Total"];
-    const rows = detalleCompra.productos.map((producto) => [
-      producto.nombre,
-      producto.cantidad,
-      `$${producto.precio.toFixed(2)}`,
-      `$${(producto.precio * producto.cantidad).toFixed(2)}`,
+    const rows = detalleCompra.detail.map((producto) => [
+      producto.product_name,
+      producto.product_id,
+      producto.quantity,
+      `C$${(producto.amount / producto.quantity).toFixed(2)}`, // Precio Unitario
+      `C$${producto.amount.toFixed(2)}`, // Total por producto
     ]);
 
     doc.autoTable({
@@ -73,15 +77,15 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     // Total
     const totalY = doc.lastAutoTable.finalY + 10;
     doc.setFontSize(14);
-    doc.text(`Total: $${detalleCompra.monto.toFixed(2)}`, 10, totalY);
+    doc.text(`Total: C$${detalleCompra.total_amount.toFixed(2)}`, 10, totalY);
 
     // Descargar PDF
-    doc.save(`Detalle_Compra_${detalleCompra.numeroFactura}.pdf`);
+    doc.save(`Detalle_Compra_${detalleCompra.ticket_id}.pdf`);
   };
 
   const comprasFiltradas = comprasData.filter((compra) => {
     if (rangoInicio && rangoFin) {
-      return compra.fecha >= rangoInicio && compra.fecha <= rangoFin;
+      return compra.ticket_date >= rangoInicio && compra.ticket_date <= rangoFin;
     }
     return true;
   });
@@ -124,10 +128,10 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
         <tbody>
           {comprasFiltradas.map((compra, index) => (
             <tr key={index}>
-              <td>{compra.fecha}</td>
-              <td>{compra.tienda}</td>
-              <td>{compra.numeroFactura}</td>
-              <td>{compra.monto.toFixed(2)}</td>
+              <td>{compra.ticket_date}</td>
+              <td>{compra.store_name}</td>
+              <td>{compra.ticket_id}</td>
+              <td>{compra.total_amount.toFixed(2)}</td>
               <td>
                 <button
                   className={styles.button}
@@ -148,32 +152,32 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
             <button className={styles.closeButton} onClick={cerrarPopup}>
               ×
             </button>
-            <h2>Detalle de Compra - {detalleCompra.numeroFactura}</h2>
-            <p>Fecha: {detalleCompra.fecha}</p>
-            <p>Tienda: {detalleCompra.tienda}</p>
+            <h2>Detalle de Compra - {detalleCompra.ticket_id}</h2>
+            <p>Fecha: {detalleCompra.ticket_date}</p>
+            <p>Tienda: {detalleCompra.store_name}</p>
             <table className={styles.detailTable}>
               <thead>
                 <tr>
                   <th>Producto</th>
                   <th>Cantidad</th>
+                  <th>SKU</th>
                   <th>Precio Unitario</th>
                   <th>Total</th>
                 </tr>
               </thead>
               <tbody>
-                {detalleCompra.productos.map((producto, index) => (
+                {detalleCompra.detail.map((producto, index) => (
                   <tr key={index}>
-                    <td>{producto.nombre}</td>
-                    <td>{producto.cantidad}</td>
-                    <td>{producto.precio.toFixed(2)}</td>
-                    <td>
-                      {(producto.precio * producto.cantidad).toFixed(2)}
-                    </td>
+                    <td>{producto.product_name}</td>
+                    <td>{producto.product_id}</td>
+                    <td>{producto.quantity}</td>
+                    <td>{(producto.amount / producto.quantity).toFixed(2)}</td>
+                    <td>{producto.amount.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <h3>Total: {detalleCompra.monto.toFixed(2)}</h3>
+            <h3>Total: C${detalleCompra.total_amount.toFixed(2)}</h3>
             <button className={styles.downloadButton} onClick={descargarPDF}>
               Descargar PDF
             </button>

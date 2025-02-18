@@ -1,18 +1,40 @@
-// src/app/compras/page.tsx
+"use client"; // 👈 Hace que este componente sea un Client Component
 
-import path from "path";
-import { promises as fs } from "fs";
+import { useState, useEffect } from "react";
 import ComprasContratista from "../components/Compras/ComprasContratista";
 import NavBar from "../components/navbar/NavBar";
-// Función para cargar datos desde el archivo JSON en el servidor
-async function fetchComprasData() {
-  const filePath = path.join(process.cwd(), "src", "data", "compras.json");
-  const fileContents = await fs.readFile(filePath, "utf-8");
-  return JSON.parse(fileContents);
-}
 
-const ComprasPage = async () => {
-  const comprasData = await fetchComprasData();
+// 🔹 Página de compras (Client Component)
+const ComprasPage = () => {
+  const [comprasData, setComprasData] = useState([]);
+
+  useEffect(() => {
+    async function fetchComprasData() {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+        const url = `${baseUrl}/api/compras`;
+
+        const response = await fetch(url, {
+          method: "GET",
+          cache: "no-store",
+          credentials: "include", // Enviar cookies si es necesario
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error en la API: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setComprasData(data);
+      } catch (error) {
+        console.error("Error obteniendo datos de compras:", error);
+        setComprasData([]);
+      }
+    }
+
+    fetchComprasData();
+  }, []); // 👈 Se ejecuta una sola vez al montar el componente
 
   return (
     <>
