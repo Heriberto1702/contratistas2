@@ -1,7 +1,7 @@
 /* General container */
 .container {
   padding: 20px;
-  font-family: 'Arial', sans-serif; /* Modern and clean font */
+  font-family: "Arial", sans-serif; /* Modern and clean font */
   background-color: #f9f9f9; /* Subtle background for better contrast */
 }
 
@@ -25,7 +25,7 @@
 }
 
 .table th {
-  background-color: #FBAF16; /* Primary color for header */
+  background-color: #fbaf16; /* Primary color for header */
   color: #ffffff; /* White text for contrast */
   font-weight: bold;
   text-transform: uppercase;
@@ -42,7 +42,7 @@
 
 /* Button styles */
 .button {
-  background-color: #FBAF16; /* Primary button color */
+  background-color: #fbaf16; /* Primary button color */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -88,13 +88,17 @@
 }
 
 .detailTable th {
-  background-color: #FBAF16; /* Match the main table header style */
+  background-color: #fbaf16; /* Match the main table header style */
   color: #ffffff;
   font-weight: bold;
 }
 
 .detailTable td {
   background-color: #fafafa;
+}
+
+.detailBody {
+  overflow-y: auto; /* Habilita el scroll vertical */
 }
 
 /* Popup overlay */
@@ -111,13 +115,50 @@
   z-index: 1000;
 }
 
+.downloadButton{
+  background-color: #28a745; /* Green for download button */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a slight shadow */
+}
+.Detalle{
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+.titulo{
+  font-size: 16px;
+  font-weight: bold;
+}
+.total{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.detailTableContainer {
+  max-height: 500px;
+  overflow-y: auto; /* Habilita el scroll solo para la tabla */
+}
+.totalContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
 .popup {
   background: white;
   padding: 20px;
   border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
+  width: auto;
+  max-width: 800px;
+  max-height: 800px;
   position: relative;
+
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for focus */
   animation: fadeIn 0.3s ease-in-out; /* Smooth appearance animation */
 }

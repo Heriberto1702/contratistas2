@@ -55,7 +55,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     doc.setFontSize(16);
     doc.text(title, 10, 10);
     doc.setFontSize(12);
-    doc.text(`Fecha: ${detalleCompra.ticket_date}`, 10, 20);
+    doc.text(`Fecha: ${detalleCompra.ticket_date.split("T")[0]}`, 10, 20);
     doc.text(`Tienda: ${detalleCompra.store_name}`, 10, 30);
 
     // Tabla de productos
@@ -85,7 +85,9 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
 
   const comprasFiltradas = comprasData.filter((compra) => {
     if (rangoInicio && rangoFin) {
-      return compra.ticket_date >= rangoInicio && compra.ticket_date <= rangoFin;
+      return (
+        compra.ticket_date >= rangoInicio && compra.ticket_date <= rangoFin
+      );
     }
     return true;
   });
@@ -128,7 +130,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
         <tbody>
           {comprasFiltradas.map((compra, index) => (
             <tr key={index}>
-              <td>{compra.ticket_date}</td>
+              <td>{compra.ticket_date.split("T")[0]}</td>
               <td>{compra.store_name}</td>
               <td>{compra.ticket_id}</td>
               <td>{compra.total_amount.toFixed(2)}</td>
@@ -152,35 +154,44 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
             <button className={styles.closeButton} onClick={cerrarPopup}>
               ×
             </button>
-            <h2>Detalle de Compra - {detalleCompra.ticket_id}</h2>
-            <p>Fecha: {detalleCompra.ticket_date}</p>
-            <p>Tienda: {detalleCompra.store_name}</p>
-            <table className={styles.detailTable}>
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cantidad</th>
-                  <th>SKU</th>
-                  <th>Precio Unitario</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {detalleCompra.detail.map((producto, index) => (
-                  <tr key={index}>
-                    <td>{producto.product_name}</td>
-                    <td>{producto.product_id}</td>
-                    <td>{producto.quantity}</td>
-                    <td>{(producto.amount / producto.quantity).toFixed(2)}</td>
-                    <td>{producto.amount.toFixed(2)}</td>
+            <h2 className={styles.Detalle}>Detalle de Compra</h2>
+            <p className={styles.titulo}>Factura N°: {detalleCompra.ticket_id}</p>
+            <p className={styles.titulo}>Fecha: {detalleCompra.ticket_date.split("T")[0]}</p>
+            <p className={styles.titulo}>Tienda: {detalleCompra.store_name}</p>
+
+            <div className={styles.detailTableContainer}>
+              <table className={styles.detailTable}>
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>SKU</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <h3>Total: C${detalleCompra.total_amount.toFixed(2)}</h3>
+                </thead>
+                <tbody>
+                  {detalleCompra.detail.map((producto, index) => (
+                    <tr key={index}>
+                      <td>{producto.product_name}</td>
+                      <td>{producto.product_id}</td>
+                      <td>{producto.quantity}</td>
+                      <td>
+                        {(producto.amount / producto.quantity).toFixed(2)}
+                      </td>
+                      <td>{producto.amount.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className={styles.totalContainer}>
+            <h3 className={styles.total}>Total: C${detalleCompra.total_amount.toFixed(2)}</h3>
             <button className={styles.downloadButton} onClick={descargarPDF}>
               Descargar PDF
             </button>
+            </div>
+
           </div>
         </div>
       )}

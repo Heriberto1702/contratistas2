@@ -23,30 +23,29 @@ const Page = () => {
           imageUrl="/doc1.png"
           text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."
           text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
-          urlExcel="/doc/ejemplo.xlsx"
+          urlExcel="/doc/cotizacion-construccion.xlsx"
           linkText="Cotización >"
         />
         <Modulov2
           imageUrl="/doc2.png"
           text="Utilice este archivo para calcular de manera concisa cual será el costo para usted de algún proyecto a realizar, en este podrá separar los gastos por categorías como: insumos, mano de obra, comida, traslados, entre otros, para visibilizar todos los gastos que conlleva el proyecto."
           text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
-          urlExcel="/doc/ejemplo.xlsx"
-          linkText="Costos de proyectos >"
+          urlExcel="/doc/listado-de-puestos-de-empresas.xlsx"
+          linkText="Listado de puestos de empresas >"
         />
         <Modulov2
           imageUrl="/doc3.png"
           text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."
           text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
-          urlExcel="/doc/ejemplo.xlsx"
+          urlExcel="/doc/planificador-de-proyecto.xlsx"
           linkText="Planificación de proyectos >"
         />
         <Modulov2
           imageUrl="/doc3.png"
           text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."
           text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
-         
-          urlExcel="/doc/ejemplo.xlsx"
-          linkText="Planificación de proyectos >"
+          urlExcel="/doc/recepcion-del-trabajo.xlsx"
+          linkText="Recepción del trabajo >"
         />
       </Container>
 

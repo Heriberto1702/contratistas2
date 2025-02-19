@@ -11,7 +11,7 @@ const ComprasPage = () => {
   useEffect(() => {
     async function fetchComprasData() {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+        const baseUrl = process.env.NODE_ENV === "production" ? "https://contratistas2.vercel.app/" : "http://localhost:3000";
         const url = `${baseUrl}/api/compras`;
 
         const response = await fetch(url, {
