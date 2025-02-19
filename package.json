@@ -33,6 +33,7 @@
     "jspdf-autotable": "^3.8.4",
     "next": "^15.0.3",
     "next-auth": "^4.24.10",
+    "nextjs-toploader": "^3.7.15",
     "pdfjs-dist": "^3.10.111",
     "raw-loader": "^4.0.2",
     "react": "^18.3.0",
