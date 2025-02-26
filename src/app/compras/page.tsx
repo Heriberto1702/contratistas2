@@ -16,7 +16,7 @@ const ComprasPage = () => {
 
         const response = await fetch(url, {
           method: "GET",
-          cache: "no-store",
+          cache: "no-cache",
           credentials: "include", // Enviar cookies si es necesario
           headers: { "Content-Type": "application/json" },
         });
