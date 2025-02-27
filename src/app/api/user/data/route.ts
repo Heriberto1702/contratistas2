@@ -8,7 +8,7 @@ export async function GET() {
     console.log("Iniciando el endpoint /api/user/data");
     // Obtener la sesión del usuario autenticado
     const session = await getServerSession(authOptions);
-    console.log("Sesión obtenida:", session);
+   
 
     // Verificar si el usuario está autenticado
     if (!session || !session.user?.email) {
@@ -34,7 +34,7 @@ export async function GET() {
         id_tipo_contratista: true,
       }, // Solo seleccionamos los campos necesarios
     });
-    console.log("Usuario encontrado:", user);
+    
     // Validar si el usuario existe en la base de datos
     if (!user) {
       return NextResponse.json({ message: "Usuario no encontrado" }, { status: 404 });

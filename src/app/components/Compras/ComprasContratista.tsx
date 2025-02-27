@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import styles from "./ComprasContratista.module.css";
+import { useSession } from "next-auth/react"; // Importamos useSession
 
 interface jsPDFWithAutoTable extends jsPDF {
   lastAutoTable: any;
@@ -35,6 +36,9 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
   const [detalleCompra, setDetalleCompra] = useState<Compra | null>(null);
   const [rangoInicio, setRangoInicio] = useState<string>("");
   const [rangoFin, setRangoFin] = useState<string>("");
+  const { data: session } = useSession(); // Obtener la sesión del usuario logueado
+  const [rucCedula, setRucCedula] = useState<string | null>(null); // Estado para almacenar RUC o Cédula
+
 
   const abrirDetalleCompra = (compra: Compra) => {
     setDetalleCompra(compra);
@@ -43,10 +47,30 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
   const cerrarPopup = () => {
     setDetalleCompra(null);
   };
+  useEffect(() => {
+    const obtenerRucCedula = async () => {
+      if (!session?.user?.email) return;
 
-  const descargarPDF = () => {
-    if (!detalleCompra) return;
+      try {
+        // Llamamos a la API que ya tienes creada
+        const response = await fetch("/api/user/data");
+        const data = await response.json();
 
+        if (data.ruc || data.cedula) {
+          setRucCedula(data.ruc || data.cedula); // Guardamos el RUC o Cédula
+        }
+      } catch (error) {
+        console.error("Error al obtener RUC o Cédula", error);
+      }
+    };
+
+    obtenerRucCedula();
+  }, [session]);
+
+  const descargarPDF = async () => {
+    if (!detalleCompra || !rucCedula) return;
+
+   
     const doc = new jsPDF() as jsPDFWithAutoTable;
     autoTable(doc, {});
     const title = `Detalle de Compra - Factura: ${detalleCompra.ticket_id}`;
@@ -56,6 +80,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     doc.setFontSize(12);
     doc.text(`Fecha: ${detalleCompra.ticket_date.split("T")[0]}`, 10, 20);
     doc.text(`Tienda: ${detalleCompra.store_name}`, 10, 30);
+    doc.text(`RUC/Cédula: ${rucCedula}`, 10, 40);
 
     const columns = ["Producto", "SKU", "Cantidad", "Precio Unitario", "Total"];
     const rows = detalleCompra.detail.map((producto) => [
@@ -69,7 +94,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     doc.autoTable({
       head: [columns],
       body: rows,
-      startY: 40,
+      startY: 45,
     });
 
     const totalY = doc.lastAutoTable.finalY + 10;
@@ -112,6 +137,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     worksheet.addRow(["Factura N°", detalleCompra.ticket_id]);
     worksheet.addRow(["Fecha", detalleCompra.ticket_date.split("T")[0]]);
     worksheet.addRow(["Tienda", detalleCompra.store_name]);
+    worksheet.addRow(["RUC/Cédula:", rucCedula]);
     worksheet.addRow([]); // Espacio
   
     // **Encabezado de la tabla**
