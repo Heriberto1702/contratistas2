@@ -92,4 +92,15 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token",
+      options: {
+        httpOnly: true, // Evita acceso desde JavaScript
+        secure: process.env.NODE_ENV === "production" ? true : false, // Solo HTTPS en producción
+        sameSite: "lax",
+        path: "/", // Asegura que la cookie esté disponible en todas las rutas
+      },
+    },
+  },
 };
