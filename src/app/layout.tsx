@@ -17,7 +17,7 @@ export default function RootLayout({
       <body className={`${roboto.className} antialiased`}>
       <NextTopLoader color = "#FBAF16" />
         <SessionProvider> {/* Envuelve el contenido de la aplicación */}
-          <WhatsAppLink />
+          
           <main>{children}</main>
           <Footer />
         </SessionProvider>
