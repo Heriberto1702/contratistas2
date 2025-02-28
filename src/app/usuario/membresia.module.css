@@ -1,74 +1,150 @@
-/* Estilos para la membresía */
+/* membresia.module.css */
+
+/* Contenedor principal */
 .userdashboard {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh; /* Ocupa toda la altura de la pantalla */
-  width: 100%; /* Ocupa todo el ancho */
-  padding: 2rem;
-  gap: 2rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 30px 50px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* Columna izquierda - Información del usuario */
+.userdashboard:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Columna izquierda - Información de usuario */
 .userinfo {
-  background-color: #d3d3d3; /* Gris */
-  width: 45%; /* Ocupa menos de la mitad de la pantalla */
-  padding: 3rem;
+  flex: 0 0 280px; /* Reducimos el ancho de la columna */
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
+  gap: 30px;
 }
 
-.userinfo div {
+/* Banner superior */
+.academiabanner {
+  background-color: #ffcc00;
+  padding: 15px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  color: #222;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Iconos y textos */
+.userinfo .flex {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 20px;
 }
 
-/* Banner inferior */
-.academiabanner {
-  background-color: #fbc02d; /* Amarillo */
-  color: black;
-  font-weight: bold;
-  font-size: 2rem;
-  text-align: center;
-  width: 100%;
-  padding: 2rem;
-  margin-top: auto;
+.userinfo p {
+  margin: 0;
+  font-size: 20px; /* Aumento en el tamaño de texto */
+  color: #333;
+}
+
+.userinfo .font-bold {
+  font-weight: 600;
+  font-size: 22px; /* Aumento en el tamaño de texto */
+  color: #222;
 }
 
 /* Columna derecha - Tarjeta */
 .usercard {
-  width: 45%;
+  flex: 0 0 250px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative; /* Necesario para colocar el texto sobre la tarjeta */
+  text-align: center;
 }
 
+/* Efecto de flotación de la tarjeta */
+.usercard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen de la tarjeta */
 .usercard img {
-  width: 80%; /* Ajustar la tarjeta */
-  max-width: 400px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 180px; /* Tamaño ajustable */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Nombre sobre la tarjeta */
+.usercard p {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff; /* Blanco para que resalte sobre la tarjeta */
+  position: absolute;
+  bottom: 20px; /* Ajustar la posición del texto */
+  width: 100%;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  z-index: 10;
+}
+
+/* Efecto de los iconos cuando pasas el mouse */
+.userinfo .flex img:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 1024px) {
   .userdashboard {
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    gap: 20px;
   }
 
   .userinfo, .usercard {
-    width: 90%;
-    text-align: center;
+    width: 100%;
   }
 
   .academiabanner {
-    font-size: 1.5rem;
-    padding: 1.5rem;
+    font-size: 18px;
+  }
+
+  .usercard p {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .userdashboard {
+    padding: 20px;
+  }
+
+  .academiabanner {
+    font-size: 16px;
+  }
+
+  .usercard {
+    padding: 20px;
+  }
+
+  .usercard p {
+    font-size: 18px;
   }
 }

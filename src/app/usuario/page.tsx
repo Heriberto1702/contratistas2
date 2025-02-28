@@ -46,40 +46,63 @@ const UserDashboard = () => {
       <div className={styles.userdashboard}>
         {/* Columna Izquierda */}
         <div className={styles.userinfo}>
-          
-          
-          <div className="flex items-center gap-2 mb-4">
-            <Image src="/cuenta/user.png" width={40} height={40} alt="User Icon" />
+          {/* Banner superior (amarillo) */}
+          <div className={styles.academiabanner}>
+            Academia para Contratistas
+          </div>
+
+          <div className="flex items-center gap-4 mb-4">
+            <Image
+              src="/cuenta/user.png"
+              width={50}
+              height={50}
+              alt="User Icon"
+            />
             <div>
               <p className="font-bold">Bienvenido:</p>
-              <p>{userData?.nombres_contratista || "Cargando..."}</p>
+              <p className="text-xl">{userData?.nombres_contratista || "Cargando..."}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 mb-4">
-            <Image src="/cuenta/cuentalogo.png" width={40} height={40} alt="Club Icon" />
+          <div className="flex items-center gap-4 mb-4">
+            <Image
+              src="/cuenta/cuentalogo.png"
+              width={50}
+              height={50}
+              alt="Club Icon"
+            />
             <div>
               <p className="font-bold">Nivel Contratista</p>
-              <p>{userData?.nombre_club || "Cargando..."}</p>
+              <p className="text-xl">{userData?.nombre_club || "Cargando..."}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Image src="/cuenta/config.png" width={40} height={40} alt="Settings Icon" />
+          <div className="flex items-center gap-4">
+            <Image
+              src="/cuenta/config.png"
+              width={50}
+              height={50}
+              alt="Settings Icon"
+            />
             <div>
               <p className="font-bold">Configuración</p>
               <Link href="/usuario/datos">Revisar mis datos</Link>
             </div>
           </div>
-
-          {/* Banner inferior */}
-          <div className={styles.academiabanner}>Academia para Contratistas</div>
         </div>
 
         {/* Columna Derecha */}
         <div className={styles.usercard}>
-          <Image src="/cuenta/TarjetaContratista.png" width={120} height={80} alt="Tarjeta Contratista" />
-          <p>{userData?.nombres_contratista}</p>
+          <div className={styles.cardContainer}>
+            <Image
+              src="/cuenta/TarjetaContratista.png"
+              width={180}
+              height={120}
+              alt="Tarjeta Contratista"
+              className={styles.cardImage}
+            />
+            <p className={styles.cardText}>{userData?.nombres_contratista}</p>
+          </div>
         </div>
       </div>
     </>
