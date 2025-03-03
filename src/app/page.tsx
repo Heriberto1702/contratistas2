@@ -39,7 +39,7 @@ const Page = () => {
         height={317}
       />
       <TitleText
-        title="Bienvenido a nuestro CLUB PRO"
+        title="Bienvenido a nuestro Club del Contratista"
         subtitle="Conozca nuestro mundo de beneficios por segmento y sigamos creciendo juntos"
       />
       <Banner
@@ -68,10 +68,6 @@ const Page = () => {
       <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría y beneficios" />
       <Cards />
 
-      <section id="beneficios">
-      <TitleText subtitle="Beneficios para Contratistas" />
-      <Beneficios />
-      </section>
 
       <TitleText subtitle="Conoce lo nuevo en capacitación" />
       <DoubleCarousel
@@ -80,6 +76,13 @@ const Page = () => {
         autoplay={true} // Auto-play activado
         autoplaySpeed={5000} // Velocidad de auto-play en milisegundos
       />
+      
+      <section id="beneficios">
+      <TitleText subtitle="Beneficios para Contratistas" />
+      <Beneficios />
+      </section>
+
+      
     </>
   );
 };
