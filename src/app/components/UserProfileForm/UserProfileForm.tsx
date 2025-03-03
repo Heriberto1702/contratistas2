@@ -118,6 +118,8 @@ const UserProfileForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
+        <h2 className={styles.formTitle}>Editar mis datos</h2>
+        <div className={styles.formGrid}>
       <div className={styles.formGroup}>
         <label className={styles.label}>Nombres:</label>
         <input
@@ -239,10 +241,10 @@ const UserProfileForm = () => {
           className={styles.input}
         />
       </div>
-
+      </div>
       <div className={styles.buttonContainer}>
         <button type="submit" className={styles.submitButton}>
-          Guardar Perfil
+          Actualizar datos
         </button>
       </div>
     </form>
