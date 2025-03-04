@@ -14,7 +14,8 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Reset error before new attempt
+    setError(null);
+
     const result = await signIn("credentials", {
       redirect: false,
       email,
@@ -30,9 +31,13 @@ export default function LoginForm() {
 
   return (
     <div className={Styles.container}>
+    
       <div className={Styles.formContainer}>
+        <div className={Styles.imageWrapper}>
+          <Image width={100} height={100} src="/LogoContratista.png" alt="Logo" />
+        </div>
         <form onSubmit={handleSubmit}>
-          <label>Ingrese los siguientes datos:</label>
+          <label className={Styles.titulos}>Inicio de Sesión</label>
           <input
             className={Styles.input}
             type="email"
@@ -51,24 +56,15 @@ export default function LoginForm() {
           />
           {error && <p className={Styles.error}>{error}</p>}
           <button className={Styles.button} type="submit">
-            Iniciar Sesión
+            Acceder
           </button>
         </form>
         <div className={Styles.registerContainer}>
-          <h3>¿Aún no eres socio?</h3>
-          <p>
-            Regístrate <Link href={"/registro"}>aquí</Link>
+          <h3 className={Styles.subtitulos}>¿Aún no eres socio?</h3>
+          <p className={Styles.subtitulos}>
+             <Link href={"/registro"}> Regístrate aquí</Link>
           </p>
         </div>
-      </div>
-      <div className={Styles.imageContainer}>
-        <Image
-          className={Styles.imagen}
-          width={433}
-          height={485}
-          src={"/casco.png"}
-          alt={" "}
-        />
       </div>
     </div>
   );

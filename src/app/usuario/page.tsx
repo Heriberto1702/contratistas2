@@ -10,6 +10,8 @@ import UserProfileForm from "../components/UserProfileForm/UserProfileForm";
 interface UserData {
   nombres_contratista: string;
   nombre_club: string;
+  ruc: string;
+  cedula: string;
 }
 
 const UserDashboard = () => {
@@ -71,12 +73,23 @@ const UserDashboard = () => {
                     height={40}
                     alt="user"
                   />
-                 <h2 className={styles.texto}>Nivel Contratista: </h2>
+                  <h2 className={styles.texto}>Nivel Contratista: </h2>
                   <p className={styles.welcomeText}>{userData?.nombre_club || "Cargando..."}</p>
+                </div>
+                {/* RUC / Cédula debajo del nivel del contratista */}
+                <div className={styles.espacio}>
+                <Image
+                    src="/cuenta/id2.png"
+                    width={40}
+                    height={40}
+                    alt="user"
+                  />
+                  <h2 className={styles.texto}>RUC / Cédula: </h2>
+                  <p className={styles.welcomeText}>{userData?.ruc || userData?.cedula || "Cargando..."}</p>
                 </div>
               </div>
             </div>
-<br></br>
+            <br></br>
             {/* Tarjeta de Membresía - Movida abajo */}
             <div className={styles.membershipCard}>
               <Image
