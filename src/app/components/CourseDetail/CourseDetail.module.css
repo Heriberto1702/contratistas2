@@ -80,3 +80,10 @@
     background: #D99A00; /* Cambiar color de fondo al pasar el mouse */
     color: white; /* Cambiar color del texto al pasar el mouse */
   }
+
+  .loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+  }

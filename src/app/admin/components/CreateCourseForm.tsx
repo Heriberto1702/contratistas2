@@ -13,11 +13,11 @@ interface FormData {
   detalles_curso: string;
   tipo_curso: string;
   recomendaciones: string;
-  sesiones: {
+  sesiones?: {
     nombre_sesion: string;
     descripcion: string;
     fecha_hora: string;
-    modulos: { titulo_modulo: string; contenido: string }[];
+    modulos?: { titulo_modulo: string; contenido: string }[];
   }[];
 }
 
@@ -39,18 +39,18 @@ const CreateCoursePage = () => {
   
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name as string]: value,
+      });
+    };
   
   const handleAddSection = () => {
     setFormData({
       ...formData,
       sesiones: [
-        ...formData.sesiones,
+        ...(formData.sesiones || []),
         { nombre_sesion: "", descripcion: "", fecha_hora: "", modulos: [] },
       ],
     });
@@ -65,7 +65,7 @@ const CreateCoursePage = () => {
   };
 
   const handleSectionChange = (index: number, field: string, value: string) => {
-    const newSesiones = [...formData.sesiones];
+    const newSesiones = [...(formData.sesiones || [])];
     newSesiones[index] = { ...newSesiones[index], [field]: value };
     setFormData({
       ...formData,
@@ -74,7 +74,8 @@ const CreateCoursePage = () => {
   };
 
   const handleAddModule = (sectionIndex: number) => {
-    const newSesiones = [...formData.sesiones];
+    const newSesiones = [...(formData.sesiones || [])];
+    newSesiones[sectionIndex].modulos = newSesiones[sectionIndex].modulos || [];
     newSesiones[sectionIndex].modulos.push({
       titulo_modulo: "",
       contenido: "",
@@ -91,19 +92,21 @@ const CreateCoursePage = () => {
     field: string,
     value: string
   ) => {
-    const newSesiones = [...formData.sesiones];
-    newSesiones[sectionIndex].modulos[moduleIndex] = {
-      ...newSesiones[sectionIndex].modulos[moduleIndex],
-      [field]: value,
-    };
-    setFormData({
-      ...formData,
-      sesiones: newSesiones,
-    });
+    const newSesiones = [...(formData.sesiones || [])];
+    if (newSesiones[sectionIndex].modulos) {
+      newSesiones[sectionIndex].modulos[moduleIndex] = {
+        ...newSesiones[sectionIndex].modulos[moduleIndex],
+        [field]: value,
+      };
+      setFormData({
+        ...formData,
+        sesiones: newSesiones,
+      });
+    }
   };
 
   const handleDeleteSection = (index: number) => {
-    const newSesiones = formData.sesiones.filter((_, i) => i !== index);
+    const newSesiones = formData.sesiones?.filter((_, i) => i !== index) || [];
     setFormData({
       ...formData,
       sesiones: newSesiones,
@@ -111,8 +114,10 @@ const CreateCoursePage = () => {
   };
 
   const handleDeleteModule = (sectionIndex: number, moduleIndex: number) => {
-    const newSesiones = [...formData.sesiones];
-    newSesiones[sectionIndex].modulos = newSesiones[sectionIndex].modulos.filter((_, i) => i !== moduleIndex);
+    const newSesiones = [...(formData.sesiones || [])];
+    if (newSesiones[sectionIndex].modulos) {
+      newSesiones[sectionIndex].modulos = newSesiones[sectionIndex].modulos.filter((_, i) => i !== moduleIndex);
+    }
     setFormData({
       ...formData,
       sesiones: newSesiones,
@@ -330,7 +335,7 @@ const CreateCoursePage = () => {
     
         <div className={styles.subSection}>
           <h3 className={styles.sectionTitle}>Secciones</h3>
-          {formData.sesiones.map((section, index) => (
+          {(formData.sesiones || []).map((section, index) => (
             <div key={index} className={styles.sectionContainer}>
               <div className={styles.label}>
                 Nombre de la sesión:
@@ -369,7 +374,7 @@ const CreateCoursePage = () => {
               </div>
     
               <div className={styles.moduleContainer}>
-                {section.modulos.map((module, moduleIndex) => (
+                {section.modulos && section.modulos.map((module, moduleIndex) => (
                   <div key={moduleIndex} className={styles.moduleSubContainer}>
                     <div className={styles.moduleTitle}>Módulo {moduleIndex + 1}</div>
                     <div className={styles.moduleFieldGroup}>

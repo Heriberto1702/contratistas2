@@ -79,19 +79,15 @@ const CourseDetailPage = () => {
 
   const images = ["/banneracademia.png"];
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
-  if (!course) {
-    return <div>Cargando...</div>;
-  }
 
   return (
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
+    
       {id_contratista !== null && <CourseDetail course={course} id_contratista={id_contratista} />}
+
     </>
   );
 };

@@ -38,7 +38,12 @@ export async function GET() {
     } else {
       return NextResponse.json({ error: "No se encontró RUC ni Cédula." }, { status: 400 });
     }
+    const apiAuthToken = `${process.env.API_AUTH_TOKEN1}#${process.env.API_AUTH_TOKEN2}$${process.env.API_AUTH_TOKEN3}@${process.env.API_AUTH_TOKEN4}`;
+    
 
+    if (!apiAuthToken) {
+      return NextResponse.json({ error: "Falta el token de autorización." }, { status: 500 });
+    }
     // Construcción de la URL con parámetros correctos
     const apiUrl = `https://fastapi-stgm.onrender.com/marketing/app-contractors/tickets?identification=${identification}&id_type=${idType}`;
 
@@ -46,7 +51,7 @@ export async function GET() {
     const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
-        "Authorization": "Bearer Hy8K#mP9$vL2@nX5qR4tJ7wZ3cF6bN9d",
+        "Authorization": `Bearer ${apiAuthToken}`,
         "Content-Type": "application/json",
       }
     });

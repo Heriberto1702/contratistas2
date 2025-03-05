@@ -15,7 +15,128 @@
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
+.mensaje{
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #f9f9f9;
+}
 
+.loadingMessage {
+  font-size: 20px;
+  font-weight: 200;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+.titlepage{
+  font-weight: 600;   /* Peso de fuente para darle énfasis */
+  color: #333;        /* Color oscuro para buena legibilidad */
+  text-align: center; /* Alineado al centro */
+  margin-bottom: 20px; /* Espaciado inferior */
+  border-bottom: 1px solid #4CAF50; /* Línea decorativa abajo */
+  padding-bottom: 10px; /* Espaciado entre el texto y la línea */
+  background-color: #f4f4f4; /* Fondo suave para el título */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
+}
+/* Animación de puntos suspensivos */
+.loadingMessage::after {
+  content: "";
+  animation: dots 2.5s infinite ease-in-out;
+}
+
+
+/* Animación para los puntos suspensivos */
+@keyframes dots {
+  0% {
+    content: ".";
+    opacity: 1;
+  }
+  16% {
+    content: "..";
+    opacity: 1;
+  }
+  33% {
+    content: "...";
+    opacity: 1;
+  }
+  50% {
+    content: "....";
+    opacity: 1;
+  }
+  66% {
+    content: "...";
+    opacity: 1;
+  }
+  83% {
+    content: "..";
+    opacity: 1;
+  }
+  100% {
+    content: ".";
+    opacity: 1;
+  }
+}
+.noComprasMessage {
+  font-size: 20px;
+  font-weight: 600;
+  color: #555;
+  text-align: center;
+  background: linear-gradient(135deg, #f3f3f3, #e0e0e0);
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  width: fit-content;
+  margin: 30px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeInSlide 0.8s ease-out forwards, pulse 2s infinite 1.5s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Animación de aparición con deslizamiento */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efecto de latido suave */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Ícono decorativo */
+.noComprasMessage::before {
+  content: "🛒";
+  font-size: 22px;
+  animation: bounceIcon 1.5s infinite ease-in-out;
+}
+
+/* Animación del ícono */
+@keyframes bounceIcon {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
 .table th,
 .table td {
   padding: 12px 15px;
@@ -125,6 +246,10 @@
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a slight shadow */
+}
+.downloadButton:hover {
+  background-color: #000; /* Darker green for hover */
+  transform: scale(1.05); /* Slight scale effect */
 }
 .Detalle{
   font-size: 24px;
@@ -246,4 +371,10 @@
   .popup {
     width: 95%;
   }
+}
+.downloadButtons{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
