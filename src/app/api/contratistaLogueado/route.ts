@@ -18,6 +18,12 @@ export async function GET() {
       where: {
         email: email, // Filtramos por el email del usuario logueado
       },
+      select: {
+        ruc: true,
+        cedula: true,
+        nombres_contratista: true,
+        id_tipo_contratista: true,
+      },
     });
 
     if (usuarios.length === 0) {
@@ -25,12 +31,24 @@ export async function GET() {
     }
 
     // Obtener los contratistas de Contratistas
-    const contratistas = await prisma.contratistas.findMany();
+    const contratistas = await prisma.contratistas.findMany({
+      select: {
+        RUC: true,
+        cedula: true,
+        nombre_registrado: true,
+        id_tipo_club: true,
+      },
+    });
 
     // Obtener los clubes
-    const clubes = await prisma.club.findMany();
+    const clubes = await prisma.club.findMany({
+      select: {
+        id_tipo_club: true,
+        tipo_club: true,
+      },
+    });
 
-    // Asignar id_tipo_club y nombre del club al usuario logueado según RUC o cédula
+    // Asignar nombre del contratista y nivel (id_tipo_contratista) a los usuarios logueados
     const usuariosConTipoClub = usuarios.map(user => {
       let contratista;
 
@@ -44,18 +62,22 @@ export async function GET() {
 
       if (contratista) {
         const club = clubes.find(c => c.id_tipo_club === contratista.id_tipo_club);
-
+        
         return { 
-          ...user, 
-          activo: contratista.activo,
-          nombre_registrado: contratista.nombre_registrado,
-          xstoreID: contratista.xstoreID,
-          id_tipo_club: contratista.id_tipo_club, 
-          nombre_club: club ? club.tipo_club : null // Nombre del club
+          nombres_contratista: user.nombres_contratista,
+          ruc: user.ruc,
+          cedula: user.cedula,
+          nivel_contratista: user.id_tipo_contratista, // Nivel de contratista
+          nombre_club: club ? club.tipo_club : null, // Nombre del club, si existe
         };
       }
 
-      return user; // Si no se encuentra contratista
+      return {
+        nombres_contratista: user.nombres_contratista,
+        ruc: user.ruc,
+        cedula: user.cedula,
+        nivel_contratista: 'Desconocido', // Si no hay contratista
+      };
     });
 
     return new Response(JSON.stringify(usuariosConTipoClub), { status: 200 });
