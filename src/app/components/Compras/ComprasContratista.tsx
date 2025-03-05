@@ -30,15 +30,18 @@ type Compra = {
 
 type ComprasContratistaProps = {
   comprasData: Compra[];
+  isLoading: boolean; // Agregar isLoading como prop
 };
 
-const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
+const ComprasContratista = ({
+  comprasData,
+  isLoading,
+}: ComprasContratistaProps) => {
   const [detalleCompra, setDetalleCompra] = useState<Compra | null>(null);
   const [rangoInicio, setRangoInicio] = useState<string>("");
   const [rangoFin, setRangoFin] = useState<string>("");
   const { data: session } = useSession(); // Obtener la sesión del usuario logueado
   const [rucCedula, setRucCedula] = useState<string | null>(null); // Estado para almacenar RUC o Cédula
-
 
   const abrirDetalleCompra = (compra: Compra) => {
     setDetalleCompra(compra);
@@ -48,6 +51,14 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     setDetalleCompra(null);
   };
   useEffect(() => {
+    const fechaHoy = new Date();
+    const inicioMes = new Date(fechaHoy.getFullYear(), fechaHoy.getMonth(), 1); // Primer día del mes
+    const finMes = new Date(fechaHoy.getFullYear(), fechaHoy.getMonth() + 1, 0); // Último día del mes
+
+    // Convertir las fechas a formato 'YYYY-MM-DD' para el input tipo date
+    setRangoInicio(inicioMes.toISOString().split("T")[0]);
+    setRangoFin(finMes.toISOString().split("T")[0]);
+
     const obtenerRucCedula = async () => {
       if (!session?.user?.email) return;
 
@@ -70,7 +81,6 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
   const descargarPDF = async () => {
     if (!detalleCompra || !rucCedula) return;
 
-   
     const doc = new jsPDF() as jsPDFWithAutoTable;
     autoTable(doc, {});
     const title = `Detalle de Compra - Factura: ${detalleCompra.ticket_id}`;
@@ -106,10 +116,10 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
 
   const descargarExcel = async () => {
     if (!detalleCompra) return;
-  
+
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet("Detalle Compra");
-  
+
     // **Estilo para los encabezados**
     const headerStyle = {
       font: { bold: true, color: { argb: "FFFFFF" } }, // Letras blancas
@@ -122,7 +132,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
         right: { style: "thin" },
       },
     };
-  
+
     // **Estilo para las filas de datos**
     const rowStyle = {
       border: {
@@ -132,14 +142,14 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
         right: { style: "thin" },
       },
     };
-  
+
     // **Encabezado del documento**
     worksheet.addRow(["Factura N°", detalleCompra.ticket_id]);
     worksheet.addRow(["Fecha", detalleCompra.ticket_date.split("T")[0]]);
     worksheet.addRow(["Tienda", detalleCompra.store_name]);
     worksheet.addRow(["RUC/Cédula:", rucCedula]);
     worksheet.addRow([]); // Espacio
-  
+
     // **Encabezado de la tabla**
     const headerRow = worksheet.addRow([
       "Producto",
@@ -151,7 +161,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     headerRow.eachCell((cell) => {
       Object.assign(cell, { style: headerStyle });
     });
-  
+
     // **Agregar los productos**
     detalleCompra.detail.forEach((producto, index) => {
       // Agregar las filas con valores
@@ -159,15 +169,15 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
         producto.product_name,
         producto.product_id,
         ` ${producto.quantity}`,
-       producto.amount / parseFloat(producto.quantity), // Precio Unitario con C$
-       producto.amount, // Total con C$
+        producto.amount / parseFloat(producto.quantity), // Precio Unitario con C$
+        producto.amount, // Total con C$
       ]);
 
       // Aplicar estilo a las filas de productos
       productRow.eachCell((cell) => {
         Object.assign(cell, { style: rowStyle });
       });
-  
+
       // Alternar colores de fondo en las filas de productos para mejorar la legibilidad
       if (index % 2 === 0) {
         productRow.eachCell((cell) => {
@@ -179,9 +189,9 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
         });
       }
     });
-  
+
     worksheet.addRow([]); // Espacio
-  
+
     // **Fila de total**
     const totalRow = worksheet.addRow([
       "Total",
@@ -197,7 +207,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
       // Aplicar formato de moneda a la celda de total
       cell.numFmt = '"C$"#,##0.00'; // Formato de moneda
     });
-  
+
     // **Ajustar ancho de columnas automáticamente**
     worksheet.columns = [
       { width: 30 }, // Producto
@@ -206,14 +216,14 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
       { width: 20 }, // Precio Unitario
       { width: 20 }, // Total
     ];
-  
+
     // **Ajustar altura de las filas del encabezado**
     worksheet.getRow(1).height = 25; // Factura N°
     worksheet.getRow(2).height = 25; // Fecha
     worksheet.getRow(3).height = 25; // Tienda
     worksheet.getRow(4).height = 25; // Espacio
-    worksheet.getColumn("D").numFmt = '"C$"#,##0.00'; // Formato de moneda  
-    worksheet.getColumn("E").numFmt = '"C$"#,##0.00'; // Formato de moneda   
+    worksheet.getColumn("D").numFmt = '"C$"#,##0.00'; // Formato de moneda
+    worksheet.getColumn("E").numFmt = '"C$"#,##0.00'; // Formato de moneda
     // **Descargar el archivo**
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], {
@@ -221,8 +231,7 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     });
     saveAs(blob, `Detalle_Compra_${detalleCompra.ticket_id}.xlsx`);
   };
-  
-  
+
   const comprasFiltradas = comprasData.filter((compra) => {
     if (rangoInicio && rangoFin) {
       return (
@@ -231,10 +240,55 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
     }
     return true;
   });
+  const descargarResumenPDF = async () => {
+    if (!comprasFiltradas) return;
+
+    const docresumen = new jsPDF() as jsPDFWithAutoTable;
+    autoTable(docresumen, {});
+    const title = `Resumen de compras`;
+
+    docresumen.setFontSize(16);
+    docresumen.text(title, 10, 10);
+    docresumen.setFontSize(12);
+
+    const columns = ["Fecha", "Tienda", "Numero de Factura", "Monto"];
+    const rows = comprasFiltradas.map((compra) => [
+      compra.ticket_date.split("T")[0],
+      compra.store_name,
+      compra.ticket_id,
+      `C$${compra.total_amount.toFixed(2)}`,
+    ]);
+
+    docresumen.autoTable({
+      head: [columns],
+      body: rows,
+    });
+
+    // Calcular el total global
+    const totalGlobal = comprasFiltradas.reduce(
+      (acc, compra) => acc + compra.total_amount,
+      0
+    );
+
+    // Formatear el total global con comas como separador de miles
+    const totalGlobalFormateado = new Intl.NumberFormat("es-ES").format(
+      Number(totalGlobal.toFixed(2))
+    );
+
+    // Agregar el total global formateado al final del PDF
+    docresumen.text(
+      `Total Global: C$${totalGlobalFormateado}`,
+      10,
+      docresumen.lastAutoTable.finalY + 10
+    );
+
+    // Guardar el PDF
+    docresumen.save(`Resumen_Compras.pdf`);
+  };
 
   return (
     <div className={styles.container}>
-      <h1>Historial de Compras</h1>
+      <p className={styles.titlepage}>Historial de Compras</p>
 
       <div className={styles.filterContainer}>
         <label>
@@ -253,37 +307,47 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
             onChange={(e) => setRangoFin(e.target.value)}
           />
         </label>
+        <button className={styles.downloadButton} onClick={descargarResumenPDF}>
+          Generar Reporte
+        </button>
       </div>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Tienda</th>
-            <th>Número de Factura</th>
-            <th>Monto</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {comprasFiltradas.map((compra, index) => (
-            <tr key={index}>
-              <td>{compra.ticket_date.split("T")[0]}</td>
-              <td>{compra.store_name}</td>
-              <td>{compra.ticket_id}</td>
-              <td>{compra.total_amount.toFixed(2)}</td>
-              <td>
-                <button
-                  className={styles.button}
-                  onClick={() => abrirDetalleCompra(compra)}
-                >
-                  Abrir
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {isLoading ? (
+        <div className={styles.loadingMessage}>Cargando datos</div>
+      ) : comprasFiltradas.length === 0 ? (
+        <div className={styles.noComprasMessage}>Sin registros de compras.</div>
+      ) : (
+        <>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Tienda</th>
+                <th>Número de Factura</th>
+                <th>Monto</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {comprasFiltradas.map((compra, index) => (
+                <tr key={index}>
+                  <td>{compra.ticket_date.split("T")[0]}</td>
+                  <td>{compra.store_name}</td>
+                  <td>{compra.ticket_id}</td>
+                  <td>{compra.total_amount.toFixed(2)}</td>
+                  <td>
+                    <button
+                      className={styles.downloadButton}
+                      onClick={() => abrirDetalleCompra(compra)}
+                    >
+                      Abrir
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
 
       {detalleCompra && (
         <div className={styles.popupOverlay}>
@@ -318,7 +382,9 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
                       <td>{producto.product_id}</td>
                       <td>{producto.quantity}</td>
                       <td>
-                        {(producto.amount / parseFloat(producto.quantity)).toFixed(2)}
+                        {(
+                          producto.amount / parseFloat(producto.quantity)
+                        ).toFixed(2)}
                       </td>
                       <td>{producto.amount.toFixed(2)}</td>
                     </tr>
@@ -330,15 +396,20 @@ const ComprasContratista = ({ comprasData }: ComprasContratistaProps) => {
               <h3 className={styles.total}>
                 Total: C${detalleCompra.total_amount.toFixed(2)}
               </h3>
-              <button className={styles.downloadButton} onClick={descargarPDF}>
-                Descargar PDF
-              </button>
-              <button
-                className={styles.downloadButton}
-                onClick={descargarExcel}
-              >
-                Descargar Excel
-              </button>
+              <div className={styles.downloadButtons}>
+                <button
+                  className={styles.downloadButton}
+                  onClick={descargarPDF}
+                >
+                  Descargar PDF
+                </button>
+                <button
+                  className={styles.downloadButton}
+                  onClick={descargarExcel}
+                >
+                  Descargar Excel
+                </button>
+              </div>
             </div>
           </div>
         </div>

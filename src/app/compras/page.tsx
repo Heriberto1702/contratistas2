@@ -7,6 +7,7 @@ import NavBar from "../components/navbar/NavBar";
 // 🔹 Página de compras (Client Component)
 const ComprasPage = () => {
   const [comprasData, setComprasData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Estado de carga
 
   useEffect(() => {
     async function fetchComprasData() {
@@ -30,6 +31,8 @@ const ComprasPage = () => {
       } catch (error) {
         console.error("Error obteniendo datos de compras:", error);
         setComprasData([]);
+      } finally {
+        setIsLoading(false); // Finalizamos el estado de carga
       }
     }
 
@@ -40,7 +43,8 @@ const ComprasPage = () => {
     <>
       <NavBar />
       <div>
-        <ComprasContratista comprasData={comprasData} />
+        {/* Pasamos el estado de carga y los datos de compras al componente ComprasContratista */}
+        <ComprasContratista comprasData={comprasData} isLoading={isLoading} />
       </div>
     </>
   );

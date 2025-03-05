@@ -31,8 +31,8 @@ const SectionsPage = () => {
   const [isMatriculado, setIsMatriculado] = useState<boolean | null>(null);
   const params = useParams();
   const router = useRouter();
-  const courseId = params.courseId; // Obtener el ID del curso de la URL
-  const id_contratista = 1; // Este debería ser el ID del usuario logueado, por ejemplo
+  const courseId = params.courseId;
+  const id_contratista = 1; // Debe ser el ID real del usuario logueado
 
   useEffect(() => {
     if (!courseId) {
@@ -42,15 +42,16 @@ const SectionsPage = () => {
 
     const checkMatricula = async () => {
       try {
-        const res = await fetch(`/api/courses/secciones?id_contratista=${id_contratista}&id_curso=${courseId}`);
+        const res = await fetch(
+          `/api/courses/secciones?id_contratista=${id_contratista}&id_curso=${courseId}`
+        );
         const data = await res.json();
 
         if (data.error) {
-          // Si el usuario no está matriculado, redirigir a la página de cursos
-          router.push('/academia/cursos');
+          router.push("/academia/cursos");
         } else {
-          setIsMatriculado(true); // El usuario está matriculado
-          fetchCourse(); // Obtener información del curso solo si está matriculado
+          setIsMatriculado(true);
+          fetchCourse();
         }
       } catch (error: any) {
         setError("Hubo un problema al verificar la matrícula.");
@@ -92,14 +93,21 @@ const SectionsPage = () => {
         </p>
 
         <h3 className={styles.subtitle}>Sesiones</h3>
-        {course.sesiones.map((section) => (
-          <div key={section.id_sesion} className={styles.section}>
-            <SectionAccordion section={section} />
-          </div>
-        ))}
+
+        {/* Verificar si el curso tiene sesiones */}
+        {course.sesiones && course.sesiones.length > 0 ? (
+          course.sesiones.map((section) => (
+            <div key={section.id_sesion} className={styles.section}>
+              <SectionAccordion section={section} />
+            </div>
+          ))
+        ) : (
+          <p className={styles.presencialMessage}>Este curso es presencial.</p>
+        )}
       </div>
     </>
   );
 };
+
 
 export default SectionsPage;
