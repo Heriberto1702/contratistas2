@@ -34,7 +34,7 @@ export default function LoginForm() {
     
       <div className={Styles.formContainer}>
         <div className={Styles.imageWrapper}>
-          <Image width={100} height={100} src="/LogoContratista.png" alt="Logo" />
+          <Image width={100} height={100} src="/logoContratista.png" alt="Logo" />
         </div>
         <form onSubmit={handleSubmit}>
           <label className={Styles.titulos}>Inicio de Sesión</label>
