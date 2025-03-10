@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+
 declare module "next-auth" {
   interface Session {
     user: {
@@ -26,7 +27,6 @@ declare module "next-auth/jwt" {
 }
 
 export const authOptions: NextAuthOptions = {
-
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -68,9 +68,10 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session, token }) {
-      if (token) {
+      // Solo actualizar los datos de la sesión si es necesario
+      if (token && !session.user.id) {
         session.user = {
-          image: null, // or provide a default value
+          image: null, // o proporciona un valor por defecto
           id: token.id as string,
           email: token.email as string,
           name: token.name as string,
@@ -80,11 +81,12 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
+      // Solo actualizar el JWT si el usuario está disponible
       if (user) {
         token.id = user.id;
         token.email = user.email!;
-        token.name = user.name ?? '';
-        token.id_contratista = (user as any).id_contratista; // Asegúrate de incluir id_contratista
+        token.name = user.name ?? "";
+        token.id_contratista = (user as any).id_contratista;
       }
       return token;
     },

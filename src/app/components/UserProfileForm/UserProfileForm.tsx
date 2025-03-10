@@ -4,7 +4,6 @@ import axios from "axios";
 import useCatalogosStore from "../../store/catalogoStore";
 import styles from "./UserProfileForm.module.css";
 
-// Definir la interfaz para los datos del formulario
 interface FormData {
   nombres_contratista: string;
   apellidos_contratista: string;
@@ -22,9 +21,9 @@ interface FormData {
 }
 
 const UserProfileForm = () => {
-  const { data: session } = useSession();
-  const { departamentos, municipios, especialidades, sexos, setCatalogos, loading, setLoading } = useCatalogosStore();
-  
+  const { data: session, status} = useSession();
+  const { departamentos, municipios, especialidades, sexos, setCatalogos, loading, setLoading, isLoaded } = useCatalogosStore();
+
   const [formData, setFormData] = useState<FormData>({
     nombres_contratista: "",
     apellidos_contratista: "",
@@ -41,27 +40,34 @@ const UserProfileForm = () => {
     id_tipo_contratista: 1,
   });
 
+  const [isUserDataFetched, setIsUserDataFetched] = useState(false); // Bandera para controlar la carga de datos del usuario
+
+  // Hook para obtener los datos de usuario y cargar catálogos solo una vez
   useEffect(() => {
-    if (session) {
-      const fetchUserData = async () => {
+    if (session && !isUserDataFetched) {
+      const fetchData = async () => {
         try {
+          setLoading(true);
           const response = await axios.get("/api/user/data");
-          const userData = response.data;
+          const { user, catalogos } = response.data;
 
           setFormData({
-            ...userData,
-            id_tipo_contratista: userData.isJuridico ? 2 : 1,
+            ...user,
+            id_tipo_contratista: user.isJuridico ? 2 : 1,
           });
 
-          // Solo realiza la carga de los catálogos si no están cargados en Zustand
-          if (!loading && (departamentos.length === 0 || municipios.length === 0 || especialidades.length === 0 || sexos.length === 0)) {
-            setLoading(true);
-
-            // Llamada a la API de catalogos solo si no están disponibles en Zustand
-            const dataResponse = await axios.get("/api/catalogos");
-            const { departamentos, municipios, especialidades, sexos } = dataResponse.data;
-            setCatalogos(departamentos, municipios, especialidades, sexos);
+          // Solo cargar catálogos si Zustand no los tiene
+          if (!isLoaded) {
+            setCatalogos(
+              catalogos.departamentos,
+              catalogos.municipios,
+              catalogos.especialidades,
+              catalogos.sexos
+            );
           }
+
+          // Marcar que los datos del usuario han sido cargados
+          setIsUserDataFetched(true);
         } catch (error) {
           console.error("Error fetching user data:", error);
         } finally {
@@ -69,26 +75,36 @@ const UserProfileForm = () => {
         }
       };
 
-      fetchUserData();
+      fetchData();
     }
-  }, [session, setCatalogos, departamentos, municipios, especialidades, sexos, setLoading, loading]);
+  }, [session, isUserDataFetched, isLoaded, setCatalogos, setLoading]); // Dependencias optimizadas
+
+// Evitar ejecución repetida cuando el estado de session cambia
+useEffect(() => {
+  if (status === "loading") {
+    console.log("Cargando sesión...");
+  }
+  if (status === "authenticated" && !isUserDataFetched) {
+    setIsUserDataFetched(false); // Resetear si la sesión cambia
+  }
+}, [status]); // Esta dependencia solo observa el estado de la sesión (loading, authenticated)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData: FormData) => ({ ...prevData, [name]: value }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.put("/api/user/update", formData);
-      console.log("User updated:", response.data);
+      await axios.put("/api/user/update", formData);
       alert("Perfil actualizado exitosamente");
     } catch (error) {
       console.error("Error updating user:", error);
       alert("Hubo un problema actualizando el perfil");
     }
   };
+  
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
       <h2 className={styles.formTitle}>Editar mis datos</h2>
