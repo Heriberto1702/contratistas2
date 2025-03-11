@@ -87,7 +87,7 @@ useEffect(() => {
   if (status === "authenticated" && !isUserDataFetched) {
     setIsUserDataFetched(false); // Resetear si la sesión cambia
   }
-}, [status]); // Esta dependencia solo observa el estado de la sesión (loading, authenticated)
+}, [status, isUserDataFetched]); // Esta dependencia solo observa el estado de la sesión (loading, authenticated)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
