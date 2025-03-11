@@ -10,7 +10,7 @@ const ComprasPage = () => {
   const [isLoading, setIsLoading] = useState(true); // Estado de carga
 
   useEffect(() => {
-    async function fetchComprasData() {
+    const fetchComprasData = async () => {
       try {
         const baseUrl = process.env.NODE_ENV === "production" ? "https://contratistas2.vercel.app/" : "http://localhost:3000";
         const url = `${baseUrl}/api/compras`;

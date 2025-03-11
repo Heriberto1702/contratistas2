@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import prisma from "@/lib/prisma"; // Ajusta la importación según tu estructura
+
 
 export async function GET() {
   try {
@@ -13,27 +13,22 @@ export async function GET() {
     }
 
     const user = session.user;
-    const id_contratista = Number(user.id_contratista);
+   
 
-    // Buscar en la base de datos si el contratista tiene RUC o Cédula
-    const contratista = await prisma.loginPlataforma.findUnique({
-      where: { id_contratista: id_contratista },
-      select: { ruc: true, cedula: true }
-    });
+    // Obtener el ruc y cedula directamente de la sesión
+    const ruc = user.ruc;
+    const cedula = user.cedula;
 
-    if (!contratista) {
-      return NextResponse.json({ error: "Contratista no encontrado." }, { status: 404 });
-    }
-
+   
     // Determinar identification e idType
     let identification = "";
     let idType = "";
 
-    if (contratista.ruc) {
-      identification = contratista.ruc;
+    if (ruc) {
+      identification = ruc;
       idType = "RUC";
-    } else if (contratista.cedula) {
-      identification = contratista.cedula;
+    } else if (cedula) {
+      identification = cedula;
       idType = "CED";
     } else {
       return NextResponse.json({ error: "No se encontró RUC ni Cédula." }, { status: 400 });

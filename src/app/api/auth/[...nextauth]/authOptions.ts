@@ -1,5 +1,4 @@
-import { NextAuthOptions, Session, User } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
@@ -13,18 +12,23 @@ declare module "next-auth" {
       email: string;
       name: string;
       id_contratista: string;
+      ruc: string | null; // Añadir el campo `ruc`
+      cedula: string | null; // Añadir el campo `cedula`
     };
   }
+interface User {
+  id_contratista: string;
+  ruc?: string; // Añadir el campo `ruc`
+  cedula?: string; // Añadir el campo `cedula`
 }
 
-declare module "next-auth/jwt" {
-  interface JWT {
-    id: string;
-    email: string;
-    name: string;
-    id_contratista: string;
-  }
+interface AdapterUser {
+  id_contratista: string;
+  ruc?: string; // Añadir el campo `ruc`
+  cedula?: string; // Añadir el campo `cedula`
 }
+}
+
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -60,6 +64,8 @@ export const authOptions: NextAuthOptions = {
           id_contratista: user.id_contratista.toString(),
           email: user.email,
           name: `${user.nombres_contratista} ${user.apellidos_contratista}`,
+          ruc: user.ruc ?? null,  // Añadir `ruc`
+          cedula: user.cedula ?? null,  // Añadir `cedula`
         };
       },
     }),
@@ -76,6 +82,8 @@ export const authOptions: NextAuthOptions = {
           email: token.email as string,
           name: token.name as string,
           id_contratista: token.id_contratista as string, // Asegúrate de incluir id_contratista
+          ruc: token.ruc as string | null, // Asignamos el `ruc` de token a la sesión
+          cedula: token.cedula as string | null, // Asignamos el `cedula` de token a la sesión
         };
       }
       return session;
@@ -87,6 +95,8 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email!;
         token.name = user.name ?? "";
         token.id_contratista = (user as any).id_contratista;
+        token.ruc = user.ruc;  // Añadir `ruc` al token
+        token.cedula = user.cedula;  // Añadir `cedula` al token
       }
       return token;
     },
