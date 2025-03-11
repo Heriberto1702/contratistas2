@@ -12,15 +12,20 @@ export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setLoading(true);  // Iniciar el estado de carga
 
     const result = await signIn("credentials", {
       redirect: false,
       email,
       password,
     });
+
+    setLoading(false);  // Termina el estado de carga
 
     if (result?.error) {
       setError("Credenciales inválidas. Por favor, verifica tu email y contraseña.");
@@ -55,9 +60,9 @@ export default function LoginForm() {
             required
           />
           {error && <p className={Styles.error}>{error}</p>}
-          <button className={Styles.button} type="submit">
-            Acceder
-          </button>
+         <button className={Styles.button} type="submit" disabled={loading}>
+    {loading ? "Cargando..." : "Acceder"}
+  </button>
         </form>
         <div className={Styles.registerContainer}>
           <h3 className={Styles.subtitulos}>¿Aún no eres socio?</h3>

@@ -59,23 +59,10 @@ const ComprasContratista = ({
     setRangoInicio(inicioMes.toISOString().split("T")[0]);
     setRangoFin(finMes.toISOString().split("T")[0]);
 
-    const obtenerRucCedula = async () => {
-      if (!session?.user?.email) return;
-
-      try {
-        // Llamamos a la API que ya tienes creada
-        const response = await fetch("/api/user/data");
-        const data = await response.json();
-
-        if (data.ruc || data.cedula) {
-          setRucCedula(data.ruc || data.cedula); // Guardamos el RUC o Cédula
-        }
-      } catch (error) {
-        console.error("Error al obtener RUC o Cédula", error);
-      }
-    };
-
-    obtenerRucCedula();
+    // Obtener RUC o Cédula desde la sesión
+    if (session?.user?.ruc || session?.user?.cedula) {
+      setRucCedula(session?.user?.ruc || session?.user?.cedula); // Guardamos el RUC o Cédula
+    }
   }, [session]);
 
   const descargarPDF = async () => {
