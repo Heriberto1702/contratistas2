@@ -15,9 +15,16 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-body {
+html, body {
   font-family: 'Roboto Condensed', sans-serif; /* Asegúrate de aplicar tu fuente aquí */
   overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction:column;
+
+
 }
 @layer utilities {
   .text-balance {
@@ -30,11 +37,11 @@ abbr:where([title]) {
   text-decoration: none;
 }
 
-main{
-  /*max-width: 1500px ;*/
-  margin: 0 auto;
-}
 
+.mainContent {
+  flex: 1;
+  background-color: #f9f9f9;
+}
 
 .simpleCards{
   display: flex;

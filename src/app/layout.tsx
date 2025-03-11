@@ -2,7 +2,6 @@
 
 import "./globals.css";
 import Footer from "@/app/components/Footer/Footer";
-import WhatsAppLink from "@/app/components/WhatsAppLink/WhatsAppLink";
 import { roboto } from "@/app/components/font";
 import { SessionProvider } from "next-auth/react"; // Importa el SessionProvider
 import NextTopLoader from 'nextjs-toploader';
@@ -18,7 +17,7 @@ export default function RootLayout({
       <NextTopLoader color = "#FBAF16" />
         <SessionProvider> {/* Envuelve el contenido de la aplicación */}
           
-          <main>{children}</main>
+        <main className="mainContent" >{children}</main>
           <Footer />
         </SessionProvider>
       </body>
