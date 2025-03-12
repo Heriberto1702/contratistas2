@@ -39,7 +39,7 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
   useEffect(() => {
     const fetchCurso = async () => {
       try {
-        const response = await fetch(`/api/courses/obtener?id=${cursoId}`);
+        const response = await fetch(`/api/courses/obtener?id_curso=${cursoId}`);
         if (response.status !== 200) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }

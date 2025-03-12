@@ -34,12 +34,29 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "No estás matriculado en este curso." }, { status: 403 });
     }
 
-    return NextResponse.json({ matriculado: true });
+    // Obtener el curso con sus sesiones y módulos
+    const course = await prisma.cursos.findUnique({
+      where: { id_curso },
+      include: {
+        sesiones: {
+          include: {
+            Modulos: true, // Incluir los módulos dentro de cada sesión
+          },
+        },
+      },
+    });
+
+    if (!course) {
+      return NextResponse.json({ error: "Curso no encontrado." }, { status: 404 });
+    }
+
+    // Retornar la respuesta con el curso y las sesiones
+    return NextResponse.json(course);
 
   } catch (error) {
-    console.error("Error al verificar la matrícula:", error);
+    console.error("Error al verificar la matrícula o cargar el curso:", error);
     return NextResponse.json(
-      { error: "Ocurrió un error al verificar la matrícula." },
+      { error: "Ocurrió un error al verificar la matrícula o cargar el curso." },
       { status: 500 }
     );
   }

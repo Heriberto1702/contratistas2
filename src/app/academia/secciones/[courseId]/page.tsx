@@ -6,6 +6,7 @@ import SectionAccordion from "../../../components/SectionAccordion/SectionAccord
 import NavBar from "../../../components/navbar/NavBar";
 import styles from "./SectionsPage.module.css";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 interface Course {
   id_curso: string;
@@ -26,13 +27,14 @@ interface Course {
 }
 
 const SectionsPage = () => {
+  const { data: session } = useSession();
   const [course, setCourse] = useState<Course | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isMatriculado, setIsMatriculado] = useState<boolean | null>(null);
   const params = useParams();
   const router = useRouter();
   const courseId = params.courseId;
-  const id_contratista = 1; // Debe ser el ID real del usuario logueado
+  const id_contratista = session?.user?.id_contratista ?? null; 
 
   useEffect(() => {
     if (!courseId) {
@@ -60,7 +62,7 @@ const SectionsPage = () => {
 
     const fetchCourse = async () => {
       try {
-        const response = await fetch(`/api/courses/obtener?id=${courseId}`);
+        const response = await fetch(`/api/courses/obtener?id_curso=${courseId}`);
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
@@ -87,22 +89,26 @@ const SectionsPage = () => {
 
       <div className={styles.container}>
         <Link href={`/academia/cursos/${courseId}`}>Regresar</Link>
-        <h1 className={styles.title}>{course.nombre_curso}</h1>
-        <p className={styles.texto}>
-          Por {course.especialista}, especialista en {course.rubro}
-        </p>
-
-        <h3 className={styles.subtitle}>Sesiones</h3>
-
+        <p className={styles.title}>{course.nombre_curso}</p>
         {/* Verificar si el curso tiene sesiones */}
         {course.sesiones && course.sesiones.length > 0 ? (
-          course.sesiones.map((section) => (
-            <div key={section.id_sesion} className={styles.section}>
-              <SectionAccordion section={section} />
-            </div>
-          ))
+          <>
+            <p className={styles.texto}>
+              Por {course.especialista}, especialista en {course.rubro}
+            </p>
+
+            <p className={styles.subtitle}>Contenido</p>
+
+            {course.sesiones.map((section) => (
+              <div key={section.id_sesion} className={styles.section}>
+                <SectionAccordion section={section} />
+              </div>
+            ))}
+          </>
         ) : (
-          <p className={styles.presencialMessage}>Este curso es presencial.</p>
+          <div className={styles.section}>
+            <p className={styles.presencialMessage}>Este curso es presencial.</p>
+          </div>
         )}
       </div>
     </>

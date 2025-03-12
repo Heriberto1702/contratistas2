@@ -2,7 +2,6 @@
 import { useState } from "react";
 import ModulePopup from "../ModulePopup/ModulePopup";
 import styles from "./SectionAccordion.module.css"; // Importando el módulo de estilos
-import Link from "next/link";
 
 interface SectionAccordionProps {
   section: {
@@ -33,16 +32,13 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({ section }) => {
   };
 
   return (
-    
     <div className={styles.accordionContainer}>
       
-      <h2 className={styles.accordionTitle} onClick={toggleSection}>
+      <p className={`${styles.accordionTitle} ${isOpen ? styles.open : ""}`} onClick={toggleSection}>
         {section.nombre_sesion}
-      </h2>
+      </p>
 
-      <div
-        className={`${styles.accordionContent} ${isOpen ? styles.open : ""}`}
-      >
+      <div className={`${styles.accordionContent} ${isOpen ? styles.open : ""}`}>
         <p className={styles.accordionDescription}>{section.descripcion}</p>
         <ul className={styles.moduleList}>
           {section.Modulos && section.Modulos.length > 0 ? (
@@ -62,6 +58,7 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({ section }) => {
           )}
         </ul>
       </div>
+
       {selectedModule && (
         <ModulePopup module={selectedModule} onClose={closePopup} />
       )}

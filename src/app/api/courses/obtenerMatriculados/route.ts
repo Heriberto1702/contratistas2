@@ -9,15 +9,12 @@ export async function GET() {
     // Obtener la sesión del usuario logueado
     const session = await getServerSession(authOptions);
 
-    if (!session || !session.user || !session.user.id_contratista) {
-      return NextResponse.json(
-        { error: "No estás autenticado o no tienes el id_contratista en tu sesión." },
-        { status: 401 }
-      );
+    if (!session) {
+      return NextResponse.json({ message: "No autenticado." }, { status: 401 });
     }
-
+    const user = session.user;
     // Obtener el id_contratista desde la sesión
-    const id_contratista = Number(session.user.id_contratista);
+    const id_contratista = user.id_contratista;
 
     // Obtener todos los cursos matriculados del contratista
     const cursosMatriculados = await prisma.cursos_Matriculados.findMany({

@@ -11,19 +11,19 @@ declare module "next-auth" {
       id: string;
       email: string;
       name: string;
-      id_contratista: string;
+      id_contratista: number;
       ruc: string | null; // Añadir el campo `ruc`
       cedula: string | null; // Añadir el campo `cedula`
     };
   }
 interface User {
-  id_contratista: string;
+  id_contratista: number;
   ruc?: string; // Añadir el campo `ruc`
   cedula?: string; // Añadir el campo `cedula`
 }
 
 interface AdapterUser {
-  id_contratista: string;
+  id_contratista: number;
   ruc?: string; // Añadir el campo `ruc`
   cedula?: string; // Añadir el campo `cedula`
 }
@@ -61,7 +61,7 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: user.id_contratista.toString(),
-          id_contratista: user.id_contratista.toString(),
+          id_contratista: user.id_contratista,
           email: user.email,
           name: `${user.nombres_contratista} ${user.apellidos_contratista}`,
           ruc: user.ruc ?? null,  // Añadir `ruc`
@@ -81,7 +81,7 @@ export const authOptions: NextAuthOptions = {
           id: token.id as string,
           email: token.email as string,
           name: token.name as string,
-          id_contratista: token.id_contratista as string, // Asegúrate de incluir id_contratista
+          id_contratista: token.id_contratista as number, // Asegúrate de incluir id_contratista
           ruc: token.ruc as string | null, // Asignamos el `ruc` de token a la sesión
           cedula: token.cedula as string | null, // Asignamos el `cedula` de token a la sesión
         };
@@ -94,7 +94,7 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.email = user.email!;
         token.name = user.name ?? "";
-        token.id_contratista = (user as any).id_contratista;
+        token.id_contratista = user.id_contratista;
         token.ruc = user.ruc;  // Añadir `ruc` al token
         token.cedula = user.cedula;  // Añadir `cedula` al token
       }
