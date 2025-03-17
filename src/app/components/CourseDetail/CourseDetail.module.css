@@ -1,11 +1,12 @@
 /* Contenedor principal */
 .container {
-    max-width: 1000px; /* Ancho máximo para el contenido */
-    margin: 0 auto; /* Centra el contenido */
-    padding: 20px; /* Espaciado interno */
-    background-color: #f9f9f9; /* Color de fondo suave */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   /* Estilo para el título del curso */

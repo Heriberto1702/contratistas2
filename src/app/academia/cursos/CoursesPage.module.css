@@ -1,6 +1,6 @@
 /* Contenedor principal */
 .container {
-  max-width: 1200px; /* Ancho máximo para el contenido */
+  max-width: 1400px; /* Ancho máximo para el contenido */
   margin: 0 auto; /* Centra el contenido */
   padding: 20px; /* Espaciado interno */
   background-color: #f9f9f9; /* Color de fondo suave */
@@ -15,12 +15,36 @@
   flex-direction: row;
   align-items: center;
 }
-/* Estilo para el título de la página */
+.continartext {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Permite que los textos no se amontonen en pantallas pequeñas */
+  padding: 5px 10px;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 5px;
+}
+
 .title {
-  font-size: 2rem; /* Tamaño de fuente grande */
-  font-weight: 700; /* Negrita */
-  color: #333; /* Color del texto */
-  margin-bottom: 20px; /* Margen inferior */
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  flex: 1; /* Permite que el título tome el espacio disponible */
+}
+
+.avance {
+  font-weight: 600;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 120px;
+}
+
+/* Diseño especial cuando el filtro es "resultados" */
+.resultado {
+  background-color: #4caf50; /* Verde para indicar progreso */
+  color: white;
 }
 .searchInput {
   width: 392px;

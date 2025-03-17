@@ -76,14 +76,22 @@ const Page = () => {
 
   // Actualizar los cursos filtrados cuando cambia el término de búsqueda o el filtro
   useEffect(() => {
-    let filtered = courses;
+    let filtered = courses.map((course) => {
+      // Buscar si el curso está en enrolledCourses
+      const enrolledCourse = enrolledCourses.find(
+        (c) => c.id_curso === course.id_curso
+      );
+
+      return {
+        ...course,
+        avance: enrolledCourse ? enrolledCourse.avance : 0,
+        estado: enrolledCourse ? enrolledCourse.estado : "No inscrito",
+      };
+    });
 
     if (searchTerm) {
-      filtered = filtered.filter(
-        (course) =>
-          course.nombre_curso
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
+      filtered = filtered.filter((course) =>
+        course.nombre_curso.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -94,8 +102,9 @@ const Page = () => {
     } else if (filterType === "resultados") {
       // Mostrar solo los cursos con avance > 0
       const advancedCourses = new Set(
-        enrolledCourses.filter((c) => c.avance > 0).map((c) => c.id_curso)
+        enrolledCourses.filter((c) => c.avance >= 0).map((c) => c.id_curso)
       );
+
       filtered = filtered.filter((course) =>
         advancedCourses.has(course.id_curso)
       );
@@ -162,7 +171,18 @@ const Page = () => {
                     />
                   </div>
                   <div className={styles.continarinfo}>
-                    <h2 className={styles.title}>{course.nombre_curso}</h2>
+                    <div className={styles.continartext}>
+                      <h2 className={styles.title}>{course.nombre_curso}</h2>
+                      <span
+                        className={`${styles.avance} ${
+                          filterType === "resultados" ? styles.resultado : ""
+                        }`}
+                      >
+                        {filterType === "resultados" &&
+                          `Avance: ${course.avance}%`}
+                        {filterType === "misCursos" && course.estado}
+                      </span>
+                    </div>
                     <p>Inicio el: {course.fecha_hora_Inicio}</p>
                     <p>Finaliza el: {course.fecha_hora_Fin}</p>
                     <p>Hora de inicio curso: {course.hora}</p>

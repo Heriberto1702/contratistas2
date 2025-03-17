@@ -93,3 +93,26 @@
   background-color: #007bff;
   color: white;
 }
+
+/* Contenedor de la barra de progreso */
+.progressBarContainer {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+/* Barra de progreso que se llena */
+.progressBar {
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.5s ease-in-out;
+}
+
+/* Estilos para módulos completados */
+.moduleItem.completed {
+  color: #4caf50;
+  font-weight: bold;
+}

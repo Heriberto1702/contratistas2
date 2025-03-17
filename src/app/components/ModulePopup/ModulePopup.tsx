@@ -13,10 +13,16 @@ interface ModulePopupProps {
 
 const getEmbedUrl = (url: string): string => {
   if (url.includes("youtube.com") || url.includes("youtu.be")) {
-    const videoIdMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
-    return videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : "";
+    const videoIdMatch = url.match(
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/
+    );
+    return videoIdMatch
+      ? `https://www.youtube.com/embed/${videoIdMatch[1]}`
+      : "";
   } else if (url.includes("sharepoint.com")) {
-    const sharepointMatch = url.match(/https:\/\/[\w.-]+\/sites\/[\w.-]+\/Shared%20Documents\/([\w%.-]+)/);
+    const sharepointMatch = url.match(
+      /https:\/\/[\w.-]+\/sites\/[\w.-]+\/Shared%20Documents\/([\w%.-]+)/
+    );
     if (sharepointMatch) {
       return url; // Devuelve el enlace tal como está
     }
@@ -36,14 +42,14 @@ const ModulePopup: React.FC<ModulePopupProps> = ({ module, onClose }) => {
         <button className={styles.closeButton} onClick={onClose}>
           &times;
         </button>
-        <h3>{module.titulo_modulo}</h3>
+        <p className={styles.title}>{module.titulo_modulo}</p>
         {isYouTube && (
           <div className={styles.videoContainer}>
             <iframe
-              src={embedUrl}
+              src={`${embedUrl}?autoplay=0&rel=0&modestbranding=1&showinfo=0&disablekb=1`}
               title={`Video del módulo: ${module.titulo_modulo}`}
               frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="autoplay; encrypted-media"
               allowFullScreen
               className={styles.video}
             ></iframe>
@@ -59,7 +65,9 @@ const ModulePopup: React.FC<ModulePopupProps> = ({ module, onClose }) => {
             ></video>
           </div>
         )}
-        {!isYouTube && !isSharePoint && <p>El enlace del video no es válido o no está disponible.</p>}
+        {!isYouTube && !isSharePoint && (
+          <p>El enlace del video no es válido o no está disponible.</p>
+        )}
       </div>
     </div>
   );
