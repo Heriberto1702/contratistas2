@@ -6,6 +6,7 @@ import Image from "next/image";
 import styles from "./UserProfileForm.module.css";
 
 interface FormData {
+  id_contratista: number;
   nombres_contratista: string;
   apellidos_contratista: string;
   cedula: string;
@@ -18,26 +19,23 @@ interface FormData {
   id_especialidad: string;
   id_departamento: string;
   id_municipio: string;
-  id_tipo_contratista: number;
+  id_tipo_contratista: string;
 }
 
 const UserProfileForm = () => {
   const { data: session, status } = useSession();
   const {
+    userData,
+    fetchUserData,
+    loading,
+    isLoaded,
+    especialidades,
     departamentos,
     municipios,
-    especialidades,
     sexos,
-    userData,
-    setUserData,
-    loading,
-    setLoading,
-    isLoaded,
-    setCatalogosData,
-    setIsLoaded,
-  } = useCatalogosStore(); // Usamos el store de zustand para obtener los catálogos y datos del usuario
-
+  } = useCatalogosStore(); // Asegúrate de tener los catálogos en el store de Zustand
   const [formData, setFormData] = useState<FormData>({
+    id_contratista: Number(session?.user.id_contratista) || 0,
     nombres_contratista: "",
     apellidos_contratista: "",
     cedula: "",
@@ -50,41 +48,30 @@ const UserProfileForm = () => {
     id_especialidad: "",
     id_departamento: "",
     id_municipio: "",
-    id_tipo_contratista: 1,
+    id_tipo_contratista: "",
   });
 
   useEffect(() => {
     const fetchData = async () => {
       if (session && !loading && !isLoaded) {
-        try {
-          setLoading(true);
-
-          // Realizamos la llamada a la API para obtener los datos del usuario y los catálogos
-          const response = await axios.get("/api/user/data");
-          const { user, catalogos } = response.data;
-
-          // Establecemos los datos de usuario en el estado global de zustand
-          setUserData(user);
-          setCatalogosData(catalogos);
-
-          setIsLoaded(true); // Indicamos que los datos se han cargado correctamente
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        } finally {
-          setLoading(false);
-        }
+        console.log("Datos no cargados en Zustand, llamando a fetchUserData...");
+        await fetchUserData(); // Cargamos los datos desde el store de Zustand
+      } else {
+        console.log("Datos ya están cargados en Zustand, no se realiza llamada API.");
       }
     };
 
-    if (!isLoaded && !loading) {
+    // Solo intentamos cargar los datos si no están ya cargados y si no estamos en proceso de carga
+    if (!isLoaded && !loading && session) {
       fetchData();
     }
-  }, [session, isLoaded, setUserData, setCatalogosData, loading, setLoading, setIsLoaded]);
+  }, [session, isLoaded, fetchUserData, loading]);
 
   useEffect(() => {
     if (userData) {
       // Llenamos los datos del formulario si los datos de usuario están disponibles en Zustand
       setFormData({
+        id_contratista: userData.id_contratista || 0, 
         nombres_contratista: userData.nombres_contratista || "",
         apellidos_contratista: userData.apellidos_contratista || "",
         cedula: userData.cedula || "",
@@ -93,11 +80,11 @@ const UserProfileForm = () => {
         telefono_fijo: userData.telefono_fijo || "",
         email: userData.email || "",
         fecha_nacimiento: userData.fecha_nacimiento || "",
-        id_sexo: String(userData.id_sexo || ""),
-        id_especialidad: String(userData.id_especialidad || ""),
-        id_departamento: String(userData.id_departamento || ""),
-        id_municipio: String(userData.id_municipio || ""),
-        id_tipo_contratista: userData.id_tipo_contratista || 1,
+        id_sexo: String(userData.sexo?.id_sexo || ""),
+        id_especialidad: String(userData.especialidad?.id_especialidad || ""),
+        id_departamento: String(userData.departamento?.id_departamento || ""),
+        id_municipio: String(userData.municipio?.id_municipio || ""),
+        id_tipo_contratista: String(userData.id_tipo_contratista || ""),
       });
     }
   }, [userData]);
@@ -109,17 +96,18 @@ const UserProfileForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Datos a enviar:", formData);
     try {
-      await axios.put("/api/user/update", formData);
+      const response = await axios.put("/api/user/update", formData);
       alert("Perfil actualizado exitosamente");
-    } catch (error) {
-      console.error("Error updating user:", error);
-      alert("Hubo un problema actualizando el perfil");
+    } catch (error: any) {
+      console.error("Error actualizando el perfil:", error.response ? error.response.data : error);
+      alert("Hubo un problema al actualizar el perfil");
     }
   };
 
   if (status === "loading" || loading || !isLoaded || !userData) {
-    return <div>Loading...</div>;
+    return <div>Cargando Datos...</div>;
   }
 
   return (
@@ -193,29 +181,75 @@ const UserProfileForm = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>Teléfono fijo:</label>
-              <input
-                type="text"
-                name="telefono_fijo"
-                value={formData.telefono_fijo}
+              <label className={styles.label}>Sexo:</label>
+              <select
+                name="id_sexo"
+                value={formData.id_sexo}
                 onChange={handleChange}
                 className={styles.input}
-              />
+              >
+                <option value="">Seleccione su sexo</option>
+                {sexos?.map((sexo) => (
+                  <option key={sexo.id_sexo} value={sexo.id_sexo}>
+                    {sexo.sexo}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>Correo:</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
+              <label className={styles.label}>Especialidad:</label>
+              <select
+                name="id_especialidad"
+                value={formData.id_especialidad}
                 onChange={handleChange}
                 className={styles.input}
-              />
+              >
+                <option value="">Seleccione su especialidad</option>
+                {especialidades.map((especialidad) => (
+                  <option key={especialidad.id_especialidad} value={especialidad.id_especialidad}>
+                    {especialidad.nombre_especialidad}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>Fecha de nacimiento:</label>
+              <label className={styles.label}>Departamento:</label>
+              <select
+                name="id_departamento"
+                value={formData.id_departamento}
+                onChange={handleChange}
+                className={styles.input}
+              >
+                <option value="">Seleccione su departamento</option>
+                {departamentos.map((departamento) => (
+                  <option key={departamento.id_departamento} value={departamento.id_departamento}>
+                    {departamento.nombre_departamento}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Municipio:</label>
+              <select
+                name="id_municipio"
+                value={formData.id_municipio}
+                onChange={handleChange}
+                className={styles.input}
+              >
+                <option value="">Seleccione su municipio</option>
+                {municipios.map((municipio) => (
+                  <option key={municipio.id_municipio} value={municipio.id_municipio}>
+                    {municipio.nombre_municipio}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Fecha de Nacimiento:</label>
               <input
                 type="date"
                 name="fecha_nacimiento"
@@ -226,37 +260,19 @@ const UserProfileForm = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>Sexo:</label>
-              <select
-                name="id_sexo"
-                value={formData.id_sexo}
+              <label className={styles.label}>Teléfono fijo:</label>
+              <input
+                type="text"
+                name="telefono_fijo"
+                value={formData.telefono_fijo}
                 onChange={handleChange}
-                className={styles.select}
-              >
-                <option value="">Seleccione</option>
-                {sexos?.map((sexo) => (
-                  <option key={sexo.id_sexo} value={sexo.id_sexo}>
-                    {sexo.sexo}
-                  </option>
-                ))}
-              </select>
+                className={styles.input}
+              />
             </div>
-
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Tipo de contratista:</label>
-              <select
-                name="id_tipo_contratista"
-                value={formData.id_tipo_contratista}
-                onChange={handleChange}
-                className={styles.select}
-              >
-                <option value={1}>Persona Natural</option>
-                <option value={2}>Persona Jurídica</option>
-              </select>
-            </div>
-
-            <button type="submit" className={styles.submitBtn}>
-              Actualizar
+          </div>
+          <div className={styles.buttonContainer}>
+            <button type="submit" className={styles.submitButton}>
+              Actualizar Datos
             </button>
           </div>
         </form>
