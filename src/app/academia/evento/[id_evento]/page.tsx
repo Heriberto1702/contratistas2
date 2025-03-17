@@ -199,13 +199,19 @@ const EventPage = () => {
             </div>
 
             <div>
-              <p className={Styles.letter}>Cupos disponibles: {event.cupos || 0}</p>
+              <p className={Styles.letter}>
+                Cupos disponibles: {event.cupos || 0}
+              </p>
             </div>
 
             <div className={Styles.subtitulares}>
               <p className={Styles.letter}>📍 {event.locacion}</p>
-              <p className={Styles.letter}>📅 {new Date(event.fecha_hora).toLocaleDateString("es-ES")}</p>
-              <p className={Styles.letter}>⏰ {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}</p>
+              <p className={Styles.letter}>
+                📅 {new Date(event.fecha_hora).toLocaleDateString("es-ES")}
+              </p>
+              <p className={Styles.letter}>
+                ⏰ {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}
+              </p>
             </div>
           </div>
 
@@ -223,10 +229,15 @@ const EventPage = () => {
                   : "asistir"
               )
             }
-            disabled={loadingEventId === event.id_evento}
+            disabled={
+              loadingEventId === event.id_evento ||
+              new Date(event.fecha_hora) < new Date()
+            }
           >
             {loadingEventId === event.id_evento
               ? "Procesando..."
+              : new Date(event.fecha_hora) < new Date()
+              ? "Evento finalizado"
               : registeredEvents.includes(event.id_evento)
               ? "Cancelar"
               : "Asistir"}

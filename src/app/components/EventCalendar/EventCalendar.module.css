@@ -73,20 +73,22 @@
 /* Botón de asistencia */
 .attendButton {
   background-color: #ffc107;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
   color: #fff;
-  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .attendButton:hover {
   background-color: #e0a800;
 }
 .attendButton:disabled {
-  background-color: #d3d3d3; /* Un gris claro */
-  color: #888888; /* Texto más tenue */
+  background-color: #b4b4b4; /* Un gris claro */
+  color: #585858; /* Texto más tenue */
   cursor: not-allowed; /* Cambia el cursor a 'no permitido' */
   opacity: 0.6; /* Reduce la opacidad */
 }

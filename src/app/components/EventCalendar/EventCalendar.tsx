@@ -114,13 +114,17 @@ const EventCalendar = () => {
     );
   });
 
-  const handleEventAction = async (eventId: number, action: "asistir" | "cancelar") => {
+  const handleEventAction = async (
+    eventId: number,
+    action: "asistir" | "cancelar"
+  ) => {
     setLoadingEventId(eventId);
     setError(null);
     setSuccess(null);
 
     try {
-      const endpoint = action === "asistir" ? "/api/eventos/asistir" : "/api/eventos/cancelar";
+      const endpoint =
+        action === "asistir" ? "/api/eventos/asistir" : "/api/eventos/cancelar";
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -136,7 +140,11 @@ const EventCalendar = () => {
         throw new Error(data.message || `Error al ${action} el evento.`);
       }
 
-      setSuccess(`Evento ${action === "asistir" ? "registrado" : "cancelado"} correctamente.`);
+      setSuccess(
+        `Evento ${
+          action === "asistir" ? "registrado" : "cancelado"
+        } correctamente.`
+      );
       fetchEvents();
       fetchRegisteredEvents(id_contratista!);
     } catch (err: any) {
@@ -154,135 +162,159 @@ const EventCalendar = () => {
     );
   };
 
-  const isEventInThePast = (eventDate: string) => {
-    const eventDateTime = new Date(eventDate);
-    return eventDateTime < today;
-  };
-
   return (
     <>
-    <div className={styles.container}>
-      <div className={styles.eventList}>
-        {selectedDay !== null ? (
-          eventsForSelectedDay.length > 0 ? (
-            eventsForSelectedDay.map((event) => (
-              <div key={event.id_evento} className={styles.eventItem}>
-                <Image
-                  src={event.imagen_evento}
-                  alt={event.nombre_evento}
-                  width={100}
-                  height={100}
-                  className={styles.eventImage}
-                />
-                <div className={styles.eventDetails}>
-                  <h3 className={styles.enlace}>
-                    <Link href={`/academia/evento/${event.id_evento}`} className={styles.link}>
-                      {event.nombre_evento}
-                    </Link>
-                  </h3>
-                  <p>Cupos disponibles: {event.cupos || 0}</p>
-                  <div className={styles.eventMeta}>
-                    <p>📅 {new Date(event.fecha_hora).toLocaleDateString("es-ES")}</p>
-                    <p>⏰ {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}</p>
-                    <p>📍 {event.locacion}</p>
+      <div className={styles.container}>
+        <div className={styles.eventList}>
+          {selectedDay !== null ? (
+            eventsForSelectedDay.length > 0 ? (
+              eventsForSelectedDay.map((event) => (
+                <div key={event.id_evento} className={styles.eventItem}>
+                  <Image
+                    src={event.imagen_evento}
+                    alt={event.nombre_evento}
+                    width={100}
+                    height={100}
+                    className={styles.eventImage}
+                  />
+                  <div className={styles.eventDetails}>
+                    <h3 className={styles.enlace}>
+                      <Link
+                        href={`/academia/evento/${event.id_evento}`}
+                        className={styles.link}
+                      >
+                        {event.nombre_evento}
+                      </Link>
+                    </h3>
+                    <p>Cupos disponibles: {event.cupos || 0}</p>
+                    <div className={styles.eventMeta}>
+                      <p>
+                        📅{" "}
+                        {new Date(event.fecha_hora).toLocaleDateString("es-ES")}
+                      </p>
+                      <p>
+                        ⏰{" "}
+                        {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}
+                      </p>
+                      <p>📍 {event.locacion}</p>
+                    </div>
+                    <p className={styles.text}>
+                      <Link href={"https://form.jotform.com/250274836316862"}>
+                        Si desea agregar más personas a este evento, haga{" "}
+                        <b>clic aquí</b>
+                      </Link>
+                    </p>
+                    <hr className={styles.divider} />
                   </div>
-                  <p className={styles.text}><Link href={"https://form.jotform.com/250274836316862"}>Si desea agregar más personas a este evento, haga <b>clic aquí</b></Link></p>
-                  <hr className={styles.divider} />
+                  <button
+                    className={`${styles.attendButton} ${
+                      registeredEvents.includes(event.id_evento)
+                        ? styles.cancelButton
+                        : ""
+                    }`}
+                    onClick={() =>
+                      handleEventAction(
+                        event.id_evento,
+                        registeredEvents.includes(event.id_evento)
+                          ? "cancelar"
+                          : "asistir"
+                      )
+                    }
+                    disabled={
+                      loadingEventId === event.id_evento ||
+                      new Date(event.fecha_hora) < new Date()
+                    }
+                  >
+                    {loadingEventId === event.id_evento
+                      ? "Procesando..."
+                      : new Date(event.fecha_hora) < new Date()
+                      ? "Evento finalizado"
+                      : registeredEvents.includes(event.id_evento)
+                      ? "Cancelar"
+                      : "Asistir"}
+                  </button>
                 </div>
-                <button
-                  className={`${styles.attendButton} ${
-                    registeredEvents.includes(event.id_evento) ? styles.cancelButton : ""
-                  }`}
-                  onClick={() =>
-                    handleEventAction(
-                      event.id_evento,
-                      registeredEvents.includes(event.id_evento) ? "cancelar" : "asistir"
-                    )
-                  }
-                  disabled={
-                    isEventInThePast(event.fecha_hora)
-                  }
-                >
-                  {loadingEventId === event.id_evento
-                    ? "Procesando..."
-                    : registeredEvents.includes(event.id_evento)
-                    ? "Cancelar"
-                    : "Asistir"}
-                </button>
-              </div>
-            ))
+              ))
+            ) : (
+              <p>No hay eventos para este día.</p>
+            )
           ) : (
-            <p>No hay eventos para este día.</p>
-          )
-        ) : (
-          <p>Selecciona un día para ver los eventos.</p>
+            <p>Selecciona un día para ver los eventos.</p>
+          )}
+        </div>
+        <div className={styles.calendar}>
+          <div className={styles.headerCalendar}>
+            <button
+              onClick={() =>
+                setSelectedMonth(
+                  new Date(
+                    selectedMonth.getFullYear(),
+                    selectedMonth.getMonth() - 1
+                  )
+                )
+              }
+            >
+              {"<"}
+            </button>
+            <h2>
+              {selectedMonth.toLocaleString("es-ES", { month: "long" })}{" "}
+              {selectedMonth.getFullYear()}
+            </h2>
+            <button
+              onClick={() =>
+                setSelectedMonth(
+                  new Date(
+                    selectedMonth.getFullYear(),
+                    selectedMonth.getMonth() + 1
+                  )
+                )
+              }
+            >
+              {">"}
+            </button>
+          </div>
+          <div className={styles.dayNames}>
+            {["D", "L", "M", "Mi", "J", "V", "S"].map((day) => (
+              <div key={day} className={styles.dayName}>
+                {day}
+              </div>
+            ))}
+          </div>
+          <div className={styles.days}>
+            {Array(firstDayOfMonth)
+              .fill(null)
+              .map((_, i) => (
+                <div key={`prev-${i}`} className={styles.otherMonthDay}></div>
+              ))}
+            {days.map((day) => {
+              const dayEvents = events.filter(
+                (event) => new Date(event.fecha_hora).getDate() === day
+              );
+
+              return (
+                <div
+                  key={day}
+                  className={`${styles.day} ${
+                    isToday(day) ? styles.today : ""
+                  } ${selectedDay === day ? styles.selectedDay : ""}`}
+                  onClick={() => setSelectedDay(day)}
+                >
+                  <span>{day}</span>
+                  {dayEvents.length > 0 && (
+                    <div className={styles.eventMarker}></div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        {error && (
+          <p className={`${styles.message} ${styles.error}`}>{error}</p>
+        )}
+        {success && (
+          <p className={`${styles.message} ${styles.success}`}>{success}</p>
         )}
       </div>
-      <div className={styles.calendar}>
-        <div className={styles.headerCalendar}>
-          <button
-            onClick={() =>
-              setSelectedMonth(
-                new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1)
-              )
-            }
-          >
-            {"<"}
-          </button>
-          <h2>
-            {selectedMonth.toLocaleString("es-ES", { month: "long" })} {" "}
-            {selectedMonth.getFullYear()}
-          </h2>
-          <button
-            onClick={() =>
-              setSelectedMonth(
-                new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1)
-              )
-            }
-          >
-            {">"}
-          </button>
-        </div>
-        <div className={styles.dayNames}>
-          {["D", "L", "M", "Mi", "J", "V", "S"].map((day) => (
-            <div key={day} className={styles.dayName}>
-              {day}
-            </div>
-          ))}
-        </div>
-        <div className={styles.days}>
-          {Array(firstDayOfMonth)
-            .fill(null)
-            .map((_, i) => (
-              <div key={`prev-${i}`} className={styles.otherMonthDay}></div>
-            ))}
-          {days.map((day) => {
-            const dayEvents = events.filter(
-              (event) => new Date(event.fecha_hora).getDate() === day
-            );
-
-            return (
-              <div
-                key={day}
-                className={`${styles.day} ${
-                  isToday(day) ? styles.today : ""
-                } ${selectedDay === day ? styles.selectedDay : ""}`}
-                onClick={() => setSelectedDay(day)}
-              >
-                <span>{day}</span>
-                {dayEvents.length > 0 && (
-                  <div className={styles.eventMarker}></div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}
-      {success && (
-        <p className={`${styles.message} ${styles.success}`}>{success}</p>
-      )}
-    </div>
     </>
   );
 };

@@ -13,7 +13,7 @@
 
 .encabezado{
   display: flex;
-  background-color: #e2e2e2;
+  background-color: #ececec;
   flex-direction: row;
   align-items: center;
   gap: 20px;
@@ -66,7 +66,7 @@ font-size: 24px;
 }
 
 .attendButton {
-  background-color: #4caf50;
+  background-color: #ffc107;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -78,12 +78,14 @@ font-size: 24px;
 }
 
 .attendButton:hover:not(:disabled) {
-  background-color: #45a049;
+  background-color: #e0a800;
 }
 
 .attendButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  background-color: #b4b4b4; /* Un gris claro */
+  color: #585858; /* Texto más tenue */
+  cursor: not-allowed; /* Cambia el cursor a 'no permitido' */
+  opacity: 0.6; /* Reduce la opacidad */
 }
 
 /* Contenedor general del mensaje */
