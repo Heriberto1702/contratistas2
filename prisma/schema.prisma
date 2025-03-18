@@ -140,12 +140,14 @@ model Ordenes {
   total           Float
 }
 
-model RegistroAcceso {
-  id_registro    Int      @id @default(autoincrement())
-  password       String
-  hora_fecha     DateTime
-  email          String
-  id_contratista Int
+model AccesoPasswords {
+ id               Int      @id @default(autoincrement())
+  email            String   @unique
+  password         String
+  reset_token      String?  // Token para resetear la contraseña
+  reset_expires    DateTime? // Fecha de expiración del token
+  last_login       DateTime @default(now())  // Fecha del último login
+  createdAt        DateTime @default(now())  // Fecha de creación del registro
 }
 
 model Modulos {

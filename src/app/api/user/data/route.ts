@@ -5,16 +5,16 @@ import { authOptions } from "../../auth/[...nextauth]/authOptions"; // Asegúrat
 
 export async function GET() {
   try {
-    console.log("📌 Iniciando petición a la API de usuario");
+    //console.log("📌 Iniciando petición a la API de usuario");
 
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
-      console.log("❌ Usuario no autenticado");
+      //console.log("❌ Usuario no autenticado");
       return NextResponse.json({ message: "Usuario no autenticado" }, { status: 401 });
     }
 
     const email = session.user.email;
-    console.log("📌 Usuario autenticado:", email);
+    //console.log("📌 Usuario autenticado:", email);
 
     // Consultar el usuario
     const user = await prisma.loginPlataforma.findUnique({
@@ -38,11 +38,11 @@ export async function GET() {
     });
 
     if (!user) {
-      console.log("❌ Usuario no encontrado en la base de datos");
+      //console.log("❌ Usuario no encontrado en la base de datos");
       return NextResponse.json({ message: "Usuario no encontrado" }, { status: 404 });
     }
 
-    console.log("✅ Usuario encontrado:", user);
+  //  console.log("✅ Usuario encontrado:", user);
 
     // Consultamos los catálogos completos
     const [departamentos, municipios, especialidades, sexos] = await Promise.all([
@@ -52,11 +52,11 @@ export async function GET() {
       prisma.sexo.findMany(),           // Traemos todos los sexos
     ]);
 
-    console.log("✅ Catálogos completos cargados");
+    //console.log("✅ Catálogos completos cargados");
 
     const cleanedRuc = user.ruc.trim();
     const cleanedCedula = user.cedula.trim();
-    console.log("Consultando por RUC o cédula:", cleanedRuc, cleanedCedula);
+   // console.log("Consultando por RUC o cédula:", cleanedRuc, cleanedCedula);
     
     let contratista;
     
@@ -83,11 +83,11 @@ export async function GET() {
     }
     
     if (!contratista) {
-      console.log("❌ Contratista no encontrado");
+   //   console.log("❌ Contratista no encontrado");
       return NextResponse.json({ message: "Contratista no encontrado" }, { status: 404 });
     }
     
-    console.log("Contratista encontrado:", contratista);
+   // console.log("Contratista encontrado:", contratista);
     
 
     // Verificar si el club existe antes de asignarlo
@@ -97,7 +97,7 @@ export async function GET() {
         where: { id_tipo_club: contratista.id_tipo_club },
         select: { tipo_club: true },
       });
-      console.log("📌 Nombre del club:", club ? club.tipo_club : "No encontrado");
+    //  console.log("📌 Nombre del club:", club ? club.tipo_club : "No encontrado");
     }
 
     // Consultamos el tipo de contratista relacionado
@@ -106,7 +106,7 @@ export async function GET() {
       select: { tipo_cliente: true },
     });
 
-    console.log("📌 Nombre tipo contratista:", cliente);
+    //console.log("📌 Nombre tipo contratista:", cliente);
 
     // 🔥 **Filtramos los datos del usuario** usando el `id_departamento`, `id_municipio`, `id_especialidad`, y `id_sexo`
     const [departamento, municipio, especialidad, sexo] = await Promise.all([
@@ -157,11 +157,11 @@ export async function GET() {
       },
     };
 
-    console.log("✅ Respuesta enviada:", response);
+    //console.log("✅ Respuesta enviada:", response);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    console.error("❌ Error fetching user data:", error);
+   // console.error("❌ Error fetching user data:", error);
     return NextResponse.json({ message: "Error fetching data" }, { status: 500 });
   }
 }
