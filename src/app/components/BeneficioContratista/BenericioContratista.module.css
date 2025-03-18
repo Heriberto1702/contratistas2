@@ -1,0 +1,122 @@
+/* Contenedor principal */
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  /* Subcontenedor para cada tipo de club (Gold o Platinum) */
+  .subcontainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px 0;
+    column-gap: 50px;
+  }
+  
+  /* Imagen del club */
+  .imagen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .imagen p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  /* Estilos del acordeón */
+  .acordion {
+    width: 100%;
+    max-width: 800px;
+  }
+  .imagenes{
+    position: relative;
+  }
+  .imagen2{
+    position: absolute;
+    bottom: 0;
+    width: 30%;
+  }
+  /* Elemento del acordeón */
+  .accordionItem {
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Flecha en el botón del acordeón */
+  .accordionButton {
+    position: relative;
+    width: 100%;
+    background-color:#D6D9D9;
+    color: #000000;
+    text-align: left;
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
+    align-items: center;
+  }
+  
+  /* Círculo amarillo con la flecha */
+  .accordionButton::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .accordionButton::before {
+    content: ''; /* Flecha */
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    transform: translateY(-50%) rotate(45deg); /* Rotación para la flecha hacia abajo */
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid rgb(0, 0, 0);
+    transition: transform 0.3s ease;
+  }
+  
+  /* Estilo cuando el acordeón está abierto (cambia la dirección de la flecha) */
+  .accordionItem.open .accordionButton::before {
+    transform: translateY(-50%) rotate(-135deg); /* Rotación para la flecha hacia arriba */
+  }
+  
+  /* Contenido del acordeón */
+  .accordionContent {
+    padding: 10px 0;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Imagen dentro del acordeón */
+  .benefitImage {
+    width: 70%;
+    height: auto;
+  }
+  
+  /* Contenedor de la imagen */
+  .imageContainer {
+    display: flex;
+    justify-content: center;
+  }
+  

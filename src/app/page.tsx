@@ -6,7 +6,6 @@ import SimpleCard from "@/app/components/SimpleCard/SimpleCard";
 import TitleText from "@/app/components/Text/TitleText";
 import Banner from "./components/Banner/Banner";
 import NavBar from "./components/navbar/NavBar";
-import Beneficios from './components/Beneficios/Beneficios';
 
 const Page = () => {
   const images = ["/banner.png", "/banner.png"];
@@ -54,14 +53,14 @@ const Page = () => {
           imageSrc="/contratista-oro.png"
           altText="Ejemplo 2"
           text="CONTRATISTA ORO "
-          linkUrl="https://www.example.com"
+          linkUrl="/beneficios"
           linkText="Ver beneficios >"
         />
         <SimpleCard
           imageSrc="/contratista-plata.png"
           altText="Ejemplo 2"
           text="CONTRATISTA PLATA"
-          linkUrl="https://www.example.com"
+          linkUrl="/beneficios"
           linkText="Ver beneficios >"
         />
       </div>
@@ -78,8 +77,6 @@ const Page = () => {
       />
       
       <section id="beneficios">
-      <TitleText subtitle="Beneficios para Contratistas" />
-      <Beneficios />
       </section>
 
       
