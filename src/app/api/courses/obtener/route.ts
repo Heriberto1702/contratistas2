@@ -49,6 +49,7 @@ export async function GET(request: Request) {
         fecha_hora_Fin: true,
         hora: true,
         recomendaciones: true,
+        especialista:true,
       },
     });
 

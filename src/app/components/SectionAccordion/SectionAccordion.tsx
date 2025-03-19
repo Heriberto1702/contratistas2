@@ -16,15 +16,11 @@ interface SectionAccordionProps {
     }>;
   };
   id_curso: number;
-  nombre_contratista: string;
-  nombre_curso: string;
-  setCursoCompletado: (completed: boolean) => void;
-}
 
+}
 const SectionAccordion: React.FC<SectionAccordionProps> = ({
   section,
   id_curso,
-  setCursoCompletado,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedModule, setSelectedModule] = useState<null | {
@@ -50,17 +46,13 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
         );
         setCompletedModules(new Array(completed).fill(""));
         setIsCompleted(data.avance === 100); // Aquí nos aseguramos de que si está 100, no se permita agregar más módulos
-        setCursoCompletado(data.avance === 100);
+  
       }
     };
-
     fetchProgress();
-  }, [section.id_sesion, section.Modulos.length, id_curso, setCursoCompletado]);
-  // useEffect para generar el certificado cuando el progreso llegue al 100%
-
+  }, [section.id_sesion, section.Modulos.length, id_curso]);
   // Función para abrir y cerrar el accordion
   const toggleSection = () => setIsOpen(!isOpen);
-
   // Abrir el popup de módulo y actualizar el progreso
   const openPopup = async (module: {
     id_modulo: string;
@@ -69,7 +61,6 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
     url: string;
   }) => {
     setSelectedModule(module);
-
     // Solo permitimos marcar como completado si el curso no está finalizado
     if (!isCompleted && !completedModules.includes(module.id_modulo)) {
       const updatedCompleted = [...completedModules, module.id_modulo];
@@ -78,7 +69,6 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
         (updatedCompleted.length / section.Modulos.length) * 100;
       setProgress(newProgress);
       setIsCompleted(newProgress === 100);
-      setCursoCompletado(newProgress === 100);
       // Llamar a la API para actualizar el progreso en la base de datos
       await fetch("/api/courses/progreso", {
         method: "PUT",
@@ -92,14 +82,13 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
       });
     }
   };
-
   // Cerrar el popup
   const closePopup = () => {
     setSelectedModule(null);
   };
-
   return (
     <>
+   
       <div className={styles.accordionContainer}>
         <p
           className={`${styles.accordionTitle} ${isOpen ? styles.open : ""}`}
@@ -107,13 +96,6 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
         >
           {section.nombre_sesion}
         </p>
-
-        <div className={styles.progressBarContainer}>
-          <div
-            className={styles.progressBar}
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
 
         <div
           className={`${styles.accordionContent} ${isOpen ? styles.open : ""}`}

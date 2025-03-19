@@ -140,14 +140,6 @@ model Ordenes {
   total           Float
 }
 
-model RegistroAcceso {
-  id_registro    Int      @id @default(autoincrement())
-  password       String
-  hora_fecha     DateTime
-  email          String
-  id_contratista Int
-}
-
 model Modulos {
   id_modulo     Int      @id @default(autoincrement())
   id_sesion     Int
@@ -164,4 +156,21 @@ model Sesiones {
   fecha_hora    DateTime
   Modulos       Modulos[]
   Cursos        Cursos    @relation(fields: [id_curso], references: [id_curso])
+}
+
+model AccesoPasswords {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  password      String
+  reset_token   String?
+  reset_expires DateTime?
+  last_login    DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+}
+
+model ModulosCompletados {
+  id             String   @id @default(uuid())
+  id_contratista Int
+  id_modulo      String
+  @@unique([id_contratista, id_modulo])
 }
