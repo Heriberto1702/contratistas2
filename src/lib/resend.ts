@@ -9,7 +9,7 @@ export const sendResetEmail = async (email: string, token: string) => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
     await resend.emails.send({
-      from: "onboarding@resend.dev",  // Asegúrate de usar tu dominio configurado para enviar correos
+      from: "test@resend.dev",  // Asegúrate de usar tu dominio configurado para enviar correos
       to: email,
       subject: "Instrucciones para resetear tu contraseña",
       html: `<p>Haz clic en el siguiente enlace para resetear tu contraseña:</p>

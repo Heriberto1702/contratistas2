@@ -1,8 +1,8 @@
 // src/app/api/passwords/route.ts
 
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '../../../lib/prisma';
-import { sendResetEmail } from "../../../lib/resend";
+import prisma from '../../../../lib/prisma';
+import { sendResetEmail } from "../../../../lib/resend";
 import crypto from 'crypto';
 
 export async function POST(req: NextRequest) {
@@ -10,10 +10,12 @@ export async function POST(req: NextRequest) {
   
   console.log("Email recibido: ", email);  // Para depurar si estamos recibiendo el correo
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   // Verificar si el correo está presente
-  if (!email || typeof email !== 'string') {
-    return NextResponse.json({ message: "Por favor ingrese un correo válido." }, { status: 400 });
-  }
+if (!emailRegex.test(email)) {
+  return NextResponse.json({ message: "Por favor ingrese un correo válido." }, { status: 400 });
+}
 
   try {
     // Verificar si el correo electrónico está registrado
@@ -45,8 +47,8 @@ await prisma.accesoPasswords.upsert({
   },
 });
 
-// Enviar el correo de restablecimiento
-await sendResetEmail(email, resetToken);
+// Enviar el correo de restablecimiento (comentareamos para modo testing)
+await sendResetEmail(email, resetToken); 
 
 return NextResponse.json({
   message: "Correo enviado con instrucciones para restablecer la contraseña.",

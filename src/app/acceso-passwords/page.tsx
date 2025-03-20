@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       // Llamar a la API para generar el token y enviar el correo
-      const res = await axios.post("/api/passwords", { email });
+      const res = await axios.post("/api/passwords/send", { email });
       setMessage(res.data.message); // Mensaje de éxito o error
     } catch (error: any) {
       setMessage(error.response?.data?.message || "Error al enviar el correo.");
