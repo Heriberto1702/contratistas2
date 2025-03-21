@@ -167,3 +167,20 @@ model Sesiones {
   Modulos       Modulos[]
   Cursos        Cursos    @relation(fields: [id_curso], references: [id_curso])
 }
+
+model AccesoPasswords {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  password      String
+  reset_token   String?
+  reset_expires DateTime?
+  last_login    DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+}
+
+model ModulosCompletados {
+  id             String   @id @default(uuid())
+  id_contratista Int
+  id_modulo      String
+  @@unique([id_contratista, id_modulo])
+}

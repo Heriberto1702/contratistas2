@@ -40,6 +40,7 @@ const SectionsPage = () => {
   const nombre_contratista = session?.user?.name;
   const [nombre_curso, setNombreCurso] = useState<string | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (!courseId) {
@@ -85,10 +86,19 @@ const SectionsPage = () => {
   }, [courseId, id_contratista, router, nombre_curso]);
 
   useEffect(() => {
-    if (isCompleted) {
-      setIsCompleted(true);
-    }
-  }, [isCompleted]);
+    const fetchProgress = async () => {
+      const response = await fetch(
+        `/api/courses/progreso?id_curso=${courseId}`
+      );
+      const data = await response.json();
+
+      if (data.avance !== undefined) {
+        setProgress(data.avance); // Actualiza el estado del progreso
+      }
+    };
+    fetchProgress();
+  }, [courseId]);
+
   // Función para manejar la descarga del certificado
   const generateCertificate = (
     nombre_contratista: string,
@@ -134,7 +144,7 @@ const SectionsPage = () => {
     doc.setFont("times", "italic");
     doc.setFontSize(16);
     doc.setTextColor(80, 80, 80); // Gris suave
-    doc.text("Por haber completado satisfactoriamente la sesión:", 60, 125);
+    doc.text("Por haber completado satisfactoriamente el curso:", 60, 125);
 
     // Nombre del curso
     doc.setFont("times", "bold");
@@ -170,8 +180,6 @@ const SectionsPage = () => {
 
   if (error) return <div>Error: {error}</div>;
 
-  
-
   return (
     <>
       <NavBar />
@@ -184,7 +192,7 @@ const SectionsPage = () => {
         >
           Regresar
         </Link>
- 
+
         {/* Si el curso aún no ha cargado, mostrar "Cargando..." solo en la sección de contenido */}
         {!course ? (
           <div className={styles.loadingContainer}>Cargando Secciones...</div>
@@ -196,13 +204,23 @@ const SectionsPage = () => {
                 Por {course.especialista}, especialista en {course.rubro}
               </p>
             </div>
-
             <p className={styles.subtitle}>Contenido</p>
             <div className={styles.progresscontainer}>
               <hr className={styles.divider} />
               <hr className={styles.divider2} />
             </div>
-            {isCompleted && (
+            <div className={styles.progressBarContainer}>
+              <div className={styles.IndicadorProgress}>
+                Progreso del curso: {progress}%
+              </div>
+              <div className={styles.progressBar2}>
+              <div
+                className={styles.progressBar}
+                style={{ width: `${progress}%` }}
+              ></div>
+              </div>
+            </div>
+            {progress === 100 && (
               <button
                 className={styles.downloadButton}
                 onClick={handleDownloadCertificate}
@@ -214,12 +232,7 @@ const SectionsPage = () => {
               <div key={section.id_sesion} className={styles.section}>
                 <SectionAccordion
                   section={section}
-                  nombre_contratista={nombre_contratista ?? ""}
                   id_curso={Number(courseId)}
-                  nombre_curso={course.nombre_curso ?? ""}
-                  setCursoCompletado={() => {
-                    setIsCompleted(true);
-                  }}
                 />
               </div>
             ))}

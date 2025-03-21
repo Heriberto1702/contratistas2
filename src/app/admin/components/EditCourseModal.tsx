@@ -39,7 +39,9 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
   useEffect(() => {
     const fetchCurso = async () => {
       try {
-        const response = await fetch(`/api/courses/obtener?id_curso=${cursoId}`);
+        const response = await fetch(
+          `/api/courses/obtener?id_curso=${cursoId}`
+        );
         if (response.status !== 200) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
@@ -59,6 +61,32 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
   ) => {
     if (curso) {
       setCurso({ ...curso, [e.target.name]: e.target.value });
+    }
+  };
+
+  // Función para agregar una nueva sesión
+  const agregarSesion = () => {
+    if (curso) {
+      const nuevaSesion = {
+        nombre_sesion: "",
+        descripcion: "",
+        fecha_hora: new Date().toISOString().slice(0, 10), // Fecha actual en formato 'YYYY-MM-DD'
+        Modulos: [],
+      };
+      const updatedSesiones = [...curso.sesiones, nuevaSesion];
+      setCurso({ ...curso, sesiones: updatedSesiones });
+    }
+  };
+
+  // Función para agregar un nuevo módulo a una sesión
+  const agregarModulo = (sesionIndex: number) => {
+    if (curso) {
+      const nuevaSesion = { ...curso.sesiones[sesionIndex] };
+      const nuevoModulo = { titulo_modulo: "", contenido: "" };
+      nuevaSesion.Modulos.push(nuevoModulo);
+      const updatedSesiones = [...curso.sesiones];
+      updatedSesiones[sesionIndex] = nuevaSesion;
+      setCurso({ ...curso, sesiones: updatedSesiones });
     }
   };
 
@@ -255,7 +283,13 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
                 className={styles.inputField}
               />
             </div>
-
+            <button
+              type="button"
+              onClick={agregarSesion}
+              className={styles.addButton}
+            >
+              Agregar Nueva Sesión
+            </button>
             {/* Módulos y Sesiones */}
             {curso.sesiones &&
               curso.sesiones.map((sesion, sesionIndex) => (
@@ -293,6 +327,14 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
                     }}
                     className={styles.textareaField}
                   />
+
+                  <button
+                    type="button"
+                    onClick={() => agregarModulo(sesionIndex)}
+                    className={styles.addButton}
+                  >
+                    Agregar Módulo
+                  </button>
                   {sesion.Modulos && sesion.Modulos.length > 0 ? (
                     sesion.Modulos.map((modulo, moduloIndex) => (
                       <div key={moduloIndex} className={styles.moduleGroup}>

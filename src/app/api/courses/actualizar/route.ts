@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
 export async function PUT(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -33,8 +34,11 @@ export async function PUT(request: Request) {
     let fechaInicio = fecha_hora_Inicio ? new Date(fecha_hora_Inicio) : undefined;
     let fechaFin = fecha_hora_Fin ? new Date(fecha_hora_Fin) : undefined;
 
-    if (fechaInicio && isNaN(fechaInicio.getTime()) || fechaFin && isNaN(fechaFin.getTime())) {
-      return NextResponse.json({ error: "Las fechas proporcionadas no son válidas." }, { status: 400 });
+    if (fechaInicio && isNaN(fechaInicio.getTime())) {
+      return NextResponse.json({ error: "La fecha de inicio no es válida." }, { status: 400 });
+    }
+    if (fechaFin && isNaN(fechaFin.getTime())) {
+      return NextResponse.json({ error: "La fecha de fin no es válida." }, { status: 400 });
     }
 
     let sesiones: any[] = [];
@@ -75,8 +79,8 @@ export async function PUT(request: Request) {
       },
     });
 
-    // Manejo de sesiones
-    for (const sesion of sesiones) {
+    // Manejo de sesiones en paralelo
+    const sessionPromises = sesiones.map(async (sesion) => {
       const { id_sesion, nombre_sesion, descripcion, fecha_hora, Modulos } = sesion;
 
       if (id_sesion) {
@@ -92,7 +96,7 @@ export async function PUT(request: Request) {
 
         // Manejo de módulos dentro de la sesión
         if (Array.isArray(Modulos)) {
-          for (const modulo of Modulos) {
+          const moduloPromises = Modulos.map(async (modulo: { id_modulo?: number; titulo_modulo: string; contenido: string }) => {
             if (modulo.id_modulo) {
               await prisma.modulos.update({
                 where: { id_modulo: modulo.id_modulo },
@@ -110,7 +114,8 @@ export async function PUT(request: Request) {
                 },
               });
             }
-          }
+          });
+          await Promise.all(moduloPromises);
         }
       } else {
         // Si la sesión no existe, crearla junto con los módulos
@@ -131,7 +136,10 @@ export async function PUT(request: Request) {
           },
         });
       }
-    }
+    });
+
+    // Ejecutar todas las promesas de sesiones en paralelo
+    await Promise.all(sessionPromises);
 
     return NextResponse.json(
       { success: true, message: "Curso actualizado con éxito", data: updatedCurso },
@@ -139,6 +147,12 @@ export async function PUT(request: Request) {
     );
   } catch (error) {
     console.error("Error al actualizar el curso:", error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.error("Prisma error code:", (error as Prisma.PrismaClientKnownRequestError).code);
+      console.error("Prisma error meta:", (error as Prisma.PrismaClientKnownRequestError).meta);
+    } else if (error instanceof Error) {
+      console.error("Error message:", (error as Error).message);
+    }
     return NextResponse.json(
       { error: "Error al actualizar el curso.", details: error instanceof Error ? error.message : JSON.stringify(error) },
       { status: 500 }

@@ -104,6 +104,7 @@
   font-size: 35px; /* Tamaño de fuente grande */
   font-weight: 700; /* Negrita */
   color: #333; /* Color del texto */
+  margin-top: 20px;
 }
 /* Estilo para las secciones */
 .subcontainer {
@@ -117,7 +118,35 @@
   text-align: center;
   animation: fadeInOut 3s ease-in-out infinite;
 }
+/* Contenedor de la barra de progreso */
+.progressBarContainer {
+  width: 100%;
+  border-radius: 5px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 30px 0;
+}
+.progressBar2{
+  background: #bbbbbb;
+  border-radius: 5px;
+}
+/* Barra de progreso que se llena */
+.progressBar {
+  height: 8px;
+  border-radius: 5px;
+  background: #4caf50;
+  transition: width 0.5s ease-in-out;
+}
+.IndicadorProgress{
+  color: #000000;
+  font-size: 20px;
+  font-weight: 500;
 
+  border-radius: 10px;
+  padding: 5px;
+}
 @keyframes fadeInOut {
   0% {
     opacity: 0.5;
