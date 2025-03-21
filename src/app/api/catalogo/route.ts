@@ -19,7 +19,6 @@ export async function GET() {
       municipios,
     });
   } catch (error) {
-    console.error('Error al obtener los catálogos:', error);
-    return NextResponse.error();
+    return NextResponse.json({ error: 'Error al obtener los catálogos' }, { status: 500 });
   }
 }

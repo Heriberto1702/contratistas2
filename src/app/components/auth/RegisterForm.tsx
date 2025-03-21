@@ -27,9 +27,7 @@ interface Municipio {
 export default function RegisterForm() {
   const router = useRouter();
 
-  const [isContratistaActivo, setIsContratistaActivo] = useState<
-    boolean | null
-  >(null);
+  const [isContratistaActivo, setIsContratistaActivo] = useState<boolean | null>(null);
   const [isJuridico, setIsJuridico] = useState(false);
   const [cedula, setCedula] = useState("");
   const [ruc, setRuc] = useState("");
@@ -43,43 +41,32 @@ export default function RegisterForm() {
   const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState<
-    number | string
-  >("");
+  const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState<number | string>("");
   const [sexos, setSexos] = useState<Sexo[]>([]);
   const [sexoSeleccionado, setSexoSeleccionado] = useState<number | string>("");
   const [departamentos, setDepartamentos] = useState<Departamento[]>([]);
-  const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState<
-    number | string
-  >("");
+  const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState<number | string>("");
   const [municipios, setMunicipios] = useState<Municipio[]>([]);
-  const [municipioSeleccionado, setMunicipioSeleccionado] = useState<
-    number | string
-  >("");
+  const [municipioSeleccionado, setMunicipioSeleccionado] = useState<number | string>("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [mensajeVisible, setMensajeVisible] = useState(false); // Control de visibilidad del mensaje
-  const [confirmationMessage, setConfirmationMessage] = useState<string | null>(
-    null
-  );
+  const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
   const [errorMessages, setErrorMessages] = useState<string | null>(null);
   const [nombreRegistrado, setNombreRegistrado] = useState("");
   const [datosCorrectos, setDatosCorrectos] = useState<boolean | null>(null);
-  const [mostrarFormularioCompleto, setMostrarFormularioCompleto] =  useState(false);
+  const [mostrarFormularioCompleto, setMostrarFormularioCompleto] = useState(false);
 
-  // Cargar datos desde la API
+  // Cargar todos los catálogos desde la API en una única llamada
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [especialidadesData, sexosData, departamentosData] =
-          await Promise.all([
-            fetch("/api/especialidades").then((res) => res.json()),
-            fetch("/api/sexos").then((res) => res.json()),
-            fetch("/api/departamentos").then((res) => res.json()),
-          ]);
+        const response = await fetch("/api/catalogo");
+        const data = await response.json();
 
-        setEspecialidades(especialidadesData);
-        setSexos(sexosData);
-        setDepartamentos(departamentosData);
+        setEspecialidades(data.especialidades);
+        setSexos(data.sexos);
+        setDepartamentos(data.departamentos);
+        setMunicipios(data.municipios); // Ahora traemos los municipios desde el mismo API
       } catch (error) {
         setErrorMessage("Error al cargar los datos");
       }
@@ -88,32 +75,11 @@ export default function RegisterForm() {
     fetchData();
   }, []);
 
-  // Cargar municipios cuando se seleccione un departamento
-  useEffect(() => {
-    const fetchMunicipios = async () => {
-      if (departamentoSeleccionado) {
-        try {
-          const response = await fetch(
-            `/api/municipios?departamentoId=${departamentoSeleccionado}`
-          );
-          const data = await response.json();
-          setMunicipios(data);
-        } catch (error) {
-          setErrorMessage("Error al cargar los municipios");
-        }
-      }
-    };
-
-    fetchMunicipios();
-  }, [departamentoSeleccionado]);
-
   // Función de validación
   const handleValidation = async () => {
-    // Resetear mensajes de error y éxito antes de cada validación
     setErrorMessage("");
     setSuccessMessage("");
 
-    // Validar el RUC o Cédula
     const response = await fetch("/api/validar-contratista", {
       method: "POST",
       body: JSON.stringify({
@@ -130,20 +96,17 @@ export default function RegisterForm() {
     if (data.found) {
       setIsRucCedulaValid(true);
       setSuccessMessage("Contratista validado con éxito");
-      setNombreRegistrado(data.nombre_registrado); // Cargar el nombre de la base de datos
-      setErrorMessage(""); // Limpiar el mensaje de error si es válido
+      setNombreRegistrado(data.nombre_registrado);
+      setErrorMessage("");
     } else {
       setIsRucCedulaValid(false);
-      setErrorMessage(
-        "El RUC o Cédula no está activo o no existe en la base de datos."
-      );
-      setSuccessMessage(""); // Limpiar el mensaje de éxito si no es válido
+      setErrorMessage("El RUC o Cédula no está activo o no existe en la base de datos.");
+      setSuccessMessage("");
     }
 
-    // Hacer que el mensaje desaparezca después de 3 segundos
     setMensajeVisible(true);
     setTimeout(() => {
-      setMensajeVisible(false); // Oculta el mensaje después de 3 segundos
+      setMensajeVisible(false);
     }, 3000);
   };
 
@@ -151,12 +114,10 @@ export default function RegisterForm() {
     setDatosCorrectos(respuesta);
     if (respuesta) {
       setMostrarFormularioCompleto(true);
-      setErrorMessage2(""); // Limpiar el mensaje de error si la respuesta es "Sí"
+      setErrorMessage2("");
     } else {
       setMostrarFormularioCompleto(false);
-      setErrorMessage2(
-        "Por favor, contáctese con nosotros para verificar su información."
-      );
+      setErrorMessage2("Por favor, contáctese con nosotros para verificar su información.");
     }
   };
 
@@ -170,35 +131,31 @@ export default function RegisterForm() {
           body: JSON.stringify({
             email,
             password,
-            nombres: nombres,
-            apellidos: apellidos,
+            nombres,
+            apellidos,
             cedula: isJuridico ? "" : cedula,
             RUC: isJuridico ? ruc : "",
             celular,
-            id_sexo: parseInt(sexoSeleccionado as string), // Convierte a número
-            id_especialidad: parseInt(especialidadSeleccionada as string), // Convierte a número
+            id_sexo: parseInt(sexoSeleccionado as string),
+            id_especialidad: parseInt(especialidadSeleccionada as string),
             fecha_nacimiento: fechaNacimiento,
-            id_departamento: parseInt(departamentoSeleccionado as string), // Convierte a número
-            id_municipio: parseInt(municipioSeleccionado as string), // Convierte a número
-            id_tipo_contratista: isJuridico ? 2 : 1, // 2 para persona jurídica, 1 para persona natural
+            id_departamento: parseInt(departamentoSeleccionado as string),
+            id_municipio: parseInt(municipioSeleccionado as string),
+            id_tipo_contratista: isJuridico ? 2 : 1,
           }),
           headers: {
             "Content-Type": "application/json",
           },
         });
-        // Verificar respuesta del servidor
+
         const data = await response.json();
-        console.log(data); // Agrega esta línea para revisar la respuesta
 
         if (response.ok) {
-          setConfirmationMessage(
-            "¡Registro exitoso! Ahora puedes iniciar sesión."
-          );
+          setConfirmationMessage("¡Registro exitoso! Ahora puedes iniciar sesión.");
           setTimeout(() => {
             router.push("/login");
-          }, 2000); // 2000ms = 2 segundos
+          }, 2000);
         } else {
-          const data = await response.json();
           setErrorMessages(data.error || "Error al registrar usuario");
         }
       } catch (error) {
@@ -208,7 +165,6 @@ export default function RegisterForm() {
       setErrorMessages("Debe validar el RUC o Cédula primero.");
     }
   };
-
   return (
     <div className={Styles.container}>
       <div className={Styles.formContainer}>
