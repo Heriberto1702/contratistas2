@@ -1,18 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import styles from "./ResetPasswordPage.module.css";
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  
-  // 🔹 Evitar pre-rendering SSR usando useState + useEffect
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    setToken(searchParams.get("token"));
-  }, [searchParams]); // Se ejecuta solo en el cliente
+  const token = searchParams.get("token");
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,7 +15,6 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [tokenValid, setTokenValid] = useState(false);
 
-  // 🔹 1. Verificar el token al cargar la página
   useEffect(() => {
     if (token) {
       fetch(`/api/passwords/receive?token=${token}`)
@@ -36,7 +30,6 @@ export default function ResetPasswordPage() {
     }
   }, [token]);
 
-  // 🔹 2. Enviar la nueva contraseña
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
@@ -65,11 +58,7 @@ export default function ResetPasswordPage() {
       <div className={styles.container}>
         <h2 className={styles.title}>Restablecer contraseña</h2>
         {message && (
-          <p
-            className={`${styles.message} ${
-              tokenValid ? styles.success : styles.error
-            }`}
-          >
+          <p className={`${styles.message} ${tokenValid ? styles.success : styles.error}`}>
             {message}
           </p>
         )}
@@ -108,5 +97,13 @@ export default function ResetPasswordPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<p>Cargando...</p>}>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }
