@@ -37,7 +37,7 @@ model Contratistas {
   nombre_registrado    String
   activo               Boolean
   id_tipo_club         Int
-  Club                 Club    @relation(fields: [id_tipo_club], references: [id_tipo_club])
+  segmento                 Club    @relation(fields: [id_tipo_club], references: [id_tipo_club])
 }
 
 model Cursos {
