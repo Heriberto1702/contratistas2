@@ -16,7 +16,7 @@ export default function ResetPasswordPage() {
 
   // 🔹 1. Verificar el token al cargar la página
   //Descomentarear si deseamos que se valid el token
- /* useEffect(() => {
+ useEffect(() => {
     if (token) {
       fetch(`/api/passwords/receive?token=${token}`)
         .then((res) => res.json())
@@ -29,12 +29,12 @@ export default function ResetPasswordPage() {
         })
         .catch(() => setMessage("Error al validar el token."));
     }
-  }, [token]);*/
+  }, [token]);
 
   //Comentarear este bloque al terminar la fase de pruebas
-  useEffect(() => {
+  /*useEffect(() => {
     setTokenValid(true); // 🔹 Forzar que el formulario siempre se muestre
-  }, []);
+  }, []);*/
 //-----------------------------------------------------------
   
   // 🔹 2. Enviar la nueva contraseña
