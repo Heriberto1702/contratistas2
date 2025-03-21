@@ -118,11 +118,11 @@ model LoginPlataforma {
   id_municipio          Int
   Cursos_Matriculados   Cursos_Matriculados[]
   Eventos_Asistidos     Eventos_Asistidos[]
-  Departamentos         Departamentos         @relation(fields: [id_departamento], references: [id_departamento])
-  Especialidad          Especialidad          @relation(fields: [id_especialidad], references: [id_especialidad])
-  Municipios            Municipios            @relation(fields: [id_municipio], references: [id_municipio])
-  Sexo                  Sexo                  @relation(fields: [id_sexo], references: [id_sexo])
-  Cliente               Cliente               @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
+  depart         Departamentos         @relation(fields: [id_departamento], references: [id_departamento])
+  especialidad          Especialidad          @relation(fields: [id_especialidad], references: [id_especialidad])
+  muni            Municipios            @relation(fields: [id_municipio], references: [id_municipio])
+  sex                  Sexo                  @relation(fields: [id_sexo], references: [id_sexo])
+  tipoContratista               Cliente               @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
 }
 
 model Modulos {
