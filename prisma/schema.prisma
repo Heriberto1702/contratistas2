@@ -54,7 +54,7 @@ model Cursos {
   fecha_hora_Inicio   DateTime
   fecha_hora_Fin      DateTime
   Cursos_Matriculados Cursos_Matriculados[]
-  Sesiones            Sesiones[]
+  sesiones            Sesiones[]
 }
 
 model Cursos_Matriculados {
