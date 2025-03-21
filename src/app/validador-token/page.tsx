@@ -6,7 +6,13 @@ import styles from "./ResetPasswordPage.module.css";
 export default function ResetPasswordPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const token = searchParams.get("token");
+  
+  // 🔹 Evitar pre-rendering SSR usando useState + useEffect
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setToken(searchParams.get("token"));
+  }, [searchParams]); // Se ejecuta solo en el cliente
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,8 +21,7 @@ export default function ResetPasswordPage() {
   const [tokenValid, setTokenValid] = useState(false);
 
   // 🔹 1. Verificar el token al cargar la página
-  //Descomentarear si deseamos que se valid el token
- useEffect(() => {
+  useEffect(() => {
     if (token) {
       fetch(`/api/passwords/receive?token=${token}`)
         .then((res) => res.json())
@@ -31,12 +36,6 @@ export default function ResetPasswordPage() {
     }
   }, [token]);
 
-  //Comentarear este bloque al terminar la fase de pruebas
-  /*useEffect(() => {
-    setTokenValid(true); // 🔹 Forzar que el formulario siempre se muestre
-  }, []);*/
-//-----------------------------------------------------------
-  
   // 🔹 2. Enviar la nueva contraseña
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
