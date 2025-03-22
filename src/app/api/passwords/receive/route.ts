@@ -1,38 +1,76 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from '../../../../lib/prisma';
-import bcrypt from 'bcryptjs';
+import prisma from "../../../../lib/prisma";
+import bcrypt from "bcryptjs";
 
+// 🔹 GET para validar el token antes de mostrar el formulario
+export async function GET(req: NextRequest) {
+  try {
+    const token = req.nextUrl.searchParams.get("token");
+
+    if (!token) {
+      return NextResponse.json({ valid: false, message: "Token no proporcionado." }, { status: 400 });
+    }
+
+    // 🔹 Buscar todos los tokens no expirados
+    const tokenRecords = await prisma.accesoPasswords.findMany({
+      where: { reset_expires: { gt: new Date() } },
+      select: { reset_token: true },
+    });
+
+    for (const record of tokenRecords) {
+      if (await bcrypt.compare(token, record.reset_token || "")) {
+        return NextResponse.json({ valid: true });
+      }
+    }
+
+    return NextResponse.json({ valid: false, message: "Token inválido o expirado." }, { status: 400 });
+  } catch (error) {
+    console.error("Error al validar el token:", error);
+    return NextResponse.json({ valid: false, message: "Error interno del servidor." }, { status: 500 });
+  }
+}
+
+// 🔹 POST para cambiar la contraseña después de validar el token
 export async function POST(req: NextRequest) {
   try {
     const { token, newPassword } = await req.json();
 
-    // Validar que se enviaron los datos correctos
     if (!token || !newPassword) {
       return NextResponse.json({ message: "Datos inválidos." }, { status: 400 });
     }
 
-    // Buscar el token en la base de datos
-    const tokenRecord = await prisma.accesoPasswords.findFirst({
-      where: { reset_token: token  },
+    // 🔹 Buscar todos los tokens no expirados
+    const tokenRecords = await prisma.accesoPasswords.findMany({
+      where: { reset_expires: { gt: new Date() } },
+      select: { email: true, reset_token: true },
     });
 
-    // Verificar si el token es válido y no ha expirado
-    if (!tokenRecord || !tokenRecord.reset_expires || new Date() > tokenRecord.reset_expires) {
+    let validTokenRecord = null;
+
+    // 🔹 Comparar el token con los almacenados en la BD
+    for (const record of tokenRecords) {
+      if (await bcrypt.compare(token, record.reset_token || "")) {
+        validTokenRecord = record;
+        break;
+      }
+    }
+
+    if (!validTokenRecord) {
       return NextResponse.json({ message: "Token inválido o expirado." }, { status: 400 });
     }
 
-    // Encriptar la nueva contraseña
+    // 🔹 Encriptar la nueva contraseña
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Actualizar la contraseña en LoginPlataforma
+    // 🔹 Actualizar la contraseña en `LoginPlataforma`
     await prisma.loginPlataforma.update({
-      where: { email: tokenRecord.email },
+      where: { email: validTokenRecord.email },
       data: { password: hashedPassword },
     });
 
-    // Eliminar el token de la base de datos
+    // 🔹 Eliminar el token de `AccesoPasswords`
     await prisma.accesoPasswords.delete({
-      where: { email: tokenRecord.email },
+      where: { email: validTokenRecord.email },
     });
 
     return NextResponse.json({ message: "Contraseña actualizada correctamente." });

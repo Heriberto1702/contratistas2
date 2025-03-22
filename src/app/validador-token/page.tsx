@@ -13,22 +13,35 @@ function ResetPasswordForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [tokenValid, setTokenValid] = useState(false);
+  const [tokenValid, setTokenValid] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (token) {
-      fetch(`/api/passwords/receive?token=${token}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.valid) {
-            setTokenValid(true);
-          } else {
-            setMessage("El token no es válido o ha expirado.");
-          }
-        })
-        .catch(() => setMessage("Error al validar el token."));
+    if (!token) {
+      setMessage("Token inválido o expirado.");
+      setTokenValid(false);
+      return;
     }
-  }, [token]);
+
+    const validateToken = async () => {
+      try {
+        const res = await fetch(`/api/passwords/receive?token=${token}`);
+        const data = await res.json();
+
+        if (res.ok && data.valid) {
+          setTokenValid(true);
+        } else {
+          setMessage("El token no es válido o ha expirado.");
+          setTokenValid(false);
+          setTimeout(() => router.push("/olvide-password"), 3000);
+        }
+      } catch (error) {
+        setMessage("Error al validar el token.");
+        setTokenValid(false);
+      }
+    };
+
+    validateToken();
+  }, [token, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,18 +51,22 @@ function ResetPasswordForm() {
     }
 
     setLoading(true);
-    const res = await fetch("/api/passwords/receive", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token, newPassword }),
-    });
+    try {
+      const res = await fetch("/api/passwords/receive", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, newPassword }),
+      });
 
-    const data = await res.json();
-    setLoading(false);
-    setMessage(data.message);
-
-    if (res.ok) {
-      setTimeout(() => router.push("/login"), 2000);
+      const data = await res.json();
+      setMessage(data.message);
+      if (res.ok) {
+        setTimeout(() => router.push("/login"), 3000);
+      }
+    } catch (error) {
+      setMessage("Error al procesar la solicitud.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,11 +74,8 @@ function ResetPasswordForm() {
     <div className={styles.page}>
       <div className={styles.container}>
         <h2 className={styles.title}>Restablecer contraseña</h2>
-        {message && (
-          <p className={`${styles.message} ${tokenValid ? styles.success : styles.error}`}>
-            {message}
-          </p>
-        )}
+        {message && <p className={tokenValid ? styles.success : styles.error}>{message}</p>}
+        
         {tokenValid ? (
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.inputGroup}>
@@ -84,16 +98,14 @@ function ResetPasswordForm() {
                 required
               />
             </div>
-            <button
-              type="submit"
-              className={`${styles.button} ${loading ? styles.disabled : ""}`}
-              disabled={loading}
-            >
+            <button type="submit" className={styles.button} disabled={loading}>
               {loading ? "Procesando..." : "Restablecer contraseña"}
             </button>
           </form>
+        ) : tokenValid === false ? (
+          <p className={styles.error}>Redirigiendo a la recuperación de contraseña...</p>
         ) : (
-          <p className={styles.error}>{message}</p>
+          <p className={styles.error}>Cargando...</p>
         )}
       </div>
     </div>

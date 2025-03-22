@@ -1,63 +1,58 @@
-// src/app/api/passwords/route.ts
-
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../../lib/prisma';
 import { sendResetEmail } from "../../../../lib/resend";
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
-  
-  console.log("Email recibido: ", email);  // Para depurar si estamos recibiendo el correo
+  const normalizedEmail = email.trim().toLowerCase(); // 🔹 Normalizar el correo
+
+  console.log("Email recibido: ", normalizedEmail);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  // Verificar si el correo está presente
-if (!emailRegex.test(email)) {
-  return NextResponse.json({ message: "Por favor ingrese un correo válido." }, { status: 400 });
-}
+  if (!emailRegex.test(normalizedEmail)) {
+    return NextResponse.json({ message: "Por favor ingrese un correo válido." }, { status: 400 });
+  }
 
   try {
-    // Verificar si el correo electrónico está registrado
     const user = await prisma.loginPlataforma.findUnique({
-      where: { email },
+      where: { email: normalizedEmail },
     });
 
     if (!user) {
       return NextResponse.json({ message: "El correo no está registrado." }, { status: 404 });
     }
 
-    // Generar un token único
+    // 🔹 Verificar si ya hay un token activo para este usuario
+    const existingToken = await prisma.accesoPasswords.findFirst({
+      where: { email: normalizedEmail, reset_expires: { gt: new Date() } },
+    });
+
+    if (existingToken) {
+      return NextResponse.json({ message: "Ya se ha enviado un correo con instrucciones. Revisa tu bandeja de entrada." });
+    }
+
+    // 🔹 Generamos el token y lo hasheamos antes de guardarlo
     const resetToken = crypto.randomBytes(32).toString("hex");
-// Guardar el token en la tabla AccesoPasswords, con una fecha de expiración
-const expiration = new Date();
-expiration.setHours(expiration.getHours() + 1); // El token expira en 1 hora
+    const hashedToken = await bcrypt.hash(resetToken, 10);
 
-await prisma.accesoPasswords.upsert({
-  where: { email },
-  update: {
-    reset_token: resetToken,
-    reset_expires: expiration,
-  },
-  create: {
-    email,
-    reset_token: resetToken,
-    reset_expires: expiration,
-    password: '', // Add default empty password
-  },
-});
+    // 🔹 Guardamos solo el token hasheado en la base de datos
+    const expiration = new Date();
+    expiration.setHours(expiration.getHours() + 1);
 
-// Enviar el correo de restablecimiento (comentareamos para modo testing)
-await sendResetEmail(email, resetToken); 
+    await prisma.accesoPasswords.upsert({
+      where: { email: normalizedEmail },
+      update: { reset_token: hashedToken, reset_expires: expiration },
+      create: { email: normalizedEmail, reset_token: hashedToken, reset_expires: expiration, password: '' },
+    });
 
-return NextResponse.json({
-  message: "Correo enviado con instrucciones para restablecer la contraseña.",
-});
-} catch (error) {
-console.error("Error al procesar la solicitud:", error);
-return NextResponse.json(
-  { message: "Hubo un error al procesar la solicitud." },
-  { status: 500 }
-);
-}
+    // 🔹 Enviar el token original por correo
+    await sendResetEmail(normalizedEmail, resetToken);
+
+    return NextResponse.json({ message: "Correo enviado con instrucciones para restablecer la contraseña." });
+  } catch (error) {
+    console.error("Error al procesar la solicitud:", error);
+    return NextResponse.json({ message: "Hubo un error al procesar la solicitud." }, { status: 500 });
+  }
 }
