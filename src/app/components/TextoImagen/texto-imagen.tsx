@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./TextImageSection.module.css";
 
 interface TextImageSectionProps {
@@ -27,7 +28,7 @@ const TextImageSection: React.FC<TextImageSectionProps> = ({
 
       {/* Columna de imagen */}
       <div className={styles.imageColumn}>
-        <img src={imageUrl} alt={altText} className={styles.image} />
+        <Image src={imageUrl} alt={altText} width={500} height={300} className={styles.image} />
       </div>
     </div>
   );

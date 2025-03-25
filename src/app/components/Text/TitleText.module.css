@@ -22,8 +22,8 @@
 }
 
 .Subtitle {
-  font-size: 1.8rem; /* Un tamaño de fuente más moderno y apropiado */
-  font-weight: 500;
+  font-size: 30px; /* Un tamaño de fuente más moderno y apropiado */
+  font-weight: 600;
   margin-bottom: 1.2rem;
   color: #444; /* Un tono más suave que el del título */
  /* letter-spacing: 1px;*/
@@ -41,6 +41,15 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Línea amarilla debajo del subtitle */
+.Line {
+  width: 180px; /* Ajusta el largo de la línea */
+  height: 4px; /* Grosor de la línea */
+  background-color: #fbb016; /* Color amarillo */
+  margin: 0.5rem auto; /* Centramos la línea y le damos algo de espacio */
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

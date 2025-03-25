@@ -37,7 +37,7 @@ const Page = () => {
       <TitleText
  title={
   <>
-    Bienvenido a nuestro Club del Contratista
+    ¡Bienvenido a nuestro Club del Contratista!
   </>
 }
   subtitle={
@@ -62,24 +62,25 @@ const Page = () => {
     </div>
 
      
-
-      {/* Tarjetas simples */}
-      <div className="simpleCards">
-        <SimpleCard
-          imageSrc="/contratista-oro.png"
-          altText="Ejemplo 2"
-          text="CONTRATISTA ORO"
-          linkUrl="/beneficios"
-          linkText="Ver beneficios >"
-        />
-        <SimpleCard
-          imageSrc="/contratista-plata.png"
-          altText="Ejemplo 2"
-          text="CONTRATISTA PLATA"
-          linkUrl="/beneficios"
-          linkText="Ver beneficios >"
-        />
-      </div>
+{/* Tarjetas simples */}
+   {/* Título adicional */}
+   <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría y beneficios" />
+<div className="simpleCards">
+  <SimpleCard
+    imageSrc="/oro.png"
+    altText="Contratista Oro"
+    text="CONTRATISTA ORO"
+    linkUrl="/beneficios"
+    linkText="Ver beneficios >"
+  />
+  <SimpleCard
+    imageSrc="/plata.png"
+    altText="Contratista Plata"
+    text="CONTRATISTA PLATA"
+    linkUrl="/beneficios"
+    linkText="Ver beneficios >"
+  />
+</div>
 
       {/* Banner de evento */}
       <Banner
@@ -90,8 +91,7 @@ const Page = () => {
         height={317}
       />
       
-      {/* Título adicional */}
-      <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría y beneficios" />
+   
       <Cards />
 
       {/* Carrusel de doble */}
