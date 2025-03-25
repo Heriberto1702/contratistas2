@@ -19,15 +19,16 @@ const SimpleCard: React.FC<SimpleCardProps> = ({
 }) => {
   return (
     <div className={styles.simpleCard}>
-      <Image 
+      <Image
         width={350}
         height={350}
-        src={imageSrc} 
+        src={imageSrc}
         alt={altText}
-        className={styles.image} />
+        className={styles.image}
+      />
       <div className={styles.textContainer}>
-        <p className={styles.text}>{text}</p>
-        <a href={linkUrl} className={styles.link}>
+        <h3 className={styles.cardTitle}>{text}</h3>
+        <a href={linkUrl} className={styles.btnYellow}>
           {linkText}
         </a>
       </div>

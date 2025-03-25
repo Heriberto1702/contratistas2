@@ -14,31 +14,30 @@ interface Banner {
 
 interface DoubleCarouselProps {
   banners: Banner[];
-  slidesToShow?: number; // Número de estructuras visibles al mismo tiempo
+  slidesToShow?: number;
   autoplay?: boolean;
   autoplaySpeed?: number;
 }
 
 const DoubleCarousel: React.FC<DoubleCarouselProps> = ({
   banners,
-  slidesToShow = 2, // Mostrar 2 estructuras por defecto
+  slidesToShow = 2,
   autoplay = true,
   autoplaySpeed = 2000,
 }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(slidesToShow);
+  const totalSlides = banners.length;
+  const infiniteBanners = [...banners, ...banners]; // Duplicamos las tarjetas para un efecto infinito
 
-  // Función para avanzar slidesToShow slides
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prevSlide) => (prevSlide + slidesToShow) % banners.length);
-  }, [slidesToShow, banners.length]);
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
+  }, [totalSlides]);
 
-  // Función para retroceder slidesToShow slides
   const prevSlide = useCallback(() => {
-    setCurrentSlide(
-      (prevSlide) =>
-        (prevSlide - slidesToShow + banners.length) % banners.length
+    setCurrentSlide((prevSlide) =>
+      prevSlide === 0 ? totalSlides - 1 : prevSlide - 1
     );
-  }, [slidesToShow, banners.length]);
+  }, [totalSlides]);
 
   useEffect(() => {
     if (autoplay) {
@@ -52,24 +51,22 @@ const DoubleCarousel: React.FC<DoubleCarouselProps> = ({
       <div
         className={styles.carouselTrack}
         style={{
-          transform: `translateX(-${(currentSlide / banners.length) * 100}%)`,
+          transform: `translateX(-${(currentSlide * 100) / slidesToShow}%)`,
           transition: "transform 0.5s ease-in-out",
-          width: `${(banners.length / slidesToShow) * 100}%`,
-          height:`100%`
         }}
       >
-        {banners.map((banner) => (
+        {infiniteBanners.map((banner, index) => (
           <div
             className={styles.carouselSlide}
-            key={banner.id}
-            style={{ width: `${100}%` }}
+            key={index}
+            style={{ width: `calc(100% / ${slidesToShow} - 5px)` }}
           >
             <div className={styles.bannerItem}>
-              <div className={styles.bannerContent} >
+              <div className={styles.bannerContent}>
                 <h3 className={styles.bannerTitle}>{banner.title}</h3>
                 <p className={styles.bannerText}>{banner.text}</p>
                 <Link href={banner.link} className={styles.bannerLink}>
-                Ver más &#10095;
+                  Ver curso &#10095;
                 </Link>
               </div>
               <Image
@@ -83,12 +80,8 @@ const DoubleCarousel: React.FC<DoubleCarouselProps> = ({
           </div>
         ))}
       </div>
-      <button className={styles.prevBtn} onClick={prevSlide}>
-        &#10094;
-      </button>
-      <button className={styles.nextBtn} onClick={nextSlide}>
-        &#10095;
-      </button>
+      <button className={styles.prevBtn} onClick={prevSlide}>&#10094;</button>
+      <button className={styles.nextBtn} onClick={nextSlide}>&#10095;</button>
     </div>
   );
 };

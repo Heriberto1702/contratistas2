@@ -1,159 +1,127 @@
-/* Estilos generales del contenedor del carrusel */
 .carouselContainer {
-  width: 100%;
+  width: 70%;
+  margin: 0 auto;
   overflow: hidden;
   position: relative;
-  min-height: 320px; /* Asegura que el carrusel tenga suficiente altura */
- /* margin-bottom: 2rem; *//* Añadimos un margen para separarlo del footer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 50px;
 }
 
-/* Estilo para la pista de carrusel */
 .carouselTrack {
   display: flex;
-  column-gap: 15px;
+  transition: transform 0.5s ease-in-out;
+  gap: 5px; /* Reducido el espacio entre tarjetas */
 }
 
-/* Estilo para cada slide */
 .carouselSlide {
+  flex: 0 0 auto;
   display: flex;
-  justify-content: space-between; /* Asegura que los elementos se distribuyan correctamente */
+  justify-content: center;
+  align-items: center;
+  width: calc(100% / 2 - 5px); /* Ajuste para respetar el gap */
 }
 
-/* Estilo de los elementos del carrusel */
 .bannerItem {
-  width: 100%; /* En pantallas grandes ocupará todo el ancho */
-  height: 300px;
-  box-sizing: border-box;
-  background-color: #f4f4f4;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.bannerContent{
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  row-gap: 15px;
-  width: 40%;
-  margin: 0 auto;
-}
-/* Estilo de la imagen dentro del banner */
-.bannerImage {
-  width: 50%;
-  height: 100%;
+  background-color: #f4d18a; /* Amarillo */
+  border-radius: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  text-align: center;
 }
 
-/* Estilo del texto del banner */
+.bannerContent {
+  margin-bottom: 15px;
+}
+
+.bannerTitle {
+  font-size: 25px; /* Aumentado el tamaño */
+  font-weight: bold;
+}
+
 .bannerText {
-  font-size: 16px;
-  font-weight: 350;
-  line-height: 20px;
-}
-.bannerTitle{
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 22px;
-}
-/* Estilo del enlace del banner */
-.bannerLink {
-  margin: 1rem;
-  background-color: #fbb016;
-  border-radius: 16px;
-  width: 9rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem;
-  height: 40px;
-}
-.bannerLink:hover {
-  border: 1px solid #333;
+  font-size: 20px; /* Aumentado el tamaño */
+  padding-bottom: 10px;
 }
 
-/* Estilo de los botones prev y next */
+.bannerLink {
+  display: inline-block;
+  background-color: #fbb016; /* Botón negro para contraste */
+  color: #000;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.bannerLink:hover {
+  background-color: #e69e13;
+}
+
+.bannerImage {
+  border-radius: 15px;
+}
+
+/* Botones */
 .prevBtn,
 .nextBtn {
-  font-size: 30px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: orange;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
   border: none;
-  padding: 10px;
-  cursor: pointer;
   border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prevBtn {
+  left: 10px;
+}
+
+.nextBtn {
+  right: 10px;
 }
 
 .prevBtn:hover,
 .nextBtn:hover {
-  color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
-.prevBtn {
-  left: 0;
-}
-
-.nextBtn {
-  right: 0;
-}
-
-/* Estilos Responsivos */
-
-/* Pantallas medianas (Tabletas) */
-@media (max-width: 1024px) {
-  .bannerItem {
-    flex-direction: column; /* En tabletas, las imágenes y el texto estarán apilados */
-    height: 250px;
+/* Responsivo */
+@media (max-width: 768px) {
+  .carouselContainer {
+    width: 95%;
   }
 
-  .bannerImage {
-    max-width: 80%; /* Imagen más pequeña en tabletas */
-    height: auto;
+  .carouselSlide {
+    width: calc(100% / 1 - 5px); /* En móvil, solo muestra 1 card a la vez */
+  }
+
+  .bannerTitle {
+    font-size: 20px;
   }
 
   .bannerText {
-    margin-top: 15px;
-    font-size: 14px; /* Texto más pequeño */
+    font-size: 16px;
   }
 
   .bannerLink {
-    font-size: 14px;
-  }
-
-  .prevBtn,
-  .nextBtn {
-    font-size: 25px; /* Reducimos el tamaño de los botones */
-    padding: 8px;
-  }
-}
-
-/* Pantallas más pequeñas (Móviles) */
-@media (max-width: 600px) {
-  .bannerItem {
-    flex-direction: column; /* En móviles, las imágenes y el texto estarán apilados */
-    height: 200px;
-  }
-
-  .bannerImage {
-    max-width: 90%; /* Imagen más pequeña en móviles */
-    height: auto;
-  }
-
-  .bannerText {
-    margin-top: 15px;
-    font-size: 12px; /* Texto aún más pequeño */
-  }
-
-  .bannerLink {
-    font-size: 12px;
-  }
-
-  .prevBtn,
-  .nextBtn {
-    font-size: 20px; /* Botones más pequeños */
-    padding: 5px;
+    font-size: 18px;
+    padding: 10px 20px;
   }
 }

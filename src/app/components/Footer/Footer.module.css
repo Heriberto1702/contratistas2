@@ -1,14 +1,15 @@
 .footer {
-  background-color: #333;
-  color: #fff;
+  background-color: #333; /* Fondo oscuro */
+  color: #fff; /* Texto en blanco */
   padding: 20px 0;
+  text-align: center; /* Alineación central del contenido */
 }
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Centra todo el contenido */
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
@@ -16,10 +17,16 @@
 
 .logoSection {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center; /* Centra el logo dentro de la sección */
+  align-items: center; /* Centra verticalmente */
 }
 
 .logo {
-  max-width: 150px;
+  width: 150px;
+  height: auto;
+  margin: 0 auto;
+  padding-bottom: 5px;
 }
 
 .navSection {

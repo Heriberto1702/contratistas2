@@ -1,20 +1,67 @@
 .TitleContainer {
-    text-align: center;
-  }
+  text-align: center;
+ /* margin-top: 3rem;*/ /* Asegura que el texto no esté pegado al borde superior */
+  padding: 1rem 0;
+}
+
+.Title {
+  font-size: 3rem; /* Usamos rem para mejor escalabilidad */
+  font-weight: 600; /* Más destacado que 500 */
+  margin-bottom: 1.5rem; /* Separación más espaciosa */
+  color: #333; /* Un color más sólido y profesional */
+ /* text-transform: capitalize;*/ /* Dale un toque moderno y fuerte */
+  letter-spacing: 1px; /* Espaciado entre letras para mayor claridad */
+  line-height: 1.2; /* Para que el texto sea más legible */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); /* Sutil sombra para resaltar el título */
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Transición suave */
+}
+
+.Title:hover {
+  transform: translateY(-5px); /* Un pequeño levantamiento al pasar el ratón */
+  color: #fbb015; /* Un color brillante para hacerlo más dinámico */
+}
+
+.Subtitle {
+  font-size: 30px; /* Un tamaño de fuente más moderno y apropiado */
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  color: #444; /* Un tono más suave que el del título */
+ /* letter-spacing: 1px;*/
+  line-height: 1.4;
+}
+
+.Text {
+  font-size: 1.1rem; /* Ajustamos el tamaño para ser un poco más pequeño */
+  color: #666; /* Un gris más suave y sutil */
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  line-height: 1.6; /* Mejora la legibilidad de los párrafos largos */
+  text-align: justify; /* Mejora la alineación del texto */
+  max-width: 800px; /* Limita el ancho del texto para evitar que se vea demasiado largo en pantallas grandes */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Línea amarilla debajo del subtitle */
+.Line {
+  width: 180px; /* Ajusta el largo de la línea */
+  height: 4px; /* Grosor de la línea */
+  background-color: #fbb016; /* Color amarillo */
+  margin: 0.5rem auto; /* Centramos la línea y le damos algo de espacio */
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
   .Title {
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-size: 2.5rem; /* Reducimos el tamaño del título en pantallas pequeñas */
   }
+
   .Subtitle {
-    font-size: 25px;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-size: 1.6rem;
   }
+
   .Text {
-    font-size: 20px;
-    color: #555;
-    font-weight: 400;
-    margin-bottom: 10px;
+    font-size: 1rem;
   }
-  
+}

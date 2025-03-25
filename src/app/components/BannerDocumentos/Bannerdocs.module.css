@@ -1,5 +1,5 @@
 .Imagen{
-   width: auto;
+   max-width: auto;
     height: auto;
     object-fit: cover;
 }
@@ -7,5 +7,5 @@
     margin: 10px 0;
     display: flex;
     justify-content: center;
-    background-color: #fbb015;
+    background-color: #000;
 }
