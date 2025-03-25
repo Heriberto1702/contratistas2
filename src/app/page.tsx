@@ -10,7 +10,7 @@ import TextoImagen from "./components/TextoImagen/texto-imagen";
 import TextoImagenIzquierda from "./components/TextoImagenIzquierda/texto-imagenizquierda";
 
 const Page = () => {
-  const images = ["/banner.png", "/banner.png"];
+  const images = ["/banner.png", "/banner2.png"];
   const banners = [
     {
       id: 1,
