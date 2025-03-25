@@ -133,17 +133,6 @@ model Modulos {
   Sesiones      Sesiones @relation(fields: [id_sesion], references: [id_sesion])
 }
 
-model ModulosCompletados {
-  id_contratista   Int
-  fecha_completado DateTime @default(now())
-  id_curso         Int
-  id_modulo        Int
-  id_sesion        Int?
-  id               Int      @id @default(autoincrement())
-
-  @@unique([id_contratista, id_modulo])
-}
-
 model Municipios {
   id_municipio     Int               @id @default(autoincrement())
   nombre_municipio String
