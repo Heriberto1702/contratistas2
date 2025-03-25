@@ -178,3 +178,14 @@ model Sexo {
   sexo            String
   LoginPlataforma LoginPlataforma[]
 }
+
+model ModulosCompletados {
+  id               Int       @id @default(autoincrement())
+  id_contratista   Int
+  id_curso         Int
+  id_sesion        Int?
+  id_modulo        Int
+  fecha_completado DateTime @default(now())
+
+  @@unique([id_contratista, id_modulo])
+}

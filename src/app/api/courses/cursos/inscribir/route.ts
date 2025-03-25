@@ -13,6 +13,7 @@ export async function POST(request: Request) {
     }
 
     const idContratistaInt = parseInt(id_contratista, 10); // Convertir a número entero
+    const idCursoInt = parseInt(id_curso, 10); // Asegurarse de que id_curso sea un número entero
 
     if (isNaN(idContratistaInt)) {
       return NextResponse.json(
@@ -21,21 +22,18 @@ export async function POST(request: Request) {
       );
     }
 
-    const existingEnrollment = await prisma.cursos_Matriculados.findFirst({
-      where: { id_contratista: idContratistaInt, id_curso },
-    });
-
-    if (existingEnrollment) {
+    if (isNaN(idCursoInt)) {
       return NextResponse.json(
-        { message: "Ya estás inscrito en este curso." },
-        { status: 409 }
+        { message: "ID del curso no válido." },
+        { status: 400 }
       );
     }
 
+    // Registrar la inscripción en la base de datos
     const newEnrollment = await prisma.cursos_Matriculados.create({
       data: {
         id_contratista: idContratistaInt,
-        id_curso,
+        id_curso: idCursoInt,
         avance: 0,
         estado: "Inscrito",
       },

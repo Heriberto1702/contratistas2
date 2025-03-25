@@ -1,96 +1,94 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
+import { NextResponse } from "next/server";
+import prisma from "../../../../lib/prisma"; // Ajusta la ruta a tu archivo de Prisma
 
-// Obtener el progreso del curso
-export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-  }
+// Esta API recibe el ID del curso y el ID del contratista (usuario)
+export async function PUT(request: Request) {
+  try {
+    const { id_curso, id_contratista } = await request.json();
 
-  const { searchParams } = new URL(req.url);
-  const id_curso = parseInt(searchParams.get("id_curso") || "0");
-  const id_contratista = session.user.id_contratista;
+    if (!id_curso || !id_contratista) {
+      return NextResponse.json(
+        { message: "Faltan parámetros necesarios" },
+        { status: 400 }
+      );
+    }
 
-  const progreso = await prisma.cursos_Matriculados.findFirst({
-    where: {
-      id_contratista,
-      id_curso
+    // Paso 1: Obtener todos los módulos completados del usuario
+    const completedModules = await prisma.modulosCompletados.findMany({
+      where: {
+        id_contratista, id_curso,
+        },
+      },
+    );
+
+// Paso 2: Obtener el número total de módulos del curso
+const numeromodulos = await prisma.cursos.findUnique({
+  where: { id_curso }, // Obtener el curso con el id proporcionado
+  select: {
+    sesiones: {
+      select: {
+        Modulos: { // Relación con los módulos
+          select: {
+            id_modulo: true, // Solo traemos el id del módulo
+          },
+        },
+      },
     },
-    select: { avance: true },
-  });
-
-  return NextResponse.json(progreso || { avance: 0 });
+  },
+});
+if (!numeromodulos || !numeromodulos.sesiones) {
+  return NextResponse.json(
+    { message: "No se encontraron módulos para el curso proporcionado" },
+    { status: 404 }
+  );
 }
 
-// Actualizar el progreso del curso
-export async function PUT(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-  }
+const totalModules = numeromodulos.sesiones.reduce((acc, session) => {
+  return acc + session.Modulos.length;
+}, 0);
+    const completedModulesCount = completedModules.length;
+    // Paso 3: Calcular el avance en porcentaje
+    const progress = Math.ceil((completedModulesCount / totalModules) * 100);
 
-  const { id_curso, nuevoAvance } = await req.json();
-  const id_contratista = session.user.id_contratista;
-
-  // Obtener el número total de módulos del curso
-  const curso = await prisma.cursos.findUnique({
-    where: { id_curso },
-    include: {
-      sesiones: {
-        include: {
-          Modulos: true,  // Traemos los módulos dentro de cada sesión
-        }
-      }
-    }
-  });
-  const totalModulos = curso?.sesiones?.reduce((acc, sesion) => acc + sesion.Modulos.length, 0) || 0;
-
-  // Obtener el progreso actual del contratista en el curso
-  const progresoActual = await prisma.cursos_Matriculados.findFirst({
-    where: {
-      id_contratista,
-      id_curso,
-    },
-    select: { avance: true, estado: true },
-  });
-
-  // Si el curso ya está finalizado, no se actualiza el progreso
-  if (progresoActual?.estado === "Finalizado") {
-    return NextResponse.json({ message: "Curso ya completado. No se puede actualizar el progreso." });
-  }
-
-  // Verifica si ya hay avance y lo suma correctamente
-  const avanceAcumulado = progresoActual ? progresoActual.avance : 0;
-
-  // Calcular el avance por módulo
-  const avancePorModulo = 100 / totalModulos;
-  const nuevoTotalAvance = avanceAcumulado + avancePorModulo;
-
-  // Definir el estado del curso
-  const estado = nuevoTotalAvance >= 100 ? "Finalizado" : "En progreso";
-
-  // Actualizar el progreso en la base de datos
-  const matricula = await prisma.cursos_Matriculados.findFirst({
-    where: {
-      id_contratista,
-      id_curso,
-    },
-  });
-
-  if (matricula) {
-    await prisma.cursos_Matriculados.update({
+    // Paso 4: Actualizar el progreso en la tabla Cursos_matriculados
+    // Fetch the unique identifier (id_matriculas) for the record
+    const matricula = await prisma.cursos_Matriculados.findFirst({
       where: {
-        id_matriculas: matricula.id_matriculas,  // Usa el ID único del registro
+        id_contratista,
+        id_curso,
       },
-      data: {
-        avance: nuevoTotalAvance,
-        estado,
+      select: {
+        id_matriculas: true,
       },
     });
-  }
 
-  return NextResponse.json({ message: "Progreso actualizado" });
+    if (!matricula || !matricula.id_matriculas) {
+      return NextResponse.json(
+        { message: "No se encontró la matrícula para actualizar el avance" },
+        { status: 404 }
+      );
+    }
+
+    // Update the progress using the unique identifier
+    await prisma.cursos_Matriculados.update({
+      where: {
+        id_matriculas: matricula.id_matriculas,
+      },
+      data: {
+        avance: progress,
+      },
+    });
+
+    // Paso 5: Retornar la respuesta exitosa
+    return NextResponse.json(
+      { message: "Avance actualizado correctamente", progress },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error al actualizar avance:", error);
+    return NextResponse.json(
+      { message: "Hubo un error al actualizar el avance" },
+      { status: 500 }
+    );
+  }
 }
