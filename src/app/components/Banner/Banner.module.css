@@ -1,8 +1,11 @@
 .Imagen{
-    width: 100%;
+   width: auto;
     height: auto;
     object-fit: cover;
 }
 .containerBanner{
     margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    background-color: #fbb015;
 }

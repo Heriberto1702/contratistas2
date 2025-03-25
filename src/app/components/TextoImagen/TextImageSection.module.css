@@ -1,0 +1,83 @@
+/* TextImageSection.module.css */
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* Espacio entre las columnas */
+    padding: 20px;
+    flex-wrap: wrap; /* Permite que las columnas se apilen en pantallas más pequeñas */
+    padding-left: 80px;
+    padding-right: 80px;
+    background-color: #F0F0F0;
+  }
+  
+  .textColumn {
+    flex: 1;
+    max-width: 50%; /* La columna de texto ocupa un máximo de 50% del ancho */
+  }
+  
+  .text {
+    font-size: 20px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .title{
+    font-size: 25px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .button {
+    background-color: #fbb016; /* Amarillo */
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #e69e13; /* Color más oscuro en hover */
+  }
+  
+  .imageColumn {
+    flex: 1;
+    max-width: 50%; /* La columna de la imagen ocupa un máximo de 50% */
+  }
+  
+  .image {
+    width: 100%; /* La imagen ocupa el 100% del ancho de su contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+  
+  /* Responsividad */
+  
+  /* Pantallas pequeñas (menos de 768px) */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column; /* Las columnas se apilan verticalmente */
+      text-align: center; /* Centrar el texto y el botón */
+    }
+  
+    .textColumn {
+      max-width: 100%; /* La columna de texto ocupa el 100% en pantallas pequeñas */
+      margin-bottom: 20px; /* Agregar margen entre texto y la imagen */
+    }
+  
+    .imageColumn {
+      max-width: 100%; /* La imagen ocupa el 100% en pantallas pequeñas */
+    }
+  
+    .button {
+      width: 100%; /* El botón ocupa todo el ancho en pantallas pequeñas */
+      padding: 12px; /* Más espacio en el botón */
+    }
+  }
+  

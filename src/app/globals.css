@@ -15,8 +15,18 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+  @font-face {
+    font-family: 'Proxima Nova';
+    src: url('/fonts/proximanova-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
+
 html, body {
-  font-family: 'Roboto Condensed', sans-serif; /* Asegúrate de aplicar tu fuente aquí */
+  font-family: "Proxima Nova", sans-serif;
   overflow-x: hidden;
   height: 100%;
   width: 100%;

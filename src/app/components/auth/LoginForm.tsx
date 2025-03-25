@@ -63,7 +63,11 @@ export default function LoginForm() {
          <button className={Styles.button} type="submit" disabled={loading}>
     {loading ? "Cargando..." : "Acceder"}
   </button>
+
         </form>
+        <div className={Styles.registerContainer}>
+        <Link className={Styles.subtitulos} href={"/acceso-passwords"}> ¿Has olvidado tu contraseña?</Link>
+        </div>
         <div className={Styles.registerContainer}>
           <h3 className={Styles.subtitulos}>¿Aún no eres socio?</h3>
           <p className={Styles.subtitulos}>
