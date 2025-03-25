@@ -1,0 +1,11 @@
+.Imagen{
+   max-width: auto;
+    height: auto;
+    object-fit: cover;
+}
+.containerBanner{
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    background-color: #000;
+}

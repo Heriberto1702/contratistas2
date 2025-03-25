@@ -18,7 +18,8 @@
 
   @font-face {
     font-family: 'Proxima Nova';
-    src: url('/fonts/proximanova-regular.ttf') format('truetype');
+    src: url("/fonts/proximanova_regular.ttf") format("truetype"),
+    url("/fonts/proximanova_light.otf") format("opentype");
     font-weight: normal;
     font-style: normal;
   }
@@ -60,4 +61,14 @@ abbr:where([title]) {
   align-items: center;
   column-gap: 3rem ;
   padding-bottom: 3.5rem ;
+}
+
+.sinlinea{
+  font-size: 30px; /* Un tamaño de fuente más moderno y apropiado */
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  color: #444; /* Un tono más suave que el del título */
+ /* letter-spacing: 1px;*/
+  line-height: 1.4;
+
 }

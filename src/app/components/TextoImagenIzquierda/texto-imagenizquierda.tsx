@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "./TextImageSection.module.css";
+import styles from "./TextImageizqSection.module.css";
 
 interface TextImageSectionProps {
   title: string;
@@ -21,18 +21,18 @@ const TextImageSection: React.FC<TextImageSectionProps> = ({
 }) => {
   return (
     <div className={styles.container}>
+      {/* Columna de imagen */}
+      <div className={styles.imageColumn}>
+        <Image src={imageUrl} alt={altText} width={500} height={300} className={styles.image} />
+      </div>
+
       {/* Columna de texto */}
       <div className={styles.textColumn}>
-      <p className={styles.title}>{title}</p>
+        <p className={styles.title}>{title}</p>
         <p className={styles.text}>{text}</p>
         <a href={buttonUrl} className={styles.button}>
           {buttonText}
         </a>
-      </div>
-
-      {/* Columna de imagen */}
-      <div className={styles.imageColumn}>
-        <Image src={imageUrl} alt={altText} width={500} height={300} className={styles.image} />
       </div>
     </div>
   );

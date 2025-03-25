@@ -35,9 +35,7 @@ const Page = () => {
         title="¿Qué es Academia para Contratistas?"
         text="Es una plataforma online de capacitación del Círculo de Especialistas en la que solo por ser socio podrá aprender diversas técnicas y conocer nuevos productos e innovaciones para perfeccionar su trabajo."
       />
-      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
-        <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
-      </Container>
+    
       <TitleText subtitle="¿Qué puede encontrar en nuestra Academia para Especialistas?" />
       <Container
         displayType="flex"
@@ -84,16 +82,12 @@ const Page = () => {
 
       {/* Calendario de actividades */}
       <TitleText subtitle="Calendario de Actividades" />
-      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
-        <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
-      </Container>
+      
       <EventCalendar  />
 
       {/* Cursos destacados */}
       <TitleText subtitle="Cursos Destacados" />
-      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
-        <ColoredDiv backgroundColor="#FBB016" width="200px" height="3px" marginTop="5px" marginBottom="10px" />
-      </Container>
+      
       <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center" gap="1rem">
         <Modulo
           title="Instalaciones eléctricas básicas domiciliarias"
