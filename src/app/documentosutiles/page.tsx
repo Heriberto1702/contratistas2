@@ -30,9 +30,17 @@ const Page = () => {
           imageUrl="/doc2.png"
           text="Utilice este archivo para calcular de manera concisa cual será el costo para usted de algún proyecto a realizar, en este podrá separar los gastos por categorías como: insumos, mano de obra, comida, traslados, entre otros, para visibilizar todos los gastos que conlleva el proyecto."
           text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
-          urlExcel="/doc/listado-de-puestos-de-empresas.xlsx"
-          linkText="Listado de puestos de empresas >"
+          urlExcel="/doc/recibo-de-dinero.xlsx"
+          linkText="Recibo de Dinero >"
         />
+      </Container>
+      <Container
+        displayType="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        gap="1rem"
+      >
         <Modulov2
           imageUrl="/doc3.png"
           text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."

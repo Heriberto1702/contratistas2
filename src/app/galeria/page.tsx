@@ -22,7 +22,6 @@ const Galeria = () => {
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
-
       <TitleText subtitle="¡Bienvenidos a nuestra plataforma de documentos útiles! Aquí encontrarás una extensa colección de recursos que te ayudarán en tus proyectos, podrás descargar y personalizar según su empresa o trabajo. Utilice estos documentos para sus labores, entregas y proyectos en general." />
 
       <div className={styles.grid}>
