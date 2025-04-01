@@ -76,7 +76,9 @@
   .admin-main .admin-button.green {
     background-color: #16a34a;
   }
-  
+  .admin-main .admin-button.red {
+    background-color: #ff0000;
+  }
   .admin-main .admin-button:hover {
     transform: scale(1.05); /* Animación suave al hover */
   }

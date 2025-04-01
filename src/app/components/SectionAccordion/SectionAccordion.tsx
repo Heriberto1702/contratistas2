@@ -16,11 +16,15 @@ interface SectionAccordionProps {
     }>;
   };
   id_curso: number;
-
+  id_contratista: number;
+  updateProgress: () => void;  // 🔹 Agregamos esta prop
 }
+
 const SectionAccordion: React.FC<SectionAccordionProps> = ({
   section,
   id_curso,
+  id_contratista,
+  updateProgress, 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedModule, setSelectedModule] = useState<null | {
@@ -29,31 +33,10 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
     contenido: string;
     url: string;
   }>(null);
-  const [progress, setProgress] = useState(0);
   const [completedModules, setCompletedModules] = useState<string[]>([]);
-  const [isCompleted, setIsCompleted] = useState(false);
-  // Cargar el progreso al iniciar el componente
-  useEffect(() => {
-    const fetchProgress = async () => {
-      const response = await fetch(
-        `/api/courses/progreso?id_curso=${id_curso}`
-      );
-      const data = await response.json();
-      if (data.avance) {
-        setProgress(data.avance);
-        const completed = Math.round(
-          data.avance / (100 / section.Modulos.length)
-        );
-        setCompletedModules(new Array(completed).fill(""));
-        setIsCompleted(data.avance === 100); // Aquí nos aseguramos de que si está 100, no se permita agregar más módulos
-  
-      }
-    };
-    fetchProgress();
-  }, [section.id_sesion, section.Modulos.length, id_curso]);
-  // Función para abrir y cerrar el accordion
+
   const toggleSection = () => setIsOpen(!isOpen);
-  // Abrir el popup de módulo y actualizar el progreso
+
   const openPopup = async (module: {
     id_modulo: string;
     titulo_modulo: string;
@@ -61,77 +44,83 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
     url: string;
   }) => {
     setSelectedModule(module);
-    // Solo permitimos marcar como completado si el curso no está finalizado
-    if (!isCompleted && !completedModules.includes(module.id_modulo)) {
+  
+    if (!completedModules.includes(module.id_modulo)) {
       const updatedCompleted = [...completedModules, module.id_modulo];
       setCompletedModules(updatedCompleted);
-      const newProgress =
-        (updatedCompleted.length / section.Modulos.length) * 100;
-      setProgress(newProgress);
-      setIsCompleted(newProgress === 100);
-      // Llamar a la API para actualizar el progreso en la base de datos
-      await fetch("/api/courses/progreso", {
-        method: "PUT",
+  
+      // Enviar solicitud a la API para registrar el módulo como completado
+      const response = await fetch("/api/courses/cursos/moduloscompletados", {
+        method: "POST",
         body: JSON.stringify({
-          id_curso: id_curso,
-          nuevoAvance: updatedCompleted.length,
+          id_curso,
+          id_contratista,
+          id_modulo: module.id_modulo,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       });
+  
+      if (response.ok) {
+        console.log("Módulo completado registrado correctamente");
+  
+        // **Llamar a la función para actualizar el progreso en SectionsPage**
+        updateProgress();
+      } else {
+        console.error("Error al registrar el módulo como abierto");
+      }
     }
   };
-  // Cerrar el popup
+  
+
   const closePopup = () => {
     setSelectedModule(null);
   };
+
   return (
-    <>
-   
-      <div className={styles.accordionContainer}>
-        <p
-          className={`${styles.accordionTitle} ${isOpen ? styles.open : ""}`}
-          onClick={toggleSection}
-        >
-          {section.nombre_sesion}
-        </p>
+    <div className={styles.accordionContainer}>
+      <p
+        className={`${styles.accordionTitle} ${isOpen ? styles.open : ""}`}
+        onClick={toggleSection}
+      >
+        {section.nombre_sesion}
+      </p>
 
-        <div
-          className={`${styles.accordionContent} ${isOpen ? styles.open : ""}`}
-        >
-          <p className={styles.accordionDescription}>{section.descripcion}</p>
-          <ul className={styles.moduleList}>
-            {section.Modulos && section.Modulos.length > 0 ? (
-              section.Modulos.map((module) => (
-                <li
-                  key={module.id_modulo}
-                  className={`${styles.moduleItem} ${
-                    completedModules.includes(module.id_modulo)
-                      ? styles.completed
-                      : ""
-                  }`}
+      <div
+        className={`${styles.accordionContent} ${isOpen ? styles.open : ""}`}
+      >
+        <p className={styles.accordionDescription}>{section.descripcion}</p>
+        <ul className={styles.moduleList}>
+          {section.Modulos.length > 0 ? (
+            section.Modulos.map((module) => (
+              <li
+                key={module.id_modulo}
+                className={`${styles.moduleItem} ${
+                  completedModules.includes(module.id_modulo)
+                    ? styles.completed
+                    : ""
+                }`}
+              >
+                <button
+                  className={styles.viewButton}
+                  onClick={() => openPopup(module)}
                 >
-                  <button
-                    className={styles.viewButton}
-                    onClick={() => openPopup(module)}
-                  >
-                    &#9654;
-                  </button>
-                  {module.titulo_modulo}
-                </li>
-              ))
-            ) : (
-              <li>No hay módulos disponibles para esta sesión.</li>
-            )}
-          </ul>
-        </div>
-
-        {selectedModule && (
-          <ModulePopup module={selectedModule} onClose={closePopup} />
-        )}
+                  ▶
+                </button>
+                {module.titulo_modulo}
+              </li>
+            ))
+          ) : (
+            <li>No hay módulos disponibles para esta sesión.</li>
+          )}
+        </ul>
       </div>
-    </>
+
+      {selectedModule && (
+        <ModulePopup module={selectedModule} onClose={closePopup} />
+      )}
+    </div>
   );
 };
 

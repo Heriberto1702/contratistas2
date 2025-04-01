@@ -133,17 +133,6 @@ model Modulos {
   Sesiones      Sesiones @relation(fields: [id_sesion], references: [id_sesion])
 }
 
-model ModulosCompletados {
-  id_contratista   Int
-  fecha_completado DateTime @default(now())
-  id_curso         Int
-  id_modulo        Int
-  id_sesion        Int?
-  id               Int      @id @default(autoincrement())
-
-  @@unique([id_contratista, id_modulo])
-}
-
 model Municipios {
   id_municipio     Int               @id @default(autoincrement())
   nombre_municipio String
@@ -177,4 +166,15 @@ model Sexo {
   id_sexo         Int               @id @default(autoincrement())
   sexo            String
   LoginPlataforma LoginPlataforma[]
+}
+
+model ModulosCompletados {
+  id               Int       @id @default(autoincrement())
+  id_contratista   Int
+  id_curso         Int
+  id_sesion        Int?
+  id_modulo        Int
+  fecha_completado DateTime @default(now())
+
+  @@unique([id_contratista, id_modulo])
 }
