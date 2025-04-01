@@ -31,13 +31,13 @@
 }
 
 .Text {
-  font-size: 1.1rem; /* Ajustamos el tamaño para ser un poco más pequeño */
+  font-size: 1.5rem; /* Ajustamos el tamaño para ser un poco más pequeño */
   color: #666; /* Un gris más suave y sutil */
   font-weight: 400;
   margin-bottom: 1.5rem;
   line-height: 1.6; /* Mejora la legibilidad de los párrafos largos */
-  text-align: justify; /* Mejora la alineación del texto */
-  max-width: 800px; /* Limita el ancho del texto para evitar que se vea demasiado largo en pantallas grandes */
+  text-align: center; /* Mejora la alineación del texto */
+  max-width: 1000px; /* Limita el ancho del texto para evitar que se vea demasiado largo en pantallas grandes */
   margin-left: auto;
   margin-right: auto;
 }

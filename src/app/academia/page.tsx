@@ -1,5 +1,4 @@
 import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
-import ColoredDiv from "../components/ColoredDiv/ColoredDiv";
 import Container from "../components/Container/Container";
 import EventCalendar from "../components/EventCalendar/EventCalendar";
 import ImageText from "../components/Imagen/Imagen";
@@ -33,10 +32,10 @@ const Page = () => {
       {/* Introducción */}
       <TitleText
         title="¿Qué es Academia para Contratistas?"
-        text="Es una plataforma online de capacitación del Círculo de Especialistas en la que solo por ser socio podrá aprender diversas técnicas y conocer nuevos productos e innovaciones para perfeccionar su trabajo."
+        text="Es una plataforma online de capacitación en la que solo por ser socio podrá aprender diversas técnicas y conocer nuevos productos e innovaciones para perfeccionar su trabajo."
       />
     
-      <TitleText subtitle="¿Qué puede encontrar en nuestra Academia para Especialistas?" />
+      <TitleText subtitle="¿Qué puede encontrar en nuestra Academia para Contratistas?" />
       <Container
         displayType="flex"
         flexDirection="row"
