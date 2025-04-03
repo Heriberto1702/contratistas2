@@ -10,7 +10,7 @@ const CoursesTable = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("/api/courses/obtener");
+        const response = await fetch("/api/courses/obtenerTodos");
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }

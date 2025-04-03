@@ -45,14 +45,10 @@ export async function POST(request: Request) {
 
     const nombre_curso = form.get("nombre_curso") as string;
     const descripcion = form.get("descripcion") as string;
-    const especialista = form.get("especialista") as string;
-    const fecha_hora_Inicio = form.get("fecha_hora_Inicio") as string;
-    const fecha_hora_Fin = form.get("fecha_hora_Fin") as string;
-    const hora = form.get("hora") as string;
-    const rubro = form.get("rubro") as string;
+    const especialista = form.get("especialista") as string | null;
+    const rubro = form.get("rubro") as string | null;
     const recomendaciones = form.get("recomendaciones") as string;
     const imagen_curso = form.get("imagen_curso") as File;
-    const detalles_curso = form.get("detalles_curso") as string;
     const tipo_curso = form.get("tipo_curso") as string;
     const sesionesRaw = form.get("sesiones") as string | null;
 
@@ -79,37 +75,15 @@ export async function POST(request: Request) {
 
     const imageUrl = await uploadFileToS3(imagen_curso, "imagen_cursos");
 
-    let inicio, fin;
-    try {
-      inicio = new Date(fecha_hora_Inicio);
-      fin = new Date(fecha_hora_Fin);
-    } catch (error) {
-      return NextResponse.json(
-        { error: "Las fechas proporcionadas no tienen un formato válido." },
-        { status: 400 }
-      );
-    }
-
-    if (isNaN(inicio.getTime()) || isNaN(fin.getTime())) {
-      return NextResponse.json(
-        { error: "Las fechas proporcionadas no son válidas." },
-        { status: 400 }
-      );
-    }
-
     // Crear el curso sin sesiones
     const curso = await prisma.cursos.create({
       data: {
         nombre_curso,
         descripcion,
-        especialista,
-        fecha_hora_Inicio: inicio,
-        fecha_hora_Fin: fin,
-        hora,
-        rubro,
+        especialista: especialista || null, // Si no está presente, guardamos `null`
+        rubro: rubro || null, // Si no está presente, guardamos `null`
         recomendaciones,
         imagen_curso: imageUrl,
-        detalles_curso,
         tipo_curso,
       },
     });
@@ -121,7 +95,6 @@ export async function POST(request: Request) {
           data: {
             nombre_sesion: sesion.nombre_sesion,
             descripcion: sesion.descripcion,
-            fecha_hora: new Date(sesion.fecha_hora),
             id_curso: curso.id_curso, // Relacionar con el curso recién creado
           },
         });
@@ -132,7 +105,8 @@ export async function POST(request: Request) {
             data: sesion.modulos.map((modulo: any) => ({
               titulo_modulo: modulo.titulo_modulo,
               contenido: modulo.contenido,
-              sesionId: nuevaSesion.id_sesion, // Relacionar con la sesión recién creada
+              recursopdf: modulo.recursopdf,
+              id_sesion: nuevaSesion.id_sesion, // Relacionar con la sesión recién creada
             })),
           });
         }

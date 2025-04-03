@@ -3,35 +3,26 @@ import styles from "./css/CreateCoursePage.module.css";
 
 interface FormData {
   nombre_curso: string;
-  especialista: string;
-  rubro: string;
-  fecha_hora_Inicio: string;
-  fecha_hora_Fin: string;
-  hora: string;
+  especialista?: string | null;
+  rubro?: string | null;
   imagen_curso: File | null;
   descripcion: string;
-  detalles_curso: string;
   tipo_curso: string;
   recomendaciones: string;
   sesiones?: {
     nombre_sesion: string;
     descripcion: string;
-    fecha_hora: string;
-    modulos?: { titulo_modulo: string; contenido: string }[];
+    modulos?: { titulo_modulo: string; contenido: string; recursopdf?: string }[];
   }[];
 }
 
 const CreateCoursePage = () => {
   const [formData, setFormData] = useState<FormData>({
     nombre_curso: "",
-    especialista: "",
-    rubro: "",
-    fecha_hora_Inicio: "",
-    fecha_hora_Fin: "",
-    hora: "",
+    especialista:null,
+    rubro: null,
     imagen_curso:null,
     descripcion: "",
-    detalles_curso: "",
     tipo_curso: "",
     recomendaciones: "",
     sesiones: [],
@@ -51,7 +42,7 @@ const CreateCoursePage = () => {
       ...formData,
       sesiones: [
         ...(formData.sesiones || []),
-        { nombre_sesion: "", descripcion: "", fecha_hora: "", modulos: [] },
+        { nombre_sesion: "", descripcion: "", modulos: [] },
       ],
     });
   };
@@ -79,6 +70,7 @@ const CreateCoursePage = () => {
     newSesiones[sectionIndex].modulos.push({
       titulo_modulo: "",
       contenido: "",
+      recursopdf: "",
     });
     setFormData({
       ...formData,
@@ -130,13 +122,9 @@ const CreateCoursePage = () => {
     const form = new FormData();
     form.append("nombre_curso", formData.nombre_curso);
     form.append("descripcion", formData.descripcion);
-    form.append("especialista", formData.especialista);
-    form.append("fecha_hora_Inicio", formData.fecha_hora_Inicio);
-    form.append("fecha_hora_Fin", formData.fecha_hora_Fin);
-    form.append("hora", formData.hora);
-    form.append("detalles_curso", formData.detalles_curso);
+    form.append("especialista", formData.especialista || "");
     form.append("recomendaciones", formData.recomendaciones);
-    form.append("rubro", formData.rubro);
+    form.append("rubro", formData.rubro || "");
     form.append("tipo_curso", formData.tipo_curso);
     
     // Agregar sesiones como JSON string
@@ -163,12 +151,8 @@ const CreateCoursePage = () => {
               nombre_curso: "",
               especialista: "",
               rubro: "",
-              fecha_hora_Inicio: "",
-              fecha_hora_Fin: "",
-              hora: "",
               imagen_curso: null,
               descripcion: "",
-              detalles_curso: "",
               tipo_curso: "",
               recomendaciones: "",
               sesiones: [],
@@ -209,9 +193,8 @@ const CreateCoursePage = () => {
                 type="text"
                 placeholder="Especialista"
                 name="especialista"
-                value={formData.especialista}
+                value={formData.especialista || ""}
                 onChange={handleChange}
-                required
               />
             </div>
     
@@ -222,48 +205,11 @@ const CreateCoursePage = () => {
                 type="text"
                 placeholder="Rubro"
                 name="rubro"
-                value={formData.rubro}
+                value={formData.rubro || ""}
                 onChange={handleChange}
-                required
               />
             </div>
-    
-            <div className={styles.label}>
-              Fecha de inicio:
-              <input
-                className={styles.inputField}
-                type="date"
-                name="fecha_hora_Inicio"
-                value={formData.fecha_hora_Inicio}
-                onChange={handleChange}
-                required
-              />
-            </div>
-    
-            <div className={styles.label}>
-              Fecha de fin:
-              <input
-                className={styles.inputField}
-                type="date"
-                name="fecha_hora_Fin"
-                value={formData.fecha_hora_Fin}
-                onChange={handleChange}
-                required
-              />
-            </div>
-    
-            <div className={styles.label}>
-              Hora de inicio:
-              <input
-                className={styles.inputField}
-                type="time"
-                name="hora"
-                value={formData.hora}
-                onChange={handleChange}
-                required
-              />
-            </div>
-    
+
             <div className={styles.label}>
               Imagen de curso:
               <input
@@ -283,19 +229,6 @@ const CreateCoursePage = () => {
                 placeholder="Descripción del Curso"
                 name="descripcion"
                 value={formData.descripcion}
-                onChange={handleChange}
-                required
-              />
-            </div>
-    
-            <div className={styles.label}>
-              Detalles del curso:
-              <input
-                className={styles.inputField}
-                type="text"
-                placeholder="Detalles del Curso"
-                name="detalles_curso"
-                value={formData.detalles_curso}
                 onChange={handleChange}
                 required
               />
@@ -361,18 +294,7 @@ const CreateCoursePage = () => {
                   }
                 />
               </div>
-              <div className={styles.label}>
-                Fecha y hora de la sesión:
-                <input
-                  className={styles.inputField}
-                  type="datetime-local"
-                  value={section.fecha_hora}
-                  onChange={(e) =>
-                    handleSectionChange(index, "fecha_hora", e.target.value)
-                  }
-                />
-              </div>
-    
+
               <div className={styles.moduleContainer}>
                 {section.modulos && section.modulos.map((module, moduleIndex) => (
                   <div key={moduleIndex} className={styles.moduleSubContainer}>
@@ -406,6 +328,22 @@ const CreateCoursePage = () => {
                               index,
                               moduleIndex,
                               "contenido",
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                      <div className={styles.label}>
+                        Recurso PDF del módulo:
+                        <textarea
+                          className={styles.textareaField}
+                          placeholder="Recurso PDF del módulo"
+                          value={module.recursopdf}
+                          onChange={(e) =>
+                            handleModuleChange(
+                              index,
+                              moduleIndex,
+                              "recursopdf",
                               e.target.value
                             )
                           }

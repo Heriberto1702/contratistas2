@@ -8,11 +8,8 @@ import Link from "next/link";
 interface Course {
   id_curso: string;
   nombre_curso: string;
-  fecha_hora_Inicio: string;
-  fecha_hora_Fin: string;
-  hora: string;
-  detalles_curso: string;
   imagen_curso: string;
+  descripcion: string;
   recomendaciones: string;
   Cursos_Matriculados: any[];
 }
@@ -32,16 +29,6 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
         console.error("id_curso es undefined o vacío");
         return;
     }
-    const formatDate = (dateString: string): string => {
-        if (!dateString) return "Fecha no disponible";
-        const date = new Date(dateString);
-        return date.toLocaleString("es-ES", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        });
-    };
 
     const fetchCourse = async () => {
         try {
@@ -56,8 +43,6 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
             // Formatear las fechas y actualizar el estado
             const formattedCourse = {
                 ...data,
-                fecha_hora_Inicio: formatDate(data.fecha_hora_Inicio),
-                fecha_hora_Fin: formatDate(data.fecha_hora_Fin),
             };
             const matriculado =
                 Array.isArray(data.Cursos_Matriculados) && data.Cursos_Matriculados.length > 0;
@@ -136,22 +121,11 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
             </button>
           )}
         </div>
-        <div className={styles.datacurso}>
-          <p>
-            <strong>Inicia el: </strong>
-            {course.fecha_hora_Inicio}
-          </p>
-          <p>
-            <strong>Finaliza el:</strong> {course.fecha_hora_Fin}
-          </p>
-          <p>
-            <strong>Hora de inicio curso:</strong> {course.hora}
-          </p>
-        </div>
+ 
       </div>
       <div className={styles.secondData}>
-        <h3 className={styles.title}>Detalles del Curso</h3>
-        <p>{course.detalles_curso}</p>
+        <h3 className={styles.title}>Descripcion del Curso</h3>
+        <p>{course.descripcion}</p>
         <h3 className={styles.title}>Recomendaciones</h3>
         <p>{course.recomendaciones}</p>
       </div>

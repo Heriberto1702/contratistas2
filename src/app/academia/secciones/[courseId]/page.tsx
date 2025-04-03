@@ -116,9 +116,11 @@ const SectionsPage = () => {
           <>
             <div className={styles.sombreado}>
               <p className={styles.title}>{course.nombre_curso}</p>
-              <p className={styles.texto}>
-                Por {course.especialista}, especialista en {course.rubro}
-              </p>
+              {course.especialista && course.rubro && (
+                <p className={styles.texto}>
+                  Por {course.especialista}, especialista en {course.rubro}
+                </p>
+              )}
             </div>
             <p className={styles.subtitle}>Contenido</p>
             <div className={styles.progresscontainer}>
@@ -135,7 +137,7 @@ const SectionsPage = () => {
             <div></div>
             {course.sesiones.map((section) => (
               <div key={section.id_sesion} className={styles.section}>
-                <SectionAccordion      
+                <SectionAccordion
                   id_contratista={id_contratista ?? 0}
                   section={section}
                   id_curso={Number(id_curso)}

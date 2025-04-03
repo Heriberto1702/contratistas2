@@ -36,12 +36,10 @@ export async function GET(request: Request) {
           id_curso:true,
           nombre_curso: true,
           imagen_curso:true,
-          fecha_hora_Fin:true,
-          fecha_hora_Inicio:true,
-          hora:true,
+          descripcion: true,
+          tipo_curso: true,
           recomendaciones:true,
           especialista: true,
-          detalles_curso:true,
           rubro: true,
           sesiones: {
             orderBy: {
@@ -88,11 +86,24 @@ export async function GET(request: Request) {
         id_curso:true,
         nombre_curso: true,
         imagen_curso:true,
-        fecha_hora_Fin:true,
-        fecha_hora_Inicio:true,
         recomendaciones:true,
+        descripcion: true,
         especialista:true,
-        hora:true,
+        sesiones: {
+          orderBy: {
+            id_sesion: "asc", // Ordena las sesiones por id_sesion
+          },
+          select: {
+            id_sesion: true,
+            nombre_sesion: true,
+            descripcion: true,
+            Modulos: {
+              orderBy: {
+                id_modulo: "asc", // Ordena los módulos por id_modulo
+              },
+            },
+          },
+        },
         Cursos_Matriculados: {
           where: { id_contratista },
           select: {

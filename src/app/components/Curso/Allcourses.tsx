@@ -11,16 +11,7 @@ const Page = () => {
   const [filterType, setFilterType] = useState<string>("todos"); // todos | misCursos | resultados
 
   useEffect(() => {
-    const formatDate = (dateString: string): string => {
-      const date = new Date(dateString);
-      return date.toLocaleString("es-ES", {
-        weekday: "long", // Día de la semana
-        year: "numeric", // Año
-        month: "long", // Mes
-        day: "numeric", // Día
-      });
-    };
-
+ 
     const fetchCourses = async () => {
       try {
         const response = await fetch("/api/courses/obtenerTodos");
@@ -30,10 +21,6 @@ const Page = () => {
 
         const data = await response.json();
         if (Array.isArray(data)) {
-          data.forEach((course) => {
-            course.fecha_hora_Inicio = formatDate(course.fecha_hora_Inicio);
-            course.fecha_hora_Fin = formatDate(course.fecha_hora_Fin);
-          });
 
           setCourses(data);
           setFilteredCourses(data); // Inicializamos los cursos filtrados
@@ -142,17 +129,7 @@ const Page = () => {
                       </span>
                     </div>
                     <p>
-                      <strong>Inicia el: </strong>
-                      {course.fecha_hora_Inicio}
-                    </p>
-                    <p>
-                      <strong>Finaliza el:</strong> {course.fecha_hora_Fin}
-                    </p>
-                    <p>
-                      <strong>Hora de inicio curso:</strong> {course.hora}
-                    </p>
-                    <p className={styles.recomendaciones}>
-                      {course.recomendaciones}
+                      {course.descripcion}
                     </p>
                     <Link
                       href={`/academia/cursos/${course.id_curso}`}

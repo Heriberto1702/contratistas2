@@ -6,6 +6,8 @@
 }
 .sombreado{
   background-color:#292A2B ;
+  border-radius: 16px;
+  padding: 10px;
 }
 .loadingContainer{
   display: flex;
@@ -49,8 +51,9 @@
   font-size: 30px; /* Tamaño de fuente grande */
   font-weight: 500; /* Negrita */
   color: #ffffff; /* Color del texto */
-  padding: 20px 0px 0px 40px;
+  padding: 0px 0px 0px 40px;
 }
+
 .texto {
   color: #ffffff; /* Color del texto */
   font-size: 25px;

@@ -46,13 +46,9 @@ model Cursos {
   descripcion         String
   recomendaciones     String
   imagen_curso        String
-  detalles_curso      String
   tipo_curso          String
-  especialista        String
-  hora                String
-  rubro               String
-  fecha_hora_Inicio   DateTime
-  fecha_hora_Fin      DateTime
+  especialista        String?
+  rubro               String?
   Cursos_Matriculados Cursos_Matriculados[]
   sesiones            Sesiones[]
 }
@@ -130,6 +126,7 @@ model Modulos {
   id_sesion     Int
   titulo_modulo String
   contenido     String
+  recursopdf   String?
   Sesiones      Sesiones @relation(fields: [id_sesion], references: [id_sesion])
 }
 
@@ -157,7 +154,6 @@ model Sesiones {
   id_curso      Int
   nombre_sesion String
   descripcion   String
-  fecha_hora    DateTime
   Modulos       Modulos[]
   Cursos        Cursos    @relation(fields: [id_curso], references: [id_curso])
 }

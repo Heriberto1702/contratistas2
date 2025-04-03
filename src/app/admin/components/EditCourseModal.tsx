@@ -6,19 +6,14 @@ interface Curso {
   id_curso: string;
   nombre_curso: string;
   descripcion: string;
-  especialista: string;
-  fecha_hora_Inicio: string;
-  fecha_hora_Fin: string;
-  hora: string;
-  rubro: string;
+  especialista?: string | null;
+  rubro?: string | null;
   recomendaciones: string;
-  detalles_curso: string;
   tipo_curso: string;
   sesiones: {
     nombre_sesion: string;
     descripcion: string;
-    fecha_hora: string;
-    Modulos: { titulo_modulo: string; contenido: string }[];
+    Modulos: { titulo_modulo: string; contenido: string, recursopdf?: string}[];
   }[];
 }
 
@@ -40,7 +35,7 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
     const fetchCurso = async () => {
       try {
         const response = await fetch(
-          `/api/courses/obtener?id_curso=${cursoId}`
+          `/api/courses/obtenerTodos?id_curso=${cursoId}`
         );
         if (response.status !== 200) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -70,7 +65,6 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
       const nuevaSesion = {
         nombre_sesion: "",
         descripcion: "",
-        fecha_hora: new Date().toISOString().slice(0, 10), // Fecha actual en formato 'YYYY-MM-DD'
         Modulos: [],
       };
       const updatedSesiones = [...curso.sesiones, nuevaSesion];
@@ -102,12 +96,8 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
     formData.append("nombre_curso", curso.nombre_curso || "");
     formData.append("descripcion", curso.descripcion || "");
     formData.append("especialista", curso.especialista || "");
-    formData.append("fecha_hora_Inicio", curso.fecha_hora_Inicio || "");
-    formData.append("fecha_hora_Fin", curso.fecha_hora_Fin || "");
-    formData.append("hora", curso.hora || "");
     formData.append("rubro", curso.rubro || "");
     formData.append("recomendaciones", curso.recomendaciones || "");
-    formData.append("detalles_curso", curso.detalles_curso || "");
     formData.append("tipo_curso", curso.tipo_curso || "");
 
     // Validar que `sesiones` sea un array antes de agregarlo
@@ -118,7 +108,7 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
       alert("Error: 'sesiones' no está definido o no es un array");
       return;
     }
-    if (!curso.nombre_curso || !curso.descripcion || !curso.fecha_hora_Inicio) {
+    if (!curso.nombre_curso || !curso.descripcion) {
       alert("Por favor, completa todos los campos obligatorios.");
       return;
     }
@@ -182,53 +172,14 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
                 type="text"
                 id="especialista"
                 name="especialista"
-                value={curso.especialista}
+                value={curso.especialista || ""}
                 onChange={handleChange}
                 className={styles.inputField}
               />
             </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="fecha_hora_Inicio" className={styles.label}>
-                Fecha y Hora de Inicio
-              </label>
-              <input
-                type="date"
-                id="fecha_hora_Inicio"
-                name="fecha_hora_Inicio"
-                value={curso.fecha_hora_Inicio}
-                onChange={handleChange}
-                className={styles.inputField}
-              />
-            </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="fecha_hora_Fin" className={styles.label}>
-                Fecha y Hora de Fin
-              </label>
-              <input
-                type="date"
-                id="fecha_hora_Fin"
-                name="fecha_hora_Fin"
-                value={curso.fecha_hora_Fin}
-                onChange={handleChange}
-                className={styles.inputField}
-              />
-            </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="hora" className={styles.label}>
-                Hora
-              </label>
-              <input
-                type="time"
-                id="hora"
-                name="hora"
-                value={curso.hora}
-                onChange={handleChange}
-                className={styles.inputField}
-              />
-            </div>
 
             <div className={styles.formGroup}>
               <label htmlFor="rubro" className={styles.label}>
@@ -238,7 +189,7 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
                 type="text"
                 id="rubro"
                 name="rubro"
-                value={curso.rubro}
+                value={curso.rubro || ""}
                 onChange={handleChange}
                 className={styles.inputField}
               />
@@ -252,19 +203,6 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
                 id="recomendaciones"
                 name="recomendaciones"
                 value={curso.recomendaciones}
-                onChange={handleChange}
-                className={styles.textareaField}
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="detalles_curso" className={styles.label}>
-                Detalles del Curso
-              </label>
-              <textarea
-                id="detalles_curso"
-                name="detalles_curso"
-                value={curso.detalles_curso}
                 onChange={handleChange}
                 className={styles.textareaField}
               />
@@ -375,6 +313,26 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
                               updatedSesiones[sesionIndex].Modulos[
                                 moduloIndex
                               ].contenido = e.target.value;
+                              setCurso({ ...curso, sesiones: updatedSesiones });
+                            }}
+                            className={styles.textareaField}
+                          />
+                        </div>
+                        <div className={styles.formGroup}>
+                          <label
+                            htmlFor={`recursopdf_${moduloIndex}`}
+                            className={styles.label}
+                          >
+                            Recurso PDF
+                          </label>
+                          <textarea
+                            id={`recursopdf_${moduloIndex}`}
+                            value={modulo.recursopdf || ""}
+                            onChange={(e) => {
+                              const updatedSesiones = [...curso.sesiones];
+                              updatedSesiones[sesionIndex].Modulos[
+                                moduloIndex
+                              ].recursopdf = e.target.value;
                               setCurso({ ...curso, sesiones: updatedSesiones });
                             }}
                             className={styles.textareaField}

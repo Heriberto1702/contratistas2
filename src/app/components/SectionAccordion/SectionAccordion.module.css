@@ -17,6 +17,13 @@
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.iconPdf {
+  font-size: 1.2rem;
+  color: #007bff;
+  margin-right: 10px;
+  position: relative;
+  top:2px
+}
 /* Efecto cuando el título es hover */
 .accordionTitle:hover {
   color: #007bff;
@@ -31,7 +38,9 @@
 
 /* Cuando el acordeón está abierto, la flecha apunta hacia abajo */
 .accordionTitle.open::after {
-  transform: rotate(90deg); /* Rotar la flecha 90 grados para que apunte hacia abajo */
+  transform: rotate(
+    90deg
+  ); /* Rotar la flecha 90 grados para que apunte hacia abajo */
 }
 
 /* Contenido del acordeón con transición suave */
@@ -63,6 +72,7 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
+
 }
 
 .moduleItem {
@@ -93,8 +103,6 @@
   background-color: #007bff;
   color: white;
 }
-
-
 
 /* Estilos para módulos completados */
 .moduleItem.completed {
