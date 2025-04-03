@@ -44,8 +44,6 @@ const Galeria = ({ categoria }: GaleriaProps) => {
 
   return (
     <div>
-    <h3 className="font-bold mb-2">Galería de {categoria}</h3>
-
     <div className={styles.galeriaContainer}>
       {imagenes.map((imagen, index) => (
         <Image
