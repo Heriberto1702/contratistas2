@@ -51,8 +51,8 @@ const Galeria = ({ categoria }: GaleriaProps) => {
         <Image
           key={index}
           src={imagen}
-          width={150}
-          height={150}
+          width={1200}
+          height={1200}
           alt={`Imagen ${index + 1}`}
           className={styles.galeriaItem}
           onClick={() => setImagenSeleccionada(imagen)}
@@ -68,8 +68,9 @@ const Galeria = ({ categoria }: GaleriaProps) => {
         </button>
         <Image
           src={imagenSeleccionada}
-          width={800}
-          height={600}
+          width={1200}
+          height={1200}
+          loading="lazy"
           alt="Imagen grande"
           className={`${styles.popupImg} ${zoom ? styles.zoomed : ""}`}
           onClick={(e) => {

@@ -42,7 +42,8 @@
   
   /* Estilo de la imagen dentro del popup */
   .popupImg {
-  
+    width: 46%;
+    height: auto;
     border-radius: 16px;
     cursor: zoom-out;
     transition: transform 0.3s ease;
