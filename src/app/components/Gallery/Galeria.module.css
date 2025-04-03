@@ -42,16 +42,15 @@
   
   /* Estilo de la imagen dentro del popup */
   .popupImg {
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 10px;
+  
+    border-radius: 16px;
     cursor: zoom-out;
     transition: transform 0.3s ease;
   }
   
   /* Efecto de zoom */
   .zoomed {
-    transform: scale(1.5);
+    transform: scale(1.1);
   }
   
   /* Estilos para el botón de cerrar */
