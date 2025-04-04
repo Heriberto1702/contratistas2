@@ -173,7 +173,7 @@ const EventCalendar = () => {
                   <Image
                     src={event.imagen_evento}
                     alt={event.nombre_evento}
-                    width={100}
+                    width={200}
                     height={100}
                     className={styles.eventImage}
                   />
@@ -182,11 +182,11 @@ const EventCalendar = () => {
                       <Link
                         href={`/academia/evento/${event.id_evento}`}
                         className={styles.link}
-                      >
-                        {event.nombre_evento}
+                      > 
+                        {event.nombre_evento} <span className={styles.linkdetalle}>(ver detalles)</span>
                       </Link>
                     </h3>
-                    <p>Cupos disponibles: {event.cupos || 0}</p>
+                    <p>Cupos disponibles: <span className={styles.cupos}>{event.cupos || 0}</span></p>
                     <div className={styles.eventMeta}>
                       <p>
                         📅{" "}
@@ -201,7 +201,7 @@ const EventCalendar = () => {
                     <p className={styles.text}>
                       <Link href={"https://form.jotform.com/250274836316862"}>
                         Si desea agregar más personas a este evento, haga{" "}
-                        <b>clic aquí</b>
+                        <span className={styles.linkmedio}><b>clic aquí</b></span>
                       </Link>
                     </p>
                     <hr className={styles.divider} />

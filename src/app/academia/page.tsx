@@ -3,22 +3,46 @@ import Container from "../components/Container/Container";
 import EventCalendar from "../components/EventCalendar/EventCalendar";
 import ImageText from "../components/Imagen/Imagen";
 import Modulo from "../components/Modulo/Modulo";
+import Documentos from "../components/DocumentosAcademy/Documentos";
 import TitleText from "../components/Text/TitleText";
 import React from "react";
-import Styles from "../components/Modulo/Modulo.module.css"
+import Styles from "../components/DocumentosAcademy/Documentos.module.css";
 import Link from "next/link";
 import NavBar from "../components/navbar/NavBar";
 import LinkComponent from "../components/LinkComponent/LinkComponent";
 
-
 const Page = () => {
   const images = ["/banneracademia.png"];
 
-  // Declaración de las cards con sus datos
+  // Declaración de las cards con sus datos ajustados para el componente Documentos
   const cards = [
-    { id: '1', title: "Como fidelizar a sus clientes", image: '/card1.png' },
-    { id: '2', title: "Como armar un buen presupuesto", image: '/card2.png' },
-    { id: '3', title: "Como formalizar su empresa", image: '/card3.png' },
+    { id: '1', title: "Como fidelizar a sus clientes", imageUrl: '/card1.png', url: "/academia/docpdf/1" },
+    { id: '2', title: "Como armar un buen presupuesto", imageUrl: '/card2.png', url: "/academia/docpdf/2" },
+    { id: '3', title: "Como formalizar su empresa", imageUrl: '/card3.png', url: "/academia/docpdf/3" },
+  ];
+
+  const modulesData = [
+    {
+      title: "Instalaciones eléctricas básicas domiciliarias",
+      imageUrl: "/curso1.png",
+      logo: "/schneider.png",
+      url: "academia/cursos/1",
+      linkText: "Leer más >",
+    },
+    {
+      title: "Capacitación Online Drytec",
+      imageUrl: "/curso2.png",
+      logo: "/drytec.png",
+      url: "academia/cursos/2",
+      linkText: "Leer más >",
+    },
+    {
+      title: "Lo que debes saber sobre pintura.",
+      imageUrl: "/curso3.png",
+      logo: "/lanco.png",
+      url: "academia/cursos/3",
+      linkText: "Leer más >",
+    },
   ];
 
   return (
@@ -45,44 +69,16 @@ const Page = () => {
       >
         <ImageText imageUrl="/tools.png" alt="" text="Talleres Prácticos" />
         <ImageText imageUrl="/play.png" alt="" text="Cápsula digital" />
-        <ImageText
-          imageUrl="/feriaregional.png"
-          alt=""
-          text="Ferias Regionales"
-        />
+        <ImageText imageUrl="/feriaregional.png" alt="" text="Ferias Regionales" />
       </Container>
 
-      {/* Sección de cards */}
+      {/* Sección de cards documentos */}
       <TitleText subtitle="Documentos disponibles" />
-      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center" gap="1rem">
-        <div style={{ display: 'flex', gap: '20px', justifyContent: 'center',width: '100%'}}>
-          {cards.map((card) => (
-            <div className={Styles.subcontainer} style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${card.image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              width: "100%",
-              height: "185px", 
-            }}
-              key={card.id}
-            >
-              <h3 className={Styles.title} >{card.title}</h3>
-              {/* Actualización aquí: usando Link sin <a> */}
-              <Link className={Styles.url} href={`/academia/docpdf/${card.id}`} passHref>
-                <span >
-                  Leer más  
-                </span>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </Container>
+      <Documentos modules={cards} />
 
       {/* Calendario de actividades */}
       <TitleText subtitle="Calendario de Actividades" />
-      
-      <EventCalendar  />
+      <EventCalendar />
 
       {/* Cursos destacados */}
       <TitleText subtitle="Cursos Destacados" />
