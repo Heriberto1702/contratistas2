@@ -3,6 +3,7 @@ import "jspdf-autotable";
 import ModulePopup from "../ModulePopup/ModulePopup";
 import styles from "./SectionAccordion.module.css";
 import PdfPopup from "../PdfPopup/PdfPopup"; // Asegúrate de que la ruta sea correcta
+import Image from "next/image";
 
 interface SectionAccordionProps {
   section: {
@@ -119,30 +120,37 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
                     ? styles.completed
                     : ""
                 }`}
-              >
+              > <div className={styles.licontainer}>
                 {module.recursopdf && (
+               
                   <button
                     className={styles.iconPdf}
                     onClick={() => openPopuppdf(module)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="red"
-                    >
-                      <path d="M6 2h9l6 6v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM8 14h2v-4H8v4zm4 0h2v-4h-2v4zm4-4v4h2v-4h-2z" />
-                    </svg>
+                    <Image
+        width={512}
+        height={512}
+        src="/icons/documento-pdf.png"
+        alt="icono pdf" 
+        className={styles.imgcontainer}     
+      />
+
                   </button>
                 )}
                 <button
                   className={styles.viewButton}
                   onClick={() => openPopup(module)}
                 >
-                  ▶
+                  <Image
+        width={512}
+        height={512}
+        src="/icons/play.png"
+        alt="icono play" 
+        className={styles.imgcontainer}     
+      />
                 </button>
                 {module.titulo_modulo}
+                </div>
               </li>
             ))
           ) : (

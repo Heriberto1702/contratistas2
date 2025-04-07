@@ -20,9 +20,11 @@
 .iconPdf {
   font-size: 1.2rem;
   color: #007bff;
-  margin-right: 10px;
+  margin-left: 10px;
   position: relative;
-  top:2px
+  top:2px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 /* Efecto cuando el título es hover */
 .accordionTitle:hover {
@@ -90,22 +92,36 @@
 .viewButton {
   background-color: transparent;
   margin-right: 10px;
+  margin-left: 10px;
   color: #007bff;
-  border: 1px solid #007bff;
-  padding: 6px 12px;
   cursor: pointer;
-  border-radius: 50%;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+  box-shadow 0.4s ease;
   font-size: 0.9rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
 .viewButton:hover {
-  background-color: #007bff;
-  color: white;
+  transform: scale(1.20);
+}
+.iconPdf:hover {
+  transform: scale(1.20);
 }
 
 /* Estilos para módulos completados */
 .moduleItem.completed {
   color: #4caf50;
   font-weight: bold;
+}
+
+.licontainer{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+}
+.imgcontainer{
+  width: 40px;
+  height:40px;
+  margin: 0 auto;
 }
