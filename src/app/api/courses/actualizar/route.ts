@@ -18,6 +18,10 @@ export async function PUT(request: Request) {
     const descripcion = form.get("descripcion")?.toString().trim();
     const especialista = form.get("especialista")?.toString().trim();
     const rubro = form.get("rubro")?.toString();
+    const activoRaw = form.get("activo");
+    const destacadoRaw = form.get("destacado");
+    const activo = activoRaw === "true" || activoRaw === "on";
+    const destacado = destacadoRaw === "true" || destacadoRaw === "on";
     const recomendaciones = form.get("recomendaciones")?.toString();
     const tipo_curso = form.get("tipo_curso")?.toString();
     const sesionesRaw = form.get("sesiones")?.toString();
@@ -56,6 +60,8 @@ export async function PUT(request: Request) {
         descripcion,
         especialista,
         rubro,
+        activo,
+        destacado,
         recomendaciones,
         tipo_curso,
       },

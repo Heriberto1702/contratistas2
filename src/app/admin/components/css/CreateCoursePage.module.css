@@ -44,6 +44,12 @@
   gap: 5px;
   font-weight: bold;
 }
+.labelcheckbox {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 .inputField,
 .selectField,

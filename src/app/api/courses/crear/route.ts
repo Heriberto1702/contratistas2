@@ -50,7 +50,15 @@ export async function POST(request: Request) {
     const recomendaciones = form.get("recomendaciones") as string;
     const imagen_curso = form.get("imagen_curso") as File;
     const tipo_curso = form.get("tipo_curso") as string;
+    
+    const activoRaw = form.get("activo");
+    const destacadoRaw = form.get("destacado");
+    
+    const activo = activoRaw === "true" || activoRaw === "on";
+    const destacado = destacadoRaw === "true" || destacadoRaw === "on";
+    
     const sesionesRaw = form.get("sesiones") as string | null;
+    
 
     let sesiones: any[] = [];
 
@@ -80,13 +88,16 @@ export async function POST(request: Request) {
       data: {
         nombre_curso,
         descripcion,
-        especialista: especialista || null, // Si no está presente, guardamos `null`
-        rubro: rubro || null, // Si no está presente, guardamos `null`
+        activo, // ya es booleano (true o false)
+        destacado, // también es booleano
+        especialista: especialista || null,
+        rubro: rubro || null,
         recomendaciones,
         imagen_curso: imageUrl,
         tipo_curso,
       },
     });
+    
 
     // Si hay sesiones, crearlas en la BD
     if (sesiones.length > 0) {

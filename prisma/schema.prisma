@@ -49,6 +49,8 @@ model Cursos {
   tipo_curso          String
   especialista        String?
   rubro               String?
+  activo              Boolean               
+  destacado           Boolean               
   Cursos_Matriculados Cursos_Matriculados[]
   sesiones            Sesiones[]
 }

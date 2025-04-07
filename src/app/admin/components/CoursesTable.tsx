@@ -50,6 +50,8 @@ const CoursesTable = () => {
             <th className={styles.th}>ID</th>
             <th className={styles.th}>Nombre</th>
             <th className={styles.th}>Especialista</th>
+            <th className={styles.th}>Activo</th>
+            <th className={styles.th}>Destacado</th>
             <th className={styles.th}>Acciones</th>
           </tr>
         </thead>
@@ -59,6 +61,8 @@ const CoursesTable = () => {
               <td className={styles.td}>{course.id_curso}</td>
               <td className={styles.td}>{course.nombre_curso}</td>
               <td className={styles.td}>{course.especialista}</td>
+              <td className={styles.td}>{course.activo ? "Sí" : "No"}</td>
+              <td className={styles.td}>{course.destacado ? "Sí" : "No"}</td>
               <td className={styles.td}>
                 <button
                   className={styles.detailsButton}

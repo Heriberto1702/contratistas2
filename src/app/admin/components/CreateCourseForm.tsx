@@ -8,35 +8,46 @@ interface FormData {
   imagen_curso: File | null;
   descripcion: string;
   tipo_curso: string;
+  activo?: boolean;
+  destacado?: boolean;
   recomendaciones: string;
   sesiones?: {
     nombre_sesion: string;
     descripcion: string;
-    modulos?: { titulo_modulo: string; contenido: string; recursopdf?: string }[];
+    modulos?: {
+      titulo_modulo: string;
+      contenido: string;
+      recursopdf?: string;
+    }[];
   }[];
 }
 
 const CreateCoursePage = () => {
   const [formData, setFormData] = useState<FormData>({
     nombre_curso: "",
-    especialista:null,
+    especialista: null,
     rubro: null,
-    imagen_curso:null,
+    imagen_curso: null,
+    activo: false,
+    destacado: false,
     descripcion: "",
     tipo_curso: "",
     recomendaciones: "",
     sesiones: [],
   });
-  
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name as string]: value,
-      });
-    };
-  
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name as string]: value,
+    });
+  };
+
   const handleAddSection = () => {
     setFormData({
       ...formData,
@@ -108,7 +119,9 @@ const CreateCoursePage = () => {
   const handleDeleteModule = (sectionIndex: number, moduleIndex: number) => {
     const newSesiones = [...(formData.sesiones || [])];
     if (newSesiones[sectionIndex].modulos) {
-      newSesiones[sectionIndex].modulos = newSesiones[sectionIndex].modulos.filter((_, i) => i !== moduleIndex);
+      newSesiones[sectionIndex].modulos = newSesiones[
+        sectionIndex
+      ].modulos.filter((_, i) => i !== moduleIndex);
     }
     setFormData({
       ...formData,
@@ -125,180 +138,210 @@ const CreateCoursePage = () => {
     form.append("especialista", formData.especialista || "");
     form.append("recomendaciones", formData.recomendaciones);
     form.append("rubro", formData.rubro || "");
+    form.append("activo", formData.activo ? "true" : "false");
+    form.append("destacado", formData.destacado ? "true" : "false");
     form.append("tipo_curso", formData.tipo_curso);
-    
+
     // Agregar sesiones como JSON string
     form.append("sesiones", JSON.stringify(formData.sesiones));
-  
+
     // Si hay una imagen, la agregamos
     if (formData.imagen_curso) {
       form.append("imagen_curso", formData.imagen_curso);
     }
-      try {
-      
-          // Luego de que la imagen se suba, enviar los datos del curso
-          const response = await fetch("/api/courses/crear", {
-            method: "POST",
-            body: form,
-          });
+    try {
+      // Luego de que la imagen se suba, enviar los datos del curso
+      const response = await fetch("/api/courses/crear", {
+        method: "POST",
+        body: form,
+      });
 
-          const data = await response.json();
-          if (data.error) {
-            alert("Hubo un error al crear el curso.");
-          } else {
-            alert("Curso creado con éxito");
-            setFormData({
-              nombre_curso: "",
-              especialista: "",
-              rubro: "",
-              imagen_curso: null,
-              descripcion: "",
-              tipo_curso: "",
-              recomendaciones: "",
-              sesiones: [],
-            });
-          }
-      } catch (error) {
-        console.error("Error al subir la imagen:", error);
-        alert("Error al subir la imagen.");
+      const data = await response.json();
+      if (data.error) {
+        alert("Hubo un error al crear el curso.");
+      } else {
+        alert("Curso creado con éxito");
+        setFormData({
+          nombre_curso: "",
+          especialista: "",
+          rubro: "",
+          activo: false,
+          destacado: false,
+          imagen_curso: null,
+          descripcion: "",
+          tipo_curso: "",
+          recomendaciones: "",
+          sesiones: [],
+        });
       }
+    } catch (error) {
+      console.error("Error al subir la imagen:", error);
+      alert("Error al subir la imagen.");
     }
+  };
 
-    return (
-      <form onSubmit={handleSubmit} className={styles.formContainer}>
-        <div className={styles.headerContainer}>
-          <h2 className={styles.title}>Crear Curso</h2>
-        </div>
-    
-        <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>Información General</h3>
-          <div className={styles.fieldGroup}>
-            <div className={styles.label}>
-              Nombre del curso:
-              <input
-                className={styles.inputField}
-                type="text"
-                placeholder="Nombre del Curso"
-                name="nombre_curso"
-                value={formData.nombre_curso}
-                onChange={handleChange}
-                required
-              />
-            </div>
-    
-            <div className={styles.label}>
-              Especialista:
-              <input
-                className={styles.inputField}
-                type="text"
-                placeholder="Especialista"
-                name="especialista"
-                value={formData.especialista || ""}
-                onChange={handleChange}
-              />
-            </div>
-    
-            <div className={styles.label}>
-              Rubro:
-              <input
-                className={styles.inputField}
-                type="text"
-                placeholder="Rubro"
-                name="rubro"
-                value={formData.rubro || ""}
-                onChange={handleChange}
-              />
-            </div>
+  return (
+    <form onSubmit={handleSubmit} className={styles.formContainer}>
+      <div className={styles.headerContainer}>
+        <h2 className={styles.title}>Crear Curso</h2>
+      </div>
 
-            <div className={styles.label}>
-              Imagen de curso:
-              <input
-                className={styles.inputField}
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                required
-              />
-            </div>
-    
-            <div className={styles.label}>
-              Descripción del curso:
-              <input
-                className={styles.inputField}
-                type="text"
-                placeholder="Descripción del Curso"
-                name="descripcion"
-                value={formData.descripcion}
-                onChange={handleChange}
-                required
-              />
-            </div>
-    
-            <div className={styles.label}>
-              Tipo de curso:
-              <select
-                className={styles.selectField}
-                name="tipo_curso"
-                value={formData.tipo_curso}
-                onChange={handleChange}
-                required
-              >
-                <option value="" disabled>
-                  Selecciona el tipo de curso
-                </option>
-                <option value="Online">Online</option>
-                <option value="Presencial">Presencial</option>
-              </select>
-            </div>
-    
-            <div className={styles.label}>
-              Recomendaciones:
-              <input
-                className={styles.inputField}
-                type="text"
-                placeholder="Recomendaciones"
-                name="recomendaciones"
-                value={formData.recomendaciones}
-                onChange={handleChange}
-                required
-              />
-            </div>
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>Información General</h3>
+
+        <div className={styles.fieldGroup}>
+          <div className={styles.label}>
+            Nombre del curso:
+            <input
+              className={styles.inputField}
+              type="text"
+              placeholder="Nombre del Curso"
+              name="nombre_curso"
+              value={formData.nombre_curso}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className={styles.label}>
+            Especialista:
+            <input
+              className={styles.inputField}
+              type="text"
+              placeholder="Especialista"
+              name="especialista"
+              value={formData.especialista || ""}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className={styles.label}>
+            Rubro:
+            <input
+              className={styles.inputField}
+              type="text"
+              placeholder="Rubro"
+              name="rubro"
+              value={formData.rubro || ""}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className={styles.label}>
+            Imagen de curso:
+            <input
+              className={styles.inputField}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              required
+            />
+          </div>
+
+          <div className={styles.label}>
+            Descripción del curso:
+            <input
+              className={styles.inputField}
+              type="text"
+              placeholder="Descripción del Curso"
+              name="descripcion"
+              value={formData.descripcion}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className={styles.label}>
+            Tipo de curso:
+            <select
+              className={styles.selectField}
+              name="tipo_curso"
+              value={formData.tipo_curso}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>
+                Selecciona el tipo de curso
+              </option>
+              <option value="Online">Online</option>
+              <option value="Presencial">Presencial</option>
+            </select>
+          </div>
+
+          <div className={styles.label}>
+            Recomendaciones:
+            <input
+              className={styles.inputField}
+              type="text"
+              placeholder="Recomendaciones"
+              name="recomendaciones"
+              value={formData.recomendaciones}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className={styles.labelcheckbox}>
+            Activo:
+            <input
+              type="checkbox"
+              name="activo"
+              checked={formData.activo}
+              onChange={(e) =>
+                setFormData({ ...formData, activo: e.target.checked })
+              }
+            />
+          </div>
+          <div className={styles.labelcheckbox}>
+            Destacado:
+            <input
+              type="checkbox"
+              name="destacado"
+              checked={formData.destacado}
+              onChange={(e) =>
+                setFormData({ ...formData, destacado: e.target.checked })
+              }
+            />
           </div>
         </div>
-    
-        <div className={styles.subSection}>
-          <h3 className={styles.sectionTitle}>Secciones</h3>
-          {(formData.sesiones || []).map((section, index) => (
-            <div key={index} className={styles.sectionContainer}>
-              <div className={styles.label}>
-                Nombre de la sesión:
-                <input
-                  className={styles.inputField}
-                  type="text"
-                  placeholder="Nombre de la sesión"
-                  value={section.nombre_sesion}
-                  onChange={(e) =>
-                    handleSectionChange(index, "nombre_sesion", e.target.value)
-                  }
-                />
-              </div>
-              <div className={styles.label}>
-                Descripción de la sesión:
-                <input
-                  className={styles.inputField}
-                  type="text"
-                  placeholder="Descripción de la sesión"
-                  value={section.descripcion}
-                  onChange={(e) =>
-                    handleSectionChange(index, "descripcion", e.target.value)
-                  }
-                />
-              </div>
+      </div>
 
-              <div className={styles.moduleContainer}>
-                {section.modulos && section.modulos.map((module, moduleIndex) => (
+      <div className={styles.subSection}>
+        <h3 className={styles.sectionTitle}>Secciones</h3>
+        {(formData.sesiones || []).map((section, index) => (
+          <div key={index} className={styles.sectionContainer}>
+            <div className={styles.label}>
+              Nombre de la sesión:
+              <input
+                className={styles.inputField}
+                type="text"
+                placeholder="Nombre de la sesión"
+                value={section.nombre_sesion}
+                onChange={(e) =>
+                  handleSectionChange(index, "nombre_sesion", e.target.value)
+                }
+              />
+            </div>
+            <div className={styles.label}>
+              Descripción de la sesión:
+              <input
+                className={styles.inputField}
+                type="text"
+                placeholder="Descripción de la sesión"
+                value={section.descripcion}
+                onChange={(e) =>
+                  handleSectionChange(index, "descripcion", e.target.value)
+                }
+              />
+            </div>
+
+            <div className={styles.moduleContainer}>
+              {section.modulos &&
+                section.modulos.map((module, moduleIndex) => (
                   <div key={moduleIndex} className={styles.moduleSubContainer}>
-                    <div className={styles.moduleTitle}>Módulo {moduleIndex + 1}</div>
+                    <div className={styles.moduleTitle}>
+                      Módulo {moduleIndex + 1}
+                    </div>
                     <div className={styles.moduleFieldGroup}>
                       <div className={styles.label}>
                         Título del módulo:
@@ -361,47 +404,49 @@ const CreateCoursePage = () => {
                     </div>
                   </div>
                 ))}
-                <div className={styles.buttonRow}>
-                  <button
-                    type="button"
-                    className={styles.moduleButton}
-                    onClick={() => handleAddModule(index)}
-                  >
-                    Agregar Módulo
-                  </button>
-                </div>
-              </div>
-    
               <div className={styles.buttonRow}>
                 <button
                   type="button"
-                  className={`${styles.moduleButton} ${styles.moduleButtonDanger}`}
-                  onClick={() => handleDeleteSection(index)}
+                  className={styles.moduleButton}
+                  onClick={() => handleAddModule(index)}
                 >
-                  Eliminar Sección
+                  Agregar Módulo
                 </button>
               </div>
             </div>
-          ))}
-          <div className={styles.buttonRow}>
-            <button
-              type="button"
-              className={styles.moduleButton}
-              onClick={handleAddSection}
-            >
-              Agregar Sección
-            </button>
+
+            <div className={styles.buttonRow}>
+              <button
+                type="button"
+                className={`${styles.moduleButton} ${styles.moduleButtonDanger}`}
+                onClick={() => handleDeleteSection(index)}
+              >
+                Eliminar Sección
+              </button>
+            </div>
           </div>
-        </div>
-    
-        <div className={styles.submitContainer}>
-          <button type="submit" className={`${styles.button} ${styles.submitButton}`}>
-            Crear Curso
+        ))}
+        <div className={styles.buttonRow}>
+          <button
+            type="button"
+            className={styles.moduleButton}
+            onClick={handleAddSection}
+          >
+            Agregar Sección
           </button>
         </div>
-      </form>
-    );
-    
+      </div>
+
+      <div className={styles.submitContainer}>
+        <button
+          type="submit"
+          className={`${styles.button} ${styles.submitButton}`}
+        >
+          Crear Curso
+        </button>
+      </div>
+    </form>
+  );
 };
 
 export default CreateCoursePage;

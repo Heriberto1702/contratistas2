@@ -40,6 +40,8 @@ export async function GET(request: Request) {
           tipo_curso: true,
           recomendaciones:true,
           especialista: true,
+          activo: true,
+          destacado: true,
           rubro: true,
           sesiones: {
             orderBy: {
@@ -89,6 +91,8 @@ export async function GET(request: Request) {
         recomendaciones:true,
         descripcion: true,
         especialista:true,
+        activo: true,
+        destacado: true,
         sesiones: {
           orderBy: {
             id_sesion: "asc", // Ordena las sesiones por id_sesion

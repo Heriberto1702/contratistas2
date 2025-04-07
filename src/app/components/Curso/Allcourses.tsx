@@ -21,9 +21,9 @@ const Page = () => {
 
         const data = await response.json();
         if (Array.isArray(data)) {
-
-          setCourses(data);
-          setFilteredCourses(data); // Inicializamos los cursos filtrados
+          const activos = data.filter(course => course.activo); // 👈 filtras aquí
+          setCourses(activos);
+          setFilteredCourses(activos);
         } else {
           throw new Error("La respuesta no es un array");
         }

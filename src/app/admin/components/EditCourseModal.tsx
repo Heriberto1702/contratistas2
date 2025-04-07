@@ -9,11 +9,17 @@ interface Curso {
   especialista?: string | null;
   rubro?: string | null;
   recomendaciones: string;
+  activo?: boolean;
+  destacado?: boolean;
   tipo_curso: string;
   sesiones: {
     nombre_sesion: string;
     descripcion: string;
-    Modulos: { titulo_modulo: string; contenido: string, recursopdf?: string}[];
+    Modulos: {
+      titulo_modulo: string;
+      contenido: string;
+      recursopdf?: string;
+    }[];
   }[];
 }
 
@@ -97,6 +103,8 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
     formData.append("descripcion", curso.descripcion || "");
     formData.append("especialista", curso.especialista || "");
     formData.append("rubro", curso.rubro || "");
+    formData.append("activo", curso.activo ? "true" : "false");
+    formData.append("destacado", curso.destacado ? "true" : "false");
     formData.append("recomendaciones", curso.recomendaciones || "");
     formData.append("tipo_curso", curso.tipo_curso || "");
 
@@ -177,9 +185,37 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
                 className={styles.inputField}
               />
             </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="activo" className={styles.label}>
+                Activo
+              </label>
+              <input
+                type="checkbox"
+                id="activo"
+                name="activo"
+                checked={curso.activo || false}
+                onChange={(e) =>
+                  setCurso({ ...curso, activo: e.target.checked })
+                }
+                className={styles.checkboxField}
+              />
+            </div>
 
-
-
+            <div className={styles.formGroup}>
+              <label htmlFor="destacado" className={styles.label}>
+                Destacado
+              </label>
+              <input
+                type="checkbox"
+                id="destacado"
+                name="destacado"
+                checked={curso.destacado || false}
+                onChange={(e) =>
+                  setCurso({ ...curso, destacado: e.target.checked })
+                }
+                className={styles.checkboxField}
+              />
+            </div>
 
             <div className={styles.formGroup}>
               <label htmlFor="rubro" className={styles.label}>
