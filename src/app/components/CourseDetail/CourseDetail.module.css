@@ -7,84 +7,83 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Estilo para el título del curso */
-  .title {
-    font-size: 2rem; /* Tamaño de fuente grande */
-    font-weight: 700; /* Negrita */
-    color: #333; /* Color del texto */
-    margin-bottom: 10px; /* Margen inferior */
-  }
-  
-  /* Estilo para la descripción del curso */
-  .description {
-    font-size: 1rem; /* Tamaño de fuente normal */
-    color: #555; /* Color del texto */
-    line-height: 1.5; /* Espaciado entre líneas */
-    margin-bottom: 20px; /* Margen inferior */
-  }
-  
-  /* Estilo para el enlace de las secciones */
-  .link {
-    display: inline-block; /* Hacer que el enlace sea un bloque en línea */
-    background: #FBB016;
-    width: 100%;
-    font-weight: 500;
-    padding: 5px 10px; /* Espaciado interno */
-    text-align: center;
-    text-decoration: none; /* Sin subrayado */
-    transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
-  }
-  
-  /* Efecto de hover para el enlace */
-  .link:hover {
-    background-color: #29b10e; /* Color de fondo más oscuro al pasar el mouse */
-  }
-.data{
-  width: 300px;
-  height: auto;
 }
-.image{
+
+/* Estilo para el título del curso */
+.title {
+  font-size: 2rem; /* Tamaño de fuente grande */
+  font-weight: 700; /* Negrita */
+  color: #333; /* Color del texto */
+  margin-bottom: 10px; /* Margen inferior */
+}
+
+/* Estilo para la descripción del curso */
+.description {
+  font-size: 1rem; /* Tamaño de fuente normal */
+  color: #555; /* Color del texto */
+  line-height: 1.5; /* Espaciado entre líneas */
+  margin-bottom: 20px; /* Margen inferior */
+}
+
+/* Estilo para el enlace de las secciones */
+.link {
+  display: inline-block; /* Hacer que el enlace sea un bloque en línea */
+  background: #fbb016;
+  width: 100%;
+  font-weight: 500;
+  padding: 5px 10px; /* Espaciado interno */
+  text-align: center;
+  text-decoration: none; /* Sin subrayado */
+  transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
+}
+
+/* Efecto de hover para el enlace */
+.link:hover {
+  background-color: #29b10e; /* Color de fondo más oscuro al pasar el mouse */
+}
+.data {
   width: 100%;
   height: auto;
 }
-  .firstData{
-    display:flex;
-    flex-direction: row;
- 
-    align-items: center;
-  }
+.image {
+  width: 100%;
+  height: auto;
+}
+.firstData {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  align-items: center;
+}
 
-  .secondData{
-    display:flex;
-    flex-direction: column;
+.secondData {
+  display: flex;
+  flex-direction: column;
+}
 
-  }
+.datacurso {
+  margin-left: 5px;
+}
+.back {
+  display: inline-block; /* Hacer que el enlace sea un bloque en línea */
+  background: #fbb016; /* Color de fondo */
+  border-radius: 8px; /* Bordes redondeados */
+  font-weight: 500; /* Peso de la fuente */
+  padding: 2px 5px; /* Espaciado interno */
+  text-align: center; /* Centrar el texto */
+  text-decoration: none; /* Sin subrayado */
+  transition: background-color 0.3s; /* Transición suave */
+}
 
-  .datacurso{
-    margin-left: 5px;
-  }
-  .back {
-    display: inline-block; /* Hacer que el enlace sea un bloque en línea */
-    background: #FBB016; /* Color de fondo */
-    border-radius: 8px; /* Bordes redondeados */
-    font-weight: 500; /* Peso de la fuente */
-    padding: 2px 5px; /* Espaciado interno */
-    text-align: center; /* Centrar el texto */
-    text-decoration: none; /* Sin subrayado */
-    transition: background-color 0.3s; /* Transición suave */
-  }
-  
-  /* Efecto hover */
-  .back:hover {
-    background: #D99A00; /* Cambiar color de fondo al pasar el mouse */
-    color: white; /* Cambiar color del texto al pasar el mouse */
-  }
+/* Efecto hover */
+.back:hover {
+  background: #d99a00; /* Cambiar color de fondo al pasar el mouse */
+  color: white; /* Cambiar color del texto al pasar el mouse */
+}
 
-  .loading{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10vh;
-  }
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
