@@ -1,0 +1,81 @@
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  flex-direction: column;
+}
+
+.tipostarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 80%;
+  justify-content: center;
+}
+
+.tarjetas {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  max-width: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #222;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.tarjetas:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.imagentarjeta {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.imagentarjeta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  transition: background 0.3s ease-in-out;
+}
+
+.tarjetas:hover .imagentarjeta::before {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.tarjetacontenido {
+  padding: 1rem;
+  text-align: center;
+}
+
+.titulotarjeta {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.url {
+  display: inline-block;
+  background-color: #fbb016; /* Botón negro para contraste */
+  color: #000;
+  padding: 6px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.url:hover {
+  background-color: #e69e13;
+}

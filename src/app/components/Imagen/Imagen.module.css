@@ -1,25 +1,43 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    margin: 20px;
-  }
-  
-  .title {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .image {
-    height: 61px;
-    border-radius: 8px;
-  }
-  
-  .text {
-    font-size: 1rem;
-    color: #555;
-    margin-top: 10px;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+
+}
+
+.container:hover {
+  transform: scale(1.05);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.image {
+  width: 60px; /* Círculo más grande */
+  height: 60px;
+  /*border-radius: 50%;*/
+  /*background-color: #f0f0f0;*/ /* Fondo del círculo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+}
+
+.image img {
+  width: 60%; /* Icono más pequeño para que no se corte */
+  height: 60%;
+  object-fit: contain; /* Asegura que la imagen se vea completa */
+}
+
+.text {
+  font-size: 1.5rem;
+  color: #000000;
+  max-width: 200px;
+}
