@@ -26,50 +26,57 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
   const [buttonLoading, setButtonLoading] = useState(false);
   useEffect(() => {
     if (!id_curso) {
-        console.error("id_curso es undefined o vacío");
-        return;
+      console.error("id_curso es undefined o vacío");
+      return;
     }
 
     const fetchCourse = async () => {
-        try {
-            const response = await fetch(`/api/courses/obtenerTodos?id_curso=${id_curso}`);
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.message || "Error al obtener los detalles del curso.");
-            }
-            if (!data || Object.keys(data).length === 0) {
-                throw new Error("No se encontró el curso en la API.");
-            }
-            // Formatear las fechas y actualizar el estado
-            const formattedCourse = {
-                ...data,
-            };
-            const matriculado =
-                Array.isArray(data.Cursos_Matriculados) && data.Cursos_Matriculados.length > 0;
-            setCourse(formattedCourse);
-            setIsEnrolled(matriculado);
-        } catch (err: any) {
-            console.error("Error obteniendo el curso:", err);
-            setError(err.message || "Hubo un problema al obtener los detalles del curso.");
-        } finally {
-            setLoading(false);
+      try {
+        const response = await fetch(
+          `/api/courses/obtenerTodos?id_curso=${id_curso}`
+        );
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(
+            data.message || "Error al obtener los detalles del curso."
+          );
         }
+        if (!data || Object.keys(data).length === 0) {
+          throw new Error("No se encontró el curso en la API.");
+        }
+        // Formatear las fechas y actualizar el estado
+        const formattedCourse = {
+          ...data,
+        };
+        const matriculado =
+          Array.isArray(data.Cursos_Matriculados) &&
+          data.Cursos_Matriculados.length > 0;
+        setCourse(formattedCourse);
+        setIsEnrolled(matriculado);
+      } catch (err: any) {
+        console.error("Error obteniendo el curso:", err);
+        setError(
+          err.message || "Hubo un problema al obtener los detalles del curso."
+        );
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchCourse();
-}, [id_curso]);
+  }, [id_curso]);
 
   const handleEnroll = async () => {
-    setButtonLoading(true);  // Solo actualizamos el estado del botón
+    setButtonLoading(true); // Solo actualizamos el estado del botón
     setError(null);
-    
+
     try {
       const response = await fetch("/api/courses/cursos/inscribir", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          id_contratista: id_contratista,  // Aquí se pasa el ID del contratista
-          id_curso: id_curso,  // Y el ID del curso
+          id_contratista: id_contratista, // Aquí se pasa el ID del contratista
+          id_curso: id_curso, // Y el ID del curso
         }),
       });
       const data = await response.json();
@@ -99,8 +106,8 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
         <div className={styles.data}>
           <Image
             className={styles.image}
-            width={128}
-            height={100}
+            width={392}
+            height={156}
             src={course.imagen_curso}
             alt={course.nombre_curso}
           />
@@ -117,15 +124,16 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
               className={styles.link}
               disabled={buttonLoading}
             >
-              {buttonLoading  ? "Inscribiendo..." : "Inscribirse"}
+              {buttonLoading ? "Inscribiendo..." : "Inscribirse"}
             </button>
           )}
         </div>
- 
+        <div>
+          <h3 className={styles.title}>Descripcion del Curso</h3>
+          <p>{course.descripcion}</p>
+        </div>
       </div>
       <div className={styles.secondData}>
-        <h3 className={styles.title}>Descripcion del Curso</h3>
-        <p>{course.descripcion}</p>
         <h3 className={styles.title}>Recomendaciones</h3>
         <p>{course.recomendaciones}</p>
       </div>
