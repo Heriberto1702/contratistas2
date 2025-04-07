@@ -41,7 +41,7 @@ const Documentos: React.FC<DocumentoProps> = ({ modules }) => {
                 className={styles.url}
                 rel="noopener noreferrer"
               >
-                {module.linkText || "Leer más"}
+                {module.linkText || "Leer más " }&#10095;
               </a>
             </div>
           </div>

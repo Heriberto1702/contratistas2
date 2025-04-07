@@ -1,15 +1,23 @@
 .link {
-  background: #fbb016;
-  padding: 0.5rem 1rem;
+  background-color: #FBB016;
+  color: #000;
+  padding: 6px 25px;
+  border-radius: 16px;
   text-decoration: none;
-  font-weight: bold;
-  margin: 1rem;
-  color: #292a2b;
+  font-weight: 600;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 20px;
 
-  border-radius: 8px;
 }
 
 .link:hover {
-  background-color: #b97c00;
-  color: #fff;
+  background-color: #e69505;
+ 
+}
+
+
+.posicion{
+  margin: 0 auto;
 }

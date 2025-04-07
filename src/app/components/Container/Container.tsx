@@ -9,6 +9,7 @@ interface ContainerProps {
   alignItems?: 'center' | 'flex-start' | 'flex-end' | 'stretch';
   gap?: string;
   gridTemplateColumns?: string;
+  className?: string;
 }
 
 const Container: React.FC<ContainerProps> = ({

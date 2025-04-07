@@ -9,7 +9,8 @@ interface LinkComponentProps {
 
 const LinkComponent: React.FC<LinkComponentProps> = ({ href, text }) => {
   return (
-    <Link href={href} className={styles.link}>
+    <Link href={href} className={`${styles.link} ${styles.posicion}`}
+    >
       {text}
     </Link>
   );

@@ -63,14 +63,13 @@ const Page = () => {
       <TextoImagen
         title="¡Hoy más que nunca somos socios!"
         text="CLUB de Contratista lleva 05 años entregando múltiples beneficios a los profesionales de la construcción, aportando con herramientas reales para que miles de maestros de obra puedan desarrollar sus proyectos."
-        buttonText="Ver más >"
+        buttonText="Ver más ❯ "
         imageUrl="/construccion.png"
         buttonUrl="/galeria"
         altText="Imagen representativa"
       />
     </div>
 
-     
 {/* Tarjetas simples */}
    {/* Título adicional */}
    <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría y beneficios" />
@@ -80,14 +79,14 @@ const Page = () => {
     altText="Contratista Oro"
     text="CONTRATISTA ORO"
     linkUrl="/beneficios"
-    linkText="Ver beneficios >"
+    linkText="Ver beneficios ❯"
   />
   <SimpleCard
     imageSrc="/plata.png"
     altText="Contratista Plata"
     text="CONTRATISTA PLATA"
     linkUrl="/beneficios"
-    linkText="Ver beneficios >"
+    linkText="Ver beneficios ❯"
   />
 </div>
 
@@ -105,7 +104,7 @@ const Page = () => {
       <TextoImagenIzquierda
         title="ACADEMIA"
         text="El club de Contratista te brinda un espacio para que puedas capacitarte online, donde adquirirás nuevas tecnicas e innovaciones, asi mismo te facilita información de todos loe eventos donde podrás asistir y reservar tu cupo."
-        buttonText="Ver más >"
+        buttonText="Ver más ❯"
         imageUrl="/contratistaacademia.png"
         altText="Imagen academia"
         buttonUrl="/academia" // Aquí defines la URL a la que llevará el botón

@@ -2,14 +2,13 @@ import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
 import Container from "../components/Container/Container";
 import EventCalendar from "../components/EventCalendar/EventCalendar";
 import ImageText from "../components/Imagen/Imagen";
-import Modulo from "../components/Modulo/Modulo";
 import Documentos from "../components/DocumentosAcademy/Documentos";
 import TitleText from "../components/Text/TitleText";
 import React from "react";
-import Styles from "../components/DocumentosAcademy/Documentos.module.css";
-import Link from "next/link";
+import DoubleCarousel from "@/app/components/DoubleCarusel/DoubleCarousel";
 import NavBar from "../components/navbar/NavBar";
 import LinkComponent from "../components/LinkComponent/LinkComponent";
+import styles from "../components/Container/Container.module.css"
 
 const Page = () => {
   const images = ["/banneracademia.png"];
@@ -21,6 +20,31 @@ const Page = () => {
     { id: '3', title: "Como formalizar su empresa", imageUrl: '/card3.png', url: "/academia/docpdf/3" },
   ];
 
+  const banners = [
+    {
+      id: 1,
+      image: "/curso1.png",
+      title: "Instalaciones eléctricas básicas domiciliarias",
+      text: "Viernes 28 de Marzo 2025 Inicio: 07:00 am ",
+      link: "/academia/cursos/1",
+    },
+    {
+      id: 2,
+      image: "/curso2.png",
+      title: "Capacitación Online Drytec",
+      text: "Martes 15 de Abril 2025 Inicio: 08:00 am",
+      link: "/academia/cursos/2",
+    },
+    {
+      id: 3,
+      image: "/curso3.png",
+      title: "Habilidades con pintura Lanco",
+      text: "Jueves 17 de Abril 2025 Inicio: 09:00 am",
+      link: "/academia/cursos/6",
+    },
+  ];
+
+  /*
   const modulesData = [
     {
       title: "Instalaciones eléctricas básicas domiciliarias",
@@ -43,7 +67,7 @@ const Page = () => {
       url: "academia/cursos/3",
       linkText: "Leer más >",
     },
-  ];
+  ];*/
 
   return (
     <>
@@ -80,10 +104,10 @@ const Page = () => {
       <TitleText subtitle="Calendario de Actividades" />
       <EventCalendar />
 
-      {/* Cursos destacados */}
-      <TitleText subtitle="Cursos Destacados" />
+      {/* Cursos destacados 
+      <TitleText subtitle="Cursos Destacados" />*/}
       
-      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center" gap="1rem">
+      {/*<Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center" gap="1rem">
         <Modulo
           title="Instalaciones eléctricas básicas domiciliarias"
           imageUrl="/curso1.png"
@@ -102,12 +126,20 @@ const Page = () => {
           linkText3="Leer más >"
         />
       </Container>
-
-      {/* Enlace para ver más cursos */}
-      <TitleText subtitle="Todo lo que necesitás para perfeccionarte" />
-      <Container displayType="flex" flexDirection="row" justifyContent="center" alignItems="center">
-        <LinkComponent href="/academia/cursos" text="Ver más cursos >" />
+      */}
+  {/* Carrusel de doble */}
+  <TitleText subtitle="Conoce nuestros cursos destacados" />
+      <DoubleCarousel
+        banners={banners}
+        slidesToShow={2} // Mostrar 2 estructuras por slide
+        autoplay={true} // Auto-play activado
+        autoplaySpeed={5000} // Velocidad de auto-play en milisegundos
+      />
+      <Container >
+      <LinkComponent href="/academia/cursos" text="Ver más cursos ❯" />
       </Container>
+
+     
     </>
   );
 };
