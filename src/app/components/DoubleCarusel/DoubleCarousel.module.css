@@ -1,12 +1,12 @@
 .carouselContainer {
-  width: 70%;
+  width: 50%;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 50px;
+
 }
 
 .carouselTrack {

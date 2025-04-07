@@ -9,7 +9,6 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 20px;
-
 }
 
 .link:hover {
@@ -17,7 +16,6 @@
  
 }
 
-
 .posicion{
-  margin: 0 auto;
+  margin: 20px auto;
 }
