@@ -37,7 +37,7 @@ model Contratistas {
   nombre_registrado    String
   activo               Boolean
   id_tipo_club         Int
-  segmento                 Club    @relation(fields: [id_tipo_club], references: [id_tipo_club])
+  segmento             Club    @relation(fields: [id_tipo_club], references: [id_tipo_club])
 }
 
 model Cursos {
@@ -114,11 +114,11 @@ model LoginPlataforma {
   id_municipio          Int
   Cursos_Matriculados   Cursos_Matriculados[]
   Eventos_Asistidos     Eventos_Asistidos[]
-  depart         Departamentos         @relation(fields: [id_departamento], references: [id_departamento])
+  depart                Departamentos         @relation(fields: [id_departamento], references: [id_departamento])
   especialidad          Especialidad          @relation(fields: [id_especialidad], references: [id_especialidad])
-  muni            Municipios            @relation(fields: [id_municipio], references: [id_municipio])
-  sex                  Sexo                  @relation(fields: [id_sexo], references: [id_sexo])
-  tipoContratista               Cliente               @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
+  muni                  Municipios            @relation(fields: [id_municipio], references: [id_municipio])
+  sex                   Sexo                  @relation(fields: [id_sexo], references: [id_sexo])
+  tipoContratista       Cliente               @relation(fields: [id_tipo_contratista], references: [id_tipo_contratista])
 }
 
 model Modulos {
@@ -126,7 +126,7 @@ model Modulos {
   id_sesion     Int
   titulo_modulo String
   contenido     String
-  recursopdf   String?
+  recursopdf    String?
   Sesiones      Sesiones @relation(fields: [id_sesion], references: [id_sesion])
 }
 
@@ -165,12 +165,12 @@ model Sexo {
 }
 
 model ModulosCompletados {
-  id               Int       @id @default(autoincrement())
   id_contratista   Int
-  id_curso         Int
-  id_sesion        Int?
-  id_modulo        Int
   fecha_completado DateTime @default(now())
+  id_curso         Int
+  id_modulo        Int
+  id_sesion        Int?
+  id               Int      @id @default(autoincrement())
 
   @@unique([id_contratista, id_modulo])
 }
