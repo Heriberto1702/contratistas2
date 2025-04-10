@@ -8,6 +8,7 @@ import BannerDocumentos from "./components/BannerDocumentos/Bannerdoc";
 import NavBar from "./components/navbar/NavBar";
 import TextoImagen from "./components/TextoImagen/texto-imagen";
 import TextoImagenIzquierda from "./components/TextoImagenIzquierda/texto-imagenizquierda";
+import Beneficios from "./components/Beneficios/Beneficios";
 
 const Page = () => {
   const images = ["/banner.png", "/banner2.png"];
@@ -41,7 +42,7 @@ const Page = () => {
       </div>
 
       {/* Título adicional */}
-      <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría y beneficios" />
+      <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría" />
       <div className="simpleCards">
         <SimpleCard
           imageSrc="/oro.png"
@@ -58,6 +59,9 @@ const Page = () => {
           linkText="Ver beneficios ❯"
         />
       </div>
+
+      <TitleText subtitle="Conoce algunos de los beneficios del Club Contratistas" />
+      <Beneficios/>
 
       {/* Banner de evento */}
       <Banner
