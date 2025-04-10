@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "../../../lib/prisma"; // Asegúrate de tener la instancia de Prisma configurada correctamente
+import prisma from "@/lib/prisma"; // Asegúrate de tener la instancia de Prisma configurada correctamente
 
 export async function POST(req: Request) {
   try {

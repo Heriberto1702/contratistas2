@@ -22,7 +22,7 @@ const Categorias = ({ onSelectCategoria }: CategoriasProps) => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch("/api/categorias");
+        const response = await fetch("/api/galeria/categorias");
         const data = await response.json();
 
         if (data.error) {

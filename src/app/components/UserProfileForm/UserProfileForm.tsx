@@ -98,7 +98,7 @@ const UserProfileForm = () => {
     e.preventDefault();
     console.log("Datos a enviar:", formData);
     try {
-      const response = await axios.put("/api/user/update", formData);
+      const response = await axios.put("/api/usuario/update", formData);
       alert("Perfil actualizado exitosamente");
     } catch (error: any) {
       console.error("Error actualizando el perfil:", error.response ? error.response.data : error);

@@ -76,7 +76,7 @@ const useCatalogosStore = create<UserDataState>((set, get) => ({
         return;
       }
 
-      const response = await fetch("/api/user/data");
+      const response = await fetch("/api/usuario/data");
       const data = await response.json();
       console.log("Datos de usuario recibidos:", data);
 

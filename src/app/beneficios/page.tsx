@@ -12,7 +12,7 @@ const Page = () => {
   useEffect(() => {
     const fetchClub = async () => {
       try {
-        const response = await fetch("/api/contratista"); // Reemplaza con la URL de tu API
+        const response = await fetch("/api/usuario/contratista"); // Reemplaza con la URL de tu API
         if (!response.ok) throw new Error("Error al obtener el nombre del club");
         const data = await response.json();
         setNombreClub(data.tipo_club); // Asigna el tipo de club al estado

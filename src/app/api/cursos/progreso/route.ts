@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "../../../../lib/prisma"; // Ajusta la ruta a tu archivo de Prisma
+import prisma from "@/lib/prisma"; // Ajusta la ruta a tu archivo de Prisma
 
 // Esta API recibe el ID del curso y el ID del contratista (usuario)
 export async function PUT(request: Request) {

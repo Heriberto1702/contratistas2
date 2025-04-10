@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import Styles from "./RegisterForm.module.css"; // Importa el CSS modular
 
 interface Especialidad {
@@ -60,7 +59,7 @@ export default function RegisterForm() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/catalogo");
+        const response = await fetch("/api/usuario/catalogo");
         const data = await response.json();
 
         setEspecialidades(data.especialidades);
@@ -80,7 +79,7 @@ export default function RegisterForm() {
     setErrorMessage("");
     setSuccessMessage("");
 
-    const response = await fetch("/api/validar-contratista", {
+    const response = await fetch("/api/usuario/validar-contratista", {
       method: "POST",
       body: JSON.stringify({
         cedula: !isJuridico ? cedula : "",
@@ -126,7 +125,7 @@ export default function RegisterForm() {
 
     if (isRucCedulaValid) {
       try {
-        const response = await fetch("/api/auth/registro", {
+        const response = await fetch("/api/usuario/auth/registro", {
           method: "POST",
           body: JSON.stringify({
             email,

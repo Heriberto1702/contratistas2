@@ -23,7 +23,7 @@ const Subirimagenes = ({ folder }: { folder: string }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/cargarImagen", {
+      const response = await fetch("/api/galeria/cargarImagen", {
         method: "POST",
         body: formData,
       });

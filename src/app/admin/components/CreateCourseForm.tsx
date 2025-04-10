@@ -151,7 +151,7 @@ const CreateCoursePage = () => {
     }
     try {
       // Luego de que la imagen se suba, enviar los datos del curso
-      const response = await fetch("/api/courses/crear", {
+      const response = await fetch("/api/cursos/crear", {
         method: "POST",
         body: form,
       });

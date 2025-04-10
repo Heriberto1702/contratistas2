@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '../../../../lib/prisma';
-import { sendResetEmail } from "../../../../lib/resend";
+import prisma from '@/lib/prisma';
+import { sendResetEmail } from "@/lib/resend";
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 

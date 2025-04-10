@@ -21,7 +21,7 @@ const DoubleCarousel: React.FC = () => {
 
   const fetchCursos = async () => {
     try {
-      const response = await fetch("/api/courses/obtenerTodos");
+      const response = await fetch("/api/cursos/obtenerTodos");
       const data = await response.json();
 
       const destacados = data.filter(

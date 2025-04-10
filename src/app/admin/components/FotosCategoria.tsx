@@ -25,7 +25,7 @@ const FotosCategoria = ({ folder }: FotosCategoriaProps) => {
 
     const fetchImages = async () => {
       try {
-        const response = await fetch(`/api/fotosGaleria?folder=${folder}`);
+        const response = await fetch(`/api/galeria/fotosGaleria?folder=${folder}`);
         const data = await response.json();
 
         if (response.ok) {
