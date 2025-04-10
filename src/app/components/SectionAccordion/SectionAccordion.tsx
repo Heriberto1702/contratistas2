@@ -57,7 +57,7 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
       setCompletedModules(updatedCompleted);
 
       // Enviar solicitud a la API para registrar el módulo como completado
-      const response = await fetch("/api/courses/cursos/moduloscompletados", {
+      const response = await fetch("/api/courses/moduloscompletados", {
         method: "POST",
         body: JSON.stringify({
           id_curso,

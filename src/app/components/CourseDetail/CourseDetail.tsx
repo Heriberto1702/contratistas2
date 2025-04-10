@@ -71,7 +71,7 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
     setError(null);
 
     try {
-      const response = await fetch("/api/courses/cursos/inscribir", {
+      const response = await fetch("/api/courses/inscribir", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
