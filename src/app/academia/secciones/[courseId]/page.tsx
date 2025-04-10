@@ -103,10 +103,10 @@ const SectionsPage = () => {
 
       <div className={styles.container}>
         <Link
-          className={styles.returnButton}
+          className={styles.back}
           href={`/academia/cursos/${id_curso}`}
         >
-          Regresar
+          &#8592; Regresar
         </Link>
 
         {/* Si el curso aún no ha cargado, mostrar "Cargando..." solo en la sección de contenido */}

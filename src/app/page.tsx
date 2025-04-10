@@ -107,7 +107,7 @@ const Page = () => {
         height={317}
       />
 
-      <TitleText subtitle="Disfrute de un mundo de recursos valiosos a tu alcance!" />
+      <TitleText subtitle="¡Disfrute de un mundo de recursos valiosos a tu alcance!" />
 
       {/* Sección de beneficios (vacía por ahora) */}
       <section id="beneficios"></section>

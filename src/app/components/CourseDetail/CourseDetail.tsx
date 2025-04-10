@@ -116,7 +116,7 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
               href={`/academia/secciones/${course.id_curso}`}
               className={styles.link}
             >
-              Ir a las secciones &#62;
+              Ir a las secciones ❯
             </Link>
           ) : (
             <button
@@ -129,13 +129,13 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
           )}
         </div>
         <div>
-          <h3 className={styles.title}>Descripcion del Curso</h3>
-          <p>{course.descripcion}</p>
+          <h3 className={styles.subtitle}>Descripción del curso</h3>
+          <p className={styles.parrafos}>{course.descripcion}</p>
         </div>
       </div>
       <div className={styles.secondData}>
-        <h3 className={styles.title}>Recomendaciones</h3>
-        <p>{course.recomendaciones}</p>
+        <h3 className={styles.subtitle}>Recomendaciones</h3>
+        <p className={styles.parrafos}>{course.recomendaciones}</p>
       </div>
       {error && (
         <p className={styles.errorMessage} aria-live="polite">

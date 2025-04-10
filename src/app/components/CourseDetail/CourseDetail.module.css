@@ -1,90 +1,149 @@
-/* Contenedor principal */
 .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-  margin-bottom: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
 }
 
-/* Estilo para el título del curso */
+.container:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.parrafos{
+font-size: 18px;
+}
+
 .title {
-  font-size: 2rem; /* Tamaño de fuente grande */
-  font-weight: 700; /* Negrita */
-  color: #333; /* Color del texto */
-  margin-bottom: 10px; /* Margen inferior */
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 3rem;
+    text-align: center;
 }
 
-/* Estilo para la descripción del curso */
-.description {
-  font-size: 1rem; /* Tamaño de fuente normal */
-  color: #555; /* Color del texto */
-  line-height: 1.5; /* Espaciado entre líneas */
-  margin-bottom: 20px; /* Margen inferior */
+.subtitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+font-style: italic;
+  color: #fbb015;
+  margin-bottom: 1rem;
 }
-
-/* Estilo para el enlace de las secciones */
+.description, .recommendations {
+  font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+  font-style: italic; /* Cursiva */
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
 .link {
-  display: inline-block; /* Hacer que el enlace sea un bloque en línea */
-  background: #fbb016;
-  width: 100%;
-  font-weight: 500;
-  padding: 5px 10px; /* Espaciado interno */
+  display: inline-block;
+  background: #fbbf24; /* El color amarillo */
+  color: #000;
+  font-weight: 600;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.75rem 1.25rem;
+  margin: 1rem 0px 0px 70px;
   text-align: center;
-  text-decoration: none; /* Sin subrayado */
-  transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out;
+  animation: breathing 1s ease-in-out infinite; /* Aplica la animación de respiración */
 }
 
-/* Efecto de hover para el enlace */
-.link:hover {
-  background-color: #29b10e; /* Color de fondo más oscuro al pasar el mouse */
+@keyframes breathing {
+  0% {
+    transform: scale(1); /* Tamaño inicial */
+  }
+  50% {
+    transform: scale(1.05); /* Expande ligeramente */
+  }
+  100% {
+    transform: scale(1); /* Vuelve al tamaño original */
+  }
 }
+
+.link:hover {
+  transform: translateY(-2px); /* Efecto de elevación sutil al pasar el mouse */
+
+}
+
+.link:active {
+  transform: translateY(0); /* Vuelve a su posición original al hacer clic */
+}
+
+
 .data {
   width: 100%;
-  height: auto;
-  max-width: 480px;
+  max-width: 500px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #3c3c3c;
+  padding: 1rem;
 }
+
 .image {
   width: 100%;
-  height: auto;
+  height: 200px; /* Aumentando la altura de la imagen */
+  object-fit: cover; /* Asegura que la imagen se ajuste adecuadamente */
+  border-radius: 1rem;
 }
+
 .firstData {
   display: flex;
-  flex-direction: row;
-  column-gap: 20px;
-  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .firstData {
+    flex-direction: row;
+  }
 }
 
 .secondData {
-  display: flex;
-  flex-direction: column;
+  background-color: #f3f4f6;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  margin-top: 2rem;
 }
 
-.datacurso {
-  margin-left: 5px;
+.errorMessage {
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
 }
+
 .back {
-  display: inline-block; /* Hacer que el enlace sea un bloque en línea */
-  background: #fbb016; /* Color de fondo */
-  border-radius: 8px; /* Bordes redondeados */
-  font-weight: 500; /* Peso de la fuente */
-  padding: 2px 5px; /* Espaciado interno */
-  text-align: center; /* Centrar el texto */
-  text-decoration: none; /* Sin subrayado */
-  transition: background-color 0.3s; /* Transición suave */
+  display: inline-block;
+  background: none; /* Sin fondo */
+  color: #fbbf24; /* Color amarillo */
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* Efecto hover */
 .back:hover {
-  background: #d99a00; /* Cambiar color de fondo al pasar el mouse */
-  color: white; /* Cambiar color del texto al pasar el mouse */
+  color: #d99a00; /* Cambiar el color al pasar el mouse */
+  transform: scale(1.05); /* Animación de escala para interactividad */
 }
 
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: 15vh;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #6b7280;
 }

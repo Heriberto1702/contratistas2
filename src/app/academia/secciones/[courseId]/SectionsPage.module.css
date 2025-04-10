@@ -1,19 +1,37 @@
 /* Contenedor principal */
 .container {
   max-width: 1400px;
-  padding: 20px; /* Espaciado interno */
+  padding: 20px;
   margin: 0 auto;
-}
-.sombreado{
-  background-color:#292A2B ;
+  background-color: #f4f7fc; /* Fondo más suave para un estilo limpio */
   border-radius: 16px;
-  padding: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
-.loadingContainer{
+
+/* Estilo de sombreado en el contenedor */
+.sombreado {
+  background-color: #1c1f23; /* Sombra de color más oscuro */
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.sombreado:hover {
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Cargando */
+.loadingContainer {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #888;
 }
+
+/* Mensaje de curso presencial */
 .presencial {
   display: flex;
   flex-direction: column;
@@ -22,80 +40,151 @@
   width: 100%;
   height: 360px;
 }
-.returnButton {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #007bff; /* Azul vibrante */
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none; /* Elimina el subrayado */
-  border-radius: 8px; /* Bordes redondeados */
-  transition: background 0.3s, transform 0.2s;
+
+.presencialMessage {
+  color: #d32f2f; /* Rojo vibrante */
+  font-size: 24px;
+  font-weight: 700;
   text-align: center;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  animation: fadeInOut 3s ease-in-out infinite;
 }
 
-.returnButton:hover {
-  background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
-  transform: scale(1.05); /* Pequeña animación al pasar el cursor */
+/* Animación fadeInOut */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-.returnButton:active {
-  background-color: #004494; /* Azul más oscuro al hacer clic */
-  transform: scale(0.98); /* Efecto de clic */
+/* Estilo del texto de regresar */
+
+.back {
+  display: inline-block;
+  background: none; /* Sin fondo */
+  color: #fbbf24; /* Color amarillo */
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* Estilo para el título de la página */
+.back:hover {
+  color: #d99a00; /* Cambiar el color al pasar el mouse */
+  transform: scale(1.05); /* Animación de escala para interactividad */
+}
+
+
+/* Estilo para el título principal */
 .title {
-  font-size: 30px; /* Tamaño de fuente grande */
-  font-weight: 500; /* Negrita */
-  color: #ffffff; /* Color del texto */
-  padding: 0px 0px 0px 40px;
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff; /* Color más oscuro */
+  padding: 10px 0;
+  text-align: center;
+  margin-left: 40px;
+
 }
 
+/* Texto adicional */
 .texto {
-  color: #ffffff; /* Color del texto */
-  font-size: 25px;
+  color: #999;
+  font-size: 22px;
   padding: 0px 0px 20px 40px;
+  line-height: 1.5;
+  text-align: center;
 }
 
+/* Estilos de divisores */
 .progresscontainer {
   position: relative;
   margin-bottom: 15px;
 }
 
 .divider {
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #e0e0e0;
   width: 30%;
   position: absolute;
-  top: 2px;
+  top: 5px;
   left: 0;
 }
 
 .divider2 {
-  border-bottom: 5px solid #000000;
+  border-bottom: 4px solid #fbbf24; /* Ambar vibrante */
   width: 7%;
   position: absolute;
   top: 0;
   left: 0;
 }
+
+/* Subtítulo */
 .subtitle {
-  font-size: 35px; /* Tamaño de fuente grande */
-  font-weight: 700; /* Negrita */
-  color: #333; /* Color del texto */
-  margin-top: 20px;
-}
-/* Estilo para las secciones */
-.subcontainer {
-  background-color: #292a2b;
-  padding: 1rem;
-}
-.presencialMessage {
-  color: #f00;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 700;
+  color: #333;
+  margin-top: 20px;
   text-align: center;
-  animation: fadeInOut 3s ease-in-out infinite;
+  margin-left: 40px;
 }
 
+/* Estilo para las secciones */
+.subcontainer {
+  background-color: #1f2937;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Estilo para secciones de contenido con un look más dinámico */
+.section {
+  background: #ffffff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.section:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .texto {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .returnButton {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .presencialMessage {
+    font-size: 18px;
+  }
+}
