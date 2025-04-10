@@ -145,5 +145,5 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
     </div>
   );
 };
-
+/*Cambios aqui*/
 export default CourseDetail;
