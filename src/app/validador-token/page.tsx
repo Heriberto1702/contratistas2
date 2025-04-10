@@ -24,7 +24,7 @@ function ResetPasswordForm() {
 
     const validateToken = async () => {
       try {
-        const res = await fetch(`/api/passwords/receive?token=${token}`);
+        const res = await fetch(`/api/usuario/passwords/receive?token=${token}`);
         const data = await res.json();
 
         if (res.ok && data.valid) {
@@ -52,7 +52,7 @@ function ResetPasswordForm() {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/passwords/receive", {
+      const res = await fetch("/api/usuario/passwords/receive", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, newPassword }),

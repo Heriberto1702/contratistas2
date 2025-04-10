@@ -8,7 +8,7 @@ const FolderManager = ({ onFolderCreated }: { onFolderCreated: () => void }) => 
   const handleCreateFolder = async () => {
     if (!folderName.trim()) return alert("El nombre de la carpeta es requerido");
 
-    const response = await fetch("/api/crearFolder", {
+    const response = await fetch("/api/galeria/crearFolder", {
       method: "POST",
       body: JSON.stringify({ folderName }),
       headers: { "Content-Type": "application/json" },

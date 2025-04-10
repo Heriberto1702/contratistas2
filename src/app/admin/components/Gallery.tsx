@@ -11,7 +11,7 @@ const Gallery = () => {
 
   // Obtener las carpetas desde la API al cargar el componente
   useEffect(() => {
-    fetch("/api/listaDeCarpetas")
+    fetch("/api/galeria/listaDeCarpetas")
       .then((res) => res.json())
       .then((data) => setFolders(data))
       .catch((error) => console.error("Error al obtener carpetas:", error));
@@ -19,7 +19,7 @@ const Gallery = () => {
 
   // Función para actualizar la lista de carpetas después de crear una nueva
   const handleFolderCreated = () => {
-    fetch("/api/listaDeCarpetas")
+    fetch("/api/galeria/listaDeCarpetas")
       .then((res) => res.json())
       .then((data) => setFolders(data))
       .catch((error) => console.error("Error al obtener carpetas:", error));

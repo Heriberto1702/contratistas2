@@ -19,7 +19,7 @@ const Galeria = ({ categoria }: GaleriaProps) => {
 
     const fetchImagenes = async () => {
       try {
-        const response = await fetch(`/api/fotos?categoria=${categoria}`);
+        const response = await fetch(`/api/galeria/fotos?categoria=${categoria}`);
         const data = await response.json();
 
         if (data.error) {

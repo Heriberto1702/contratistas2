@@ -57,7 +57,7 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
       setCompletedModules(updatedCompleted);
 
       // Enviar solicitud a la API para registrar el módulo como completado
-      const response = await fetch("/api/courses/cursos/moduloscompletados", {
+      const response = await fetch("/api/cursos/moduloscompletados", {
         method: "POST",
         body: JSON.stringify({
           id_curso,
@@ -120,36 +120,36 @@ const SectionAccordion: React.FC<SectionAccordionProps> = ({
                     ? styles.completed
                     : ""
                 }`}
-              > <div className={styles.licontainer}>
-                {module.recursopdf && (
-               
+              >
+                {" "}
+                <div className={styles.licontainer}>
+                  {module.recursopdf && (
+                    <button
+                      className={styles.iconPdf}
+                      onClick={() => openPopuppdf(module)}
+                    >
+                      <Image
+                        width={512}
+                        height={512}
+                        src="/icons/documento-pdf.png"
+                        alt="icono pdf"
+                        className={styles.imgcontainer}
+                      />
+                    </button>
+                  )}
                   <button
-                    className={styles.iconPdf}
-                    onClick={() => openPopuppdf(module)}
+                    className={styles.viewButton}
+                    onClick={() => openPopup(module)}
                   >
                     <Image
-        width={512}
-        height={512}
-        src="/icons/documento-pdf.png"
-        alt="icono pdf" 
-        className={styles.imgcontainer}     
-      />
-
+                      width={512}
+                      height={512}
+                      src="/icons/play.png"
+                      alt="icono play"
+                      className={styles.imgcontainer}
+                    />
                   </button>
-                )}
-                <button
-                  className={styles.viewButton}
-                  onClick={() => openPopup(module)}
-                >
-                  <Image
-        width={512}
-        height={512}
-        src="/icons/play.png"
-        alt="icono play" 
-        className={styles.imgcontainer}     
-      />
-                </button>
-                {module.titulo_modulo}
+                  {module.titulo_modulo}
                 </div>
               </li>
             ))

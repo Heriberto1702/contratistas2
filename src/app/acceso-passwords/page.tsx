@@ -25,7 +25,7 @@ const ForgotPassword = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("/api/passwords/send", { email: normalizedEmail });
+      const res = await axios.post("/api/usuario/passwords/send", { email: normalizedEmail });
       setMessage("✅ " + res.data.message);
       setSuccess(true);
       setEmail(""); // Limpiar el campo tras éxito

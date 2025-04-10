@@ -53,7 +53,7 @@ const SectionsPage = () => {
     const fetchCourse = async () => {
       try {
         const response = await fetch(
-          `/api/courses/obtenerTodos?id_curso=${id_curso}`
+          `/api/cursos/obtenerTodos?id_curso=${id_curso}`
         );
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -80,7 +80,7 @@ const SectionsPage = () => {
   const updateProgress = async () => {
     try {
       const response = await fetch(
-        `/api/courses/obtenerTodos?id_curso=${id_curso}`
+        `/api/cursos/obtenerTodos?id_curso=${id_curso}`
       );
       if (!response.ok) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);

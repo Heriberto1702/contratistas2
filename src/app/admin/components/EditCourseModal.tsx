@@ -41,7 +41,7 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
     const fetchCurso = async () => {
       try {
         const response = await fetch(
-          `/api/courses/obtenerTodos?id_curso=${cursoId}`
+          `/api/cursos/obtenerTodos?id_curso=${cursoId}`
         );
         if (response.status !== 200) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -122,7 +122,7 @@ const EditarCurso: React.FC<EditCourseModalProps> = ({
     }
     try {
       const response = await axios.put(
-        `/api/courses/actualizar?id=${cursoId}`,
+        `/api/cursos/actualizar?id=${cursoId}`,
         formData
       );
 

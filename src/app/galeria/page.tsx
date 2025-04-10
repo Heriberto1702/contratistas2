@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import styles from "./galeria.module.css";
 import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
 import TitleText from "../components/Text/TitleText";
 import NavBar from "../components/navbar/NavBar";
