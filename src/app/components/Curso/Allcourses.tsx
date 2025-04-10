@@ -11,7 +11,6 @@ const Page = () => {
   const [filterType, setFilterType] = useState<string>("todos"); // todos | misCursos | resultados
 
   useEffect(() => {
- 
     const fetchCourses = async () => {
       try {
         const response = await fetch("/api/courses/obtenerTodos");
@@ -76,17 +75,13 @@ const Page = () => {
                 Todos los cursos
               </button>
               <button
-                className={
-                  filterType === "misCursos" ? styles.activeFilter : ""
-                }
+                className={filterType === "misCursos" ? styles.activeFilter : ""}
                 onClick={() => setFilterType("misCursos")}
               >
                 Mis cursos
               </button>
               <button
-                className={
-                  filterType === "resultados" ? styles.activeFilter : ""
-                }
+                className={filterType === "resultados" ? styles.activeFilter : ""}
                 onClick={() => setFilterType("resultados")}
               >
                 Resultados
@@ -106,15 +101,19 @@ const Page = () => {
             {filteredCourses.map((course) => (
               <li key={course.id_curso} className={styles.listItem}>
                 <div className={styles.continarcurso}>
-                  <div className={styles.continarimage}>
-                    <Image
-                      className={styles.configimage}
-                      width={392}
-                      height={156}
-                      src={course.imagen_curso}
-                      alt={course.nombre_curso}
-                    />
-                  </div>
+                  {/* Enlace alrededor de la imagen y el texto */}
+                  <Link href={`/academia/cursos/${course.id_curso}`} passHref>
+                    <div className={styles.continarimage}>
+                      <Image
+                        className={styles.configimage}
+                        width={392}
+                        height={156}
+                        src={course.imagen_curso}
+                        alt={course.nombre_curso}
+                      />
+                      <div className={styles.imageHoverText}>Ver curso</div>
+                    </div>
+                  </Link>
                   <div className={styles.continarinfo}>
                     <div className={styles.continartext}>
                       <h2 className={styles.title}>{course.nombre_curso}</h2>
@@ -128,9 +127,7 @@ const Page = () => {
                         {filterType === "misCursos" && course.estado}
                       </span>
                     </div>
-                    <p>
-                      {course.descripcion}
-                    </p>
+                    <p>{course.descripcion}</p>
                     <Link
                       href={`/academia/cursos/${course.id_curso}`}
                       className={styles.link}
