@@ -90,7 +90,6 @@
   color: #fff; /* Color más oscuro */
   padding: 10px 0;
   text-align: center;
-  margin-left: 40px;
 
 }
 
@@ -98,7 +97,6 @@
 .texto {
   color: #999;
   font-size: 22px;
-  padding: 0px 0px 20px 40px;
   line-height: 1.5;
   text-align: center;
 }
@@ -109,20 +107,29 @@
   margin-bottom: 15px;
 }
 
-.divider {
-  border-bottom: 1px solid #e0e0e0;
-  width: 30%;
-  position: absolute;
-  top: 5px;
-  left: 0;
+.divider2 {
+  position: relative;
+  margin: 0 auto;
+}
+.progresscontainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10px;
+  margin-bottom: 20px;
 }
 
 .divider2 {
-  border-bottom: 4px solid #fbbf24; /* Ambar vibrante */
-  width: 7%;
+  width: 15%;
+  border-bottom: 4px solid #fbbf24;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -1.5px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: slideIn 0.8s ease-in-out;
+  box-shadow: 0 0 8px #fbbf24aa;
 }
 
 /* Subtítulo */
@@ -132,7 +139,7 @@
   color: #333;
   margin-top: 20px;
   text-align: center;
-  margin-left: 40px;
+
 }
 
 /* Estilo para las secciones */
@@ -186,5 +193,16 @@
 
   .presencialMessage {
     font-size: 18px;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 15%;
+    opacity: 1;
   }
 }

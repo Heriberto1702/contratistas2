@@ -124,7 +124,7 @@ const SectionsPage = () => {
             </div>
             <p className={styles.subtitle}>Contenido</p>
             <div className={styles.progresscontainer}>
-              <hr className={styles.divider} />
+   
               <hr className={styles.divider2} />
             </div>
             <ProgressBar progress={progress} />
