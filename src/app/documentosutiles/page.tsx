@@ -19,7 +19,7 @@ const Page = () => {
       />
 
       <Container>
-      
+      <div className="modulo-container">
           <Modulov2
             imageUrl="/doc1.png"
             text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."
@@ -48,7 +48,7 @@ const Page = () => {
             urlExcel="/doc/recepcion-del-trabajo.xlsx"
             linkText="Recepción del trabajo ❯"
           />
-   
+   </div>
       </Container>
 
       <TitleText text="¡Utiliza de la mejor manera estos recursos, nosotros te apoyamos en tu agilidad de procesos!" />
