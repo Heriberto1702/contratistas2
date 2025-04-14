@@ -1,5 +1,5 @@
 // src/app/api/contratistas-login/obtenerTipoClub/route.ts
-import prisma from '../../../lib/prisma';
+import prisma from "@/lib/prisma";
 
 export async function GET() {
   try {
