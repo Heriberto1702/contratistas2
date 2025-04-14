@@ -57,7 +57,7 @@ const EventPage = () => {
   useEffect(() => {
     const fetchContratistaId = async () => {
       try {
-        const response = await fetch("/api/user/idcontratista");
+        const response = await fetch("/api/usuario/idcontratista");
         const data = await response.json();
 
         if (response.ok) {
