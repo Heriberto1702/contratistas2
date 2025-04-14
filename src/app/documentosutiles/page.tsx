@@ -18,8 +18,8 @@ const Page = () => {
         text="Aquí encontrarás recursos que te ayudarán en tus proyectos, donde podrás descargarlos y personalizarlos según su empresa o trabajo."
       />
 
-      <Container>
-      <div className="modulo-container">
+      
+      <div className={styles.moduloContainer}>
           <Modulov2
             imageUrl="/doc1.png"
             text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."
@@ -49,7 +49,7 @@ const Page = () => {
             linkText="Recepción del trabajo ❯"
           />
    </div>
-      </Container>
+      
 
       <TitleText text="¡Utiliza de la mejor manera estos recursos, nosotros te apoyamos en tu agilidad de procesos!" />
     </>

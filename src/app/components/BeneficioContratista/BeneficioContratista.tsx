@@ -207,7 +207,6 @@ const UserMembershipInfo: React.FC<BeneficioContratistaProps> = ({
                   className={Styles.accordionButton}
                 >
                   {beneficio.titulo}
-                </button>
                 {openIndex === index && (
                   <div className={Styles.accordionContent}>
                     <p>{beneficio.descripcion}</p>
@@ -224,6 +223,8 @@ const UserMembershipInfo: React.FC<BeneficioContratistaProps> = ({
                     )}
                   </div>
                 )}
+                
+                </button>
               </div>
             ))}
           </div>
