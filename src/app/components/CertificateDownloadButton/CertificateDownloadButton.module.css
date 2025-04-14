@@ -1,24 +1,41 @@
 .downloadButton {
-    background-color: #4CAF50; /* Color verde para dar un aspecto más profesional */
-    color: #fff;
-    padding: 12px 24px; /* Un poco más de espacio para hacerlo más grande */
-    border-radius: 8px; /* Bordes redondeados más suaves */
-    text-align: center;
-    font-size: 18px; /* Tamaño de fuente ligeramente más pequeño */
-    cursor: pointer;
-    margin-top: 20px;
-    border: none; /* Eliminamos el borde predeterminado */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agregamos sombra para darle profundidad */
-    transition: all 0.3s ease; /* Efecto de transición suave para interacciones */
-  }
-  
-  .downloadButton:hover {
-    background-color: #45a049; /* Un verde más oscuro al pasar el mouse */
-    transform: translateY(-2px); /* Un pequeño efecto de elevación */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Aumentamos la sombra al hacer hover */
-  }
-  
-  .downloadButton:active {
-    transform: translateY(2px); /* Hacemos que el botón baje un poco al hacer clic */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reducimos la sombra al hacer clic */
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem auto 1rem auto;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 12px 32px;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  min-width: 220px;
+}
+
+/* Ícono como imagen */
+.downloadButton::before {
+  content: "";
+  display: inline-block;
+  width: 18px;  /* Ajusta el tamaño del ícono */
+  height: 18px;
+  background-image: url('/descargar.png'); /* Ruta de tu ícono */
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 0.5rem;
+}
+
+.downloadButton:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.downloadButton:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}

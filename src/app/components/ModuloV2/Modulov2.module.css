@@ -12,46 +12,66 @@
   transition: box-shadow 0.3s ease;
   justify-content: flex-end;
   margin: 0.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
 }
+
 .container:hover {
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
+
 .title {
   position: absolute;
   top: 10px;
   left: 10px;
   font-size: 1.2rem;
   margin-bottom: 8px;
-  text-align: center;
   color: #fff;
-  font-weight: 500;
-}
-.buttonModal{
-  background-color: #FBB016;
-  margin: 0 1rem;
-  padding: 10px;
-  border-radius: 5px;
-  width: 10rem;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-.buttonModal:hover{
-  background-color: #b97c00;
+.buttonModal {
+  background-color: #fbb016;
+  margin: 0 1rem;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
   color: #fff;
-}  
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.buttonModal:hover {
+  background-color: #b97c00;
+  transform: translateY(-2px);
+}
 
 .button {
   position: absolute;
+  bottom: 0;
   width: 100%;
-  padding: 10px;
-  background-color: #FBB016;
+  padding: 12px 0;
+  background-color: #fbb016;
   border: none;
+  color: #fff;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 1.2rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
 }
-.Text{
-  font-size: 20px;
+
+.button:hover {
+  background-color: #b97c00;
 }
+
+.Text {
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  line-height: 1.6;
+}
+
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -63,37 +83,97 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
+  padding: 1rem;
 }
 
 .modalContent {
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 2rem;
+  border-radius: 12px;
   text-align: center;
-  z-index: 2;
-  max-width: 1000px;
+  z-index: 1000;
+  max-width: 600px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: 20px;
-
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
 }
-.encabezado{
+
+.encabezado {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.closeButton {
 
+.closeButton {
+  background: transparent;
+  font-size: 1.5rem;
   color: #000;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.closeButton:hover{
+.closeButton:hover {
   color: #ff0000;
-}  
+}
+
+/* Para asegurar un diseño responsive en el contenedor */
+.modulo-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .Text {
+    font-size: 0.95rem;
+  }
+
+  .buttonModal {
+    width: 100%;
+    margin: 0;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .modulo-container {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    height: 160px;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .modalContent {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .Text {
+    font-size: 0.9rem;
+  }
+
+  .modulo-container {
+    gap: 10px;
+  }
+}

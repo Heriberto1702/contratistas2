@@ -15,37 +15,44 @@
   justify-content: space-between;
   align-items: center;
   transition: color 0.3s ease, transform 0.3s ease;
+  gap: 12px;
 }
 
-.iconPdf {
+/* Íconos PDF y botón de vista */
+.iconPdf,
+.viewButton {
   font-size: 1.2rem;
   color: #007bff;
   margin-left: 10px;
   position: relative;
-  top:2px;
+  top: 2px;
   cursor: pointer;
   transition: transform 0.3s ease;
+  min-width: 24px;
+  min-height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-/* Efecto cuando el título es hover */
+
+/* Hover para el título */
 .accordionTitle:hover {
   color: #007bff;
   transform: translateX(5px);
 }
 
-/* Animación del ícono de flecha */
+/* Flechita del acordeón */
 .accordionTitle::after {
-  content: "▸"; /* Flecha hacia la derecha por defecto */
+  content: "▸";
   transition: transform 0.3s ease;
 }
 
-/* Cuando el acordeón está abierto, la flecha apunta hacia abajo */
 .accordionTitle.open::after {
-  transform: rotate(
-    90deg
-  ); /* Rotar la flecha 90 grados para que apunte hacia abajo */
+  transform: rotate(90deg);
 }
 
-/* Contenido del acordeón con transición suave */
+/* Contenido del acordeón */
 .accordionContent {
   max-height: 0;
   overflow: hidden;
@@ -53,15 +60,14 @@
   transition: max-height 0.4s ease, opacity 0.4s ease;
 }
 
-/* Cuando el acordeón está abierto, mostrar el contenido */
 .accordionContent.open {
-  max-height: 400px; /* Ajustar según el contenido */
+  max-height: 400px;
   opacity: 1;
   width: 95%;
   margin: 0 auto;
 }
 
-/* Descripción minimalista */
+/* Descripción */
 .accordionDescription {
   font-size: 1rem;
   color: #666;
@@ -69,12 +75,11 @@
   line-height: 1.5;
 }
 
-/* Lista de módulos con un diseño limpio */
+/* Lista de módulos */
 .moduleList {
   list-style-type: none;
   padding: 0;
   margin: 0;
-
 }
 
 .moduleItem {
@@ -93,35 +98,57 @@
   background-color: transparent;
   margin-right: 10px;
   margin-left: 10px;
-  color: #007bff;
-  cursor: pointer;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-  box-shadow 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
   font-size: 0.9rem;
-
 }
 
-.viewButton:hover {
-  transform: scale(1.20);
-}
+.viewButton:hover,
 .iconPdf:hover {
-  transform: scale(1.20);
+  transform: scale(1.2);
 }
 
-/* Estilos para módulos completados */
+/* Módulos completados */
 .moduleItem.completed {
   color: #4caf50;
   font-weight: bold;
 }
 
-.licontainer{
+/* Contenedor de lista */
+.licontainer {
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
 }
-.imgcontainer{
+
+/* Contenedor de imagen o ícono */
+.imgcontainer {
   width: 40px;
-  height:40px;
+  height: 40px;
   margin: 0 auto;
+}
+
+/* Media Query para móviles */
+@media (max-width: 600px) {
+
+  .iconPdf,
+  .viewButton {
+    font-size: 1.1rem;
+    margin-left: 0;
+    margin-top: 6px;
+    margin-right: 10px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .licontainer {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .imgcontainer {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 6px;
+  }
 }

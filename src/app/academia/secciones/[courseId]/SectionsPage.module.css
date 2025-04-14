@@ -2,11 +2,21 @@
 .container {
   max-width: 1400px;
   padding: 20px;
-  margin: 0 auto;
-  background-color: #f4f7fc; /* Fondo más suave para un estilo limpio */
+  margin: 0 auto 30px auto;
+  background-color: #f4f7fc;
   border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1; /* Para que el confeti flote sobre esto */
 }
+
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Confeti siempre sobre el contenido */
+}
+
 
 /* Estilo de sombreado en el contenedor */
 .sombreado {
@@ -63,11 +73,10 @@
 }
 
 /* Estilo del texto de regresar */
-
 .back {
   display: inline-block;
-  background: none; /* Sin fondo */
-  color: #fbbf24; /* Color amarillo */
+  background: none;
+  color: #fbbf24;
   font-weight: 500;
   border-radius: 0.75rem;
   padding: 0.5rem 1rem;
@@ -78,19 +87,17 @@
 }
 
 .back:hover {
-  color: #d99a00; /* Cambiar el color al pasar el mouse */
-  transform: scale(1.05); /* Animación de escala para interactividad */
+  color: #d99a00;
+  transform: scale(1.05);
 }
-
 
 /* Estilo para el título principal */
 .title {
   font-size: 36px;
   font-weight: 700;
-  color: #fff; /* Color más oscuro */
+  color: #fff;
   padding: 10px 0;
   text-align: center;
-
 }
 
 /* Texto adicional */
@@ -111,6 +118,7 @@
   position: relative;
   margin: 0 auto;
 }
+
 .progresscontainer {
   position: relative;
   display: flex;
@@ -128,9 +136,10 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  animation: slideIn 0.8s ease-in-out;
+  animation: slideIn 0.8s ease-in-out 0.5s forwards; /* <--- delay de 0.5s */
   box-shadow: 0 0 8px #fbbf24aa;
 }
+
 
 /* Subtítulo */
 .subtitle {
@@ -139,7 +148,6 @@
   color: #333;
   margin-top: 20px;
   text-align: center;
-
 }
 
 /* Estilo para las secciones */
@@ -151,7 +159,6 @@
   margin-top: 20px;
 }
 
-/* Estilo para secciones de contenido con un look más dinámico */
 .section {
   background: #ffffff;
   padding: 15px;
@@ -164,6 +171,7 @@
 .section:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Estilos responsive */
 @media (max-width: 768px) {

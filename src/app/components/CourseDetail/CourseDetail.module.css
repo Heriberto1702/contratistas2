@@ -12,8 +12,8 @@
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
-.parrafos{
-font-size: 18px;
+.parrafos {
+  font-size: 18px;
 }
 
 .title {
@@ -21,77 +21,64 @@ font-size: 18px;
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 3rem;
-    text-align: center;
+  text-align: center;
 }
 
 .subtitle {
   font-size: 1.8rem;
   font-weight: 700;
-font-style: italic;
+  font-style: italic;
   color: #fbb015;
   margin-bottom: 1rem;
 }
-.description, .recommendations {
-  font-size: 0.9rem; /* Tamaño de fuente más pequeño */
-  font-style: italic; /* Cursiva */
+
+.description,
+.recommendations {
+  font-size: 0.9rem;
+  font-style: italic;
   color: #4b5563;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
+
 .link {
   display: inline-block;
-  background: #fbbf24; /* El color amarillo */
+  background: #fbbf24;
   color: #000;
   font-weight: 600;
   border: none;
   border-radius: 1rem;
-  padding: 0.75rem 1.25rem;
-  margin: 1rem 0px 0px 70px;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  width: 200px; /* 👈 Fijamos el ancho para evitar que cambie */
   text-align: center;
   text-decoration: none;
   transition: transform 0.3s ease-in-out;
-  animation: breathing 1s ease-in-out infinite; /* Aplica la animación de respiración */
+  animation: breathing 1s ease-in-out infinite;
 }
+
 
 @keyframes breathing {
   0% {
-    transform: scale(1); /* Tamaño inicial */
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.05); /* Expande ligeramente */
+    transform: scale(1.05);
   }
   100% {
-    transform: scale(1); /* Vuelve al tamaño original */
+    transform: scale(1);
   }
 }
 
 .link:hover {
-  transform: translateY(-2px); /* Efecto de elevación sutil al pasar el mouse */
-
+  transform: translateY(-2px);
 }
 
 .link:active {
-  transform: translateY(0); /* Vuelve a su posición original al hacer clic */
+  transform: translateY(0);
 }
 
-
-.data {
-  width: 100%;
-  max-width: 500px;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  background-color: #3c3c3c;
-  padding: 1rem;
-}
-
-.image {
-  width: 100%;
-  height: 200px; /* Aumentando la altura de la imagen */
-  object-fit: cover; /* Asegura que la imagen se ajuste adecuadamente */
-  border-radius: 1rem;
-}
-
+/* Imagen fija, sin deformarse */
 .firstData {
   display: flex;
   flex-direction: column;
@@ -102,7 +89,30 @@ font-style: italic;
 @media (min-width: 768px) {
   .firstData {
     flex-direction: row;
+    align-items: flex-start; /* Alineamos todo arriba */
   }
+}
+
+.data {
+  width: 100%;
+  max-width: 392px;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #3c3c3c;
+  padding: 1rem;
+
+  /* 👇 Agregamos esto */
+  text-align: center;
+}
+
+
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1rem;
 }
 
 .secondData {
@@ -122,8 +132,8 @@ font-style: italic;
 
 .back {
   display: inline-block;
-  background: none; /* Sin fondo */
-  color: #fbbf24; /* Color amarillo */
+  background: none;
+  color: #fbbf24;
   font-weight: 500;
   border-radius: 0.75rem;
   padding: 0.5rem 1rem;
@@ -134,8 +144,8 @@ font-style: italic;
 }
 
 .back:hover {
-  color: #d99a00; /* Cambiar el color al pasar el mouse */
-  transform: scale(1.05); /* Animación de escala para interactividad */
+  color: #d99a00;
+  transform: scale(1.05);
 }
 
 .loading {

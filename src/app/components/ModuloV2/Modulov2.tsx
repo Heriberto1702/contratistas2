@@ -8,7 +8,7 @@ interface Modulov2Props {
   text: string;
   urlExcel: string;
   linkText?: string;
-  text2?:string;
+  text2?: string;
 }
 
 const Modulov2: React.FC<Modulov2Props> = ({
@@ -18,7 +18,6 @@ const Modulov2: React.FC<Modulov2Props> = ({
   text2,
   urlExcel,
   linkText,
-  
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,12 +33,16 @@ const Modulov2: React.FC<Modulov2Props> = ({
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          width: "100%",
-          height: "200px",
         }}
+        role="region" // Añadido para accesibilidad
+        aria-labelledby="moduleTitle" // Asociamos el título al contenedor
       >
-        {title && <h2 className={styles.title}>{title}</h2>}
-        <button className={styles.button} onClick={openModal}>
+        {title && <h2 id="moduleTitle" className={styles.title}>{title}</h2>}
+        <button 
+          className={styles.button} 
+          onClick={openModal} 
+          aria-label="Ver detalles del módulo"
+        >
           {linkText || "Abrir detalles"}
         </button>
       </div>
@@ -49,16 +52,21 @@ const Modulov2: React.FC<Modulov2Props> = ({
           <div className={styles.modalContent}>
             <div className={styles.encabezado}>
               <h3>{title}</h3>
-              <button className={styles.closeButton} onClick={closeModal}>
+              <button
+                className={styles.closeButton}
+                onClick={closeModal}
+                aria-label="Cerrar modal"
+              >
                 &#88;
               </button>
             </div>
             <p className={styles.Text}>{text}</p>
-            <p className={styles.Text}>{text2}</p>
+            {text2 && <p className={styles.Text}>{text2}</p>}
             <div className={styles.botones}>
               <button
                 className={styles.buttonModal}
                 onClick={() => window.open(urlExcel)}
+                aria-label="Descargar archivo Excel"
               >
                 Descargar Excel &#10095;
               </button>
