@@ -15,9 +15,21 @@ const GaleriaPage = () => {
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
-      <TitleText subtitle="Nuestra Galería de fotos, eventos y talleres." />
+   
+
+      <TitleText
+        title={<>Galería de fotos, eventos y talleres</>}
+        subtitle={
+          <>
+           Categorías
+          </>
+        }
+        text="Seleccione primero una categoría para cargar las fotos de la colección"
+        />
       <div>
+      
         <Categorias onSelectCategoria={setCategoriaSeleccionada} />
+        <TitleText subtitle="Galería de fotos" />
         {categoriaSeleccionada && <Galeria categoria={categoriaSeleccionada} />}
       </div>
     </>
