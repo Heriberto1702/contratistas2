@@ -222,7 +222,7 @@
   }
 
   .eventImage {
-    width: 100%;
+    width: 40%;
     height: auto;
     border-radius: 5px;
   }
@@ -346,6 +346,67 @@ font-size: 15px;
   to {
     opacity: 0;
     transform: translateX(100%);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .eventItem {
+    padding: 8px;
+    width: 100%;
+  }
+
+  .eventMeta {
+    flex-direction: column;
+    font-size: 0.9rem;
+  }
+
+  .calendar {
+    max-width: 100%;
+    max-height: none;
+    padding: 10px;
+  }
+
+  .headerCalendar {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .dayNames,
+  .days {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .day {
+    padding: 6px;
+    font-size: 0.75rem;
+  }
+
+  .attendButton {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .message {
+    width: 90%;
+    right: 5%;
+    font-size: 1rem;
+  }
+
+  .link,
+  .linkmedio,
+  .linkdetalle {
+    font-size: 1rem;
+  }
+
+  .eventMarker{
+    bottom: 2px;
   }
 }
 

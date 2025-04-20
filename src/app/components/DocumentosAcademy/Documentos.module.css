@@ -60,11 +60,13 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
+  padding-bottom: 15px;
+
 }
 
 .url {
   display: inline-block;
-  background-color: #fbb016; /* Botón negro para contraste */
+  background-color: #fbb016;
   color: #000;
   padding: 6px 25px;
   border: none;
@@ -78,4 +80,45 @@
 
 .url:hover {
   background-color: #e69e13;
+}
+
+/* 🌐 Responsive: tablets */
+@media (max-width: 768px) {
+  .tipostarjetas {
+    width: 90%;
+  }
+
+  .tarjetas {
+    width: 80%;
+  }
+
+  .titulotarjeta {
+    font-size: 1rem;
+  }
+
+  .url {
+    font-size: 18px;
+    padding: 6px 20px;
+  }
+}
+
+/* 📱 Responsive: móviles */
+@media (max-width: 480px) {
+  .tipostarjetas {
+    width: 100%;
+    gap: 15px;
+  }
+
+  .tarjetas {
+    width: 90%;
+  }
+
+  .titulotarjeta {
+    font-size: 1.2rem;
+  }
+
+  .url {
+    font-size: 16px;
+    padding: 5px 18px;
+  }
 }
