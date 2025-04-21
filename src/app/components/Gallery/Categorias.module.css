@@ -1,46 +1,148 @@
-/* Contenedor principal de las categorías */
+/* Contenedor principal */
 .categoriasContainer {
-    display: flex
-;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 15px;
+  background-color: #f7f5f3;
+  border-radius: 30px;
+  padding: 20px;
 }
 
-/* Cada categoría */
+/* Categoría base */
 .categoriaItem {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  border-radius: 10px;
-  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  border-radius: 20px;
+  padding: 12px;
+  width: 100%;
+  max-width: 200px;
+  opacity: 0.5;
+  filter: grayscale(100%);
+  position: relative;
+  z-index: 0;
+  background-color: white;
 }
 
+/* Hover */
 .categoriaItem:hover {
-  transform: scale(1.1);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0.8;
+  transform: scale(1.05);
+  z-index: 1;
 }
 
-/* Imagen de la categoría */
+/* Contenedor de imagen */
+.categoriaImagenWrapper {
+  width: 120px;
+  height: 80px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
 .categoriaImagen {
-  border-radius: 10px;
-  object-fit: cover;
+  object-fit: none;
 }
 
-/* Nombre de la categoría */
+/* Nombre */
 .categoriaNombre {
   margin-top: 10px;
-  font-weight: bold;
-  color: #333;
+  font-weight: 600;
+  color: #444;
+  font-size: 15px;
+  word-wrap: break-word;
 }
 
-/* Estilo cuando la categoría está seleccionada */
+/* Categoría seleccionada */
 .categoriaSeleccionada {
+  opacity: 1;
   transform: scale(1.15);
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 214, 102, 0.25);
+  filter: none;
+  z-index: 2;
+}
+
+/* Responsive: tablets */
+@media (max-width: 1024px) {
+
+  .categoriaImagen {
+    object-fit: contain;
+  }
+
+  
+  .categoriasContainer {
+    gap: 15px;
+    padding: 16px;
+  }
+
+  .categoriaItem {
+    max-width: 160px;
+    padding: 10px;
+  }
+
+  .categoriaImagenWrapper {
+    width: 100px;
+    height: 80px;
+  }
+
+  .categoriaNombre {
+    font-size: 14px;
+  }
+}
+
+/* Responsive: móviles medianos */
+@media (max-width: 768px) {
+
+  .categoriaImagen {
+    object-fit: contain;
+  }
+
+  .categoriaItem {
+    max-width: 120px;
+    padding: 8px;
+  }
+
+  .categoriaImagenWrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .categoriaNombre {
+    font-size: 13px;
+  }
+}
+
+/* Responsive: móviles chicos */
+@media (max-width: 480px) {
+
+  .categoriaImagen {
+    object-fit: contain;
+  }
+
+  .categoriasContainer {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .categoriaItem {
+    max-width: 100px;
+    padding: 6px;
+  }
+
+  .categoriaImagenWrapper {
+    width: 60px;
+    height: 50px;
+  }
+
+  .categoriaNombre {
+    font-size: 12px;
+  }
 }

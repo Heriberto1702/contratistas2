@@ -45,20 +45,29 @@ const Categorias = ({ onSelectCategoria }: CategoriasProps) => {
 
   return (
     <div className={styles.categoriasContainer}>
-      {categorias.map(({ nombre, imagen }) => (
-        <div
-          key={nombre}
-          className={`${styles.categoriaItem} ${categoriaSeleccionada === nombre ? styles.categoriaSeleccionada : ""}`}
-          onClick={() => {
-            onSelectCategoria(nombre);
-            setCategoriaSeleccionada(nombre);
-          }}
-        >
-          <Image src={imagen} width={150} height={150} alt={nombre} className={styles.categoriaImagen} />
-          <p className={styles.categoriaNombre}>{nombre}</p>
-        </div>
-      ))}
+  {categorias.map(({ nombre, imagen }) => (
+    <div
+      key={nombre}
+      className={`${styles.categoriaItem} ${categoriaSeleccionada === nombre ? styles.categoriaSeleccionada : ""}`}
+      onClick={() => {
+        onSelectCategoria(nombre);
+        setCategoriaSeleccionada(nombre);
+      }}
+    >
+      <div className={styles.categoriaImagenWrapper}>
+        <Image
+          src={imagen}
+          alt={nombre}
+          fill
+          className={styles.categoriaImagen}
+          sizes="120px"
+        />
+      </div>
+      <p className={styles.categoriaNombre}>{nombre}</p>
     </div>
+  ))}
+</div>
+
   );
 };
 

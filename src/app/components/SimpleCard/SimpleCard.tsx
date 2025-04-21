@@ -2,36 +2,65 @@ import React from "react";
 import Image from "next/image";
 import styles from "./SimpleCard.module.css";
 
-interface SimpleCardProps {
+interface CardData {
   imageSrc: string;
   altText: string;
   text: string;
   linkUrl: string;
   linkText: string;
+  rightImageSrc: string;
 }
 
-const SimpleCard: React.FC<SimpleCardProps> = ({
-  imageSrc,
-  altText,
-  text,
-  linkUrl,
-  linkText,
-}) => {
+interface SimpleCardProps {
+  cards: CardData[];
+}
+
+const SimpleCard: React.FC<SimpleCardProps> = ({ cards }) => {
   return (
-    <div className={styles.simpleCard}>
-      <Image
-        width={350}
-        height={350}
-        src={imageSrc}
-        alt={altText}
-        className={styles.image}
-      />
-      <div className={styles.textContainer}>
-        <h3 className={styles.cardTitle}>{text}</h3>
-        <a href={linkUrl} className={styles.btnYellow}>
-          {linkText}
-        </a>
-      </div>
+    <div className={styles.cardsWrapper}>
+      {cards.map((card, index) => (
+        <div className={styles.simpleCard} key={index}>
+          <div className={styles.coinContainer}>
+            <div className={styles.coin}>
+              <div className={styles.front}>
+                <Image
+                  src={card.imageSrc}
+                  alt={card.altText}
+                  width={350}
+                  height={350}
+                  className={styles.image}
+                />
+              </div>
+              <div className={styles.back}>
+                <Image
+                  src={card.imageSrc}
+                  alt={card.altText}
+                  width={350}
+                  height={350}
+                  className={styles.image}
+                />
+              </div>
+            </div>
+
+            <div className={styles.textContainer}>
+              <h3 className={styles.cardTitle}>{card.text}</h3>
+              <a href={card.linkUrl} className={styles.btnYellow}>
+                {card.linkText}
+              </a>
+            </div>
+          </div>
+
+          <div className={styles.imageRight}>
+            <Image 
+              src={card.rightImageSrc}
+              alt={card.altText}
+              width={250}
+              height={250}
+              className={styles.imageSlideUp}
+            />
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

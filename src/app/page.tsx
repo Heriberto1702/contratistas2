@@ -9,7 +9,6 @@ import NavBar from "./components/navbar/NavBar";
 import TextoImagen from "./components/TextoImagen/texto-imagen";
 import TextoImagenIzquierda from "./components/TextoImagenIzquierda/texto-imagenizquierda";
 import Beneficios from "./components/Beneficios/Beneficios";
-
 const Page = () => {
   const images = ["/banner.png", "/banner2.png"];
   return (
@@ -43,22 +42,27 @@ const Page = () => {
 
       {/* Título adicional */}
       <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría" />
-      <div className="simpleCards">
-        <SimpleCard
-          imageSrc="/oro.png"
-          altText="Contratista Oro"
-          text="CONTRATISTA ORO"
-          linkUrl="/beneficios"
-          linkText="Ver beneficios ❯"
-        />
-        <SimpleCard
-          imageSrc="/plata.png"
-          altText="Contratista Plata"
-          text="CONTRATISTA PLATA"
-          linkUrl="/beneficios"
-          linkText="Ver beneficios ❯"
-        />
-      </div>
+      <SimpleCard
+  cards={[
+    {
+      imageSrc: "/oro.png",
+      altText: "Contratista Oro",
+      text: "CONTRATISTA ORO",
+      linkUrl: "/beneficios",
+      linkText: "Ver beneficios ❯",
+      rightImageSrc: "/fab1.jpg",
+    },
+    {
+      imageSrc: "/plata.png",
+      altText: "Contratista Plata",
+      text: "CONTRATISTA PLATA",
+      linkUrl: "/beneficios",
+      linkText: "Ver beneficios ❯",
+      rightImageSrc: "/fab2.jpg",
+    },
+  ]}
+/>
+
 
       <TitleText subtitle="Conoce algunos de los beneficios del Club Contratistas" />
       <Beneficios/>

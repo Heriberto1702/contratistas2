@@ -312,7 +312,7 @@
 @media (max-width: 768px) {
   .continarcurso {
     flex-direction: column; /* Apilamos la imagen y el texto */
-    align-items: flex-start;
+    
   }
 
   .continarimage {
