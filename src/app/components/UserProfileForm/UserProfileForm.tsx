@@ -118,6 +118,7 @@ const UserProfileForm = () => {
         <div className={styles.infoContainer}>
           <div className={styles.welcomeSection}>
             <div className={styles.welcomeText}>
+              
               <div className={styles.espacio}>
                 <Image src="/cuenta/user.png" width={40} height={40} alt="user" />
                 <h2 className={styles.texto}>Bienvenido: </h2>
@@ -137,9 +138,19 @@ const UserProfileForm = () => {
           </div>
           <br />
           <div className={styles.membershipCard}>
-            <Image src="/cuenta/Membresia.png" width={300} height={170} alt="Tarjeta Contratista" />
-            <span className={styles.cardName}>{userData?.nombres_contratista}</span>
-          </div>
+  <Image
+    src={
+      userData?.nombre_club === "Platinum"
+        ? "/cuenta/Membresia2.png"
+        : "/cuenta/Membresia.png"
+    }
+    width={300}
+    height={170}
+    alt="Tarjeta Contratista"
+  />
+  <span className={styles.cardName}>{userData?.nombres_contratista}</span>
+</div>
+
         </div>
       </div>
 
