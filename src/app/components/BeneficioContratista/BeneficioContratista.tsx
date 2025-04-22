@@ -122,7 +122,7 @@ const UserMembershipInfo: React.FC<BeneficioContratistaProps> = ({
               />
               <Image
                 className={Styles.imagen2}
-                src={"/contratista-oro.png"}
+                src={"/oro.png"}
                 width={214}
                 height={214}
                 alt="Imagen Contratista Oro"
@@ -184,7 +184,7 @@ const UserMembershipInfo: React.FC<BeneficioContratistaProps> = ({
               />
               <Image
                 className={Styles.imagen2}
-                src={"/contratista-plata.png"}
+                src={"/plata.png"}
                 width={214}
                 height={214}
                 alt="Imagen Contratista Plata"
