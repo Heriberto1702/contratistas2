@@ -11,11 +11,13 @@ const AdminEventos = () => {
     imagen_des_evento: File | null;
     fecha: string;
     hora: string;
+    activo?: boolean;
     cupo_reservado:string;
   }>({
     nombre_evento: "",
     locacion: "",
     cupos: "",
+    activo: false,
     imagen_evento: null,
     imagen_des_evento: null,
     fecha: "",
@@ -75,6 +77,7 @@ const AdminEventos = () => {
     if (formData.imagen_des_evento) form.append("imagen_des_evento", formData.imagen_des_evento);
     form.append("fecha_hora", fecha_hora);
     form.append("cupo_reservado", formData.cupo_reservado);
+    form.append("activo", formData.activo ? "true" : "false");
     
     try {
       const response = await fetch("/api/eventos/crear", {
@@ -88,6 +91,7 @@ const AdminEventos = () => {
           nombre_evento: "",
           locacion: "",
           cupos: "",
+          activo: false,
           imagen_evento: null,
           imagen_des_evento: null,
           fecha: "",
@@ -171,6 +175,17 @@ const AdminEventos = () => {
           onChange={handleChange}
           required
         />
+        <div className={styles.labelcheckbox}>
+            Activo:
+            <input
+              type="checkbox"
+              name="activo"
+              checked={formData.activo}
+              onChange={(e) =>
+                setFormData({ ...formData, activo: e.target.checked })
+              }
+            />
+          </div>
         <button type="submit">Crear Evento</button>
       </form>
 

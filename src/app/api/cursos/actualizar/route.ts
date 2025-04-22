@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+
 
 export async function PUT(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -135,12 +135,7 @@ export async function PUT(request: Request) {
     );
   } catch (error) {
     console.error("Error al actualizar el curso:", error);
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.error("Prisma error code:", (error as Prisma.PrismaClientKnownRequestError).code);
-      console.error("Prisma error meta:", (error as Prisma.PrismaClientKnownRequestError).meta);
-    } else if (error instanceof Error) {
-      console.error("Error message:", (error as Error).message);
-    }
+
     return NextResponse.json(
       { error: "Error al actualizar el curso.", details: error instanceof Error ? error.message : JSON.stringify(error) },
       { status: 500 }

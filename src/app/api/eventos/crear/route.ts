@@ -53,6 +53,9 @@ export async function POST(request: Request) {
   const imagen_evento = form.get("imagen_evento") as File;
   const imagen_des_evento = form.get("imagen_des_evento") as File;
   const cupo_reservado = parseInt(form.get("cupo_reservado") as string, 10);
+  const activoRaw = form.get("activo");
+  const activo = activoRaw === "true" || activoRaw === "on";
+
 
   // Validar campos obligatorios
   if (
@@ -81,6 +84,7 @@ export async function POST(request: Request) {
         nombre_evento,
         locacion,
         cupos,
+        activo,
         fecha_hora,
         imagen_evento: eventoImageUrl,
         imagen_des_evento: descriptivaImageUrl,

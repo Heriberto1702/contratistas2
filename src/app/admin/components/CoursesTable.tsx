@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import EditCourseModal from "./EditCourseModal";
 import styles from "./css/CoursesTable.module.css";
 
@@ -7,21 +7,22 @@ const CoursesTable = () => {
   const [selectedCourse, setSelectedCourse] = useState<any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch("/api/cursos/obtenerTodos");
-        if (!response.ok) {
-          throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setCourses(data);
-      } catch (error) {
-        console.error("Error al obtener los cursos:", error);
+  const fetchCourses = useCallback(async () => {
+    try {
+      const response = await fetch("/api/cursos/obtenerTodos");
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
-    };
-    fetchCourses();
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error("Error al obtener los cursos:", error);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchCourses();
+  }, [fetchCourses]);
 
   const handleEditClick = (course: any) => {
     setSelectedCourse(course);
@@ -33,17 +34,13 @@ const CoursesTable = () => {
     setSelectedCourse(null);
   };
 
-  const handleSaveCourse = (updatedCourse: any) => {
-    setCourses((prevCourses) =>
-      prevCourses.map((course) =>
-        course.id_curso === updatedCourse.id_curso ? updatedCourse : course
-      )
-    );
+  const handleSaveCourse = async () => {
+    await fetchCourses(); // Refrescamos la lista después de guardar cambios
+    handleCloseModal(); // Cerramos el modal
   };
 
   return (
     <div className={styles.container}>
-      <h1>Lista de Cursos</h1>
       <table className={styles.table}>
         <thead>
           <tr>

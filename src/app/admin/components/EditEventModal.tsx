@@ -9,6 +9,7 @@ interface Event {
   locacion: string;
   cupos: number;
   cupo_reservado: number;
+  activo?: boolean;
 }
 
 interface EditEventModalProps {
@@ -43,6 +44,7 @@ const EditEventModal: React.FC<EditEventModalProps> = ({
   const [fechaHora, setFechaHora] = useState("");
   const [locacion, setLocacion] = useState("");
   const [cupos, setCupos] = useState(0);
+  const [activo, setActivo] = useState(false);
   const [cupoReservado, setCupoReservado] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
@@ -56,6 +58,7 @@ const EditEventModal: React.FC<EditEventModalProps> = ({
         setNombreEvento(data.nombre_evento);
         setFechaHora(data.fecha_hora);
         setLocacion(data.locacion);
+        setActivo(data.activo);
         setCupos(data.cupos);
         setCupoReservado(data.cupo_reservado);
       } catch (error) {
@@ -77,6 +80,7 @@ const EditEventModal: React.FC<EditEventModalProps> = ({
       formData.append("nombre_evento", nombreEvento);
       formData.append("fecha_hora", fechaHora);
       formData.append("locacion", locacion);
+      formData.append("activo", activo ? "true" : "false");
       formData.append("cupos", cupos.toString());
       formData.append("cupo_reservado", cupoReservado.toString());
 
@@ -88,6 +92,7 @@ const EditEventModal: React.FC<EditEventModalProps> = ({
         fecha_hora: fechaHora,
         locacion,
         cupos,
+        activo,
         cupo_reservado: cupoReservado,
       };
 
@@ -147,6 +152,15 @@ const EditEventModal: React.FC<EditEventModalProps> = ({
             value={cupoReservado}
             onChange={(e) => setCupoReservado(Number(e.target.value))}
           />
+          
+            <label className={styles.checkboxLabel}>
+              Activo
+              <input
+                type="checkbox"
+                checked={activo}
+                onChange={(e) => setActivo(e.target.checked)}
+              />
+            </label>
 
           <div className={styles.buttonGroup}>
             <button className={styles.saveButton} onClick={handleSaveClick}>

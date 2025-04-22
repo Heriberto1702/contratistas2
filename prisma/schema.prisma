@@ -84,6 +84,7 @@ model Eventos {
   locacion          String
   cupos             Int
   imagen_evento     String
+  activo              Boolean
   fecha_hora        String
   cupo_reservado    Int
   imagen_des_evento String
@@ -114,8 +115,11 @@ model LoginPlataforma {
   fecha_nacimiento      String
   id_departamento       Int
   id_municipio          Int
+  cedula_logueado       String?
+  id_cargo              Int?
   Cursos_Matriculados   Cursos_Matriculados[]
   Eventos_Asistidos     Eventos_Asistidos[]
+  Cargo                 Cargo?                @relation(fields: [id_cargo], references: [id_cargo])
   depart                Departamentos         @relation(fields: [id_departamento], references: [id_departamento])
   especialidad          Especialidad          @relation(fields: [id_especialidad], references: [id_especialidad])
   muni                  Municipios            @relation(fields: [id_municipio], references: [id_municipio])
@@ -175,4 +179,10 @@ model ModulosCompletados {
   id               Int      @id @default(autoincrement())
 
   @@unique([id_contratista, id_modulo])
+}
+
+model Cargo {
+  id_cargo        Int               @id(map: "Cargos_pkey") @default(autoincrement())
+  nombre_cargo    String
+  LoginPlataforma LoginPlataforma[]
 }

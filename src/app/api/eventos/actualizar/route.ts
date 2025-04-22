@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+
 
 export async function PUT(request: Request) {
     try {
@@ -17,6 +17,8 @@ export async function PUT(request: Request) {
       // ✅ Solo obtenemos campos que SÍ queremos
       const nombre_evento = form.get("nombre_evento")?.toString().trim();
       const fecha_hora = form.get("fecha_hora")?.toString();
+      const activoRaw = form.get("activo");
+      const activo = activoRaw === "true" || activoRaw === "on";
       const locacion = form.get("locacion")?.toString().trim();
       const cupos = parseInt(form.get("cupos")?.toString() || "0");
       const cupo_reservado = parseInt(form.get("cupo_reservado")?.toString() || "0");
@@ -39,6 +41,7 @@ export async function PUT(request: Request) {
         data: {
           nombre_evento,
           fecha_hora,
+          activo,
           locacion,
           cupos,
           cupo_reservado,

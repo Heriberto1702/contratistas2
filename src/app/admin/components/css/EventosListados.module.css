@@ -1,55 +1,226 @@
+/* Overlay del Modal */
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+/* Contenido del Modal */
+.modalContent {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalContent h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.modalContent label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.modalContent input,
+.modalContent select,
+.modalContent textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.4rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.modalContent input:focus,
+.modalContent select:focus,
+.modalContent textarea:focus {
+  border-color: #0070f3;
+}
+
+/* Grupo de Botones */
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.saveButton,
+.cancelButton {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Botón Guardar */
+.saveButton {
+  background-color: #0070f3;
+  color: white;
+}
+
+.saveButton:hover {
+  background-color: #005bb5;
+}
+
+/* Botón Cancelar */
+.cancelButton {
+  background-color: #ccc;
+  color: #333;
+}
+
+.cancelButton:hover {
+  background-color: #999;
+}
+
+/* Error */
+.error {
+  color: red;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 8px;
+  overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+  display: none; /* Oculta el encabezado en móviles */
+}
+
+.table tr {
+  display: block;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.table td {
+  display: flex;
+  width: auto;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #bdbdbd;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.image1 {
+  margin:0 auto;
+  border-radius: 16px;
+}
+.image2 {
+  margin:0 auto;
+  border-radius: 16px;
+  width: 150px;
+    height: auto;
+}
+
+.table td::before {
+  content: attr(data-label);
+  font-weight: bold;
+  color: #444;
+}
+
+/* Botón Detalles */
+.detailsButton {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.detailsButton:hover {
+  background-color: #0056b3;
+}
+@media (max-width: 834px) {
+  .image1,.image2{
+    margin: 0;
   }
-  
+}
+/* TABLET: Mostrar encabezado y modo tabla */
+@media (min-width: 835px) {
+  .table thead {
+    display: block; /* Oculta el encabezado en móviles */
+  }
   .modalContent {
-    background-color: white;
     padding: 2rem;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
-  
-  .modalContent input,
-  .modalContent textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  
+
   .buttonGroup {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    flex-direction: row;
+    justify-content: center;
   }
-  
-  .saveButton {
-    background-color: #4caf50;
-    color: white;
-    padding: 0.5rem 1rem;
+
+  .table {
+    overflow-x: initial;
+  }
+
+  .table thead {
+    display: table-header-group;
+  }
+
+  .table tr {
+    display: table-row;
     border: none;
-    border-radius: 5px;
+    padding: 0;
   }
+
+  .table td,
+  .table th {
+    display: table-cell;
+    padding: 12px;
+    border: 1px solid #ddd;
   
+  }
+  .table td::before {
+    content: none;
+  }
+}
+
+/* DESKTOP: Estilo más amplio */
+@media (min-width: 1024px) {
+  .modalContent {
+    max-width: 600px;
+  }
+
+  .saveButton,
   .cancelButton {
-    background-color: #f44336;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
+    width: auto;
   }
-  
-  .error {
-    color: red;
-    margin-bottom: 1rem;
-  }
-  
+}

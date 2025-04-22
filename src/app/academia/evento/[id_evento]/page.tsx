@@ -6,6 +6,7 @@ import NavBar from "../../../components/navbar/NavBar";
 import BannerSlidernew from "../../../components/BannerSlidernew/BannerSlidernew";
 import Image from "next/image";
 import Styles from "./eventDetail.module.css";
+import Link from "next/link";
 
 interface Event {
   id_evento: number;
@@ -16,30 +17,29 @@ interface Event {
   imagen_des_evento: string;
   fecha_hora: string;
   cupo_reservado: number;
+  activo: boolean; // NUEVO CAMPO
 }
 
 const EventPage = () => {
-  const { id_evento } = useParams(); // Obtener el id_evento de la URL usando useParams
+  const { id_evento } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [id_contratista, setIdContratista] = useState<number | null>(null);
-  const [registeredEvents, setRegisteredEvents] = useState<number[]>([]); // IDs de eventos registrados
+  const [registeredEvents, setRegisteredEvents] = useState<number[]>([]);
   const [loadingEventId, setLoadingEventId] = useState<number | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  // Fetch de todos los eventos y busca el específico
   const fetchEvents = useCallback(async () => {
     try {
       const response = await fetch("/api/eventos/obtener");
-
       if (response.ok) {
         const data: Event[] = await response.json();
         const foundEvent = data.find(
           (event) => event.id_evento === parseInt(id_evento as string)
         );
         if (foundEvent) {
-          setEvent(foundEvent); // Almacena el evento específico
+          setEvent(foundEvent);
         } else {
           throw new Error("No se encontró el evento especificado.");
         }
@@ -53,15 +53,12 @@ const EventPage = () => {
     }
   }, [id_evento]);
 
-  // Fetch para obtener el ID del contratista
   useEffect(() => {
     const fetchContratistaId = async () => {
       try {
         const response = await fetch("/api/usuario/idcontratista");
         const data = await response.json();
-
         if (response.ok) {
-          console.log("ID contratista:", data.id_contratista);
           setIdContratista(data.id_contratista);
         } else {
           throw new Error("No se pudo obtener el ID del contratista.");
@@ -75,9 +72,8 @@ const EventPage = () => {
     fetchContratistaId();
   }, []);
 
-  // Fetch para obtener los eventos registrados por el contratista
   const fetchRegisteredEvents = useCallback(async () => {
-    if (!id_contratista) return; // Esperar a que id_contratista esté disponible
+    if (!id_contratista) return;
 
     try {
       const response = await fetch(
@@ -85,7 +81,6 @@ const EventPage = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log("Eventos registrados:", data);
         setRegisteredEvents(data.map((event: any) => event.id_evento));
       } else {
         throw new Error("No se pudieron obtener los eventos registrados.");
@@ -95,7 +90,6 @@ const EventPage = () => {
     }
   }, [id_contratista]);
 
-  // Llama a fetchEvents y fetchRegisteredEvents cuando sea necesario
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
@@ -116,7 +110,6 @@ const EventPage = () => {
     }
   }, [success, error]);
 
-  // Acción para asistir o cancelar
   const handleEventAction = async (
     eventId: number,
     action: "asistir" | "cancelar"
@@ -157,7 +150,6 @@ const EventPage = () => {
     }
   };
 
-  // Mostrar mensajes de error o carga
   if (isLoading) {
     return <div className="loading">Cargando evento...</div>;
   }
@@ -170,6 +162,22 @@ const EventPage = () => {
     return <div className="error">No se encontró el evento especificado.</div>;
   }
 
+  // Mostrar mensaje si el evento está inactivo
+  if (!event.activo) {
+    return (
+      <div>
+        <NavBar />
+        <BannerSlidernew images={["/banneracademia.png"]} interval={3000} />
+        <div className={Styles.container}>
+          <div>
+            Este evento está temporalmente inactivo.
+          </div>
+          <Link href="/academia" className={Styles.backButton}>Regresar</Link>
+        </div>
+      </div>
+    );
+  }
+
   const images = ["/banneracademia.png"];
 
   return (
@@ -177,6 +185,7 @@ const EventPage = () => {
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
       <div className={Styles.container}>
+      <Link href="/academia">Regresar</Link>
         {success && (
           <div className={`${Styles.message} ${Styles.success}`}>{success}</div>
         )}
@@ -197,13 +206,11 @@ const EventPage = () => {
             <div className={Styles.titulares}>
               <h1 className={Styles.title}>{event.nombre_evento}</h1>
             </div>
-
             <div>
               <p className={Styles.letter}>
                 Cupos disponibles: {event.cupos || 0}
               </p>
             </div>
-
             <div className={Styles.subtitulares}>
               <p className={Styles.letter}>📍 {event.locacion}</p>
               <p className={Styles.letter}>
@@ -214,7 +221,6 @@ const EventPage = () => {
               </p>
             </div>
           </div>
-
           <button
             className={`${Styles.attendButton} ${
               registeredEvents.includes(event.id_evento)
