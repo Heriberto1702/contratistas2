@@ -4,11 +4,12 @@ import prisma from '@/lib/prisma'; // Asegúrate de que la conexión Prisma est�
 export async function GET() {
   try {
     // Obtener los datos de las tablas
-    const [sexos, especialidades, departamentos, municipios] = await Promise.all([
+    const [sexos, especialidades, departamentos, municipios, cargos] = await Promise.all([
       prisma.sexo.findMany(),
       prisma.especialidad.findMany(),
       prisma.departamentos.findMany(),
       prisma.municipios.findMany(),
+      prisma.cargo.findMany(),
     ]);
 
     // Devolver la respuesta
@@ -17,6 +18,7 @@ export async function GET() {
       especialidades,
       departamentos,
       municipios,
+      cargos,
     });
   } catch (error) {
     return NextResponse.json({ error: 'Error al obtener los catálogos' }, { status: 500 });

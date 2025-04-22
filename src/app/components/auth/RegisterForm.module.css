@@ -1,8 +1,9 @@
+
+
 /* Contenedor Principal */
 .container {
   display: flex;
   gap: 20px;
-
   margin: 20px auto;
 }
 
@@ -12,16 +13,16 @@
   border-radius: 8px;
   padding: 20px;
   margin: 0 auto;
-
 }
 
-.formulariodivision{
-    display: flex;
+.formulariodivision {
+  display: flex;
   flex-direction: row;
   justify-content: center;
   column-gap: 100px;
   align-items: center;
 }
+
 /* Encabezado */
 .h2 {
   text-align: center;
@@ -36,10 +37,6 @@
   display: flex;
   justify-content: space-around;
   margin-bottom: 15px;
-}
-
-.radioContainer  {
-  display: flex;
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
@@ -51,39 +48,40 @@
   font-weight: 300;
   margin-bottom: 5px;
   color: #000000;
+  display: block; /* Para asegurar que el label se muestre en su propio renglón */
+  margin-left: 5px;
 }
 
 /* Inputs y Selects */
-.input{
+.input,
+.readOnlyInput {
   width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
   background-color: #f9f9f9;
-  transition: border 0.3s ease;
-}
-.leftColumn, .rightColumn {
-  box-shadow: 0 4px 7px rgb(0 0 0 / 30%);
-  padding: 25px;
-  border-radius: 25px;
-}
-
-
-
-.readOnlyInput{
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  font-size: 0.9rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.leftColumn, .rightColumn {
+  box-shadow: 0 4px 7px rgb(0 0 0 / 30%);
+  padding: 25px;
+  border-radius: 25px;
+}
+
+.readOnlyInput {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
 }
 
 /* Botón de Validación junto al Input */
@@ -120,6 +118,7 @@
   display: flex;
   flex-direction: column;
 }
+
 /* Botón de Enviar */
 .submitButton {
   width: 100%;
@@ -138,7 +137,6 @@
   background-color: #218838;
 }
 
-
 .inputContainer {
   display: flex;
   align-items: center; /* Alinea el input y el botón verticalmente */
@@ -150,7 +148,6 @@
   justify-content: center; /* Alinea el input y el botón verticalmente */
   gap: 10px; /* Espacio entre el input y el botón */
 }
-
 
 .input {
   flex-grow: 1; /* Hace que el campo de entrada ocupe el espacio disponible */
@@ -164,14 +161,14 @@
   font-size: 18px;
   font-weight: 300;
   cursor: pointer;
-  transition: background 0.3s ease-in-out, transform 0.2s;
+  transition: background 0.3s ease, transform 0.2s;
 }
 
 .validationButton:hover {
   background-color: #000;
 }
 
-.radiobutton{
+.radiobutton {
   margin: 0 3px 0 0;
 }
 
@@ -202,7 +199,7 @@
   font-size: 18px;
   font-weight: 300;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s;
   display: block;
 }
 
@@ -210,7 +207,7 @@
   background-color: #000;
 }
 
-.pregunta{
+.pregunta {
   text-align: center;
 }
 
@@ -240,15 +237,14 @@
   color: #333; /* Puedes cambiar el color del texto si es necesario */
 }
 
-.espaciado{
+.espaciado {
   padding-top: 20px;
   font-size: 20px;
 }
 
-.alineado{
-  margin-top:8px;
+.alineado {
+  margin-top: 8px;
 }
-
 
 .titulos {
   font-size: 25px;
@@ -257,4 +253,60 @@
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+}
+
+/* Media Queries para responsive design */
+@media (max-width: 1024px) {
+  .formGrid {
+    grid-template-columns: 1fr; /* Para pantallas más pequeñas, los formularios se alinean en una sola columna */
+  }
+  .container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .submitButton {
+    width: 80%; /* Botón de envío más pequeño en pantallas pequeñas */
+  }
+  .formContainer {
+    padding: 15px; /* Menos espacio en el formulario en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 768px) {
+  .h2 {
+    font-size: 18px; /* Títulos más pequeños en pantallas pequeñas */
+  }
+  .label {
+    font-size: 16px;
+  }
+  .input,
+  .readOnlyInput {
+    font-size: 14px;
+  }
+  .inputContainer,
+  .inputContainer2 {
+    flex-direction: column;
+  }
+  .submitButton {
+    width: 100%; /* Hacer que el botón ocupe todo el ancho */
+  }
+}
+
+@media (max-width: 480px) {
+  .titulos {
+    font-size: 22px;
+  }
+  .formContainer {
+    padding: 10px; /* Aún menos padding para pantallas más pequeñas */
+  }
+  .submitButton {
+    font-size: 16px; /* Hacer el tamaño del texto más pequeño */
+  }
+
+  .formulariodivision{
+    flex-direction: column;
+  }
+  .radioContainer{
+    display: block;
+  }
 }

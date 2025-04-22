@@ -23,6 +23,11 @@ interface Municipio {
   nombre_municipio: string;
 }
 
+interface Cargo {
+  id_cargo: number;
+  nombre_cargo: string;
+}
+
 export default function RegisterForm() {
   const router = useRouter();
 
@@ -38,6 +43,7 @@ export default function RegisterForm() {
   const [nombres, setNombres] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [celular, setCelular] = useState("");
+  const [cedula_logueado, setCedulaLogueado] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState<number | string>("");
@@ -47,6 +53,8 @@ export default function RegisterForm() {
   const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState<number | string>("");
   const [municipios, setMunicipios] = useState<Municipio[]>([]);
   const [municipioSeleccionado, setMunicipioSeleccionado] = useState<number | string>("");
+  const [cargos, setCargos] = useState<Cargo[]>([]);
+  const [cargoSeleccionado, setCargoSeleccionado] = useState<number | string>("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [mensajeVisible, setMensajeVisible] = useState(false); // Control de visibilidad del mensaje
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
@@ -66,6 +74,7 @@ export default function RegisterForm() {
         setSexos(data.sexos);
         setDepartamentos(data.departamentos);
         setMunicipios(data.municipios); // Ahora traemos los municipios desde el mismo API
+        setCargos(data.cargos);
       } catch (error) {
         setErrorMessage("Error al cargar los datos");
       }
@@ -119,13 +128,12 @@ export default function RegisterForm() {
       setErrorMessage2("Por favor, contáctese con nosotros para verificar su información.");
     }
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (isRucCedulaValid) {
       try {
-        const response = await fetch("/api/usuario/auth/registro", {
+        const response = await fetch("/api/auth/registro", {
           method: "POST",
           body: JSON.stringify({
             email,
@@ -135,8 +143,10 @@ export default function RegisterForm() {
             cedula: isJuridico ? "" : cedula,
             RUC: isJuridico ? ruc : "",
             celular,
+            cedula_logueado,
             id_sexo: parseInt(sexoSeleccionado as string),
             id_especialidad: parseInt(especialidadSeleccionada as string),
+            id_cargo: parseInt(cargoSeleccionado as string),
             fecha_nacimiento: fechaNacimiento,
             id_departamento: parseInt(departamentoSeleccionado as string),
             id_municipio: parseInt(municipioSeleccionado as string),
@@ -330,7 +340,7 @@ export default function RegisterForm() {
                  />
                </div>
                <div className={Styles.formGroup}>
-                 <label className={Styles.label}>Apellido(s)</label>
+                 <label className={Styles.label}>Apellidos</label>
                  <input
                    className={Styles.input}
                    type="text"
@@ -340,17 +350,79 @@ export default function RegisterForm() {
                    required
                  />
                </div>
+
+               {isJuridico && isRucCedulaValid && (
+               <>
+        <div className={Styles.formGroup}>
+  <label className={Styles.label}>Cédula</label>
+  <input
+    className={Styles.input}
+    type="text"
+    value={cedula_logueado}
+    inputMode="text"
+    maxLength={14}
+    onChange={(e) => {
+      let rawValue = e.target.value;
+
+      // Elimina cualquier caracter que no sea letra o número
+      let cleaned = rawValue.replace(/[^0-9a-zA-Z]/g, '');
+
+      // Separa los primeros 13 dígitos y la posible letra al final
+      let digits = cleaned.slice(0, 13).replace(/\D/g, ''); // solo números
+      let letter = cleaned.charAt(13).match(/[a-zA-Z]/) ? cleaned.charAt(13).toUpperCase() : '';
+
+      setCedulaLogueado(digits + letter);
+    }}
+    pattern="\d{13}[A-Za-z]"
+    onInvalid={(e) =>
+      e.currentTarget.setCustomValidity("Debe tener exactamente 13 números y una letra al final (ej: 1234567890123A)")
+    }
+    onInput={(e) => e.currentTarget.setCustomValidity("")}
+    placeholder="Ingrese su número de cédula"
+    required
+  />
+</div>
+
+
+
                <div className={Styles.formGroup}>
-                 <label className={Styles.label}>Celular</label>
-                 <input
+                 <label className={Styles.label}>Cargo</label>
+                 <select
                    className={Styles.input}
-                   type="text"
-                   value={celular}
-                   onChange={(e) => setCelular(e.target.value)}
-                   placeholder="Ingrese su número de celular"
-                   required
-                 />
+                   value={cargoSeleccionado}
+                   onChange={(e) => setCargoSeleccionado(e.target.value)}
+                   
+                 >
+                   <option value="">Seleccione su cargo</option>
+                   {cargos.map((cargo) => (
+                     <option key={cargo.id_cargo} value={cargo.id_cargo}>
+                       {cargo.nombre_cargo}
+                     </option>
+                   ))}
+                 </select>
                </div>
+               </>
+)}
+
+<div className={Styles.formGroup}>
+  <label className={Styles.label}>Celular</label>
+  <input
+    className={Styles.input}
+    type="text"
+    inputMode="numeric"
+    pattern="\d{8}"
+    maxLength={8}
+    value={celular}
+    onChange={(e) => {
+      const value = e.target.value.replace(/\D/g, ""); // Elimina todo lo que no es número
+      setCelular(value);
+    }}
+    placeholder="Ingrese su número de celular"
+    required
+  />
+</div>
+
+
                <div className={Styles.formGroup}>
                  <label className={Styles.label}>Email</label>
                  <input

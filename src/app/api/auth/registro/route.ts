@@ -12,7 +12,9 @@ export async function POST(req: Request) {
       cedula,
       RUC,
       celular,
+      cedula_logueado, //opcional
       telefono_fijo, // Añadido el teléfono fijo
+      id_cargo, //opcional
       id_sexo,
       id_especialidad,
       fecha_nacimiento,
@@ -50,6 +52,7 @@ export async function POST(req: Request) {
       );
     }
 
+   
     // Validar formato de celular (ejemplo genérico, ajusta según tu país)
     const phoneRegex = /^[0-9]{8}$/;
     if (!phoneRegex.test(celular.toString())) {
@@ -92,15 +95,20 @@ export async function POST(req: Request) {
         cedula: cedula,
         ruc: RUC,
         celular,
-        telefono_fijo, // Incluir teléfono fijo
+        cedula_logueado: cedula_logueado || null,
+        telefono_fijo: telefono_fijo || null, // ✅ Manejo opcional
         fecha_nacimiento,
         depart: { connect: { id_departamento: id_departamento } },
         especialidad: { connect: { id_especialidad: id_especialidad } },
         muni: { connect: { id_municipio: id_municipio } },
         sex: { connect: { id_sexo: id_sexo } },
         tipoContratista: { connect: { id_tipo_contratista: id_tipo_contratista } },
-      },
-    });
+      // 🔗 Relación opcional si se envía
+      ...(id_cargo && {
+        cargo: { connect: { id_cargo } },
+      }),
+    },
+  });
 
     // Retornar datos del usuario creado
     return NextResponse.json(user, { status: 201 });
