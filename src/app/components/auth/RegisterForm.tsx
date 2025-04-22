@@ -163,7 +163,7 @@ export default function RegisterForm() {
           setConfirmationMessage("¡Registro exitoso! Ahora puedes iniciar sesión.");
           setTimeout(() => {
             router.push("/login");
-          }, 2000);
+         }, 2000);
         } else {
           setErrorMessages(data.error || "Error al registrar usuario");
         }

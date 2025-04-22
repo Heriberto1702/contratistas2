@@ -21,6 +21,7 @@
   justify-content: center;
   column-gap: 100px;
   align-items: center;
+  position: relative;
 }
 
 /* Encabezado */
@@ -203,6 +204,7 @@
   display: block;
 }
 
+
 .submitButton:hover {
   background-color: #000;
 }
@@ -216,6 +218,9 @@
   font-weight: bold;
   margin-top: 10px;
   text-align: center;
+  position: absolute;
+  bottom: 50px;
+    left: 160px;
 }
 
 .error-message {
@@ -308,5 +313,13 @@
   }
   .radioContainer{
     display: block;
+  }
+  .leftColumn{
+    margin-bottom: 20px;
+  }
+
+  .confirmation-message{
+    bottom: -26px;
+    left: 20px;
   }
 }
