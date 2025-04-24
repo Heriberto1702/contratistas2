@@ -84,10 +84,10 @@ model Eventos {
   locacion          String
   cupos             Int
   imagen_evento     String
-  activo              Boolean
   fecha_hora        String
   cupo_reservado    Int
   imagen_des_evento String
+  activo            Boolean
   Eventos_Asistidos Eventos_Asistidos[]
 }
 
@@ -188,7 +188,7 @@ model Cargo {
 }
 
 model UserRoles {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  role      String   // Definir roles como texto
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  role  String
 }
