@@ -79,8 +79,56 @@
   .admin-main .admin-button.red {
     background-color: #ff0000;
   }
+  .admin-main .admin-button.gray {
+    background-color: #747474;
+  }
   .admin-main .admin-button:hover {
     transform: scale(1.05); /* Animación suave al hover */
+  }
+  .email-validation {
+    text-align: center;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .email-validation h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .email-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .validate-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .validate-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
   }
   
   /* Diseño responsive */

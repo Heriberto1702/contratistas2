@@ -186,3 +186,9 @@ model Cargo {
   nombre_cargo    String
   LoginPlataforma LoginPlataforma[]
 }
+
+model UserRoles {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  role      String   // Definir roles como texto
+}

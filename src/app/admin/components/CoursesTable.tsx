@@ -2,20 +2,33 @@ import React, { useState, useEffect, useCallback } from "react";
 import EditCourseModal from "./EditCourseModal";
 import styles from "./css/CoursesTable.module.css";
 
-const CoursesTable = () => {
-  const [courses, setCourses] = useState<any[]>([]);
-  const [selectedCourse, setSelectedCourse] = useState<any | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+// Define la interfaz para los cursos
+interface Course {
+  id_curso: number;
+  nombre_curso: string;
+  especialista: string;
+  activo: boolean;
+  destacado: boolean;
+}
 
+const CoursesTable: React.FC = () => {
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Función para obtener los cursos
   const fetchCourses = useCallback(async () => {
     try {
+      setError(null); // Reiniciar estado de error
       const response = await fetch("/api/cursos/obtenerTodos");
       if (!response.ok) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
-      const data = await response.json();
+      const data: Course[] = await response.json();
       setCourses(data);
     } catch (error) {
+      setError("Error al obtener los cursos. Por favor, intenta nuevamente.");
       console.error("Error al obtener los cursos:", error);
     }
   }, []);
@@ -24,7 +37,7 @@ const CoursesTable = () => {
     fetchCourses();
   }, [fetchCourses]);
 
-  const handleEditClick = (course: any) => {
+  const handleEditClick = (course: Course) => {
     setSelectedCourse(course);
     setIsModalOpen(true);
   };
@@ -35,12 +48,14 @@ const CoursesTable = () => {
   };
 
   const handleSaveCourse = async () => {
-    await fetchCourses(); // Refrescamos la lista después de guardar cambios
-    handleCloseModal(); // Cerramos el modal
+    await fetchCourses(); // Refrescar la lista tras guardar cambios
+    handleCloseModal(); // Cerrar el modal
   };
 
   return (
     <div className={styles.container}>
+      <h2>Gestión de Cursos</h2>
+      {error && <p className={styles.error}>{error}</p>}
       <table className={styles.table}>
         <thead>
           <tr>

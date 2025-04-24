@@ -24,7 +24,7 @@ interface Curso {
 }
 
 interface EditCourseModalProps {
-  cursoId: string;
+  cursoId: number;
   onClose: () => void;
   onSave: (updatedCourse: Curso) => void; // ✅ Ahora usa la interfaz 'Curso'
 }
