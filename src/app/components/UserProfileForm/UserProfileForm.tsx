@@ -22,6 +22,8 @@ interface FormData {
   id_tipo_contratista: string;
 }
 
+
+
 const UserProfileForm = () => {
   const { data: session, status } = useSession();
   const {
@@ -134,6 +136,15 @@ const UserProfileForm = () => {
                 <h2 className={styles.texto}>RUC / Cédula: </h2>
                 <p className={styles.welcomeText}>{userData?.ruc || userData?.cedula || "Cargando..."}</p>
               </div>
+              <div>
+              <div className={styles.espacio}>
+                <Image src="/cuenta/id2.png" width={40} height={40} alt="user" />
+                <h2 className={styles.texto}>Contratista:</h2>
+                <p className={styles.welcomeText}>{userData?.nombre_registrado || "Cargando..."}</p>
+              </div>
+              
+</div>
+
             </div>
           </div>
           <br />

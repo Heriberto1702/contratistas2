@@ -139,7 +139,8 @@ export async function GET() {
       tipo_contratista: cliente ? cliente.tipo_cliente : null,
       telefono_fijo: user.telefono_fijo,
       fecha_nacimiento: user.fecha_nacimiento,
-
+      nombre_registrado: contratista.nombre_registrado,
+      
       // Información filtrada por el usuario
       usuario_filtrado: {
         departamento,

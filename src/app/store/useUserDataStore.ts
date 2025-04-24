@@ -37,6 +37,8 @@ interface UserData {
   municipio: Municipio | null;
   especialidad: Especialidad | null;
   sexo: Sexo | null;
+  nombre_registrado: string;
+
 }
 
 interface UserDataState {
@@ -100,6 +102,8 @@ const useCatalogosStore = create<UserDataState>((set, get) => ({
             municipio: data.usuario_filtrado?.municipio || null,
             especialidad: data.usuario_filtrado?.especialidad || null,
             sexo: data.usuario_filtrado?.sexo || null,
+            nombre_registrado: data.nombre_registrado,
+
           },
           especialidades: data.catalogos?.especialidades || [],
           departamentos: data.catalogos?.departamentos || [],
