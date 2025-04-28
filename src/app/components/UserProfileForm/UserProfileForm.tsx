@@ -20,6 +20,8 @@ interface FormData {
   id_departamento: string;
   id_municipio: string;
   id_tipo_contratista: string;
+  cedula_logueado:string;
+  id_cargo:string;
 }
 
 
@@ -35,6 +37,7 @@ const UserProfileForm = () => {
     departamentos,
     municipios,
     sexos,
+    cargos,
   } = useCatalogosStore(); // Asegúrate de tener los catálogos en el store de Zustand
   const [formData, setFormData] = useState<FormData>({
     id_contratista: Number(session?.user.id_contratista) || 0,
@@ -51,6 +54,8 @@ const UserProfileForm = () => {
     id_departamento: "",
     id_municipio: "",
     id_tipo_contratista: "",
+    cedula_logueado:"",
+    id_cargo:"",
   });
 
   useEffect(() => {
@@ -87,6 +92,8 @@ const UserProfileForm = () => {
         id_departamento: String(userData.departamento?.id_departamento || ""),
         id_municipio: String(userData.municipio?.id_municipio || ""),
         id_tipo_contratista: String(userData.id_tipo_contratista || ""),
+        cedula_logueado: userData.cedula_logueado|| "",
+        id_cargo:String(userData.cargo?.id_cargo || ""),
       });
     }
   }, [userData]);
@@ -108,7 +115,7 @@ const UserProfileForm = () => {
     }
   };
 
-  if (status === "loading" || loading || !isLoaded || !userData) {
+  if (status === "loading" || loading || !isLoaded || !userData || !sexos || !especialidades || !departamentos || !municipios || !cargos) {
     return <div>Cargando Datos...</div>;
   }
 
@@ -291,7 +298,41 @@ const UserProfileForm = () => {
                 className={styles.input}
               />
             </div>
+            {/* Mostrar campos solo si el usuario tiene un RUC y no es natural */}
+            {formData.id_tipo_contratista !== "natural" && (
+              <>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Cédula Logueado:</label>
+                  <input
+                    type="text"
+                    name="cedula_logueado"
+                    value={formData.cedula_logueado}
+                    onChange={handleChange}
+                    className={styles.input}
+                  />
+                </div>
+
+         
+              <div className={styles.formGroup}>
+              <label className={styles.label}>Cargo:</label>
+              <select
+                name="id_cargo"
+                value={formData.id_cargo}
+                onChange={handleChange}
+                className={styles.input}
+              >
+                <option value="">Seleccione su cargo</option>
+                {cargos.map((cargo) => (
+                  <option key={cargo.id_cargo} value={cargo.id_cargo}>
+                    {cargo.nombre_cargo}
+                  </option>
+                ))}
+              </select>
+            </div>
+              </>
+            )}
           </div>
+          
           <div className={styles.buttonContainer}>
             <button type="submit" className={styles.submitButton}>
               Actualizar Datos

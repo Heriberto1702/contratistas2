@@ -20,6 +20,11 @@ interface Sexo {
   sexo: string;
 }
 
+interface Cargo {
+  id_cargo: number;
+  nombre_cargo: string;
+}
+
 interface UserData {
   id_contratista: number; 
   nombres_contratista: string;
@@ -38,7 +43,8 @@ interface UserData {
   especialidad: Especialidad | null;
   sexo: Sexo | null;
   nombre_registrado: string;
-
+  cedula_logueado:string;
+  cargo: Cargo | null;
 }
 
 interface UserDataState {
@@ -49,6 +55,7 @@ interface UserDataState {
   departamentos: Departamento[];
   municipios: Municipio[];
   sexos: Sexo[];
+  cargos: Cargo[];
   fetchUserData: () => Promise<void>;
   updateUserData: (newData: UserData) => void;
   getState: () => UserDataState;  // Métodos para obtener el estado
@@ -62,7 +69,7 @@ const useCatalogosStore = create<UserDataState>((set, get) => ({
   departamentos: [],
   municipios: [],
   sexos: [],
-
+  cargos:[],
   // Método para obtener el estado completo
   getState: () => get(),  // Acceder al estado usando get()
 
@@ -103,12 +110,14 @@ const useCatalogosStore = create<UserDataState>((set, get) => ({
             especialidad: data.usuario_filtrado?.especialidad || null,
             sexo: data.usuario_filtrado?.sexo || null,
             nombre_registrado: data.nombre_registrado,
-
+            cedula_logueado:data.cedula_logueado,
+            cargo: data.usuario_filtrado?.cargo || null,
           },
           especialidades: data.catalogos?.especialidades || [],
           departamentos: data.catalogos?.departamentos || [],
           municipios: data.catalogos?.municipios || [],
           sexos: data.catalogos?.sexos || [],
+          cargos:data.cargos?.cargos  || [],
           isLoaded: true,
         });
       } else {

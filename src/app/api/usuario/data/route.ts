@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma"; // Ajusta la ruta según tu estructura
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/authOptions"; // Asegúrate de que `authOptions` esté correctamente exportado
+import { circularProgress } from "@nextui-org/theme";
 
 export async function GET() {
   try {
@@ -33,7 +34,9 @@ export async function GET() {
         id_especialidad: true,
         id_sexo: true,
         telefono_fijo: true,
-        fecha_nacimiento: true
+        fecha_nacimiento: true,
+        cedula_logueado:true,
+        id_cargo:true
       },
     });
 
@@ -45,11 +48,12 @@ export async function GET() {
   //  console.log("✅ Usuario encontrado:", user);
 
     // Consultamos los catálogos completos
-    const [departamentos, municipios, especialidades, sexos] = await Promise.all([
+    const [departamentos, municipios, especialidades, sexos, cargos] = await Promise.all([
       prisma.departamentos.findMany(),  // Traemos todos los departamentos
       prisma.municipios.findMany(),     // Traemos todos los municipios
       prisma.especialidad.findMany(),   // Traemos todas las especialidades
       prisma.sexo.findMany(),           // Traemos todos los sexos
+      prisma.cargo.findMany() // Traemos todos los cargos
     ]);
 
     //console.log("✅ Catálogos completos cargados");
@@ -109,7 +113,7 @@ export async function GET() {
     //console.log("📌 Nombre tipo contratista:", cliente);
 
     // 🔥 **Filtramos los datos del usuario** usando el `id_departamento`, `id_municipio`, `id_especialidad`, y `id_sexo`
-    const [departamento, municipio, especialidad, sexo] = await Promise.all([
+    const [departamento, municipio, especialidad, sexo, cargo] = await Promise.all([
       prisma.departamentos.findUnique({
         where: { id_departamento: user.id_departamento },
       }),
@@ -122,6 +126,12 @@ export async function GET() {
       prisma.sexo.findUnique({
         where: { id_sexo: user.id_sexo },
       }),
+  // Condicional para `id_cargo`
+  user.id_cargo ? 
+    prisma.cargo.findUnique({
+      where: { id_cargo: user.id_cargo },
+    }) : 
+    null, // Si `id_cargo` está vacío, no se hace la consulta
     ]);
 
     // Creamos la respuesta
@@ -140,13 +150,17 @@ export async function GET() {
       telefono_fijo: user.telefono_fijo,
       fecha_nacimiento: user.fecha_nacimiento,
       nombre_registrado: contratista.nombre_registrado,
+      // Si tiene RUC, mostramos también la cédula logueado y el cargo
+       cedula_logueado: user.cedula_logueado || null,  // cedula_logueado si existe
+      
       
       // Información filtrada por el usuario
       usuario_filtrado: {
         departamento,
         municipio,
         especialidad,
-        sexo
+        sexo,
+        cargo
       },
 
       // Datos de los catálogos completos
@@ -154,7 +168,8 @@ export async function GET() {
         departamentos,  // Todos los departamentos
         municipios,    // Todos los municipios
         especialidades, // Todas las especialidades
-        sexos          // Todos los sexos
+        sexos,          // Todos los sexos
+        cargos //Todos los cargos
       },
     };
 
