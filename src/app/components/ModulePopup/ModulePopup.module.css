@@ -8,89 +8,99 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #3333338f;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro más elegante */
+  padding: 20px; /* Espacio interior para respirar en móviles */
   z-index: 1000;
+  backdrop-filter: blur(4px); /* Efecto desenfoque para modernizar */
 }
 
 /* Estilo para el contenido del popup */
 .popup {
-  background-color: #fff; /* Fondo blanco para el popup */
-  border-radius: 8px; /* Bordes redondeados */
-  padding: 20px; /* Espaciado interno */
-  width: 70%; /* Ancho responsive */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-  position: relative; /* Posicionamiento relativo para el botón de cerrar */
-}
-.title {
-  font-size: 24px; /* Tamaño adecuado para encabezado */
-  font-weight: bold; /* Hace que el texto resalte */
-  color: #333; /* Un gris oscuro elegante */
-  text-transform: capitalize; /* Primera letra en mayúscula */
-  text-align: left; /* Alineado a la izquierda */
-  margin-bottom: 15px; /* Espacio con otros elementos */
-  letter-spacing: 0.5px; /* Mejor separación entre letras */
-  position: relative; /* Para agregar decoraciones si es necesario */
+  background-color: #fff;
+  border-radius: 12px; /* Bordes más suaves */
+  padding: 30px 25px;
+  width: 100%;
+  max-width: 1000px; /* No pasa de 600px, queda elegante */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: popupIn 0.4s ease; /* Animación de entrada */
 }
 
-/* Línea decorativa debajo del título */
+/* Animación para hacer aparecer el popup */
+@keyframes popupIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #222;
+  text-transform: capitalize;
+  text-align: left;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
 .title::after {
   content: "";
   display: block;
   width: 50px;
-  height: 3px;
-  background: #007bff; /* Azul moderno */
-  margin-top: 5px;
-  border-radius: 5px; /* Bordes suaves */
+  height: 4px;
+  background: #fbbf24;
+  margin-top: 8px;
+  border-radius: 5px;
 }
 
-/* Efecto hover para hacerlo más interactivo */
 .title:hover {
-  color: #0056b3; /* Azul más oscuro */
+  color: #fbbf24;
   transition: color 0.3s ease-in-out;
 }
+
 /* Estilo para el botón de cerrar */
 .closeButton {
-  position: absolute; /* Posiciona el botón en la esquina superior derecha */
-  top: 10px;
-  right: 10px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
   width: 35px;
   height: 35px;
-  background: rgba(0, 0, 0, 0.1); /* Fondo semitransparente */
+  background-color: rgba(255, 0, 0, 0.494) ;
   border: none;
-  border-radius: 50%; /* Hace el botón redondo */
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px; /* Tamaño del ícono */
-  color: #333; /* Color del icono */
+  font-size: 20px;
+  color: white;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  z-index: 1; /* Para que esté por encima del contenido */
+  transition: all 0.3s ease;
+  z-index: 1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Cambia el color al pasar el mouse */
 .closeButton:hover {
-  background: rgba(0, 0, 0, 0.2); /* Fondo más oscuro */
-  color: #000; /* Ícono más visible */
+  background: rgba(0, 0, 0, 0.15);
+  color: #222;
 }
 
-/* Efecto al presionar */
 .closeButton:active {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-/* Sombra para que resalte */
-.closeButton {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .videoContainer {
   position: relative;
-  padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
-  border-radius: 8px;
-  margin: 20px;
+  border-radius: 10px;
+  margin: 20px 0 0 0;
 }
 
 .videoContainer iframe {
@@ -99,4 +109,14 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+/* Estilos responsive */
+@media (max-width: 768px) {
+.closeButton {
+  width: 25px;
+  height: 24px;
+}
+.title{
+  font-size: 20px;
+}
 }

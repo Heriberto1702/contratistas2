@@ -5,6 +5,7 @@ import TitleText from "../components/Text/TitleText";
 import NavBar from "../components/navbar/NavBar";
 import Categorias from "../components/Gallery/Categorias";
 import Galeria from "../components/Gallery/Galeria";
+import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 
 const images = ["/banner.png", "/banner.png"];
 const GaleriaPage = () => {
@@ -15,7 +16,7 @@ const GaleriaPage = () => {
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
-   
+      <Breadcrumbs />
 
       <TitleText
         title={<>Galería de fotos, eventos y talleres</>}

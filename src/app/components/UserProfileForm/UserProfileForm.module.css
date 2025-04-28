@@ -69,8 +69,10 @@
 .submitButton:hover {
   background-color: #000;
 }
+
 .dashboardContainer {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   max-width: 1000px;
   margin: 20px auto;
@@ -78,7 +80,7 @@
 
 /* Columna izquierda */
 .leftColumn {
-  width: 40%;
+  flex: 1 1 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -100,6 +102,8 @@
 
 .welcomeText {
   flex: 1;
+  margin: 0;
+  font-size: 20px;
 }
 
 .welcomeText h2,
@@ -110,29 +114,30 @@
 }
 
 .welcomeText p {
-  font-size: 16px;
- /*margin-bottom: 10px;*/
+  font-size: 18px;
   color: #555;
 }
 
-.membershipCard{
-position: relative;
+.membershipCard {
+  position: relative;
 }
 
 .membershipCard img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   border-radius: 10px;
 }
+
 .cardName {
   position: absolute;
   top: 40%;
   right: 20px;
-  font-size: 27px;
+  font-size: 24px;
   font-weight: bold;
   color: #000000;
- }
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
+}
 
 .academiabanner {
   background: #343a40;
@@ -146,29 +151,10 @@ position: relative;
 
 /* Columna derecha */
 .rightColumn {
-  width: 60%;
+  flex: 1 1 100%;
 }
 
-/* Cargando */
-.loading {
-  text-align: center;
-  font-size: 18px;
-  color: #555;
-  margin-top: 20px;
-}
-
-.welcomeText {
-  margin: 0;
-  font-size: 20px !important;
-}
-/* Agregar espaciado entre los iconos y los textos */
-.espacio {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Espaciado entre el icono y el texto */
-  margin-bottom: 10px;
-}
-
+/* Loading */
 .loading {
   display: flex;
   justify-content: center;
@@ -176,8 +162,69 @@ position: relative;
   height: 100vh;
   font-size: 2rem;
   font-weight: bold;
+  color: #555;
 }
 
-.texto{
-  font-size: 20px !important;
+/* Espaciado iconos-textos */
+.espacio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.texto {
+  font-size: 20px;
+}
+
+/* RESPONSIVE */
+@media (min-width: 768px) {
+  .dashboardContainer {
+    flex-wrap: nowrap;
+  }
+
+  .leftColumn {
+    flex: 0 0 40%;
+    padding: 15px;
+  }
+
+  .rightColumn {
+    flex: 0 0 60%;
+  }
+
+  .cardName {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .welcomeText h2,
+  .welcomeText h3 {
+    font-size: 16px;
+  }
+
+  .cardName {
+    font-size: 20px;
+    right: 10px;
+    top: 35%;
+  }
+
+  .academiabanner {
+    font-size: 20px;
+    padding: 8px;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+  .leftColumn{
+    padding: 15px;
+  }
+  .welcomeText p {
+    font-size: 16px;
+  }
 }

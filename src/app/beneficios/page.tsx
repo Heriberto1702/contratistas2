@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/navbar/NavBar";
 import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
 import BeneficioContratista from "../components/BeneficioContratista/BeneficioContratista";
-
+import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 const Page = () => {
   const images = ["/banneracademia.png"];
   const [nombreClub, setNombreClub] = useState<string>("");
@@ -30,6 +30,7 @@ const Page = () => {
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
+      <Breadcrumbs />
       {loading ? (
         <p>Cargando...</p>
       ) : (

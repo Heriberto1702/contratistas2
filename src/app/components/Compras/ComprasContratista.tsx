@@ -276,8 +276,10 @@ const ComprasContratista = ({
   return (
     <div className={styles.container}>
       <p className={styles.titlepage}>Historial de Compras</p>
-
+      <div className={styles.Line}></div>
+      <p className={styles.Text}>Filtra los resultados de compras por fechas para ver el historial deseado. </p>
       <div className={styles.filterContainer}>
+      
         <label>
           De:
           <input

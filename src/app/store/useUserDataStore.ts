@@ -117,7 +117,7 @@ const useCatalogosStore = create<UserDataState>((set, get) => ({
           departamentos: data.catalogos?.departamentos || [],
           municipios: data.catalogos?.municipios || [],
           sexos: data.catalogos?.sexos || [],
-          cargos:data.cargos?.cargos  || [],
+          cargos:data.catalogos?.cargos  || [],
           isLoaded: true,
         });
       } else {

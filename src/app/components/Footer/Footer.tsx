@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./Footer.module.css";
 import Image from "next/image";
-import logo from "/public/logoContratista.png"; // Asegúrate de que la ruta sea correcta
+import logo from "/public/logofooter.png"; // Asegúrate de que la ruta sea correcta
 
 const Footer: React.FC = () => {
   return (

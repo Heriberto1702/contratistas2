@@ -172,7 +172,7 @@ const EventPage = () => {
           <div>
             Este evento está temporalmente inactivo.
           </div>
-          <Link href="/academia" className={Styles.backButton}>Regresar</Link>
+          <Link href="/academia" className={Styles.back}>Regresar</Link>
         </div>
       </div>
     );
@@ -185,7 +185,9 @@ const EventPage = () => {
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
       <div className={Styles.container}>
-      <Link href="/academia">Regresar</Link>
+      <Link href="/academia" className={Styles.back}>
+        &#8592; Regresar
+      </Link>
         {success && (
           <div className={`${Styles.message} ${Styles.success}`}>{success}</div>
         )}

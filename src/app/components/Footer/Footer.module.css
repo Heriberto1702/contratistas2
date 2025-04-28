@@ -23,11 +23,12 @@
 }
 
 .logo {
-  width: 150px;
-  height: auto;
+  max-height: 80px; /* Limita la altura sin deformar */
+  width: auto; /* Que el ancho se ajuste automáticamente */
   margin: 0 auto;
   padding-bottom: 5px;
 }
+
 
 .navSection {
   margin-bottom: 20px;

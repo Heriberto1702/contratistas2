@@ -79,5 +79,11 @@
       width: 100%; /* El botón ocupa todo el ancho en pantallas pequeñas */
       padding: 12px; /* Más espacio en el botón */
     }
+    .text{
+      font-size: 18px;
+    }
+    .container{
+      padding: 15px;
+    }
   }
   

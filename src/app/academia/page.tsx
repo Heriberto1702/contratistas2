@@ -5,6 +5,7 @@ import ImageText from "../components/Imagen/Imagen";
 import Documentos from "../components/DocumentosAcademy/Documentos";
 import TitleText from "../components/Text/TitleText";
 import React from "react";
+import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 import DoubleCarousel from "@/app/components/DoubleCarusel/DoubleCarousel";
 import NavBar from "../components/navbar/NavBar";
 import LinkComponent from "../components/LinkComponent/LinkComponent";
@@ -41,6 +42,7 @@ const Page = () => {
 
       {/* Banner principal */}
       <BannerSlidernew images={images} interval={3000} />
+      <Breadcrumbs />
 
       {/* Introducción */}
       <TitleText

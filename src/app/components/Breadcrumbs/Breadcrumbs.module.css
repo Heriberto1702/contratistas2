@@ -1,0 +1,49 @@
+/* Breadcrumbs.module.css */
+
+.breadcrumbContainer {
+    display: flex;
+    align-items: center;
+    background-color: #eeeeee; /* Fondo suave */
+    padding: 12px 20px;
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 18px;
+    max-width: 100%; /* Evita que se desborde */
+    overflow: hidden;
+    flex-wrap: wrap; /* Permite que los elementos se acomoden en pantallas pequeñas */
+  }
+  
+  .breadcrumbLink {
+    color: #4d4d4d; /* Color dorado */
+    text-decoration: none;
+    font-weight: 600; /* Negrita para que resalte */
+    padding: 0 6px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-transform: capitalize; /* Convierte la primera letra de cada palabra en mayúscula */
+      
+      
+  }
+  
+  .breadcrumbLink:hover {
+    color: #e1a100; /* Color más oscuro al pasar el mouse */
+    transform: translateY(-2px); /* Efecto sutil de elevación */
+  }
+  
+  .breadcrumbLink:active {
+    color: #c78a00; /* Color aún más oscuro cuando se hace clic */
+  }
+  
+  .breadcrumbSeparator {
+    color: #888; /* Color gris para los separadores */
+    margin: 0 6px;
+  }
+  .pleca{
+    color: #999999;
+  }
+  
+  @media (max-width: 768px) {
+    .breadcrumbContainer {
+      font-size: 16px; /* Ajustar el tamaño de la fuente en pantallas pequeñas */
+      padding: 10px 15px;
+    }
+  }
+  

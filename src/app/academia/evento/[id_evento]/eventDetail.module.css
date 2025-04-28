@@ -11,36 +11,41 @@
   align-items: center;
 }
 
-.encabezado{
+.encabezado {
   display: flex;
   background-color: #ececec;
   flex-direction: row;
   align-items: center;
   gap: 20px;
-  width: 1000px;
+  width: 100%;
+  max-width: 1000px;
   border-radius: 8px;
-    justify-content: space-evenly;
-    padding: 10px;
+  justify-content: space-evenly;
+  padding: 10px;
+  flex-wrap: wrap;
 }
-.letter{
-font-size: 24px;
+
+.letter {
+  font-size: 24px;
+  text-align: center;
 }
-.Info{
+
+.Info {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
-.titulares{
+
+.titulares, .subtitulares {
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
 }
-.subtitulares{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+
 .title {
   font-size: 2rem;
   font-weight: bold;
@@ -53,16 +58,18 @@ font-size: 24px;
 .slots {
   font-size: 1.1rem;
   color: #444;
+  text-align: center;
 }
 
 .imageContainer {
   display: flex;
-  
+  justify-content: center;
 }
 
 .image {
   border-radius: 8px;
   height: auto;
+  max-width: 100%;
 }
 
 .attendButton {
@@ -82,18 +89,18 @@ font-size: 24px;
 }
 
 .attendButton:disabled {
-  background-color: #b4b4b4; /* Un gris claro */
-  color: #585858; /* Texto más tenue */
-  cursor: not-allowed; /* Cambia el cursor a 'no permitido' */
-  opacity: 0.6; /* Reduce la opacidad */
+  background-color: #b4b4b4;
+  color: #585858;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
-/* Contenedor general del mensaje */
 .message {
   position: fixed;
   top: 10px;
   right: 20px;
-  width: 350px;
+  width: 90%;
+  max-width: 350px;
   padding: 12px 16px;
   border-radius: 6px;
   font-size: 1.2rem;
@@ -104,21 +111,18 @@ font-size: 24px;
   opacity: 1;
 }
 
-/* Mensaje de éxito */
 .success {
   background-color: #28a745;
   color: #fff;
   border-left: 5px solid #218838;
 }
 
-/* Mensaje de error */
 .error {
   background-color: #c82333;
   color: #fff;
   border-left: 5px solid #c82333;
 }
 
-/* Animación para que el mensaje entre desde la derecha */
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -130,7 +134,6 @@ font-size: 24px;
   }
 }
 
-/* Animación para que el mensaje salga hacia la derecha */
 @keyframes slideOut {
   from {
     opacity: 1;
@@ -143,12 +146,68 @@ font-size: 24px;
 }
 
 .cancelButton {
-  background-color: #292A2B; /* Rojo claro */
+  background-color: #292A2B;
   color: white;
-  border: 1px solid #292A2B
+  border: 1px solid #292A2B;
 }
 
 .cancelButton:hover {
-  background-color: #474747; /* Rojo más oscuro al pasar el mouse */
+  background-color: #474747;
   border: 1px solid #474747;
+}
+
+.back {
+  display: inline-block;
+  background: none;
+  color: #fbbf24;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.back:hover {
+  color: #d99a00;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .encabezado {
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .letter {
+    font-size: 20px;
+  }
+
+  .location,
+  .date,
+  .slots {
+    font-size: 1rem;
+  }
+
+  .message {
+    width: 90%;
+    right: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .letter {
+    font-size: 18px;
+  }
 }

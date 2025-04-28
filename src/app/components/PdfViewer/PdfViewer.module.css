@@ -1,46 +1,123 @@
-/* TitleText.module.css */
-
 /* Contenedor principal */
 .container {
-  max-width: 1500px; /* Limita el ancho del contenedor */
-  margin: 0 auto; /* Centra horizontalmente */
-  padding: 20px; /* Espaciado interno */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center; /* Alineación centrada */
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
 }
 
 /* Estilos para el título */
 .Title {
-  padding-top: 30px;
-  font-size: 40px;
-  font-weight: 500;
-  margin-bottom: 10px;
-  text-align: center;
+  font-size: 3rem; /* Usamos rem para mejor escalabilidad */
+  font-weight: 600; /* Más destacado que 500 */
+  margin-bottom: 1.5rem; /* Separación más espaciosa */
+  color: #333; /* Un color más sólido y profesional */
+ /* text-transform: capitalize;*/ /* Dale un toque moderno y fuerte */
+  letter-spacing: 1px; /* Espaciado entre letras para mayor claridad */
+  line-height: 1.2; /* Para que el texto sea más legible */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); /* Sutil sombra para resaltar el título */
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Transición suave */
 }
 
-/* Estilos para el subtítulo o descripción */
+.Title:hover {
+  transform: translateY(-5px); /* Un pequeño levantamiento al pasar el ratón */
+  color: #fbb015; /* Un color brillante para hacerlo más dinámico */
+}
+
 .Subtitle {
-  font-size: 20px;
-  font-weight: 300;
-  margin-bottom: 10px;
+  font-size: 30px; /* Un tamaño de fuente más moderno y apropiado */
+  font-weight: 600;
+  margin-bottom: 1.2rem;
   text-align: center;
-  padding-bottom: 30px;
+  color: #444; /* Un tono más suave que el del título */
+ /* letter-spacing: 1px;*/
+  line-height: 1.4;
 }
-
+.Text {
+  font-size: 1.5rem; /* Ajustamos el tamaño para ser un poco más pequeño */
+  color: #666; /* Un gris más suave y sutil */
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  line-height: 1.6; /* Mejora la legibilidad de los párrafos largos */
+  text-align: center; /* Mejora la alineación del texto */
+  max-width: 1000px; /* Limita el ancho del texto para evitar que se vea demasiado largo en pantallas grandes */
+  margin-left: auto;
+  margin-right: auto;
+}
 /* Imagen */
 .img {
-margin: 0 auto;
-  width: 80%;
+  margin: 0 auto;
+  width: 100%; /* Asegura que la imagen se ajuste al contenedor */
+  max-width: 800px; /* Limita el ancho máximo de la imagen */
   height: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para la imagen */
 }
 
-.breadcumb{
+.back {
+  display: inline-block;
+  background: none;
+  color: #fbbf24;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.back:hover {
+  color: #d99a00;
+  transform: scale(1.05);
+}
+
+/* Estilo para el breadcrumb */
+.breadcumb {
   font-weight: 600;
-  margin-bottom: 15px; 
-  color:#fbc843;
-  font-size: 20px;
+  margin-bottom: 15px;
+  color: #fbc843;
+  font-size: 1.25rem;
+}
+
+/* Responsive: Ajuste para pantallas más pequeñas */
+@media (max-width: 1024px) {
+  .Title {
+    font-size: 2rem; /* Reducir tamaño del título en pantallas medianas */
+  }
+
+  .Subtitle {
+    font-size: 1rem; /* Reducir tamaño del subtítulo */
+  }
+
+  .img {
+    max-width: 90%; /* Ajustar el tamaño de la imagen para pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px; /* Reducir el padding en pantallas pequeñas */
+  }
+
+  .Title {
+    font-size: 1.75rem; /* Reducir tamaño del título en pantallas pequeñas */
+  }
+
+  .Subtitle {
+    font-size: 1.5rem; /* Reducir tamaño del subtítulo */
+  }
+  .Text{
+    font-size: 1rem; /* Reducir tamaño del subtítulo */
+  }
+
+  .img {
+    max-width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+  }
+
+  .breadcumb {
+    font-size: 1.1rem; /* Reducir tamaño del breadcrumb en pantallas pequeñas */
+  }
 }

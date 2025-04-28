@@ -183,7 +183,7 @@ const EventCalendar = () => {
                 <Image
                   src={event.imagen_evento}
                   alt={event.nombre_evento}
-                  width={200}
+                  width={100}
                   height={100}
                   className={styles.eventImage}
                 />

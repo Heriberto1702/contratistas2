@@ -1,5 +1,6 @@
 import React from "react";
 import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
+import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 import TitleText from "../components/Text/TitleText";
 import Modulov2 from "../components/ModuloV2/Modulov2";
 import Container from "../components/Container/Container";
@@ -12,7 +13,7 @@ const Page = () => {
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
-
+      <Breadcrumbs />
       <TitleText
         title="¡Bienvenidos a nuestra plataforma de documentos útiles!"
         text="Aquí encontrarás recursos que te ayudarán en tus proyectos, donde podrás descargarlos y personalizarlos según su empresa o trabajo."

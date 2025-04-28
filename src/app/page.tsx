@@ -16,7 +16,7 @@ const Page = () => {
       <NavBar />
       {/* Carrusel de Banner con intervalos automáticos */}
       <BannerSlidernew images={images} interval={3000} />
-
+      <br></br>
       {/* Título de bienvenida */}
       <TitleText
         title={<>¡Bienvenido a nuestro Club del Contratista!</>}
@@ -96,9 +96,7 @@ const Page = () => {
       <TitleText
         subtitle={
           <>
-            Te brindamos recursos que te ayudarán en tus proyectos. <br />
-            Utilice estos documentos para sus labores, entregas y proyectos en
-            general.
+            Haz uso de nuestros Documentos clave para tus proyectos
           </>
         }
       />

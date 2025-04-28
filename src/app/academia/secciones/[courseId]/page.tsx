@@ -10,6 +10,7 @@ import CertificateDownloadButton from "../../../components/CertificateDownloadBu
 import ProgressBar from "../../../components/ProgressBar/ProgressBar";
 import styles from "./SectionsPage.module.css";
 import Link from "next/link";
+import Breadcrumbs from "../../../components/Breadcrumbs/breadcrumbs";
 import { useRouter } from "next/navigation";
 
 interface Course {
@@ -123,7 +124,7 @@ const SectionsPage = () => {
     <>
       <NavBar />
       <BannerSlidernew images={images} interval={3000} />
-
+    
       <div ref={containerRef} className={styles.container}>
         <Link className={styles.back} href={`/academia/cursos/${id_curso}`}>
           &#8592; Regresar

@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import ComprasContratista from "../components/Compras/ComprasContratista";
 import NavBar from "../components/navbar/NavBar";
-
+import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
+import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 // 🔹 Página de compras (Client Component)
 const ComprasPage = () => {
+  const images = ["/documentosutiles.png"];
   const [comprasData, setComprasData] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Estado de carga
 
@@ -42,6 +44,8 @@ const ComprasPage = () => {
   return (
     <>
       <NavBar />
+      <BannerSlidernew images={images} interval={3000} />
+      <Breadcrumbs />
       <div>
         {/* Pasamos el estado de carga y los datos de compras al componente ComprasContratista */}
         <ComprasContratista comprasData={comprasData} isLoading={isLoading} />

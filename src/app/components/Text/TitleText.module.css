@@ -54,15 +54,15 @@
 /* Responsive */
 @media (max-width: 768px) {
   .Title {
-    font-size: 2.5rem; /* Reducimos el tamaño del título en pantallas pequeñas */
+    font-size: 2rem; /* Reducimos el tamaño del título en pantallas pequeñas */
   }
 
   .Subtitle {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   .Text {
     font-size: 1rem;
-    padding: 10px;
+    
   }
 }
