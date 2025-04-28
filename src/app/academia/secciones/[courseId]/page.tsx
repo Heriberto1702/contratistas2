@@ -12,6 +12,7 @@ import styles from "./SectionsPage.module.css";
 import Link from "next/link";
 import Breadcrumbs from "../../../components/Breadcrumbs/breadcrumbs";
 import { useRouter } from "next/navigation";
+import BannerStatic from "../../../components/BannerEstatico/BannerStatic";
 
 interface Course {
   id_curso: string;
@@ -117,13 +118,13 @@ const SectionsPage = () => {
     }
   };
 
-  const images = ["/banneracademia.png"];
+ 
   if (error) return <div>Error: {error}</div>;
 
   return (
     <>
       <NavBar />
-      <BannerSlidernew images={images} interval={3000} />
+      <BannerStatic images={["/banneracademia.png"]} />
     
       <div ref={containerRef} className={styles.container}>
         <Link className={styles.back} href={`/academia/cursos/${id_curso}`}>

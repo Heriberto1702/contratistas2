@@ -1,0 +1,46 @@
+/* BannerStatic.module.css */
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Altura fija, tal como pediste */
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .slider:hover {
+    box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.3);
+  }
+  
+  .slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+  }
+  
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+  
+  /* Estilos Responsivos */
+  
+  /* Tablet y pantallas medianas */
+  @media (max-width: 768px) {
+    .slider {
+      height: 250px;
+    }
+  }
+  
+  /* Móviles */
+  @media (max-width: 480px) {
+    .slider {
+      height: 200px;
+    }
+  }
+  

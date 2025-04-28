@@ -1,18 +1,18 @@
 import React from "react";
-import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
 import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 import TitleText from "../components/Text/TitleText";
 import Modulov2 from "../components/ModuloV2/Modulov2";
-import Container from "../components/Container/Container";
+import BannerStatic from "../components/BannerEstatico/BannerStatic";
 import NavBar from "../components/navbar/NavBar";
 import styles from "../components/ModuloV2/Modulov2.module.css";
 
 const Page = () => {
-  const images = ["/documentosutiles.png"];
+ 
   return (
     <>
       <NavBar />
-      <BannerSlidernew images={images} interval={3000} />
+      <BannerStatic images={["/documentosutiles.png"]} />
+
       <Breadcrumbs />
       <TitleText
         title="¡Bienvenidos a nuestra plataforma de documentos útiles!"
