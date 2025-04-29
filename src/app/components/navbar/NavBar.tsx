@@ -1,21 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import Styles from "./NavBar.module.css";
 
 const NavBar: React.FC = () => {
-  const { data: session } = useSession(); // Obtener la sesión actual
-  const [dropdownOpen, setDropdownOpen] = useState(false); // Controlar el estado del dropdown
-  const [menuOpen, setMenuOpen] = useState(false); // Controlar el estado del menú de hamburguesa
+  const { data: session } = useSession();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const drawerRef = useRef<HTMLDivElement>(null);
 
-  // Funciones para controlar la apertura/cierre de los menús
-  const toggleDropdown = () => setDropdownOpen(prev => !prev);
-  const toggleMenu = () => setMenuOpen(prev => !prev);
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
 
-  // Obtener el nombre del usuario de forma segura
   const getUserName = (name: string | undefined) => {
     if (!name) return "Usuario";
     const nameParts = name.split(" ");
@@ -24,10 +25,39 @@ const NavBar: React.FC = () => {
     return `${firstName} ${lastName}`.trim();
   };
 
+  const handleClickOutside = (e: MouseEvent) => {
+    if (
+      drawerRef.current &&
+      !drawerRef.current.contains(e.target as Node)
+    ) {
+      setMenuOpen(false);
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
+
+  const menuLinks = [
+    { href: "/", label: "Inicio" },
+    { href: "/compras", label: "Compras" },
+    { href: "/academia", label: "Academia" },
+    { href: "/documentosutiles", label: "Documentos" },
+    { href: "/beneficios", label: "Beneficios" },
+    { href: "/galeria", label: "Galería" },
+  ];
+
   return (
     <header className={Styles.header}>
       <nav className={Styles.nav}>
-        {/* Logo */}
         <div className={Styles.logoContainer}>
           <Link href="/">
             <Image
@@ -39,27 +69,35 @@ const NavBar: React.FC = () => {
           </Link>
         </div>
 
-        {/* Botón de menú de hamburguesa */}
         <button
           className={Styles.hamburger}
           onClick={toggleMenu}
           aria-label="Menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span className={menuOpen ? Styles.topOpen : ""}></span>
+          <span className={menuOpen ? Styles.middleOpen : ""}></span>
+          <span className={menuOpen ? Styles.bottomOpen : ""}></span>
         </button>
 
-        {/* Menú principal */}
-        <div className={`${Styles.menu} ${menuOpen ? Styles.open : ""}`}>
-          <Link className={Styles.a} href="/">Inicio</Link>
-          <Link className={Styles.a} href="/compras">Compras</Link>
-          <Link className={Styles.a} href="/academia">Academia</Link>
-          <Link className={Styles.a} href="/documentosutiles">Documentos</Link>
-          <Link className={Styles.a} href="/beneficios">Beneficios</Link>
-          <Link className={Styles.a} href="/galeria">Galería</Link>
+        <div
+          ref={drawerRef}
+          className={`${Styles.menuDrawer} ${
+            menuOpen ? Styles.menuDrawerOpen : ""
+          }`}
+        >
+          {menuLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className={`${Styles.hipervinculo} ${
+                pathname === href ? Styles.activeLink : ""
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
 
-          {/* Dropdown del perfil de usuario */}
           {session ? (
             <div className={Styles.profileDropdown}>
               <button
@@ -93,7 +131,6 @@ const NavBar: React.FC = () => {
                 {getUserName(session.user?.name)}
               </button>
 
-              {/* Opciones del dropdown */}
               {dropdownOpen && (
                 <div className={Styles.dropdownMenu}>
                   <button
@@ -112,7 +149,13 @@ const NavBar: React.FC = () => {
               )}
             </div>
           ) : (
-            <Link className={Styles.a} href="/login">
+            <Link
+              className={`${Styles.hipervinculo} ${
+                pathname === "/login" ? Styles.activeLink : ""
+              }`}
+              href="/login"
+              onClick={() => setMenuOpen(false)}
+            >
               Iniciar sesión
             </Link>
           )}
