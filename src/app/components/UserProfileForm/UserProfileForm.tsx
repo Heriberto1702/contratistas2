@@ -167,11 +167,20 @@ const UserProfileForm = () => {
     height={170}
     alt="Tarjeta Contratista"
   />
+  
   <span className={styles.cardName}>
-  {userData?.nombres_contratista?.split(' ')[0]} {userData?.apellidos_contratista?.split(' ')[0]}
-</span>
+    {userData?.nombres_contratista?.split(' ')[0]} {userData?.apellidos_contratista?.split(' ')[0]}
+  </span>
 
+  <span className={styles.cardID}>
+    {
+      userData?.tipo_contratista === "Persona Natural"
+        ? userData?.cedula
+        : userData?.cedula_logueado
+    }
+  </span>
 </div>
+
 
         </div>
       </div>
