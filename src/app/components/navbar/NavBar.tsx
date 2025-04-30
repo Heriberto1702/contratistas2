@@ -26,14 +26,19 @@ const NavBar: React.FC = () => {
   };
 
   const handleClickOutside = (e: MouseEvent) => {
+    const drawer = drawerRef.current;
+    const target = e.target as Node;
+  
     if (
-      drawerRef.current &&
-      !drawerRef.current.contains(e.target as Node)
+      drawer &&
+      !drawer.contains(target) &&
+      !(e.target as HTMLElement).closest(`.${Styles.hamburger}`)
     ) {
       setMenuOpen(false);
       setDropdownOpen(false);
     }
   };
+  
 
   useEffect(() => {
     if (menuOpen) {
