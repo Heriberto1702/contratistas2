@@ -119,7 +119,6 @@ model LoginPlataforma {
   id_municipio          Int
   cedula_logueado       String?
   id_cargo              Int?
-  created_at            DateTime              @default(now())
   Cursos_Matriculados   Cursos_Matriculados[]
   Eventos_Asistidos     Eventos_Asistidos[]
   cargo                 Cargo?                @relation(fields: [id_cargo], references: [id_cargo])
