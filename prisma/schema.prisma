@@ -54,7 +54,7 @@ model Cursos {
   Cursos_Matriculados Cursos_Matriculados[]
   ModulosCompletados  ModulosCompletados[]
   sesiones            Sesiones[]
-  ModulosCompletados ModulosCompletados[]
+
 }
 
 model Cursos_Matriculados {
@@ -169,8 +169,7 @@ model ModulosCompletados {
   id_curso         Int
   id_modulo        Int
   id               Int      @id @default(autoincrement())
-  Cursos           Cursos  @relation(fields:[id_curso], references: [id_curso])  Cursos           Cursos   @relation(fields: [id_curso], references: [id_curso])
-
+  Cursos           Cursos  @relation(fields:[id_curso], references: [id_curso])  
   @@unique([id_contratista, id_modulo])
 }
 
