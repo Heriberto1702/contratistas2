@@ -70,18 +70,22 @@
   
   /* Colores específicos */
   .admin-main .admin-button.blue {
-    background-color: #1d4ed8;
+    background-color: #2563EB ;
   }
   
   .admin-main .admin-button.green {
-    background-color: #16a34a;
+    background-color: #10B981 ;
   }
-  .admin-main .admin-button.red {
-    background-color: #ff0000;
+  .admin-main .admin-button.orange {
+    background-color: #F97316 ;
   }
   .admin-main .admin-button.gray {
-    background-color: #747474;
+    background-color: #6B7280 ;
   }
+  .admin-main .admin-button.purple {
+    background-color: #8B5CF6 ;
+  }
+
   .admin-main .admin-button:hover {
     transform: scale(1.05); /* Animación suave al hover */
   }

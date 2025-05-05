@@ -83,7 +83,7 @@ const AdminPage = () => {
               <span>Agregar Eventos</span>
             </button>
             <button
-              className="admin-button red"
+              className="admin-button orange"
               onClick={() => handleRedirect("/admin/galeria")}
             >
               <span className="icon">
@@ -95,6 +95,20 @@ const AdminPage = () => {
                 />
               </span>
               <span>Agregar Fotos</span>
+            </button>
+            <button
+              className="admin-button purple"
+              onClick={() => handleRedirect("/admin/reportes")}
+            >
+              <span className="icon">
+                <Image
+                  src="/icons/reports.png"
+                  alt="Galería"
+                  width={30}
+                  height={30}
+                />
+              </span>
+              <span>Generar Reportes</span>
             </button>
 
             {userRole === "SUPERUSER" && (
