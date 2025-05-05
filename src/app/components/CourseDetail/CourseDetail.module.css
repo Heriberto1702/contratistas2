@@ -93,6 +93,23 @@
   }
 }
 
+  @media (max-width: 768px) {
+
+    .title {
+      font-size: 1.7rem; /* Reducimos el tamaño del título en pantallas pequeñas */
+    }
+  
+    .subtitle {
+      font-size: 1.5rem;
+    }
+  
+    .text {
+      font-size: 1rem;
+      
+    }
+  
+  }
+
 .data {
   width: 100%;
   max-width: 392px;
@@ -157,3 +174,4 @@
   font-weight: 500;
   color: #6b7280;
 }
+

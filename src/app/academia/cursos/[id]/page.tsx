@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import BannerSlidernew from "../../../components/BannerSlidernew/BannerSlidernew";
+import BannerStatic from "../../../components/BannerEstatico/BannerStatic";
 import NavBar from "../../../components/navbar/NavBar";
 import CourseDetail from "../../../components/CourseDetail/CourseDetail";
 import { useSession } from "next-auth/react";
@@ -14,7 +14,7 @@ const CourseDetailPage = () => {
   return (
     <>
       <NavBar />
-      <BannerSlidernew images={["/banneracademia.png"]} interval={3000} />
+      <BannerStatic images={["/banneracademia.png"]} />
       <CourseDetail id_curso={id_curso} id_contratista={id_contratista} /> 
     </>
   );
