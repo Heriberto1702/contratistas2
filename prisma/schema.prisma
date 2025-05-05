@@ -52,6 +52,7 @@ model Cursos {
   activo              Boolean
   destacado           Boolean
   Cursos_Matriculados Cursos_Matriculados[]
+  ModulosCompletados  ModulosCompletados[]
   sesiones            Sesiones[]
 }
 
@@ -117,6 +118,7 @@ model LoginPlataforma {
   id_municipio          Int
   cedula_logueado       String?
   id_cargo              Int?
+  created_at            DateTime              @default(now())
   Cursos_Matriculados   Cursos_Matriculados[]
   Eventos_Asistidos     Eventos_Asistidos[]
   cargo                 Cargo?                @relation(fields: [id_cargo], references: [id_cargo])
@@ -144,17 +146,6 @@ model Municipios {
   Departamentos    Departamentos     @relation(fields: [id_departamento], references: [id_departamento])
 }
 
-model Ordenes {
-  id_ordenes      Int    @id @default(autoincrement())
-  id_orden        Int
-  nombre_producto String
-  cantidad        Int
-  precio          Float
-  monto           Float
-  descuento       Int
-  total           Float
-}
-
 model Sesiones {
   id_sesion     Int       @id @default(autoincrement())
   id_curso      Int
@@ -175,8 +166,8 @@ model ModulosCompletados {
   fecha_completado DateTime @default(now())
   id_curso         Int
   id_modulo        Int
-  id_sesion        Int?
   id               Int      @id @default(autoincrement())
+  Cursos           Cursos   @relation(fields: [id_curso], references: [id_curso])
 
   @@unique([id_contratista, id_modulo])
 }
