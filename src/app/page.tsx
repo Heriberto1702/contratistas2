@@ -58,7 +58,7 @@ const Page = () => {
       text: "CONTRATISTA PLATA",
       linkUrl: "/beneficios",
       linkText: "Ver beneficios ❯",
-      rightImageSrc: "/fab2.jpg",
+      rightImageSrc: "/fab1.jpg",
     },
   ]}
 />

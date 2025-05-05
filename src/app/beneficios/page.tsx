@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/navbar/NavBar";
-import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
+import BannerStatic from "../components/BannerEstatico/BannerStatic";
 import BeneficioContratista from "../components/BeneficioContratista/BeneficioContratista";
 import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 const Page = () => {
@@ -29,7 +29,7 @@ const Page = () => {
   return (
     <>
       <NavBar />
-      <BannerSlidernew images={images} interval={3000} />
+      <BannerStatic images={["/banner3.png"]} />
       <Breadcrumbs />
       {loading ? (
         <p>Cargando...</p>

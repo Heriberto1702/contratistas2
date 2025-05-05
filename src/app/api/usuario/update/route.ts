@@ -17,7 +17,9 @@ export async function PUT(request: Request) {
       id_especialidad,
       id_departamento,
       id_municipio,
-      id_tipo_contratista
+      id_tipo_contratista,
+      cedula_logueado,
+      id_cargo
     } = data;
 
     // Verifica que `id_contratista` no sea undefined
@@ -33,9 +35,10 @@ export async function PUT(request: Request) {
     const idDepartamentoInt = parseInt(id_departamento, 10);
     const idMunicipioInt = parseInt(id_municipio, 10);
     const idTipoContratistaInt = parseInt(id_tipo_contratista, 10);
+    const idCargoInt = parseInt(id_cargo, 10);
 
     // Verifica que las conversiones a números sean correctas
-    if (isNaN(idSexoInt) || isNaN(idEspecialidadInt) || isNaN(idDepartamentoInt) || isNaN(idMunicipioInt) || isNaN(idTipoContratistaInt)) {
+    if (isNaN(idSexoInt) || isNaN(idEspecialidadInt) || isNaN(idDepartamentoInt) || isNaN(idMunicipioInt) || isNaN(idTipoContratistaInt)|| isNaN(idCargoInt)) {
       return new NextResponse("Los valores de los campos desplegables deben ser números válidos", { status: 400 });
     }
 
@@ -50,11 +53,13 @@ export async function PUT(request: Request) {
         ruc,
         email,
         fecha_nacimiento, // Usamos el formato ISO para la fecha
+        cedula_logueado,
         id_sexo: idSexoInt,  // Asigna el valor convertido
         id_especialidad: idEspecialidadInt, // Asigna el valor convertido
         id_departamento: idDepartamentoInt, // Asigna el valor convertido
         id_municipio: idMunicipioInt, // Asigna el valor convertido
         id_tipo_contratista: idTipoContratistaInt, // Asigna el valor convertido
+        id_cargo: idCargoInt
       },
     });
 

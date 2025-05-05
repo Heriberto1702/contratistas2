@@ -1,9 +1,10 @@
-import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
+
 import Container from "../components/Container/Container";
 import EventCalendar from "../components/EventCalendar/EventCalendar";
 import ImageText from "../components/Imagen/Imagen";
 import Documentos from "../components/DocumentosAcademy/Documentos";
 import TitleText from "../components/Text/TitleText";
+import BannerStatic from "../components/BannerEstatico/BannerStatic";
 import React from "react";
 import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 import DoubleCarousel from "@/app/components/DoubleCarusel/DoubleCarousel";
@@ -11,7 +12,7 @@ import NavBar from "../components/navbar/NavBar";
 import LinkComponent from "../components/LinkComponent/LinkComponent";
 
 const Page = () => {
-  const images = ["/banneracademia.png"];
+
 
   // Declaración de las cards con sus datos ajustados para el componente Documentos
   const cards = [
@@ -41,7 +42,7 @@ const Page = () => {
       <NavBar />
 
       {/* Banner principal */}
-      <BannerSlidernew images={images} interval={3000} />
+      <BannerStatic images={["/banneracademia.png"]} />
       <Breadcrumbs />
 
       {/* Introducción */}

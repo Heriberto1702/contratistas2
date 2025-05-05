@@ -1,13 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import BannerSlidernew from "../components/BannerSlidernew/BannerSlidernew";
+
 import TitleText from "../components/Text/TitleText";
 import NavBar from "../components/navbar/NavBar";
+import BannerStatic from "../components/BannerEstatico/BannerStatic";
 import Categorias from "../components/Gallery/Categorias";
 import Galeria from "../components/Gallery/Galeria";
 import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 
-const images = ["/banner.png", "/banner.png"];
+
 const GaleriaPage = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<
     string | null
@@ -15,7 +16,7 @@ const GaleriaPage = () => {
   return (
     <>
       <NavBar />
-      <BannerSlidernew images={images} interval={3000} />
+      <BannerStatic images={["/banner3.png"]} />
       <Breadcrumbs />
 
       <TitleText
