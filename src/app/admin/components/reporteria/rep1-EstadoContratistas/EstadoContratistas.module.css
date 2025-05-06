@@ -39,3 +39,10 @@
 .excelButton:hover {
   background-color: #388E3C;
 }
+
+.title {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  color: #333;
+}

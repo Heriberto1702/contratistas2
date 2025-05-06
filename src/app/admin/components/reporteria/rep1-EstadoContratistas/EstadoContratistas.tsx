@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Pie, Bar, Line } from "react-chartjs-2";
+import Cargando from "@/app/components/Cargando/Cargando";
 import {
   Chart as ChartJS,
   Title,
@@ -50,8 +51,12 @@ export default function ContratistasReportes() {
     fetchData();
   }, []);
 
-  if (loading) return <div>Cargando...</div>;
-
+  if (loading) {
+    return (
+     <Cargando/>
+    );
+  }
+//**************************************************************************************** */
   const totalActivos = data.activos;
   const totalInactivos = data.inactivos;
 
@@ -71,6 +76,7 @@ export default function ContratistasReportes() {
         backgroundColor: "#FF9800",
         borderColor: "#F57C00",
         borderWidth: 1,
+        scale: 10
       },
     ],
   };
@@ -87,11 +93,29 @@ export default function ContratistasReportes() {
       },
     },
     scales: {
-      y: { beginAtZero: true, ticks: { color: "#333" } },
-      x: { ticks: { color: "#333" } },
+      y: {
+        beginAtZero: true,
+        min: 0,                  // Siempre iniciar en 0
+        max: 100,                // Puedes calcular el valor según el máximo real
+        ticks: {
+          stepSize: 10,          // Espaciado visible y útil
+          color: "#333",
+          font: { size: 13 },
+          callback: function (value: any) {
+            return Number.isInteger(value) ? value : null;
+          },
+        },
+      },
+      x: {
+        ticks: {
+          color: "#333",
+          font: { size: 13 },
+        },
+      },
     },
   };
-
+  
+//**************************************************************************************** */
   const distribucionTipo = {
     labels: data.distribucionTipo.map((item: { tipo: string }) => item.tipo),
     datasets: [
@@ -103,7 +127,7 @@ export default function ContratistasReportes() {
       },
     ],
   };
-
+//**************************************************************************************** */
   const segmentacionClub = {
     labels: Object.keys(data.segmentacionClub),
     datasets: [
@@ -115,7 +139,7 @@ export default function ContratistasReportes() {
       },
     ],
   };
-
+//**************************************************************************************** */
   const nuevosPorMesData = {
     labels: data.nuevosPorMes.map((item: any) => item.mes),
     datasets: [
@@ -169,7 +193,7 @@ export default function ContratistasReportes() {
       },
     },
   };
-
+//******************************* Export a Excel *************************************** */
   const exportToExcel = () => {
     const wb = XLSX.utils.book_new();
 
@@ -208,7 +232,7 @@ export default function ContratistasReportes() {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        <h2>📊 Reportes de Contratistas</h2>
+        <h2 className={styles.title}>📊 Control de Contratistas</h2>
         <button onClick={exportToExcel} className={styles.excelButton}>
           Descargar Excel 📥
         </button>

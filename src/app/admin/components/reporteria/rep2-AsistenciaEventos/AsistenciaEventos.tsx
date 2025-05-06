@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import styles from "./AsistenciaEventos.module.css";
 import Cargando from "@/app/components/Cargando/Cargando";
+import * as XLSX from "xlsx";
 
 export default function AsistenciaEventos() {
   const [data, setData] = useState<any>(null);
@@ -95,9 +96,57 @@ export default function AsistenciaEventos() {
     },
   };
 
+
+  const exportToExcel = () => {
+    const wb = XLSX.utils.book_new();
+  
+    // Crear hoja con resumen por evento
+    const resumenEventos = [
+      ["Evento", "Fecha y Hora", "Cantidad de Inscritos"],
+      ...eventosOrdenados.map((evento: any) => [
+        evento.nombre_evento,
+        evento.fecha_hora,
+        evento.inscritos.length,
+      ]),
+    ];
+  
+    const ws1 = XLSX.utils.aoa_to_sheet(resumenEventos);
+    XLSX.utils.book_append_sheet(wb, ws1, "ResumenEventos");
+  
+    // Crear hoja con detalle de inscritos por evento
+    const detalleInscritos = [
+      ["Evento", "Fecha", "Nombre", "Apellido", "Cédula", "Email"],
+    ];
+  
+    eventosOrdenados.forEach((evento: any) => {
+      evento.inscritos.forEach((inscrito: any) => {
+        detalleInscritos.push([
+          evento.nombre_evento,
+          evento.fecha_hora,
+          inscrito.nombres_contratista,
+          inscrito.apellidos_contratista,
+          inscrito.cedula || inscrito.cedula_logueado,
+          inscrito.email,
+        ]);
+      });
+    });
+  
+    const ws2 = XLSX.utils.aoa_to_sheet(detalleInscritos);
+    XLSX.utils.book_append_sheet(wb, ws2, "DetalleInscritos");
+  
+    // Guardar archivo
+    XLSX.writeFile(wb, "Reporte_Asistencia_Eventos.xlsx");
+  };
+  
+
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Asistencia a Eventos</h1>
+       <div className={styles.header}>
+        <h2 className={styles.title}>📊 Asistencia a Eventos</h2>
+        <button onClick={exportToExcel} className={styles.excelButton}>
+          Descargar Excel 📥
+        </button>
+      </div>
 
       {eventosOrdenados.length > 0 && (
         <div className={styles.chartWrapper}>

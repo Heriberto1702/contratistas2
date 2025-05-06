@@ -1,22 +1,26 @@
 'use client';
 import React from 'react';
 import Link from "next/link";
-import EstadoContratistas from '../components/reporteria/rep1-EstadoContratistas/EstadoContratistas'
-import AsistenciaEventos from '../components/reporteria/rep1-EstadoContratistas/rep2-AsistenciaEventos/AsistenciaEventos';
+import EstadoContratistas from '../components/reporteria/rep1-EstadoContratistas/EstadoContratistas';
+import AsistenciaEventos from '../components/reporteria/rep2-AsistenciaEventos/AsistenciaEventos';
+import styles from './ReportesPage.module.css';
 
 const ReportesPage = () => {
   return (
-   
-
-    <main className="p-6 space-y-6">
-       <Link href="/admin">
-        <p className="text-blue-600">← Volver al Dashboard</p>  
+    <main className={styles.container}>
+      <Link href="/admin">
+        <p className={styles.backLink}>← Volver al Dashboard</p>
       </Link>
-      <h1 className="text-2xl font-bold">Panel de Reportes</h1>
-      
-      {/* Componente: Activos vs Inactivos */}
-      <EstadoContratistas />
-      <AsistenciaEventos />
+
+      <h1 className={styles.title}>Panel de Reportes</h1>
+
+      <div className={styles.section}>
+        <EstadoContratistas />
+      </div>
+
+      <div className={styles.section}>
+        <AsistenciaEventos />
+      </div>
     </main>
   );
 };
