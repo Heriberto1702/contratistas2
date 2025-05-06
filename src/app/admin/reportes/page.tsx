@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import EstadoContratistas from '../components/reporteria/rep1-EstadoContratistas/EstadoContratistas'
+import AsistenciaEventos from '../components/reporteria/rep1-EstadoContratistas/AsistenciaEventos';
 
 const ReportesPage = () => {
   return (
@@ -9,6 +10,7 @@ const ReportesPage = () => {
       
       {/* Componente: Activos vs Inactivos */}
       <EstadoContratistas />
+      <AsistenciaEventos />
     </main>
   );
 };

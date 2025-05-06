@@ -1,0 +1,148 @@
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .chartWrapper {
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    margin-bottom: 32px;
+  }
+  
+  .tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+
+  }
+  
+  .table th, .table td {
+    border: 1px solid #e0e0e0;
+    padding: 12px 10px;
+    text-align: left;
+  }
+  
+  .table th {
+    background: #f5f5f5;
+    color: #222;
+    font-weight: 600;
+  }
+  
+  .table tr:nth-child(even) {
+    background: #fafafa;
+  }
+  
+  .inscritosList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .inscritoItem {
+    margin-bottom: 4px;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .spinnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+  }
+  
+  .spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #4caf50;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+  }
+  
+  /* --- Responsive Table as Cards --- */
+  @media (max-width: 700px) {
+    .container {
+      padding: 8px;
+      margin: 10px;
+      border-radius: 8px;
+    }
+    .title {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+    .chartWrapper {
+      margin-bottom: 16px;
+      width: 100%;
+      overflow-x: auto;
+    }
+    .tableWrapper {
+      overflow-x: visible;
+    }
+    .table, .table thead, .table tbody, .table tr, .table th, .table td {
+      display: block;
+      width: 100%;
+    }
+    .table thead {
+      display: none;
+    }
+    .table tr {
+      margin-bottom: 18px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      padding: 10px 0;
+    }
+    .table td {
+      border: none;
+      border-bottom: 1px solid #e0e0e0;
+      position: relative;
+      padding-left: 30%;
+      min-height: 36px;
+      font-size: 0.98rem;
+      background: none;
+    }
+    .table td:last-child {
+      border-bottom: none;
+    }
+    .table td:before {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 45%;
+      white-space: pre-wrap;
+      font-weight: bold;
+      color: #555;
+      content: attr(data-label);
+      font-size: 0.97rem;
+    }
+    .inscritosList {
+      font-size: 0.8rem;
+    }
+    .inscritoItem {
+      font-size: 0.8rem;
+    }
+  }
