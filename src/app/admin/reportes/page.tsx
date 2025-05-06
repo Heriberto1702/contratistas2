@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from "next/link";
 import EstadoContratistas from '../components/reporteria/rep1-EstadoContratistas/EstadoContratistas'
+import AsistenciaEventos from '../components/reporteria/rep1-EstadoContratistas/rep2-AsistenciaEventos/AsistenciaEventos';
 
 const ReportesPage = () => {
   return (
@@ -15,6 +16,7 @@ const ReportesPage = () => {
       
       {/* Componente: Activos vs Inactivos */}
       <EstadoContratistas />
+      <AsistenciaEventos />
     </main>
   );
 };

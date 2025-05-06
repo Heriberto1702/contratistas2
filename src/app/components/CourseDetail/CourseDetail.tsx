@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./CourseDetail.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import Cargando from "../Cargando/Cargando";
 
 interface Course {
   id_curso: string;
@@ -91,7 +92,7 @@ const CourseDetail = ({ id_curso, id_contratista }: CourseDetailProps) => {
     }
   };
   if (loading) {
-    return <div className={styles.loading}>Cargando curso...</div>;
+    return <Cargando/>;
   }
   if (!course) {
     return <div className={styles.loading}>Curso no encontrado.</div>;
