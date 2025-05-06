@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import styles from "./AsistenciaEventos.module.css";
+import Cargando from "@/app/components/Cargando/Cargando";
 
 export default function AsistenciaEventos() {
   const [data, setData] = useState<any>(null);
@@ -24,9 +25,7 @@ export default function AsistenciaEventos() {
 
   if (loading) {
     return (
-      <div className={styles.spinnerContainer}>
-        <div className={styles.spinner}></div>
-      </div>
+     <Cargando/>
     );
   }
 
