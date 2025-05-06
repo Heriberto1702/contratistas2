@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import EstadoContratistas from '../components/reporteria/rep1-EstadoContratistas/EstadoContratistas'
-import AsistenciaEventos from '../components/reporteria/rep1-EstadoContratistas/AsistenciaEventos';
+import AsistenciaEventos from '../components/reporteria/rep1-EstadoContratistas/rep2-AsistenciaEventos/AsistenciaEventos';
 
 const ReportesPage = () => {
   return (
