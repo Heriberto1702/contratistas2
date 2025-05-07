@@ -3,6 +3,7 @@ import React from 'react';
 import Link from "next/link";
 import EstadoContratistas from '../components/reporteria/rep1-EstadoContratistas/EstadoContratistas';
 import AsistenciaEventos from '../components/reporteria/rep2-AsistenciaEventos/AsistenciaEventos';
+import CursosPorUsuario from '../components/CursosPorUsuario';
 import styles from './ReportesPage.module.css';
 
 const ReportesPage = () => {
@@ -20,6 +21,10 @@ const ReportesPage = () => {
 
       <div className={styles.section}>
         <AsistenciaEventos />
+      </div>
+
+      <div className={styles.section}>
+        <CursosPorUsuario/>
       </div>
     </main>
   );

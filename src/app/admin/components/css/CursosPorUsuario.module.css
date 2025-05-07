@@ -1,0 +1,266 @@
+/* src/app/admin/components/reporteria/ReporteCursos/ReporteCursos.module.css */
+
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .searchContainer {
+    margin-bottom: 20px;
+  }
+  
+  .searchInput {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .tableWrapper {
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .table th {
+    background: #f5f5f5;
+    color: #222;
+    font-weight: 600;
+  }
+  
+  .userRow {
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .userRow:hover {
+    background-color: #f8f8f8;
+  }
+  
+  .expandButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    color: #666;
+  }
+  
+  .expandedRow {
+    background-color: #f9f9f9;
+  }
+  
+  .cursosContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .cursoCard {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .cursoCard h3 {
+    margin: 0 0 12px 0;
+    color: #333;
+  }
+  
+  .progressContainer {
+    margin-top: 12px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .progressBar {
+    background: #4caf50;
+    color: white;
+    text-align: center;
+    padding: 4px;
+    min-width: 30px;
+    transition: width 0.3s ease;
+  }
+  
+  .spinnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+  }
+  
+  .spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #4caf50;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .container {
+      padding: 12px;
+      margin: 10px;
+    }
+  
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .table, .table tbody, .table tr, .table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .table thead {
+      display: none;
+    }
+  
+    .table tr {
+      margin-bottom: 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+  
+    .table td {
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+      text-align: right;
+    }
+  
+    .table td:before {
+      content: attr(data-label);
+      position: absolute;
+      left: 12px;
+      width: 45%;
+      text-align: left;
+      font-weight: bold;
+    }
+  
+    .cursosContainer {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Add these styles to your existing CSS file */
+
+.controlsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .itemsPerPageContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .itemsPerPageSelect {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+  }
+  
+  .paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .paginationButton {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .paginationButton:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .paginationButton:hover:not(:disabled) {
+    background-color: #f0f0f0;
+  }
+  
+  .pageNumbers {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .pageButton {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .pageButton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .activePage {
+    background-color: #4caf50;
+    color: white;
+    border-color: #4caf50;
+  }
+  
+  @media (max-width: 768px) {
+    .controlsContainer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .itemsPerPageContainer {
+      justify-content: center;
+    }
+  
+    .pageNumbers {
+      display: none;
+    }
+  }
