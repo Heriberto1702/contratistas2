@@ -1,0 +1,58 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .excelButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .excelButton:hover {
+    background-color: #388E3C;
+  }
+  .loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .legend {
+    margin-top: 1rem;
+    text-align: center;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  
+  .title {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+
+  
+  .chartWrapper {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  

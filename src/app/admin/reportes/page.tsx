@@ -4,6 +4,7 @@ import Link from "next/link";
 import EstadoContratistas from '../components/reporteria/rep1-EstadoContratistas/EstadoContratistas';
 import AsistenciaEventos from '../components/reporteria/rep2-AsistenciaEventos/AsistenciaEventos';
 import styles from './ReportesPage.module.css';
+import CursosPopulares from '../components/reporteria/rep3-CursosAsistidos/CursosPopulares';
 
 const ReportesPage = () => {
   return (
@@ -20,6 +21,10 @@ const ReportesPage = () => {
 
       <div className={styles.section}>
         <AsistenciaEventos />
+      </div>
+
+      <div className={styles.section}>
+        <CursosPopulares />
       </div>
     </main>
   );
