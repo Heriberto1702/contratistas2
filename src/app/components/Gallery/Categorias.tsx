@@ -5,30 +5,31 @@ import Image from "next/image";
 import styles from "./Categorias.module.css";
 
 interface Categoria {
-  nombre: string;
-  imagen: string;
+  id_categoria: number;
+  nombre_categoria: string;
+  imagen_principal: string;
 }
 
 interface CategoriasProps {
-  onSelectCategoria: (categoria: string) => void;
+  onSelectCategoria: (categoriaId: number) => void;
 }
 
 const Categorias = ({ onSelectCategoria }: CategoriasProps) => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<string | null>(null);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch("/api/galeria/categorias");
+        const response = await fetch("/api/galeria/galeriaCategoria");
         const data = await response.json();
 
-        if (data.error) {
-          setError(data.error);
+        if (Array.isArray(data)) {
+          setCategorias(data);
         } else {
-          setCategorias(data.categorias);
+          setError("Error al cargar las categorías.");
         }
       } catch (err) {
         setError("Error al cargar las categorías.");
@@ -45,29 +46,28 @@ const Categorias = ({ onSelectCategoria }: CategoriasProps) => {
 
   return (
     <div className={styles.categoriasContainer}>
-  {categorias.map(({ nombre, imagen }) => (
-    <div
-      key={nombre}
-      className={`${styles.categoriaItem} ${categoriaSeleccionada === nombre ? styles.categoriaSeleccionada : ""}`}
-      onClick={() => {
-        onSelectCategoria(nombre);
-        setCategoriaSeleccionada(nombre);
-      }}
-    >
-      <div className={styles.categoriaImagenWrapper}>
-        <Image
-          src={imagen}
-          alt={nombre}
-          fill
-          className={styles.categoriaImagen}
-          sizes="120px"
-        />
-      </div>
-      <p className={styles.categoriaNombre}>{nombre}</p>
+      {categorias.map(({ id_categoria, nombre_categoria, imagen_principal }) => (
+        <div
+          key={id_categoria}
+          className={`${styles.categoriaItem} ${categoriaSeleccionada === id_categoria ? styles.categoriaSeleccionada : ""}`}
+          onClick={() => {
+            onSelectCategoria(id_categoria);
+            setCategoriaSeleccionada(id_categoria);
+          }}
+        >
+          <div className={styles.categoriaImagenWrapper}>
+            <Image
+              src={imagen_principal}
+              alt={nombre_categoria}
+              fill
+              className={styles.categoriaImagen}
+              sizes="120px"
+            />
+          </div>
+          <p className={styles.categoriaNombre}>{nombre_categoria}</p>
+        </div>
+      ))}
     </div>
-  ))}
-</div>
-
   );
 };
 

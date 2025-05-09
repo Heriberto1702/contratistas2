@@ -183,3 +183,23 @@ model UserRoles {
   email String @unique
   role  String
 }
+
+// Modelo para las categorías de la galería
+model GaleriaCategorias {
+  id_categoria      Int       @id @default(autoincrement())
+  nombre_categoria  String
+  imagen_principal  String    // URL de la imagen principal
+  descripcion      String?
+  fecha_creacion   DateTime  @default(now())
+  imagenes         GaleriaImagenes[] // Relación con las imágenes
+}
+
+// Modelo para las imágenes de la galería
+model GaleriaImagenes {
+  id_imagen        Int       @id @default(autoincrement())
+  id_categoria     Int
+  url_imagen       String    // URL de la imagen
+  nombre_archivo   String
+  fecha_subida     DateTime  @default(now())
+  categoria        GaleriaCategorias @relation(fields: [id_categoria], references: [id_categoria], onDelete: Cascade)
+}

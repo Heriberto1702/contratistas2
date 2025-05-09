@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./Galeria.module.css";
@@ -17,28 +15,39 @@ const Galeria = ({ categoria }: GaleriaProps) => {
 
   useEffect(() => {
     if (!categoria) return;
-
+  
     const fetchImagenes = async () => {
       try {
-        const response = await fetch(`/api/galeria/fotos?categoria=${categoria}`);
+        // Verificar que el parámetro sea un número válido
+        const categoriaId = parseInt(categoria);
+        if (isNaN(categoriaId)) {
+          setError("El ID de la categoría no es válido.");
+          setLoading(false);
+          return;
+        }
+  
+        // Obtener las imágenes para la categoría
+        const response = await fetch(`/api/galeria/galeriaImagen?categoria=${categoriaId}`);
         const data = await response.json();
-
+  
         if (data.error) {
           setError(data.error);
           setImagenes([]);
         } else {
-          setImagenes(data.galleryImages);
+          setImagenes(data.imagenes || []);
         }
       } catch (err) {
+        console.error(err);
         setError("Error al cargar las imágenes.");
         setImagenes([]);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchImagenes();
   }, [categoria]);
+  
 
   if (loading) return <p>Cargando imágenes...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
@@ -62,7 +71,7 @@ const Galeria = ({ categoria }: GaleriaProps) => {
             height={1200}
             alt={`Imagen ${index + 1}`}
             className={styles.galeriaItem}
-            onClick={() => setImagenIndex(index)} // Set index when clicking on an image
+            onClick={() => setImagenIndex(index)}
           />
         ))}
       </div>

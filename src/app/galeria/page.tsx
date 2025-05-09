@@ -8,11 +8,10 @@ import Categorias from "../components/Gallery/Categorias";
 import Galeria from "../components/Gallery/Galeria";
 import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 
-
 const GaleriaPage = () => {
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<
-    string | null
-  >(null);
+  // Cambiar el tipo a number | null
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<number | null>(null);
+
   return (
     <>
       <NavBar />
@@ -21,18 +20,15 @@ const GaleriaPage = () => {
 
       <TitleText
         title={<>Galería de fotos, eventos y talleres</>}
-        subtitle={
-          <>
-           Categorías
-          </>
-        }
+        subtitle={<>Categorías</>}
         text="Seleccione primero una categoría para cargar las fotos de la colección"
-        />
+      />
+
       <div>
-      
         <Categorias onSelectCategoria={setCategoriaSeleccionada} />
         <TitleText subtitle="Galería de fotos" />
-        {categoriaSeleccionada && <Galeria categoria={categoriaSeleccionada} />}
+        {/* Solo renderiza la galería si hay una categoría seleccionada */}
+        {categoriaSeleccionada !== null && <Galeria categoria={categoriaSeleccionada.toString()} />}
       </div>
     </>
   );
