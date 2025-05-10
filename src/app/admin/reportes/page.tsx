@@ -3,6 +3,7 @@ import React from 'react';
 import Link from "next/link";
 import EstadoContratistas from '../components/reporteria/rep1-EstadoContratistas/EstadoContratistas';
 import AsistenciaEventos from '../components/reporteria/rep2-AsistenciaEventos/AsistenciaEventos';
+import CursosPorUsuario from '../components/CursosPorUsuario';
 import styles from './ReportesPage.module.css';
 import CursosPopulares from '../components/reporteria/rep3-CursosAsistidos/CursosPopulares';
 
@@ -24,7 +25,7 @@ const ReportesPage = () => {
       </div>
 
       <div className={styles.section}>
-        <CursosPopulares />
+        <CursosPorUsuario/>
       </div>
     </main>
   );
