@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from "./css/CursosPorUsuario.module.css";
+import styles from "./CursosPorUsuario.module.css";
 import Cargando from '@/app/components/Cargando/Cargando';
 
 interface Curso {

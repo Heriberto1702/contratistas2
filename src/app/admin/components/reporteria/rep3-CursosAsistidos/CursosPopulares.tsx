@@ -28,16 +28,23 @@ export default function CursosPopulares() {
 
   useEffect(() => {
     fetch("/api/reporteria/cursos")
-      .then((res) => res.json())
-      .then((data) => {
-        setCursos(data);
+      .then(async (res) => {
+        const text = await res.text();
+        try {
+          const data = JSON.parse(text);
+          setCursos(data.resumenCursos);
+        } catch (err) {
+          console.error("Error al parsear JSON:", err);
+          console.error("Respuesta del servidor:", text);
+        }
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error:", err);
+        console.error("Error de red:", err);
         setLoading(false);
       });
   }, []);
+  
 
   const colores = [
     "#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f",
