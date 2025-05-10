@@ -51,32 +51,27 @@ export default function ContratistasReportes() {
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-     <Cargando/>
-    );
-  }
-//**************************************************************************************** */
-  const totalActivos = data.activos;
-  const totalInactivos = data.inactivos;
+  if (loading) return <Cargando />;
 
+  const { activos, inactivos, distribucionTipo, segmentacionClub, nuevosPorMes } = data;
+
+  // ------------------- Gráfico de Barras -------------------
   const totalContratistas = {
     labels: ["Contratistas"],
     datasets: [
       {
         label: "Activos",
-        data: [totalActivos],
+        data: [activos],
         backgroundColor: "#4CAF50",
         borderColor: "#388E3C",
         borderWidth: 1,
       },
       {
         label: "Inactivos",
-        data: [totalInactivos],
+        data: [inactivos],
         backgroundColor: "#FF9800",
         borderColor: "#F57C00",
         borderWidth: 1,
-        scale: 10
       },
     ],
   };
@@ -95,15 +90,11 @@ export default function ContratistasReportes() {
     scales: {
       y: {
         beginAtZero: true,
-        min: 0,                  // Siempre iniciar en 0
-        max: 100,                // Puedes calcular el valor según el máximo real
         ticks: {
-          stepSize: 10,          // Espaciado visible y útil
+          stepSize: 10,
           color: "#333",
           font: { size: 13 },
-          callback: function (value: any) {
-            return Number.isInteger(value) ? value : null;
-          },
+          callback: (value: any) => (Number.isInteger(value) ? value : null),
         },
       },
       x: {
@@ -114,47 +105,49 @@ export default function ContratistasReportes() {
       },
     },
   };
-  
-//**************************************************************************************** */
-  const distribucionTipo = {
-    labels: data.distribucionTipo.map((item: { tipo: string }) => item.tipo),
+
+  // ------------------- Gráfico Pie Tipo Contratista -------------------
+  const tipoContratistaData = {
+    labels: distribucionTipo.map((item: any) => item.tipo),
     datasets: [
       {
-        data: data.distribucionTipo.map((item: { cantidad: number }) => item.cantidad),
+        data: distribucionTipo.map((item: any) => item.cantidad),
         backgroundColor: ["#03A9F4", "#E91E63"],
-        borderColor: "#ffffff",
+        borderColor: "#fff",
         borderWidth: 2,
-      },
-    ],
-  };
-//**************************************************************************************** */
-  const segmentacionClub = {
-    labels: Object.keys(data.segmentacionClub),
-    datasets: [
-      {
-        data: Object.values(data.segmentacionClub),
-        backgroundColor: ["#FF8A65", "#81C784", "#64B5F6"],
-        borderColor: "#ffffff",
-        borderWidth: 2,
-      },
-    ],
-  };
-//**************************************************************************************** */
-  const nuevosPorMesData = {
-    labels: data.nuevosPorMes.map((item: any) => item.mes),
-    datasets: [
-      {
-        label: "Contratistas  Logueados",
-        data: data.nuevosPorMes.map((item: any) => item.cantidad),
-        fill: false,
-        backgroundColor: "#673AB7",
-        borderColor: "#9575CD",
-        tension: 0.3,
       },
     ],
   };
 
-  const nuevosPorMesOptions = {
+  // ------------------- Gráfico Pie Club -------------------
+  const clubData = {
+    labels: Object.keys(segmentacionClub),
+    datasets: [
+      {
+        data: Object.values(segmentacionClub),
+        backgroundColor: ["#FF8A65", "#81C784", "#64B5F6"],
+        borderColor: "#fff",
+        borderWidth: 2,
+      },
+    ],
+  };
+
+  // ------------------- Gráfico Línea Nuevos por Mes -------------------
+  const nuevosMesData = {
+    labels: nuevosPorMes.map((item: any) => item.mes),
+    datasets: [
+      {
+        label: "Contratistas Logueados",
+        data: nuevosPorMes.map((item: any) => item.cantidad),
+        backgroundColor: "#673AB7",
+        borderColor: "#9575CD",
+        tension: 0.3,
+        fill: false,
+      },
+    ],
+  };
+
+  const nuevosMesOptions = {
     responsive: true,
     elements: {
       point: {
@@ -164,10 +157,7 @@ export default function ContratistasReportes() {
       },
     },
     plugins: {
-      legend: {
-        display: true,
-        position: "top" as const,
-      },
+      legend: { display: true, position: "top" as const },
       tooltip: {
         callbacks: {
           label: (context: any) => ` ${context.parsed.y} nuevos`,
@@ -186,45 +176,40 @@ export default function ContratistasReportes() {
       x: {
         ticks: {
           color: "#333",
-          callback: function (_: any, index: number) {
-            return nuevosPorMesData.labels[index];
-          },
+          callback: (_: any, index: number) => nuevosMesData.labels[index],
         },
       },
     },
   };
-//******************************* Export a Excel *************************************** */
+
+  // ------------------- Exportar a Excel -------------------
   const exportToExcel = () => {
     const wb = XLSX.utils.book_new();
 
+    // Resumen Activos/Inactivos
     const resumen = [
       ["Estado", "Cantidad"],
-      ["Activos", totalActivos],
-      ["Inactivos", totalInactivos],
+      ["Activos", activos],
+      ["Inactivos", inactivos],
     ];
-    const ws1 = XLSX.utils.aoa_to_sheet(resumen);
-    XLSX.utils.book_append_sheet(wb, ws1, "Resumen");
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(resumen), "Resumen");
 
-    const porTipo = [["Tipo", "Cantidad"]];
-    data.distribucionTipo.forEach((item: any) => {
-      porTipo.push([item.tipo, item.cantidad]);
-    });
-    const ws2 = XLSX.utils.aoa_to_sheet(porTipo);
-    XLSX.utils.book_append_sheet(wb, ws2, "PorTipo");
+    // Por Tipo
+    const tipoSheet = [["Tipo", "Cantidad"]];
+    distribucionTipo.forEach((item: any) => tipoSheet.push([item.tipo, item.cantidad]));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(tipoSheet), "PorTipo");
 
-    const porClub = [["Club", "Cantidad"]];
-    Object.entries(data.segmentacionClub).forEach(([club, cantidad]) => {
-      porClub.push([club, String(cantidad)]);
-    });
-    const ws3 = XLSX.utils.aoa_to_sheet(porClub);
-    XLSX.utils.book_append_sheet(wb, ws3, "PorClub");
+    // Por Club
+    const clubSheet = [["Club", "Cantidad"]];
+    Object.entries(segmentacionClub).forEach(([club, cantidad]) =>
+      clubSheet.push([club, String(cantidad)])
+    );
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(clubSheet), "PorClub");
 
-    const porMes = [["Mes", "Cantidad"]];
-    data.nuevosPorMes.forEach((item: any) => {
-      porMes.push([item.mes, item.cantidad]);
-    });
-    const ws4 = XLSX.utils.aoa_to_sheet(porMes);
-    XLSX.utils.book_append_sheet(wb, ws4, "NuevosPorMes");
+    // Nuevos por Mes
+    const mesSheet = [["Mes", "Cantidad"]];
+    nuevosPorMes.forEach((item: any) => mesSheet.push([item.mes, item.cantidad]));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(mesSheet), "NuevosPorMes");
 
     XLSX.writeFile(wb, "ReporteContratistas.xlsx");
   };
@@ -245,18 +230,18 @@ export default function ContratistasReportes() {
         </div>
 
         <div className={styles.reporte}>
-          <h3>📈 Tipo de Contratista</h3>
-          <Pie data={distribucionTipo} />
+          <h3>📊 Tipo de Contratista</h3>
+          <Pie data={tipoContratistaData} />
         </div>
 
         <div className={styles.reporte}>
-          <h3>📈Segmentación por Tipo Club</h3>
-          <Pie data={segmentacionClub} />
+          <h3>📊 Segmentación por Club</h3>
+          <Pie data={clubData} />
         </div>
 
         <div className={styles.reporte}>
-          <h3>📈 Dados de alta en Nueva Plataforma Web</h3>
-          <Line data={nuevosPorMesData} options={nuevosPorMesOptions} />
+          <h3>📈 Nuevos Logueos por Mes</h3>
+          <Line data={nuevosMesData} options={nuevosMesOptions} />
         </div>
       </div>
     </div>
