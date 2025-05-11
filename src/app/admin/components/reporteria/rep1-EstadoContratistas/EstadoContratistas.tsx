@@ -31,14 +31,15 @@ ChartJS.register(
   LinearScale
 );
 
-// Importamos los gráficos de forma dinámica
-const PieChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Pie), { ssr: false });
-const BarChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Bar), { ssr: false });
-const LineChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Line), { ssr: false });
-
 export default function EstadoContratistas() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [chartsLoaded, setChartsLoaded] = useState(false);
+
+  // Cargar gráficos solo después de que se haya cargado el cliente
+  const PieChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Pie), { ssr: false });
+  const BarChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Bar), { ssr: false });
+  const LineChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Line), { ssr: false });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,11 +58,16 @@ export default function EstadoContratistas() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    // Asegura que los gráficos se carguen solo después de que el cliente haya cargado el componente
+    if (!chartsLoaded && data) {
+      setChartsLoaded(true);
+    }
+  }, [data, chartsLoaded]);
+
   if (loading) return <Cargando />;
 
   const { activos, inactivos, distribucionTipo, segmentacionClub, nuevosPorMes } = data;
-
-  // Definimos los datos de los gráficos
 
   // ------------------- Gráfico de Barras -------------------
   const totalContratistas = {
@@ -232,25 +238,29 @@ export default function EstadoContratistas() {
       </div>
 
       <div className={styles.gridContainer}>
-        <div className={styles.reporte}>
-          <h3>📈 Total de Contratistas</h3>
-          <BarChart data={totalContratistas} options={optionsBar} />
-        </div>
+        {chartsLoaded && (
+          <>
+            <div className={styles.reporte}>
+              <h3>📈 Total de Contratistas</h3>
+              <BarChart data={totalContratistas} options={optionsBar} />
+            </div>
 
-        <div className={styles.reporte}>
-          <h3>📊 Tipo de Contratista</h3>
-          <PieChart data={tipoContratistaData} />
-        </div>
+            <div className={styles.reporte}>
+              <h3>📊 Tipo de Contratista</h3>
+              <PieChart data={tipoContratistaData} />
+            </div>
 
-        <div className={styles.reporte}>
-          <h3>📊 Segmentación por Club</h3>
-          <PieChart data={clubData} />
-        </div>
+            <div className={styles.reporte}>
+              <h3>📊 Segmentación por Club</h3>
+              <PieChart data={clubData} />
+            </div>
 
-        <div className={styles.reporte}>
-          <h3>📈 Nuevos Logueos por Mes</h3>
-          <LineChart data={nuevosMesData} options={nuevosMesOptions} />
-        </div>
+            <div className={styles.reporte}>
+              <h3>📈 Nuevos Logueos por Mes</h3>
+              <LineChart data={nuevosMesData} options={nuevosMesOptions} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
