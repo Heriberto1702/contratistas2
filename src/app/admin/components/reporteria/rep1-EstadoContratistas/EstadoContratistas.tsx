@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Pie, Bar, Line } from "react-chartjs-2";
+import dynamic from "next/dynamic";  // Importamos dynamic de Next.js
 import Cargando from "@/app/components/Cargando/Cargando";
 import {
   Chart as ChartJS,
@@ -18,6 +18,7 @@ import {
 import * as XLSX from "xlsx";
 import styles from "./EstadoContratistas.module.css";
 
+// Registra los elementos del gráfico
 ChartJS.register(
   Title,
   Tooltip,
@@ -30,7 +31,12 @@ ChartJS.register(
   LinearScale
 );
 
-export default function ContratistasReportes() {
+// Importamos los gráficos de forma dinámica
+const PieChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Pie), { ssr: false });
+const BarChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Bar), { ssr: false });
+const LineChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Line), { ssr: false });
+
+export default function EstadoContratistas() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -54,6 +60,8 @@ export default function ContratistasReportes() {
   if (loading) return <Cargando />;
 
   const { activos, inactivos, distribucionTipo, segmentacionClub, nuevosPorMes } = data;
+
+  // Definimos los datos de los gráficos
 
   // ------------------- Gráfico de Barras -------------------
   const totalContratistas = {
@@ -226,22 +234,22 @@ export default function ContratistasReportes() {
       <div className={styles.gridContainer}>
         <div className={styles.reporte}>
           <h3>📈 Total de Contratistas</h3>
-          <Bar data={totalContratistas} options={optionsBar} />
+          <BarChart data={totalContratistas} options={optionsBar} />
         </div>
 
         <div className={styles.reporte}>
           <h3>📊 Tipo de Contratista</h3>
-          <Pie data={tipoContratistaData} />
+          <PieChart data={tipoContratistaData} />
         </div>
 
         <div className={styles.reporte}>
           <h3>📊 Segmentación por Club</h3>
-          <Pie data={clubData} />
+          <PieChart data={clubData} />
         </div>
 
         <div className={styles.reporte}>
           <h3>📈 Nuevos Logueos por Mes</h3>
-          <Line data={nuevosMesData} options={nuevosMesOptions} />
+          <LineChart data={nuevosMesData} options={nuevosMesOptions} />
         </div>
       </div>
     </div>
