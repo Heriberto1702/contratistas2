@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";  // Importamos dynamic de Next.js
+import dynamic from "next/dynamic"; // Importamos dynamic de Next.js
 import Cargando from "@/app/components/Cargando/Cargando";
 import {
   Chart as ChartJS,
@@ -47,6 +47,7 @@ export default function EstadoContratistas() {
       try {
         const response = await fetch("/api/reporteria/contratistas");
         const jsonData = await response.json();
+        console.log("Datos obtenidos:", jsonData); // Verificar si los datos se reciben correctamente
         setData(jsonData);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -62,12 +63,18 @@ export default function EstadoContratistas() {
     // Asegura que los gráficos se carguen solo después de que el cliente haya cargado el componente
     if (!chartsLoaded && data) {
       setChartsLoaded(true);
+      console.log("Gráficos listos para cargar"); // Verificar si los gráficos se cargan
     }
   }, [data, chartsLoaded]);
 
   if (loading) return <Cargando />;
 
-  const { activos, inactivos, distribucionTipo, segmentacionClub, nuevosPorMes } = data;
+  // Verificar si los datos están completos y tienen el formato adecuado
+  const { activos, inactivos, distribucionTipo, segmentacionClub, nuevosPorMes } = data || {};
+
+  if (!activos || !inactivos || !distribucionTipo || !segmentacionClub || !nuevosPorMes) {
+    console.error("Los datos no están completos:", data);
+  }
 
   // ------------------- Gráfico de Barras -------------------
   const totalContratistas = {
