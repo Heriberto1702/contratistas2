@@ -67,23 +67,21 @@ const AdminPage = () => {
       icon: "/icons/reports.png",
       color: "purple",
     },
+    {
+      label: "Agregar Fotos",
+      path: "/admin/galeria",
+      icon: "/icons/gallery.png",
+      color: "orange",
+    },
   ];
 
   if (userRole === "SUPERUSER") {
-    buttons.push(
-      {
-        label: "Agregar Fotos",
-        path: "/admin/galeria",
-        icon: "/icons/gallery.png",
-        color: "orange",
-      },
-      {
-        label: "Agregar Usuarios",
-        path: "/admin/usuario",
-        icon: "/icons/team.png",
-        color: "gray",
-      }
-    );
+    buttons.push({
+      label: "Agregar Usuarios",
+      path: "/admin/usuario",
+      icon: "/icons/team.png",
+      color: "gray",
+    });
   }
 
   return (
@@ -96,9 +94,18 @@ const AdminPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-             <Image src={logo} alt="Logo" width={182} height={119} className="logo" />
+            <Image
+              src={logo}
+              alt="Logo"
+              width={182}
+              height={119}
+              className="logo"
+            />
             <h1>Panel de Administración</h1>
-            <p>Bienvenido <b>{userRole}</b>, gestiona el sistema de Club de Contratistas desde aquí con las siguientes opciones:</p>
+            <p>
+              Bienvenido <b>{userRole}</b>, gestiona el sistema de Club de
+              Contratistas desde aquí con las siguientes opciones:
+            </p>
           </motion.header>
 
           <motion.main
@@ -128,9 +135,11 @@ const AdminPage = () => {
           <Cargando />
         </div>
       )}
-           <Link href="/">
-        <p className="url">❌ Salir del administrador →</p>
-      </Link>
+      <div className="return">
+        <Link href="/">
+          <p className="url">❌ Salir del administrador →</p>
+        </Link>
+      </div>
     </div>
   );
 };
