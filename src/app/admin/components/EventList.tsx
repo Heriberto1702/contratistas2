@@ -58,6 +58,7 @@ const EventList = () => {
         <p className={styles.errorMessage}>Error: {error}</p>
       ) : (
         <>
+         <div className={styles.tableWrapper}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -123,6 +124,7 @@ const EventList = () => {
               ))}
             </tbody>
           </table>
+          </div>
           {isModalOpen && selectedEvento && (
             <EditEventModal
               eventoId={selectedEvento.id_evento}

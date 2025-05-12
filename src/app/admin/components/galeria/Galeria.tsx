@@ -248,7 +248,7 @@ export default function GaleriaAdmin() {
       <div className={styles.divider}>
         {/* Formulario para nueva categoría */}
         <section className={styles.section}>
-          <h2 className={styles.h2}>Nueva Categoría</h2>
+          <h2 className={styles.h2}>Crear Nueva Categoría</h2>
           <form onSubmit={handleCategoriaSubmit} className={styles.form}>
             <div className={styles.formGroup}>
               <label htmlFor="nombre_categoria">Nombre de la Categoría:</label>
@@ -340,7 +340,7 @@ export default function GaleriaAdmin() {
 
       {/* Lista de categorías y sus imágenes */}
       <section className={styles.section}>
-        <h2 className={styles.h2}>Categorías y Imágenes</h2>
+        <h2 className={styles.h2}>Categorías e Imágenes</h2>
         <div className={styles.categoriasGrid}>
           {categorias.map((categoria) => (
             <div key={categoria.id_categoria} className={styles.categoriaCard}>
@@ -351,7 +351,7 @@ export default function GaleriaAdmin() {
                   className={styles.deleteCategoriaButton}
                   title="Eliminar categoría"
                 >
-                  🗑️
+                  ❌
                 </button>
               </div>
               <div className={styles.imagenContainer}>

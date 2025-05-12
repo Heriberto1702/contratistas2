@@ -54,8 +54,8 @@ const CoursesTable: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Gestión de Cursos</h2>
       {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -87,6 +87,7 @@ const CoursesTable: React.FC = () => {
           ))}
         </tbody>
       </table>
+      </div>
       {isModalOpen && selectedCourse && (
         <EditCourseModal
           cursoId={selectedCourse.id_curso}

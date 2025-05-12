@@ -4,6 +4,7 @@ import NavBar from "../components/navbar/NavBar";
 import BannerStatic from "../components/BannerEstatico/BannerStatic";
 import BeneficioContratista from "../components/BeneficioContratista/BeneficioContratista";
 import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
+import Cargando from "@/app/components/Cargando/Cargando";
 const Page = () => {
   const images = ["/banneracademia.png"];
   const [nombreClub, setNombreClub] = useState<string>("");
@@ -32,7 +33,7 @@ const Page = () => {
       <BannerStatic images={["/banner3.png"]} />
       <Breadcrumbs />
       {loading ? (
-        <p>Cargando...</p>
+        <Cargando />
       ) : (
         <BeneficioContratista nombre_club={nombreClub} />
       )}

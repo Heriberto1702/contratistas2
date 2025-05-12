@@ -1,9 +1,12 @@
 "use client";
-
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Cargando from "@/app/components/Cargando/Cargando";
+import { motion } from "framer-motion";
 import "./AdminPage.css";
+import logo from "/public/logoContratista.png"; // Asegúrate de que la ruta sea correcta
 
 const AdminPage = () => {
   const router = useRouter();
@@ -26,7 +29,7 @@ const AdminPage = () => {
 
           if (role && allowedRoles.includes(role)) {
             setIsAuthorized(true);
-            setUserRole(role); // Guardamos el rol para condiciones específicas
+            setUserRole(role);
             return;
           }
         }
@@ -45,97 +48,89 @@ const AdminPage = () => {
     router.push(path);
   };
 
+  const buttons = [
+    {
+      label: "Agregar Cursos",
+      path: "/admin/cursos",
+      icon: "/icons/diploma.png",
+      color: "blue",
+    },
+    {
+      label: "Agregar Eventos",
+      path: "/admin/eventos",
+      icon: "/icons/evento.png",
+      color: "green",
+    },
+    {
+      label: "Generar Reportes",
+      path: "/admin/reportes",
+      icon: "/icons/reports.png",
+      color: "purple",
+    },
+  ];
+
+  if (userRole === "SUPERUSER") {
+    buttons.push(
+      {
+        label: "Agregar Fotos",
+        path: "/admin/galeria",
+        icon: "/icons/gallery.png",
+        color: "orange",
+      },
+      {
+        label: "Agregar Usuarios",
+        path: "/admin/usuario",
+        icon: "/icons/team.png",
+        color: "gray",
+      }
+    );
+  }
+
   return (
-    <div className="admin-page">
+    <div className="admin-container">
       {isAuthorized ? (
         <>
-          <header className="admin-header">
-            <h1>Panel del Administrador</h1>
-          </header>
-          <h1 className="titulo">Seleccione la opción que desea administrar:</h1>
-          <main className="admin-main">
-            <button
-              className="admin-button blue"
-              onClick={() => handleRedirect("/admin/cursos")}
-            >
-              <span className="icon">
-                <Image
-                  src="/icons/diploma.png"
-                  alt="Cursos"
-                  width={30}
-                  height={30}
-                />
-              </span>
-              <span>Agregar Cursos</span>
-            </button>
-            <button
-              className="admin-button green"
-              onClick={() => handleRedirect("/admin/eventos")}
-            >
-              <span className="icon">
-                <Image
-                  src="/icons/evento.png"
-                  alt="Eventos"
-                  width={30}
-                  height={30}
-                />
-              </span>
-              <span>Agregar Eventos</span>
-            </button>
-            {userRole === "SUPERUSER" && (
-            <button
-              className="admin-button orange"
-              onClick={() => handleRedirect("/admin/galeria")}
-            >
-              <span className="icon">
-                <Image
-                  src="/icons/gallery.png"
-                  alt="Galería"
-                  width={30}
-                  height={30}
-                />
-              </span>
-              <span>Agregar Fotos</span>
-            </button>
-            )}
-            <button
-              className="admin-button purple"
-              onClick={() => handleRedirect("/admin/reportes")}
-            >
-              <span className="icon">
-                <Image
-                  src="/icons/reports.png"
-                  alt="Galería"
-                  width={30}
-                  height={30}
-                />
-              </span>
-              <span>Generar Reportes</span>
-            </button>
+          <motion.header
+            className="admin-hero"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+             <Image src={logo} alt="Logo" width={182} height={119} className="logo" />
+            <h1>Panel de Administración</h1>
+            <p>Bienvenido <b>{userRole}</b>, gestiona el sistema de Club de Contratistas desde aquí con las siguientes opciones:</p>
+          </motion.header>
 
-            {userRole === "SUPERUSER" && (
-              <button
-                className="admin-button gray"
-                onClick={() => handleRedirect("/admin/usuario")}
+          <motion.main
+            className="admin-grid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            {buttons.map((btn, index) => (
+              <motion.button
+                key={btn.path}
+                className={`admin-tile ${btn.color}`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                onClick={() => handleRedirect(btn.path)}
               >
-                <span className="icon">
-                  <Image
-                    src="/icons/team.png"
-                    alt="Usuarios"
-                    width={30}
-                    height={30}
-                  />
-                </span>
-                <span>Agregar Usuarios</span>
-              </button>
-            )}
-          </main>
+                <Image src={btn.icon} alt={btn.label} width={60} height={60} />
+                <span>{btn.label}</span>
+              </motion.button>
+            ))}
+          </motion.main>
         </>
       ) : (
         <div className="loading">
-          <p>Validando acceso...</p>
+          <h2 className="cargando">Validando Acceso...</h2>
+          <Cargando />
         </div>
       )}
+           <Link href="/">
+        <p className="url">❌ Salir del administrador →</p>
+      </Link>
     </div>
   );
 };

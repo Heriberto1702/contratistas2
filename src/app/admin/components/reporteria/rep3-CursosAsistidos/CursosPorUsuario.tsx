@@ -153,13 +153,15 @@ export default function ReporteCursos() {
 
         <div className={styles.controlsContainer}>
           <div className={styles.searchContainer}>
+          <span className={styles.searchIcon}></span>
             <input
               type="text"
-              placeholder="Buscar por nombre, email o cédula..."
+              placeholder="Buscar Contratista"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className={styles.searchInput}
             />
+            
           </div>
 
           <div className={styles.itemsPerPageContainer}>

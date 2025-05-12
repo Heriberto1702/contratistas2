@@ -4,6 +4,7 @@ import Styles from "./BenericioContratista.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
+
 interface BeneficioContratistaProps {
   nombre_club: string;
 }

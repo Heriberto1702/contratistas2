@@ -4,6 +4,7 @@ import axios from "axios";
 import useCatalogosStore from "../../store/useUserDataStore"; // Importamos el store de zustand
 import Image from "next/image";
 import styles from "./UserProfileForm.module.css";
+import Cargando from "@/app/components/Cargando/Cargando";
 
 interface FormData {
   id_contratista: number;
@@ -116,7 +117,7 @@ const UserProfileForm = () => {
   };
 
   if (status === "loading" || loading || !isLoaded || !userData || !sexos || !especialidades || !departamentos || !municipios || !cargos) {
-    return <div>Cargando Datos...</div>;
+    return <Cargando />;
   }
 
   return (

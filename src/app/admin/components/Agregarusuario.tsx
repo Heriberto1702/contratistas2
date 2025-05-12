@@ -30,7 +30,7 @@ const AgregarUsuario = () => {
   return (
     <form onSubmit={handleSubmit} className={styles.formContainer}>
       <div className={styles.formGroup}>
-        <label className={styles.label}>Email:</label>
+        <label className={styles.label}>Ingresa el Email del usuario:</label>
         <input
           type="email"
           value={email}
@@ -40,7 +40,7 @@ const AgregarUsuario = () => {
         />
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.label}>Rol:</label>
+        <label className={styles.label}>Asignación de Rol:</label>
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}

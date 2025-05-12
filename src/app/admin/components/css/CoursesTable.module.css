@@ -1,10 +1,17 @@
-/* Contenedor general */
-.container {
-  margin: 20px;
-  font-family: Arial, sans-serif;
+/* Agregamos un contenedor para hacer scroll horizontal en móviles */
+.tableWrapper {
   width: 100%;
+  overflow-x: auto;
 }
 
+/* Contenedor general */
+.container {
+  margin: 20px auto;
+  padding: 0 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  max-width: 1200px;
+}
 /* Tabla de cursos */
 .table {
   width: 100%;
@@ -14,12 +21,13 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 600px; /* Esto evita que la tabla colapse demasiado */
 }
 
 .th,
 .td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
   border: 1px solid #ddd;
 }
 
@@ -142,8 +150,8 @@
   border-color: #4caf50;
   outline: none;
 }
- 
-.recomendaciones  {
+
+.recomendaciones {
   color: #333;
   margin-top: 10px;
   height: 160px;
@@ -186,6 +194,7 @@
   background-color: #388e3c;
 }
 
+/* Responsivo */
 @media (max-width: 768px) {
   .modalContent {
     max-width: 95%;
@@ -194,5 +203,9 @@
 
   .table {
     font-size: 14px;
+  }
+
+  .container {
+    padding: 0px;
   }
 }

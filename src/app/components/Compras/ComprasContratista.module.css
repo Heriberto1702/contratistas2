@@ -107,7 +107,7 @@
 .table th,
 .detailTable th {
   background-color: #fbaf16;
-  color: #ffffff;
+  color: #000;
   text-transform: uppercase;
 }
 .table td,
@@ -169,7 +169,8 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 .closeButton {
-  position: absolute;
+  position: inherit;
+  float: right;
   top: 10px;
   right: 10px;
   background: #ff4d4f;

@@ -7,6 +7,7 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import styles from "./ComprasContratista.module.css";
 import { useSession } from "next-auth/react"; // Importamos useSession
+import Cargando from "@/app/components/Cargando/Cargando";
 
 interface jsPDFWithAutoTable extends jsPDF {
   lastAutoTable: any;
@@ -301,7 +302,7 @@ const ComprasContratista = ({
         </button>
       </div>
       {isLoading ? (
-        <div className={styles.loadingMessage}>Cargando datos</div>
+        <div className={styles.loadingMessage}><Cargando /></div>
       ) : comprasFiltradas.length === 0 ? (
         <div className={styles.noComprasMessage}>Sin registros de compras.</div>
       ) : (

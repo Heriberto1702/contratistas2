@@ -183,7 +183,7 @@ const CreateCoursePage = () => {
   return (
     <form onSubmit={handleSubmit} className={styles.formContainer}>
       <div className={styles.headerContainer}>
-        <h2 className={styles.title}>Crear Curso</h2>
+        <h2 className={styles.title}>Crear nuevo curso</h2>
       </div>
 
       <div className={styles.section}>

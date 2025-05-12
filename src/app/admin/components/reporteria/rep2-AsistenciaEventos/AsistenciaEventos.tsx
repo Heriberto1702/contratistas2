@@ -141,59 +141,61 @@ export default function AsistenciaEventos() {
   
 
   return (
-    <div className={styles.container}>
-       <div className={styles.header}>
+    <div>
+      <div className={styles.header}>
         <h2 className={styles.title}>📊 Asistencia a Eventos</h2>
         <button onClick={exportToExcel} className={styles.excelButton}>
           Descargar Excel 📥
         </button>
       </div>
 
-      {eventosOrdenados.length > 0 && (
-        <div className={styles.chartWrapper}>
-          <Bar data={chartData} options={chartOptions} />
-        </div>
-      )}
-
-      <div className={styles.tableWrapper}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>N°</th>
-              <th>Evento</th>
-              <th>Inscritos</th>
-            </tr>
-          </thead>
-          <tbody>
-            {eventosOrdenados && eventosOrdenados.length > 0 ? (
-              eventosOrdenados.map((evento: any, idx: number) => (
-                <tr key={evento.id_evento}>
-                <td data-label="N°">{idx + 1}</td>
-                  <td data-label="Evento">
-                    {evento.nombre_evento} - {evento.fecha_hora}
-                  </td>
-                  <td data-label="Inscritos">
-                    <ul className={styles.inscritosList}>
-                      {evento.inscritos.map((inscrito: any, i: number) => (
-                        <li key={i} className={styles.inscritoItem}>
-                        {i + 1}. {inscrito.nombres_contratista} {inscrito.apellidos_contratista} 
-                        {" - "}
-                        {inscrito.cedula ? inscrito.cedula : inscrito.cedula_logueado}
-                        {" "}
-                        ({inscrito.email})
-                      </li>
-                      ))}
-                    </ul>
-                  </td>
-                </tr>
-              ))
-            ) : (
+      <div className={styles.container}>
+        {eventosOrdenados.length > 0 && (
+          <div className={styles.chartWrapper}>
+            <Bar data={chartData} options={chartOptions} />
+          </div>
+        )}
+      
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead>
               <tr>
-                <td colSpan={3}>No hay datos</td>
+                <th>N°</th>
+                <th>Evento</th>
+                <th>Inscritos</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {eventosOrdenados && eventosOrdenados.length > 0 ? (
+                eventosOrdenados.map((evento: any, idx: number) => (
+                  <tr key={evento.id_evento}>
+                    <td data-label="N°">{idx + 1}</td>
+                    <td data-label="Evento">
+                      {evento.nombre_evento} - {evento.fecha_hora}
+                    </td>
+                    <td data-label="Inscritos">
+                      <ul className={styles.inscritosList}>
+                        {evento.inscritos.map((inscrito: any, i: number) => (
+                          <li key={i} className={styles.inscritoItem}>
+                            {i + 1}. {inscrito.nombres_contratista} {inscrito.apellidos_contratista} 
+                            {" - "}
+                            {inscrito.cedula ? inscrito.cedula : inscrito.cedula_logueado}
+                            {" "}
+                            ({inscrito.email})
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={3}>No hay datos</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

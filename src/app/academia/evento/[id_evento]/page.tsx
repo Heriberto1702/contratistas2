@@ -7,6 +7,7 @@ import BannerSlidernew from "../../../components/BannerSlidernew/BannerSlidernew
 import Image from "next/image";
 import Styles from "./eventDetail.module.css";
 import Link from "next/link";
+import Cargando from "@/app/components/Cargando/Cargando";
 
 interface Event {
   id_evento: number;
@@ -151,7 +152,7 @@ const EventPage = () => {
   };
 
   if (isLoading) {
-    return <div className="loading">Cargando evento...</div>;
+    return <div className="loading"><Cargando /></div>;
   }
 
   if (error) {

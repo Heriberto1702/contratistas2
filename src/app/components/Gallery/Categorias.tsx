@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./Categorias.module.css";
+import Cargando from "@/app/components/Cargando/Cargando";
 
 interface Categoria {
   id_categoria: number;
@@ -41,7 +42,7 @@ const Categorias = ({ onSelectCategoria }: CategoriasProps) => {
     fetchCategorias();
   }, []);
 
-  if (loading) return <p>Cargando categorías...</p>;
+  if (loading) return <Cargando />;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (

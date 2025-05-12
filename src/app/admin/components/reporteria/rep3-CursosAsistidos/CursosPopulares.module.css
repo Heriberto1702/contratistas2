@@ -1,58 +1,99 @@
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  
-  .excelButton {
-    background-color: #4CAF50;
-    color: white;
-    padding: 0.6rem 1.2rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .excelButton:hover {
-    background-color: #388E3C;
-  }
-  .loading {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  .legend {
-    margin-top: 1rem;
-    text-align: center;
-    color: #333;
-    font-weight: 500;
-    font-size: 0.95rem;
-  }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  
-  .title {
-    text-align: center;
-    margin-bottom: 24px;
-    font-size: 2rem;
-    color: #333;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
 
-  
-  .chartWrapper {
-    max-width: 100%;
-    overflow-x: auto;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+
+.excelButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.excelButton:hover {
+  background-color: #388E3C;
+  transform: scale(1.03);
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 1rem;
+}
+
+.legend {
+  margin-top: 1rem;
+  text-align: center;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.chartWrapper {
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 700px) {
+  .container {
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 10px;
   }
-  
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .excelButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .legend {
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+  }
+
+  .loading {
+    font-size: 1rem;
+  }
+}
