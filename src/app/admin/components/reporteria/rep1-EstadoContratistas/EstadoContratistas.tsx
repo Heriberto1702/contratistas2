@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic"; // Importamos dynamic de Next.js
+import dynamic from "next/dynamic";
 import Cargando from "@/app/components/Cargando/Cargando";
 import {
   Chart as ChartJS,
@@ -31,12 +31,32 @@ ChartJS.register(
   LinearScale
 );
 
-export default function EstadoContratistas() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [chartsLoaded, setChartsLoaded] = useState(false);
+interface DistribucionTipo {
+  tipo: string;
+  cantidad: number;
+}
 
-  // Cargar gráficos solo después de que se haya cargado el cliente
+interface SegmentacionClub {
+  [key: string]: number;
+}
+
+interface NuevosPorMes {
+  mes: string;
+  cantidad: number;
+}
+
+interface Data {
+  activos: number;
+  inactivos: number;
+  distribucionTipo: DistribucionTipo[];
+  segmentacionClub: SegmentacionClub;
+  nuevosPorMes: NuevosPorMes[];
+}
+
+export default function EstadoContratistas() {
+  const [data, setData] = useState<Data | null>(null);
+  const [loading, setLoading] = useState(true);
+
   const PieChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Pie), { ssr: false });
   const BarChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Bar), { ssr: false });
   const LineChart = dynamic(() => import("react-chartjs-2").then(mod => mod.Line), { ssr: false });
@@ -46,8 +66,7 @@ export default function EstadoContratistas() {
       setLoading(true);
       try {
         const response = await fetch("/api/reporteria/contratistas");
-        const jsonData = await response.json();
-        console.log("Datos obtenidos:", jsonData); // Verificar si los datos se reciben correctamente
+        const jsonData: Data = await response.json();
         setData(jsonData);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -59,22 +78,11 @@ export default function EstadoContratistas() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    // Asegura que los gráficos se carguen solo después de que el cliente haya cargado el componente
-    if (!chartsLoaded && data) {
-      setChartsLoaded(true);
-      console.log("Gráficos listos para cargar"); // Verificar si los gráficos se cargan
-    }
-  }, [data, chartsLoaded]);
-
   if (loading) return <Cargando />;
 
-  // Verificar si los datos están completos y tienen el formato adecuado
-  const { activos, inactivos, distribucionTipo, segmentacionClub, nuevosPorMes } = data || {};
+  if (!data) return <div>No se encontraron datos.</div>;
 
-  if (!activos || !inactivos || !distribucionTipo || !segmentacionClub || !nuevosPorMes) {
-    console.error("Los datos no están completos:", data);
-  }
+  const { activos, inactivos, distribucionTipo, segmentacionClub, nuevosPorMes } = data;
 
   // ------------------- Gráfico de Barras -------------------
   const totalContratistas = {
@@ -111,8 +119,10 @@ export default function EstadoContratistas() {
     scales: {
       y: {
         beginAtZero: true,
+        min: 0,
+        max:  100,
         ticks: {
-          stepSize: 10,
+          stepSize: 1,
           color: "#333",
           font: { size: 13 },
           callback: (value: any) => (Number.isInteger(value) ? value : null),
@@ -129,10 +139,10 @@ export default function EstadoContratistas() {
 
   // ------------------- Gráfico Pie Tipo Contratista -------------------
   const tipoContratistaData = {
-    labels: distribucionTipo.map((item: any) => item.tipo),
+    labels: distribucionTipo.map((item) => item.tipo),
     datasets: [
       {
-        data: distribucionTipo.map((item: any) => item.cantidad),
+        data: distribucionTipo.map((item) => item.cantidad),
         backgroundColor: ["#03A9F4", "#E91E63"],
         borderColor: "#fff",
         borderWidth: 2,
@@ -155,11 +165,11 @@ export default function EstadoContratistas() {
 
   // ------------------- Gráfico Línea Nuevos por Mes -------------------
   const nuevosMesData = {
-    labels: nuevosPorMes.map((item: any) => item.mes),
+    labels: nuevosPorMes.map((item) => item.mes),
     datasets: [
       {
         label: "Contratistas Logueados",
-        data: nuevosPorMes.map((item: any) => item.cantidad),
+        data: nuevosPorMes.map((item) => item.cantidad),
         backgroundColor: "#673AB7",
         borderColor: "#9575CD",
         tension: 0.3,
@@ -181,7 +191,7 @@ export default function EstadoContratistas() {
       legend: { display: true, position: "top" as const },
       tooltip: {
         callbacks: {
-          label: (context: any) => ` ${context.parsed.y} nuevos`,
+          label: (context: any) => `${context.parsed.y} nuevos`,
         },
       },
     },
@@ -195,7 +205,7 @@ export default function EstadoContratistas() {
         },
       },
       x: {
-        ticks: {
+        ticks: { 
           color: "#333",
           callback: (_: any, index: number) => nuevosMesData.labels[index],
         },
@@ -217,7 +227,7 @@ export default function EstadoContratistas() {
 
     // Por Tipo
     const tipoSheet = [["Tipo", "Cantidad"]];
-    distribucionTipo.forEach((item: any) => tipoSheet.push([item.tipo, item.cantidad]));
+    distribucionTipo.forEach((item) => tipoSheet.push([item.tipo, String(item.cantidad)]));
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(tipoSheet), "PorTipo");
 
     // Por Club
@@ -229,7 +239,7 @@ export default function EstadoContratistas() {
 
     // Nuevos por Mes
     const mesSheet = [["Mes", "Cantidad"]];
-    nuevosPorMes.forEach((item: any) => mesSheet.push([item.mes, item.cantidad]));
+    nuevosPorMes.forEach((item) => mesSheet.push([item.mes, String(item.cantidad)]));
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(mesSheet), "NuevosPorMes");
 
     XLSX.writeFile(wb, "ReporteContratistas.xlsx");
@@ -245,29 +255,25 @@ export default function EstadoContratistas() {
       </div>
 
       <div className={styles.gridContainer}>
-        {chartsLoaded && (
-          <>
-            <div className={styles.reporte}>
-              <h3>📈 Total de Contratistas</h3>
-              <BarChart data={totalContratistas} options={optionsBar} />
-            </div>
+        <div className={styles.reporte}>
+          <h3>📈 Total de Contratistas</h3>
+          <BarChart data={totalContratistas} options={optionsBar} />
+        </div>
 
-            <div className={styles.reporte}>
-              <h3>📊 Tipo de Contratista</h3>
-              <PieChart data={tipoContratistaData} />
-            </div>
+        <div className={styles.reporte}>
+          <h3>📊 Tipo de Contratista</h3>
+          <PieChart data={tipoContratistaData} />
+        </div>
 
-            <div className={styles.reporte}>
-              <h3>📊 Segmentación por Club</h3>
-              <PieChart data={clubData} />
-            </div>
+        <div className={styles.reporte}>
+          <h3>📊 Segmentación por Club</h3>
+          <PieChart data={clubData} />
+        </div>
 
-            <div className={styles.reporte}>
-              <h3>📈 Nuevos Logueos por Mes</h3>
-              <LineChart data={nuevosMesData} options={nuevosMesOptions} />
-            </div>
-          </>
-        )}
+        <div className={styles.reporte}>
+          <h3>📈 Nuevos Logueos por Mes</h3>
+          <LineChart data={nuevosMesData} options={nuevosMesOptions} />
+        </div>
       </div>
     </div>
   );
