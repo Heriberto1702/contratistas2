@@ -4,6 +4,7 @@ import NavBar from "../../components/navbar/NavBar";
 import Allcourses from "../../components/Curso/Allcourses"
 import Breadcrumbs from "../../components/Breadcrumbs/breadcrumbs";
 import BannerStatic from "../../components/BannerEstatico/BannerStatic";
+import { Suspense } from "react";
 
 const Page = () => {
 
@@ -11,7 +12,10 @@ const Page = () => {
     <>
       <NavBar/>
       <BannerStatic images={["/banneracademia.png"]} />
-      <Breadcrumbs />
+      <Suspense>
+        {/* Breadcrumbs para navegación */}
+        <Breadcrumbs /> 
+      </Suspense>
       <Allcourses/>
     </>
   );

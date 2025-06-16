@@ -5,7 +5,7 @@ import ImageText from "../components/Imagen/Imagen";
 import Documentos from "../components/DocumentosAcademy/Documentos";
 import TitleText from "../components/Text/TitleText";
 import BannerStatic from "../components/BannerEstatico/BannerStatic";
-import React from "react";
+import React, { Suspense } from "react";
 import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 import DoubleCarousel from "@/app/components/DoubleCarusel/DoubleCarousel";
 import NavBar from "../components/navbar/NavBar";
@@ -43,8 +43,12 @@ const Page = () => {
 
       {/* Banner principal */}
       <BannerStatic images={["/banneracademia.png"]} />
-      <Breadcrumbs />
+      <Suspense>
+        {/* Breadcrumbs para navegación */}
+        <Breadcrumbs />
+      </Suspense>
 
+      {/* Título principal */}
       {/* Introducción */}
       <TitleText
         title="¿Qué es Academia para Contratistas?"
