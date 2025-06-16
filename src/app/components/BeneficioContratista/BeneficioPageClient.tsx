@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {Suspense} from "react";
 import { useSearchParams } from "next/navigation";
 import BeneficioContratista from "./BeneficioContratista";
 import BannerStatic from "../BannerEstatico/BannerStatic";
@@ -23,7 +23,9 @@ const BeneficioPageClient = () => {
     <>
       <NavBar />
       <BannerStatic images={["/banner3.png"]} />
-      <Breadcrumbs />
+            <Suspense>
+        <Breadcrumbs />
+      </Suspense>
       <BeneficioContratista nombreClub={nombreClub} />
     </>
   );

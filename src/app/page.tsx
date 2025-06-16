@@ -61,7 +61,7 @@ const Page = () => {
       rightImageSrc: "/fab1.jpg",
     },
     {
-      imageSrc: "/bronce.png",
+      imageSrc: "/plata.png",
       altText: "Contratista Bronce",
       text: "CONTRATISTA BRONCE",
       linkUrl: "/beneficios?nivel=bronce", // CAMBIO AQUÍ

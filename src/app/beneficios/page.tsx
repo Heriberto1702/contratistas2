@@ -3,8 +3,8 @@ import BeneficiosPageClient from "@/app/components/BeneficioContratista/Benefici
 
 export default function Page() {
   return (
-    <Suspense fallback={<div>Cargando beneficios...</div>}>
-  return <BeneficiosPageClient />;
+    <Suspense>
+    <BeneficiosPageClient />
     </Suspense>
   );
 }

@@ -1,40 +1,66 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Styles from './Breadcrumbs.module.css';
 
 // Mapa de conversiones
 const breadcrumbsMap: Record<string, string> = {
-  documentosutiles: 'Documentos Útiles', // Personalización de la ruta
+  documentosutiles: 'Documentos Útiles',
   presupuesto: 'Presupuesto',
   fidelizar: 'Fidelizar Clientes',
-  // Puedes agregar más conversiones si lo necesitas
+  beneficios: 'Beneficios',
+};
+
+// Mapa para niveles (query param)
+const nivelMap: Record<string, string> = {
+  oro: 'Nivel Oro',
+  plata: 'Nivel Plata',
+  bronce: 'Nivel Bronce',
 };
 
 const Breadcrumbs = () => {
   const pathname = usePathname();
-  const pathSegments = pathname.split('/').filter(Boolean); // Dividir la ruta en segmentos
+  const searchParams = useSearchParams();
+  const nivel = searchParams.get('nivel') ?? '';
 
-  // Generamos los enlaces dinámicamente
+  const pathSegments = pathname.split('/').filter(Boolean);
+
+  // Si estamos en /beneficios con nivel válido, mostrar sólo Inicio / Nivel X
+  if (pathSegments.length === 1 && pathSegments[0] === 'beneficios' && nivelMap[nivel.toLowerCase()]) {
+    return (
+      <div className={Styles.breadcrumbContainer}>
+        <Link href="/" className={Styles.breadcrumbLink}>
+          Inicio
+        </Link>
+        <span className={Styles.breadcrumbSeparator}> / </span>
+        <span className={Styles.breadcrumbLink} style={{ cursor: 'default', color: 'gray' }}>
+          {nivelMap[nivel.toLowerCase()]}
+        </span>
+      </div>
+    );
+  }
+
+  // Para cualquier otra ruta, generar breadcrumb normalmente
   const breadcrumbLinks = pathSegments.map((segment, index) => {
-    const href = `/${pathSegments.slice(0, index + 1).join('/')}`; // Crea el enlace completo para cada segmento
-
-    // Si el segmento tiene una conversión personalizada en el mapa, se usa ese valor
-    // Si no, reemplazamos guiones por espacios y capitalizamos la primera letra de cada palabra
-    const breadcrumbName = breadcrumbsMap[segment] || segment.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+    const href = `/${pathSegments.slice(0, index + 1).join('/')}`;
+    const breadcrumbName =
+      breadcrumbsMap[segment] ||
+      segment.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 
     return { name: breadcrumbName, href };
   });
 
   return (
     <div className={Styles.breadcrumbContainer}>
-      <Link href="/" className={Styles.breadcrumbLink}>Inicio</Link>
+      <Link href="/" className={Styles.breadcrumbLink}>
+        Inicio
+      </Link>
       {breadcrumbLinks.map((breadcrumb, index) => (
         <span key={index}>
           <span className={Styles.breadcrumbSeparator}> / </span>
           <Link href={breadcrumb.href} className={Styles.breadcrumbLink}>
-            {breadcrumb.name} {/* Nombre del breadcrumb con formato */}
+            {breadcrumb.name}
           </Link>
         </span>
       ))}

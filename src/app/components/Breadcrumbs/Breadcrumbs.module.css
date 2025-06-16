@@ -39,7 +39,11 @@
   .pleca{
     color: #999999;
   }
-  
+   @media (min-width: 768px) {
+    .breadcrumbContainer {
+      display: none;;
+    }
+  }
   @media (max-width: 768px) {
     .breadcrumbContainer {
       font-size: 16px; /* Ajustar el tamaño de la fuente en pantallas pequeñas */
