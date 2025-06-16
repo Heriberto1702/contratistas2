@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface BeneficioContratistaProps {
-  nombre_club: string;
+  nombreClub: string;
 }
 
 interface Beneficio {
@@ -16,7 +16,7 @@ interface Beneficio {
 }
 
 const UserMembershipInfo: React.FC<BeneficioContratistaProps> = ({
-  nombre_club,
+  nombreClub,
 }) => {
   // Beneficios para cada tipo de club
   const beneficiosGold: Beneficio[] = [
@@ -147,7 +147,7 @@ const UserMembershipInfo: React.FC<BeneficioContratistaProps> = ({
 
   return (
     <div className={Styles.container}>
-      {nombre_club === "Gold" ? (
+      {nombreClub === "Gold" ? (
         <div className={Styles.subcontainer}>
           <div className={Styles.imagen}>
             <div className={Styles.imagenes}>
@@ -207,7 +207,7 @@ const UserMembershipInfo: React.FC<BeneficioContratistaProps> = ({
             ))}
           </div>
         </div>
-      ) : nombre_club === "Platinum" ? (
+      ) : nombreClub === "Platinum" ? (
         <div className={Styles.subcontainer}>
           <div className={Styles.imagen}>
             <div className={Styles.imagenes}>
@@ -264,7 +264,7 @@ const UserMembershipInfo: React.FC<BeneficioContratistaProps> = ({
             ))}
           </div>
         </div>
-      ) : nombre_club === "Bronze" ? (
+      ) : nombreClub === "Bronze" ? (
         <div className={Styles.subcontainer}>
           <div className={Styles.imagen}>
             <div className={Styles.imagenes}>
