@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Breadcrumbs from "../components/Breadcrumbs/breadcrumbs";
 import TitleText from "../components/Text/TitleText";
 import Modulov2 from "../components/ModuloV2/Modulov2";
@@ -12,8 +12,10 @@ const Page = () => {
     <>
       <NavBar />
       <BannerStatic images={["/documentosutiles.png"]} />
+      <Suspense>
 
       <Breadcrumbs />
+      </Suspense>
       <TitleText
         title="¡Bienvenidos a nuestra plataforma de documentos útiles!"
         text="Aquí encontrarás recursos que te ayudarán en tus proyectos, donde podrás descargarlos y personalizarlos según su empresa o trabajo."

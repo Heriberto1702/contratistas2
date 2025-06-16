@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 
 import TitleText from "../components/Text/TitleText";
 import NavBar from "../components/navbar/NavBar";
@@ -16,7 +16,10 @@ const GaleriaPage = () => {
     <>
       <NavBar />
       <BannerStatic images={["/banner3.png"]} />
+      <Suspense>
+
       <Breadcrumbs />
+      </Suspense>
 
       <TitleText
         title={<>Galería de fotos, eventos y talleres</>}

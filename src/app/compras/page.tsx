@@ -1,6 +1,6 @@
 "use client"; // 👈 Hace que este componente sea un Client Component
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import ComprasContratista from "../components/Compras/ComprasContratista";
 import NavBar from "../components/navbar/NavBar";
 import BannerStatic from "../components/BannerEstatico/BannerStatic";
@@ -45,7 +45,10 @@ const ComprasPage = () => {
     <>
       <NavBar />
       <BannerStatic images={["/documentosutiles.png"]} />
+      <Suspense>
+
       <Breadcrumbs />
+      </Suspense>
       <div>
         {/* Pasamos el estado de carga y los datos de compras al componente ComprasContratista */}
         <ComprasContratista comprasData={comprasData} isLoading={isLoading} />
