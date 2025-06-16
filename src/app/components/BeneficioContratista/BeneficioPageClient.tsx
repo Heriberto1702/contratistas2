@@ -8,7 +8,7 @@ import NavBar from "../navbar/NavBar";
 
 const BeneficioPageClient = () => {
   const searchParams = useSearchParams();
-  const rango = searchParams.get("nivel");
+  const params = searchParams.get("nivel");
 
   const convertirRango = (valor: string | null) => {
     if (valor === "oro") return "Gold";
@@ -17,7 +17,7 @@ const BeneficioPageClient = () => {
     return "";
   };
 
-  const nombreClub = convertirRango(rango);
+  const nombreClub = convertirRango(params);
 
   return (
     <>
