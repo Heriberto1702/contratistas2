@@ -65,7 +65,6 @@ const Categorias = ({ onSelectCategoria }: CategoriasProps) => {
               sizes="120px"
             />
           </div>
-          <p className={styles.categoriaNombre}>{nombre_categoria}</p>
         </div>
       ))}
     </div>

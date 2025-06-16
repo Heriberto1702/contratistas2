@@ -26,7 +26,6 @@ const GaleriaPage = () => {
 
       <div>
         <Categorias onSelectCategoria={setCategoriaSeleccionada} />
-        <TitleText subtitle="Galería de fotos" />
         {/* Solo renderiza la galería si hay una categoría seleccionada */}
         {categoriaSeleccionada !== null && <Galeria categoria={categoriaSeleccionada.toString()} />}
       </div>

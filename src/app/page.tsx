@@ -42,13 +42,13 @@ const Page = () => {
 
       {/* Título adicional */}
       <TitleText subtitle="Descubre cómo alcanzar tu siguiente categoría" />
-      <SimpleCard
+<SimpleCard
   cards={[
     {
       imageSrc: "/oro.png",
       altText: "Contratista Oro",
       text: "CONTRATISTA ORO",
-      linkUrl: "/beneficios",
+      linkUrl: "/beneficios?nivel=oro", // CAMBIO AQUÍ
       linkText: "Ver beneficios ❯",
       rightImageSrc: "/fab1.jpg",
     },
@@ -56,7 +56,15 @@ const Page = () => {
       imageSrc: "/plata.png",
       altText: "Contratista Plata",
       text: "CONTRATISTA PLATA",
-      linkUrl: "/beneficios",
+      linkUrl: "/beneficios?nivel=plata", // CAMBIO AQUÍ
+      linkText: "Ver beneficios ❯",
+      rightImageSrc: "/fab1.jpg",
+    },
+    {
+      imageSrc: "/bronce.png",
+      altText: "Contratista Bronce",
+      text: "CONTRATISTA BRONCE",
+      linkUrl: "/beneficios?nivel=bronce", // CAMBIO AQUÍ
       linkText: "Ver beneficios ❯",
       rightImageSrc: "/fab1.jpg",
     },
