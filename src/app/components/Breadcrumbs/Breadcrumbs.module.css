@@ -39,9 +39,9 @@
   .pleca{
     color: #999999;
   }
-   @media (min-width: 768px) {
+   @media (min-width: 769px) {
     .breadcrumbContainer {
-      display: none;;
+      display: none;
     }
   }
   @media (max-width: 768px) {
