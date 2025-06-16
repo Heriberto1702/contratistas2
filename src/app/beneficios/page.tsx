@@ -1,7 +1,5 @@
-import React from "react";
-import BeneficioPageClient from "@/app/components/BeneficioContratista/BeneficioPageClient";
-const Page = () => {
-  return <BeneficioPageClient />;
-};
+import BeneficiosPageClient from "@/app/components/BeneficioContratista/BeneficioPageClient";
 
-export default Page;
+export default function Page() {
+  return <BeneficiosPageClient />;
+}
