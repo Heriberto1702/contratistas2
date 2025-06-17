@@ -78,6 +78,7 @@ const UserProfileForm = () => {
   useEffect(() => {
     if (userData) {
       // Llenamos los datos del formulario si los datos de usuario están disponibles en Zustand
+ 
       setFormData({
         id_contratista: userData.id_contratista || 0, 
         nombres_contratista: userData.nombres_contratista || "",
@@ -170,16 +171,26 @@ const UserProfileForm = () => {
   />
   
   <span className={styles.cardName}>
-    {userData?.nombres_contratista?.split(' ')[0]} {userData?.apellidos_contratista?.split(' ')[0]}
-  </span>
+  {userData?.nombres_contratista?.split(" ")[0] || "Nombre"}{" "}
+  {userData?.apellidos_contratista?.split(" ")[0] || "Apellido"}
+</span>
+
 
   <span className={styles.cardID}>
-    {
-      userData?.tipo_contratista === "Persona Natural"
-        ? userData?.cedula
-        : userData?.cedula_logueado
+  {(() => {
+    if (userData?.tipo_contratista === "Persona Natural" && userData?.cedula?.trim()) {
+      return userData.cedula;
     }
-  </span>
+    if (userData?.cedula_logueado?.trim()) {
+      return userData.cedula_logueado;
+    }
+    if (userData?.ruc?.trim()) {
+      return userData.ruc;
+    }
+    return "Sin identificación registrada";
+  })()}
+</span>
+
 </div>
 
 
