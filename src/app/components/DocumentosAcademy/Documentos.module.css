@@ -19,7 +19,7 @@
   flex-direction: column;
   width: 60%;
   max-width: 380px;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
   background: #222;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -70,7 +70,7 @@
   color: #000;
   padding: 6px 25px;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;

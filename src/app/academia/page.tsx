@@ -83,7 +83,7 @@ const Page = () => {
       {/* Carrusel de doble */}
       <DoubleCarousel />
       <Container>
-        <LinkComponent href="/academia/cursos" text="Ver más cursos ❯" />
+        <LinkComponent href="/academia/cursos" text="Ver todos los cursos ❯" />
       </Container>
     </>
   );

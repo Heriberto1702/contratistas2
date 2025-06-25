@@ -202,16 +202,31 @@ const EventCalendar = () => {
                     <span className={styles.cupos}>{event.cupos || 0}</span>
                   </p>
                   <div className={styles.eventMeta}>
-                    <p>
-                      📅{" "}
-                      {new Date(event.fecha_hora).toLocaleDateString("es-ES")}
-                    </p>
-                    <p>
-                      ⏰{" "}
-                      {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}
-                    </p>
-                    <p>📍 {event.locacion}</p>
-                  </div>
+  <span>
+    <svg className={styles.icono} xmlns="http://www.w3.org/2000/svg" fill="#FBB016" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3M5 11h14M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+    {new Date(event.fecha_hora).toLocaleDateString("es-ES")}
+  </span>
+
+  <span>
+    <svg className={styles.icono} xmlns="http://www.w3.org/2000/svg" fill="#FBB016" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    {new Date(event.fecha_hora).toLocaleTimeString("es-ES")}
+  </span>
+
+  <span>
+  <svg className={styles.icono} xmlns="http://www.w3.org/2000/svg" fill="#FBB016" viewBox="0 0 300 600" stroke="currentColor">
+  <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+</svg>
+
+  {event.locacion}
+</span>
+
+</div>
+
+
                   <p className={styles.text}>
                     <Link href={"https://form.jotform.com/250274836316862"}>
                       Si desea agregar más personas a este evento, haga{" "}

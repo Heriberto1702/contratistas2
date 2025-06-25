@@ -131,23 +131,23 @@ const UserProfileForm = () => {
             <div className={styles.welcomeText}>
               
               <div className={styles.espacio}>
-                <Image src="/cuenta/usuario.png" width={40} height={40} alt="user" />
+                <Image src="/icons/user-solid.svg" width={30} height={30} alt="user" />
                 <h2 className={styles.texto}>Bienvenido: </h2>
                 <p className={styles.welcomeText}>{userData?.nombres_contratista || "Cargando..."}</p>
               </div>
               <div className={styles.espacio}>
-                <Image src="/cuenta/nivel.png" width={40} height={40} alt="user" />
+                <Image src="/icons/award-solid.svg" width={30} height={30} alt="user" />
                 <h2 className={styles.texto}>Nivel Contratista: </h2>
                 <p className={styles.welcomeText}>{userData?.nombre_club || "Cargando..."}</p>
               </div>
               <div className={styles.espacio}>
-                <Image src="/cuenta/identificacion.png" width={40} height={40} alt="user" />
+                <Image src="/icons/id-card-clip-solid.svg" width={30} height={30} alt="user" />
                 <h2 className={styles.texto}>RUC / Cédula: </h2>
                 <p className={styles.welcomeText}>{userData?.ruc || userData?.cedula || "Cargando..."}</p>
               </div>
               <div>
               <div className={styles.espacio}>
-                <Image src="/cuenta/cuentalogo.png" width={40} height={40} alt="user" />
+                <Image src="/icons/city-solid.svg" width={30} height={30} alt="user" />
                 <span>
                 <h2 className={styles.texto}>Entidad / Contratista registrado:</h2>
                 <p className={styles.welcomeText}>{userData?.nombre_registrado || "Cargando..."}</p></span>

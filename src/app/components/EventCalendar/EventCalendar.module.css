@@ -35,7 +35,7 @@
   justify-content: space-between;
   border: 1px solid #eaeaea;
   padding: 10px;
-  border-radius: 25px;
+  border-radius:10px;
   background-color: #fff;
   transition: box-shadow 0.2s ease;
   width: 95%;
@@ -48,7 +48,7 @@
 /* Imagen del evento */
 .eventImage {
   flex-shrink: 0;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 /* Detalles del evento */
@@ -77,7 +77,7 @@
   background-color: #ffc107;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius:10px;
   padding: 10px 20px;
   font-size: 1rem;
   font-weight: 600;
@@ -152,7 +152,7 @@
   padding: 10px;
   border: 1px solid #eaeaea;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   background-color: #fff;
   transition: background-color 0.2s ease;
@@ -165,7 +165,7 @@
 .eventMarker {
   width: 8px;
   height: 8px;
-  background-color: #E45826;
+  background-color: #FBB016;
   border-radius: 50%;
   border: 0.5px solid #f5f5f5;
   position: absolute;
@@ -224,7 +224,7 @@
   .eventImage {
     width: 40%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 10px;
   }
 
   .eventDetails {
@@ -276,7 +276,7 @@
   right: 20px;
   width: 350px;
   padding: 12px 16px;
-  border-radius: 6px;
+  border-radius: 10px;
   font-size: 1.2rem;
   text-align: left;
   z-index: 1000;
@@ -308,6 +308,15 @@
 .link:hover{
   color: #FBB016;
 }
+.icono {
+  width: 20px;       /* ancho exacto */
+  height: 20px;      /* alto exacto */
+  margin-right: 6px; /* espacio entre icono y texto */
+  vertical-align: middle; /* para que quede alineado con el texto */
+  stroke: #fff;   /* que herede el color del texto */
+  display: inline-block;  /* para asegurarte que sea inline */
+}
+
 
 .linkmedio{
   font-weight: bold;
@@ -322,7 +331,7 @@ font-size: 15px;
 }
 
 .cupos{
-  color: red;
+  color: #FBB016;
   font-weight: bold;
 }
 /* Animación para que el mensaje entre desde la derecha */

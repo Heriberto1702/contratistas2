@@ -304,7 +304,7 @@ const ComprasContratista = ({
       {isLoading ? (
         <div className={styles.loadingMessage}><Cargando /></div>
       ) : comprasFiltradas.length === 0 ? (
-        <div className={styles.noComprasMessage}>Sin registros de compras.</div>
+        <div className={styles.noComprasMessage}>Sin registros de compras</div>
       ) : (
         <>
           <table className={styles.table}>

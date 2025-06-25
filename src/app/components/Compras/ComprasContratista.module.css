@@ -54,7 +54,7 @@
   font-weight: 400;
   background-color: #f9f9f9;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 .loadingMessage::after {
   content: "";
@@ -68,7 +68,7 @@
   color: #555;
   background: linear-gradient(135deg, #f3f3f3, #e0e0e0);
   padding: 15px 20px;
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid #ccc;
   width: fit-content;
   margin: 30px auto;
@@ -79,10 +79,17 @@
   animation: fadeInSlide 0.8s ease-out forwards, pulse 2s infinite 1.5s;
 }
 .noComprasMessage::before {
-  content: "🛒";
-  font-size: 22px;
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-image: url('/icons/cart-shopping-solid.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
   animation: bounceIcon 1.5s infinite ease-in-out;
+  margin-right: 8px; /* opcional, para separar del texto */
 }
+
 
 /* === TABLAS === */
 .table,
@@ -91,7 +98,7 @@
   border-collapse: collapse;
   margin-bottom: 20px;
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -127,7 +134,7 @@
   border: none;
   padding: 10px 20px;
   font-size: 15px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -195,7 +202,7 @@
   margin-top: 24px;
   padding: 20px;
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 .detailContainer h3 {
@@ -242,7 +249,7 @@
   padding: 8px 10px;
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 .filterContainer input:focus {
   border-color: #007bff;
