@@ -29,9 +29,7 @@ const BannerSlidernew: React.FC<BannerSlidernewProps> = ({ images, interval = 30
 
   return (
     <div className={styles.slider}>
-      <button className={styles.prevButton} onClick={goToPrevious}>
-        &#10094;
-      </button>
+    
       <div className={styles.slides} style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
         {images.map((image, index) => (
           <div
@@ -47,9 +45,7 @@ const BannerSlidernew: React.FC<BannerSlidernewProps> = ({ images, interval = 30
           </div>
         ))}
       </div>
-      <button className={styles.nextButton} onClick={goToNext}>
-        &#10095;
-      </button>
+  
       <div className={styles.dots}>
         {images.map((_, index) => (
           <span

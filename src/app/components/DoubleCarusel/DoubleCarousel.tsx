@@ -80,12 +80,7 @@ const DoubleCarousel: React.FC = () => {
               <div className={styles.bannerItem}>
                 <div className={styles.bannerContent}>
                   <h3 className={styles.bannerTitle}>{curso.nombre_curso}</h3>
-                  <Link
-                    href={`/academia/cursos/${curso.id_curso}`}
-                    className={styles.bannerLink}
-                  >
-                    Ver curso &#10095;
-                  </Link>
+              
                 </div>
                 <Image
                   width={591}
@@ -94,6 +89,12 @@ const DoubleCarousel: React.FC = () => {
                   alt={curso.nombre_curso}
                   className={styles.bannerImage}
                 />
+                    <Link
+                    href={`/academia/cursos/${curso.id_curso}`}
+                    className={styles.bannerLink}
+                  >
+                    Ver curso &#10095;
+                  </Link>
               </div>
             </div>
           ))}

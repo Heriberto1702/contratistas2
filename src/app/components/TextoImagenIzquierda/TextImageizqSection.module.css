@@ -20,7 +20,7 @@
   .text {
     font-size: 25px;
     color: #333;
-    line-height: 1.6;
+    line-height: 1.2;
     margin-bottom: 20px;
   }
   .title{
@@ -54,7 +54,7 @@
   .image {
     width: 100%; /* La imagen ocupa el 100% del ancho de su contenedor */
     height: auto; /* Mantiene la proporción de la imagen */
-    border-radius: 8px; /* Bordes redondeados */
+    border-radius: 10px; /* Bordes redondeados */
   }
   
   /* Responsividad */

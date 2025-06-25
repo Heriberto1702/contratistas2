@@ -27,8 +27,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f4d18a; /* Amarillo */
-  border-radius: 20px;
+  background-color: #fbb015; /* Amarillo */
+  border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   padding: 25px;
   text-align: center;
@@ -52,11 +52,12 @@
 
 .bannerLink {
   display: inline-block;
-  background-color: #fbb016; /* Botón negro para contraste */
+  margin-top: 15px;
+  background-color: #F0F0F0; /* Botón negro para contraste */
   color: #000;
   padding: 6px 25px;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
@@ -65,11 +66,11 @@
 }
 
 .bannerLink:hover {
-  background-color: #e69e13;
+  background-color: #F0F0F0;
 }
 
 .bannerImage {
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 /* Botones */

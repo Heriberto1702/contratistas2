@@ -76,7 +76,7 @@
 }
 
 .imageSlideUp{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 
@@ -98,7 +98,7 @@
   background-color: #fbb016;
   color: #000;
   padding: 8px 28px;
-  border-radius: 25px;
+  border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
   text-transform: capitalize;
