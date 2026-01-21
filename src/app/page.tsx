@@ -10,12 +10,12 @@ import TextoImagen from "./components/TextoImagen/texto-imagen";
 import TextoImagenIzquierda from "./components/TextoImagenIzquierda/texto-imagenizquierda";
 import Beneficios from "./components/Beneficios/Beneficios";
 const Page = () => {
-  const images = ["/banner.png", "/banner2.png"];
+  const images = ["/banner1desk.jpg", "/banner2desk.jpg", "/banner3desk.jpg"];
   return (
     <>
       <NavBar />
       {/* Carrusel de Banner con intervalos automáticos */}
-      <BannerSlidernew images={images} interval={3000} />
+      <BannerSlidernew images={images} interval={4500} />
       <br></br>
       {/* Título de bienvenida */}
       <TitleText
@@ -32,9 +32,9 @@ const Page = () => {
       <div>
         <TextoImagen
           title="¡Hoy más que nunca somos socios!"
-          text="CLUB de Contratista lleva 05 años entregando múltiples beneficios a los profesionales de la construcción, aportando con herramientas reales para que miles de maestros de obra puedan desarrollar sus proyectos."
+          text="CLUB de Contratista lleva 5 años entregando múltiples beneficios a los profesionales de la construcción, aportando con herramientas reales para que miles de maestros de obra puedan desarrollar sus proyectos."
           buttonText="Ver más ❯ "
-          imageUrl="/construccion.png"
+          imageUrl="/hoymasquenunca.jpg"
           buttonUrl="/galeria"
           altText="Imagen representativa"
         />
@@ -50,7 +50,7 @@ const Page = () => {
       text: "CONTRATISTA ORO",
       linkUrl: "/beneficios?nivel=oro", // CAMBIO AQUÍ
       linkText: "Ver beneficios ❯",
-      rightImageSrc: "/fab1.jpg",
+      rightImageSrc: "/oro_referencia.jpg",
     },
     {
       imageSrc: "/plata.png",
@@ -58,15 +58,15 @@ const Page = () => {
       text: "CONTRATISTA PLATA",
       linkUrl: "/beneficios?nivel=plata", // CAMBIO AQUÍ
       linkText: "Ver beneficios ❯",
-      rightImageSrc: "/fab1.jpg",
+      rightImageSrc: "/plata_referencia.jpg",
     },
     {
-      imageSrc: "/plata.png",
+      imageSrc: "/bronce.jpg",
       altText: "Contratista Bronce",
       text: "CONTRATISTA BRONCE",
       linkUrl: "/beneficios?nivel=bronce", // CAMBIO AQUÍ
       linkText: "Ver beneficios ❯",
-      rightImageSrc: "/fab1.jpg",
+      rightImageSrc: "/bronze_referencia.jpg",
     },
   ]}
 />
@@ -88,9 +88,9 @@ const Page = () => {
       <div>
         <TextoImagenIzquierda
           title="ACADEMIA"
-          text="El club de Contratista te brinda un espacio para que puedas capacitarte online, donde adquirirás nuevas tecnicas e innovaciones, asi mismo te facilita información de todos loe eventos donde podrás asistir y reservar tu cupo."
+          text="El club de Contratista te brinda un espacio para que puedas capacitarte online, donde adquirirás nuevas tecnicas e innovaciones, asi mismo te facilita información de todos los eventos donde podrás asistir y reservar tu cupo."
           buttonText="Ver más ❯"
-          imageUrl="/contratistaacademia.png"
+          imageUrl="/academia.jpg"
           altText="Imagen academia"
           buttonUrl="/academia" // Aquí defines la URL a la que llevará el botón
         />
@@ -104,7 +104,7 @@ const Page = () => {
       <TitleText
         subtitle={
           <>
-            Haz uso de nuestros Documentos clave para tus proyectos
+            Haz uso de nuestros documentos clave para tus proyectos
           </>
         }
       />

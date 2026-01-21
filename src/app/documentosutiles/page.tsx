@@ -24,28 +24,28 @@ const Page = () => {
       
       <div className={styles.moduloContainer}>
           <Modulov2
-            imageUrl="/doc1.png"
+            imageUrl="/cotizacion.jpg"
             text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."
             text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
             urlExcel="/doc/cotizacion-construccion.xlsx"
             linkText="Cotización ❯"
           />
           <Modulov2
-            imageUrl="/doc2.png"
+            imageUrl="/recibodedinero.jpg"
             text="Utilice este archivo para calcular de manera concisa cual será el costo para usted de algún proyecto a realizar..."
             text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
             urlExcel="/doc/recibo-de-dinero.xlsx"
             linkText="Recibo de Dinero ❯"
           />
           <Modulov2
-            imageUrl="/doc3.png"
+            imageUrl="/planeacion.jpg"
             text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."
             text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
             urlExcel="/doc/planificador-de-proyecto.xlsx"
             linkText="Planificación de proyectos ❯"
           />
           <Modulov2
-            imageUrl="/doc3.png"
+            imageUrl="/recepciondeltrabajo.jpg"
             text="Este archivo le ayudará a crear el presupuesto de la obra de forma correcta y clara para presentar a su cliente."
             text2=" * Archivo con formato referencial. Este documento en ninguna circunstancia tiene carácter legal."
             urlExcel="/doc/recepcion-del-trabajo.xlsx"
