@@ -3,9 +3,9 @@
 import React from "react";
 import styles from "./Footer.module.css";
 import Image from "next/image";
-import logo from "/public/logofooter.png"; // Asegúrate de que la ruta sea correcta
 
 const Footer: React.FC = () => {
+  const logo = "/logofooter.png"; // Ruta al logo
   return (
     <footer className={styles.footer}>
       <div className={styles.bottomSection}>

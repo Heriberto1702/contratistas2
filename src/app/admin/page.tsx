@@ -6,9 +6,9 @@ import Image from "next/image";
 import Cargando from "@/app/components/Cargando/Cargando";
 import { motion } from "framer-motion";
 import "./AdminPage.css";
-import logo from "/public/logoContratista.png"; // Asegúrate de que la ruta sea correcta
 
 const AdminPage = () => {
+  const logo = "/logoContratista.png"; // Ruta al logo
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
