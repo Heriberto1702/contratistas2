@@ -1,4 +1,4 @@
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   turbopack: false,
   images: {
@@ -25,11 +25,11 @@ const nextConfig = {
   },
   webpack: (config) => {
     config.module.rules.push({
-      test: /\.node/,
+      test: /\.node$/i,
       use: "raw-loader",
     });
     return config;
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
