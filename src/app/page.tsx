@@ -9,13 +9,20 @@ import NavBar from "./components/navbar/NavBar";
 import TextoImagen from "./components/TextoImagen/texto-imagen";
 import TextoImagenIzquierda from "./components/TextoImagenIzquierda/texto-imagenizquierda";
 import Beneficios from "./components/Beneficios/Beneficios";
+import "./page.css";
+
 const Page = () => {
-  const images = ["/banner1desk.jpg", "/banner2desk.jpg", "/banner3desk.jpg"];
+  const imagesdesk = ["/banner1desk.jpg", "/banner2desk.jpg", "/banner3desk.jpg"];
+  const imagesmovil = ["/banner1movil.jpg", "/banner2movil.jpg", "/banner3movil.jpg"];
   return (
     <>
       <NavBar />
-      {/* Carrusel de Banner con intervalos automáticos */}
-      <BannerSlidernew images={images} interval={4500} />
+      <div className="desktop-banner">
+      <BannerSlidernew images={imagesdesk} interval={4000} />
+      </div>
+      <div className="movil-banner">
+      <BannerSlidernew images={imagesmovil} interval={4000} />
+      </div>
       <br></br>
       {/* Título de bienvenida */}
       <TitleText

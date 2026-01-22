@@ -26,8 +26,8 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ cards }) => {
                 <Image
                   src={card.imageSrc}
                   alt={card.altText}
-                  width={350}
-                  height={350}
+                  width={288}
+                  height={288}
                   className={styles.image}
                 />
               </div>
@@ -35,8 +35,8 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ cards }) => {
                 <Image
                   src={card.imageSrc}
                   alt={card.altText}
-                  width={350}
-                  height={350}
+                  width={288}
+                  height={288}
                   className={styles.image}
                 />
               </div>

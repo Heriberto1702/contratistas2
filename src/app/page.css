@@ -1,0 +1,19 @@
+.movil-banner {
+  display: none;
+}
+
+/* Banner de escritorio visible por defecto */
+.desktop-banner {
+  display: block;
+}
+
+/* Cuando la pantalla es menor a 768px (tablet/móvil) */
+@media (max-width: 912px) {
+  .desktop-banner {
+    display: none; /* Ocultar escritorio */
+  }
+
+  .movil-banner {
+    display: block; /* Mostrar móvil */
+  }
+}

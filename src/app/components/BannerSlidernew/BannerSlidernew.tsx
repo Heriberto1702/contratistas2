@@ -9,7 +9,7 @@ interface BannerSlidernewProps {
   interval?: number;
 }
 
-const BannerSlidernew: React.FC<BannerSlidernewProps> = ({ images, interval = 3000 }) => {
+const BannerSlidernew: React.FC<BannerSlidernewProps> = ({ images, interval = 4000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToNext = useCallback(() => {
@@ -23,9 +23,9 @@ const BannerSlidernew: React.FC<BannerSlidernewProps> = ({ images, interval = 30
   }, [images.length]);
 
   useEffect(() => {
-    const autoPlay = setInterval(goToNext, interval);
+    const autoPlay = setInterval(goToNext, interval, goToPrevious);
     return () => clearInterval(autoPlay);
-  }, [goToNext, interval]);
+  }, [goToNext, interval, goToPrevious]);
 
   return (
     <div className={styles.slider}>
