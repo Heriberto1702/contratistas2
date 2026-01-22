@@ -83,6 +83,7 @@ const Page = () => {
       <Beneficios/>
 
       {/* Banner de evento */}
+            <div className="desktop-banner">
       <Banner
         imageUrl="/evento.png"
         linkUrl="/academia/evento/14"
@@ -90,6 +91,17 @@ const Page = () => {
         width={1224}
         height={317}
       />
+      </div>
+      <div className="movil-banner">
+      <Banner
+        imageUrl="/eventoMovil.jpg"
+        linkUrl="/academia/evento/14"
+        altText="Ejemplo de imagen"
+        width={1224}
+        height={317}
+      />
+      </div>
+
 
       {/* Academia*/}
       <div>
@@ -115,7 +127,7 @@ const Page = () => {
           </>
         }
       />
-
+            <div className="desktop-banner">
       <BannerDocumentos
         imageUrl="/bannerdocumentos.png"
         linkUrl="/documentosutiles"
@@ -123,6 +135,17 @@ const Page = () => {
         width={1224}
         height={317}
       />
+      </div>
+      <div className="movil-banner">
+      <BannerDocumentos
+        imageUrl="/bannerDocumentosMovil.png"
+        linkUrl="/documentosutiles"
+        altText="Ejemplo de imagen"
+        width={1224}
+        height={317}
+      />
+      </div>
+
 
       <TitleText subtitle="¡Disfrute de un mundo de recursos valiosos a tu alcance!" />
 
